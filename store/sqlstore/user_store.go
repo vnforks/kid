@@ -14,6 +14,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	sq "github.com/Masterminds/squirrel"
 	"github.com/mattermost/gorp"
+	"github.com/pkg/errors"
 
 	"github.com/mattermost/mattermost-server/v5/einterfaces"
 	"github.com/mattermost/mattermost-server/v5/model"
@@ -328,19 +329,21 @@ func (us SqlUserStore) UpdateMfaActive(userId string, active bool) *model.AppErr
 	return nil
 }
 
-func (us SqlUserStore) Get(id string) (*model.User, *model.AppError) {
+func (us SqlUserStore) Get(id string) (*model.User, error) {
 	query := us.usersQuery.Where("Id = ?", id)
 
 	queryString, args, err := query.ToSql()
 	if err != nil {
-		return nil, model.NewAppError("SqlUserStore.Get", "store.sql_user.app_error", nil, err.Error(), http.StatusInternalServerError)
+		return nil, errors.Wrap(err, "failed to build query")
 	}
 
-	user := &model.User{}
-	if err := us.GetReplica().SelectOne(user, queryString, args...); err == sql.ErrNoRows {
-		return nil, model.NewAppError("SqlUserStore.Get", store.MISSING_ACCOUNT_ERROR, nil, "user_id="+id, http.StatusNotFound)
-	} else if err != nil {
-		return nil, model.NewAppError("SqlUserStore.Get", "store.sql_user.get.app_error", nil, "user_id="+id+", "+err.Error(), http.StatusInternalServerError)
+	var user *model.User
+	if err = us.GetReplica().SelectOne(user, queryString, args...); err != nil {
+		if err == sql.ErrNoRows {
+			return nil, errors.Wrapf(model.ErrResourceNotFound, "unable to find the user with id %s", id)
+		} else {
+			return nil, errors.Wrap(err, "failed to get the user")
+		}
 	}
 
 	return user, nil
@@ -1583,9 +1586,9 @@ func (us SqlUserStore) PromoteGuestToUser(userId string) *model.AppError {
 	}
 	defer finalizeTransaction(transaction)
 
-	user, appErr := us.Get(userId)
-	if appErr != nil {
-		return appErr
+	user, err := us.Get(userId)
+	if err != nil {
+		return model.NewAppError("SqlUserStore.PromoteGuestToUser", "store.sql_user.get.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
 	roles := user.GetRoles()
@@ -1652,9 +1655,9 @@ func (us SqlUserStore) DemoteUserToGuest(userId string) *model.AppError {
 	}
 	defer finalizeTransaction(transaction)
 
-	user, appErr := us.Get(userId)
-	if appErr != nil {
-		return appErr
+	user, err := us.Get(userId)
+	if err != nil {
+		return model.NewAppError("SqlUserStore.DemoteUserToGuest", "store.sql_user.get.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
 	roles := user.GetRoles()
