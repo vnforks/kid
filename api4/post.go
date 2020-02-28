@@ -4,7 +4,9 @@
 package api4
 
 import (
+	"context"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strconv"
 	"time"
@@ -13,7 +15,16 @@ import (
 	"github.com/mattermost/mattermost-server/v5/audit"
 	"github.com/mattermost/mattermost-server/v5/mlog"
 	"github.com/mattermost/mattermost-server/v5/model"
+
+	"github.com/open-policy-agent/opa/rego"
 )
+
+type SomeInput struct {
+	Method string   `json:"method"`
+	Owner  string   `json:"owner"`
+	Path   []string `json:"path"`
+	User   string   `json:"user"`
+}
 
 func (api *API) InitPost() {
 	api.BaseRoutes.Posts.Handle("", api.ApiSessionRequired(createPost)).Methods("POST")
@@ -36,6 +47,38 @@ func (api *API) InitPost() {
 }
 
 func createPost(c *Context, w http.ResponseWriter, r *http.Request) {
+	r2 := rego.New(
+		rego.Query("x = data.application.authz.allow"),
+		rego.Load([]string{"./example.rego"}, nil))
+	ctx := context.Background()
+	query, er := r2.PrepareForEval(ctx)
+	if er != nil {
+		panic(er)
+	}
+
+	// bs, er := ioutil.ReadFile("./input.json")
+	// if er != nil {
+	// 	panic(er)
+	// }
+	// var input interface{}
+	// if er := json.Unmarshal(bs, &input); er != nil {
+	// 	panic(er)
+	// }
+
+	input := SomeInput{
+		Method: "PUT",
+		Owner:  "bob@hooli.com",
+		Path:   []string{"pets", "pet113-987"},
+		User:   "bob@hooli.com",
+	}
+
+	rs, er := query.Eval(ctx, rego.EvalInput(input))
+	if er != nil {
+		panic(er)
+	}
+
+	fmt.Printf("Bindings: %+v\n", rs[0].Bindings["x"])
+
 	post := model.PostFromJson(r.Body)
 	if post == nil {
 		c.SetInvalidParam("post")
