@@ -1,9 +1,0 @@
-{
-    "method": "PUT",
-    "owner": "bob@hooli.com",
-    "path": [
-        "pets",
-        "pet113-987"
-    ],
-    "user": "alice@hooli.com"
-}
