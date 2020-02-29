@@ -1,12 +1,19 @@
 package application.authz
 
-# Only owner can update the pet's information
-# Ownership information is provided as part of OPA's input
 default allow = false
 allow {
-    input.method == "PUT"
-    some petid
-    input.path = ["pets", petid]
-    input.user == input.owner
+    input.roles_grant_permission == true
+    input.permission != "create_post"
 }
-                                        
+
+allow {
+    input.roles_grant_permission == true
+    input.channel_id != "6d1n1h39ktrj8mzrhg6goby9mc"
+}
+
+
+# RolesGrantPermission bool     `json:"roles_grant_permission"`
+# ChannelID            string   `json:"channel_id"`
+# UserID               string   `json:"user_id"`
+# Permission           string   `json:"permission"`
+# Roles                []string `json:"roles"`
