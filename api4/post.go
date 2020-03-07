@@ -51,13 +51,12 @@ func createPost(c *Context, w http.ResponseWriter, r *http.Request) {
 	hasPermission := false
 	if c.App.SessionHasPermissionToChannel(*c.App.Session(), post.ChannelId, model.PERMISSION_CREATE_POST) {
 		hasPermission = true
+	} else if channel, err := c.App.GetChannel(post.ChannelId); err == nil {
+		// Temporary permission check method until advanced permissions, please do not copy
+		if channel.Type == model.CHANNEL_OPEN && c.App.SessionHasPermissionToTeam(*c.App.Session(), channel.TeamId, model.PERMISSION_CREATE_POST_PUBLIC) {
+			hasPermission = true
+		}
 	}
-	//  else if channel, err := c.App.GetChannel(post.ChannelId); err == nil {
-	// 	// Temporary permission check method until advanced permissions, please do not copy
-	// 	if channel.Type == model.CHANNEL_OPEN && c.App.SessionHasPermissionToTeam(*c.App.Session(), channel.TeamId, model.PERMISSION_CREATE_POST_PUBLIC) {
-	// 		hasPermission = true
-	// 	}
-	// }
 
 	if !hasPermission {
 		c.SetPermissionError(model.PERMISSION_CREATE_POST)

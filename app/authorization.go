@@ -4,29 +4,32 @@
 package app
 
 import (
-	"context"
 	"net/http"
 	"strings"
 
 	"github.com/mattermost/mattermost-server/v5/mlog"
 	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/open-policy-agent/opa/rego"
 )
-
-type SomeInput struct {
-	RolesGrantPermission bool     `json:"roles_grant_permission"`
-	ChannelID            string   `json:"channel_id"`
-	UserID               string   `json:"user_id"`
-	Permission           string   `json:"permission"`
-	Roles                []string `json:"roles"`
-}
 
 func (a *App) MakePermissionError(permission *model.Permission) *model.AppError {
 	return model.NewAppError("Permissions", "api.context.permissions.app_error", nil, "userId="+a.Session().UserId+", "+"permission="+permission.Id, http.StatusForbidden)
 }
 
 func (a *App) SessionHasPermissionTo(session model.Session, permission *model.Permission) bool {
-	return a.RolesGrantPermission(session.GetUserRoles(), permission.Id)
+	systemRoles := session.GetUserRoles()
+	rolesGranPermission := a.RolesGrantPermission(systemRoles, permission.Id)
+
+	user, err := a.GetUser(session.UserId)
+	if err != nil {
+		mlog.Error(err.Error())
+	}
+
+	return a.PoliciesAllow(&SystemPolicyInput{
+		RBACAccessGranted: rolesGranPermission,
+		User:              user,
+		Permission:        permission.Id,
+		Roles:             systemRoles,
+	})
 }
 
 func (a *App) SessionHasPermissionToTeam(session model.Session, teamId string, permission *model.Permission) bool {
@@ -36,8 +39,28 @@ func (a *App) SessionHasPermissionToTeam(session model.Session, teamId string, p
 
 	teamMember := session.GetTeamByTeamId(teamId)
 	if teamMember != nil {
-		if a.RolesGrantPermission(teamMember.GetRoles(), permission.Id) {
-			return true
+		teamRoles := teamMember.GetRoles()
+
+		team, err := a.GetTeam(teamId)
+		if err != nil {
+			mlog.Error(err.Error())
+		}
+
+		user, err := a.GetUser(session.UserId)
+		if err != nil {
+			mlog.Error(err.Error())
+		}
+
+		if a.RolesGrantPermission(teamRoles, permission.Id) {
+			return a.PoliciesAllow(&TeamPolicyInput{
+				SystemPolicyInput: SystemPolicyInput{
+					RBACAccessGranted: true,
+					User:              user,
+					Permission:        permission.Id,
+					Roles:             teamRoles,
+				},
+				Team: team,
+			})
 		}
 	}
 
@@ -52,52 +75,53 @@ func (a *App) SessionHasPermissionToChannel(session model.Session, channelId str
 	ids, err := a.Srv().Store.Channel().GetAllChannelMembersForUser(session.UserId, true, true)
 
 	var channelRoles []string
-	var channelRolesGrantPermission bool
 	if err == nil {
 		if roles, ok := ids[channelId]; ok {
 			channelRoles = strings.Fields(roles)
+
+			channel, err := a.GetChannel(channelId)
+			if err != nil {
+				mlog.Error(err.Error())
+			}
+
+			team, err := a.GetTeam(channel.TeamId)
+			if err != nil {
+				mlog.Error(err.Error())
+			}
+
 			if a.RolesGrantPermission(channelRoles, permission.Id) {
-				channelRolesGrantPermission = true
+
+				user, err := a.GetUser(session.UserId)
+				if err != nil {
+					mlog.Error(err.Error())
+				}
+
+				return a.PoliciesAllow(&ChannelPolicyInput{
+					TeamPolicyInput: TeamPolicyInput{
+						SystemPolicyInput: SystemPolicyInput{
+							RBACAccessGranted: true,
+							User:              user,
+							Permission:        permission.Id,
+							Roles:             channelRoles,
+						},
+						Team: team,
+					},
+					Channel: channel,
+				})
 			}
 		}
 	}
 
-	r2 := rego.New(
-		rego.Query("x = data.application.authz.allow"),
-		rego.Load([]string{"./example.rego"}, nil))
-	ctx := context.Background()
-	query, er := r2.PrepareForEval(ctx)
-	if er != nil {
-		panic(er)
+	channel, err := a.GetChannel(channelId)
+	if err == nil && channel.TeamId != "" {
+		return a.SessionHasPermissionToTeam(session, channel.TeamId, permission)
 	}
 
-	input := SomeInput{
-		RolesGrantPermission: channelRolesGrantPermission,
-		ChannelID:            channelId,
-		UserID:               session.UserId,
-		Permission:           permission.Id,
-		Roles:                session.GetUserRoles(),
+	if err != nil && err.StatusCode == http.StatusNotFound {
+		return false
 	}
 
-	rs, er := query.Eval(ctx, rego.EvalInput(input))
-	if er != nil {
-		panic(er)
-	}
-
-	can := rs[0].Bindings["x"].(bool)
-
-	return can
-
-	// channel, err := a.GetChannel(channelId)
-	// if err == nil && channel.TeamId != "" {
-	// 	return a.SessionHasPermissionToTeam(session, channel.TeamId, permission)
-	// }
-
-	// if err != nil && err.StatusCode == http.StatusNotFound {
-	// 	return false
-	// }
-
-	// return a.SessionHasPermissionTo(session, permission)
+	return a.SessionHasPermissionTo(session, permission)
 }
 
 func (a *App) SessionHasPermissionToChannelByPost(session model.Session, postId string, permission *model.Permission) bool {
