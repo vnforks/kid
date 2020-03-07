@@ -27,7 +27,7 @@ func (a *App) SessionHasPermissionTo(session model.Session, permission *model.Pe
 	return a.PoliciesAllow(&SystemPolicyInput{
 		RBACAccessGranted: rolesGranPermission,
 		User:              user,
-		Permission:        permission.Id,
+		Permission:        permission,
 		Roles:             systemRoles,
 	})
 }
@@ -56,7 +56,7 @@ func (a *App) SessionHasPermissionToTeam(session model.Session, teamId string, p
 				SystemPolicyInput: SystemPolicyInput{
 					RBACAccessGranted: true,
 					User:              user,
-					Permission:        permission.Id,
+					Permission:        permission,
 					Roles:             teamRoles,
 				},
 				Team: team,
@@ -101,7 +101,7 @@ func (a *App) SessionHasPermissionToChannel(session model.Session, channelId str
 						SystemPolicyInput: SystemPolicyInput{
 							RBACAccessGranted: true,
 							User:              user,
-							Permission:        permission.Id,
+							Permission:        permission,
 							Roles:             channelRoles,
 						},
 						Team: team,

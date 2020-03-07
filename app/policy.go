@@ -5,6 +5,7 @@ package app
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/mattermost/mattermost-server/v5/mlog"
 	"github.com/mattermost/mattermost-server/v5/model"
@@ -15,10 +16,10 @@ import (
 // their Rego policies, so we will want a model that does not change.
 
 type SystemPolicyInput struct {
-	RBACAccessGranted bool        `json:"rbac_access_granted"`
-	User              *model.User `json:"user"`
-	Permission        string      `json:"permission"`
-	Roles             []string    `json:"roles"`
+	RBACAccessGranted bool              `json:"rbac_access_granted"`
+	User              *model.User       `json:"user"`
+	Permission        *model.Permission `json:"permission"`
+	Roles             []string          `json:"roles"`
 }
 
 type TeamPolicyInput struct {
@@ -50,5 +51,9 @@ func (a *App) PoliciesAllow(input interface{}) bool {
 		return false
 	}
 
-	return resultSet[0].Bindings["x"].(bool)
+	allow := resultSet[0].Bindings["x"].(bool)
+
+	mlog.Info(fmt.Sprintf("PoliciesAllow: %v\n", allow))
+
+	return allow
 }
