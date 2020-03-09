@@ -8,11 +8,15 @@ allow {
     input.user.username == "sysadmin"
 }
 
-# no access outside of 9am to 5pm
+# not allowed to create posts outside of business hours.
 allow {
     input.rbac_access_granted == true
-    now := time.now_ns()
-    output := time.clock([now, "America/New_York"])
+    input.permission.id != "create_post"
+}
+allow {
+    input.rbac_access_granted == true
+    input.permission.id == "create_post"
+    output := time.clock([time.now_ns(), "America/New_York"])
     hour := output[0]
     hour > 9
     hour < 17
