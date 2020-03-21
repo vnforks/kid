@@ -12,30 +12,22 @@ import (
 	"github.com/open-policy-agent/opa/rego"
 )
 
-// SystemPolicyInput, TeamPolicyInput, and ChannelPolicyInput will become the values that the public expect for
-// their Rego policies, so we will want a model that does not change.
-
-type SystemPolicyInput struct {
-	RBACAccessGranted bool              `json:"rbac_access_granted"`
-	User              *model.User       `json:"user"`
-	Permission        *model.Permission `json:"permission"`
-	Roles             []string          `json:"roles"`
+type PolicyInput struct {
+	RBACAccessGranted bool                      `json:"rbac_access_granted"`
+	User              *model.User               `json:"user"`
+	Permission        *model.Permission         `json:"permission"`
+	Roles             []string                  `json:"roles"`
+	Team              *model.Team               `json:"team"`
+	Channel           *model.Channel            `json:"channel"`
+	Groups            []*model.GroupNameMembers `json:"groups"`
+	ChannelMembers    []string                  `json:"channel_members"`
 }
 
-type TeamPolicyInput struct {
-	SystemPolicyInput
-	Team *model.Team `json:"team"`
-}
-
-type ChannelPolicyInput struct {
-	TeamPolicyInput
-	Channel *model.Channel `json:"channel"`
-}
-
-func (a *App) PoliciesAllow(input interface{}) bool {
+func (a *App) PoliciesAllow(input *PolicyInput) bool {
 	r := rego.New(
 		rego.Query("x = data.application.authz.allow"),
-		rego.Load([]string{"./example.rego"}, nil))
+		rego.Load([]string{"./example.rego"}, nil),
+	)
 
 	ctx := context.Background()
 
@@ -44,6 +36,14 @@ func (a *App) PoliciesAllow(input interface{}) bool {
 		mlog.Error(err.Error())
 		return false
 	}
+
+	// b, marshalErr := json.Marshal(input)
+	// if marshalErr != nil {
+	// 	panic(marshalErr)
+	// }
+	// fmt.Println(string(b))
+
+	fmt.Printf("%+v\n", input)
 
 	resultSet, err := query.Eval(ctx, rego.EvalInput(input))
 	if err != nil {

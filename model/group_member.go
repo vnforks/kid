@@ -21,3 +21,8 @@ func (gm *GroupMember) IsValid() *AppError {
 	}
 	return nil
 }
+
+type GroupNameMembers struct {
+	Name    string   `json:"name"`
+	Members []string `json:"members"`
+}

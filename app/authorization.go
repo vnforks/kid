@@ -11,6 +11,15 @@ import (
 	"github.com/mattermost/mattermost-server/v5/model"
 )
 
+var mockGroups []*model.GroupNameMembers
+
+func init() {
+	mockGroups = []*model.GroupNameMembers{
+		{Name: "developers", Members: []string{"dev.one"}},
+		{Name: "board", Members: []string{"board.one"}},
+	}
+}
+
 func (a *App) MakePermissionError(permission *model.Permission) *model.AppError {
 	return model.NewAppError("Permissions", "api.context.permissions.app_error", nil, "userId="+a.Session().UserId+", "+"permission="+permission.Id, http.StatusForbidden)
 }
@@ -24,11 +33,12 @@ func (a *App) SessionHasPermissionTo(session model.Session, permission *model.Pe
 		mlog.Error(err.Error())
 	}
 
-	return a.PoliciesAllow(&SystemPolicyInput{
+	return a.PoliciesAllow(&PolicyInput{
 		RBACAccessGranted: rolesGranPermission,
 		User:              user,
 		Permission:        permission,
 		Roles:             systemRoles,
+		Groups:            mockGroups,
 	})
 }
 
@@ -52,14 +62,13 @@ func (a *App) SessionHasPermissionToTeam(session model.Session, teamId string, p
 		}
 
 		if a.RolesGrantPermission(teamRoles, permission.Id) {
-			return a.PoliciesAllow(&TeamPolicyInput{
-				SystemPolicyInput: SystemPolicyInput{
-					RBACAccessGranted: true,
-					User:              user,
-					Permission:        permission,
-					Roles:             teamRoles,
-				},
-				Team: team,
+			return a.PoliciesAllow(&PolicyInput{
+				RBACAccessGranted: true,
+				User:              user,
+				Permission:        permission,
+				Roles:             teamRoles,
+				Team:              team,
+				Groups:            mockGroups,
 			})
 		}
 	}
@@ -96,17 +105,24 @@ func (a *App) SessionHasPermissionToChannel(session model.Session, channelId str
 					mlog.Error(err.Error())
 				}
 
-				return a.PoliciesAllow(&ChannelPolicyInput{
-					TeamPolicyInput: TeamPolicyInput{
-						SystemPolicyInput: SystemPolicyInput{
-							RBACAccessGranted: true,
-							User:              user,
-							Permission:        permission,
-							Roles:             channelRoles,
-						},
-						Team: team,
-					},
-					Channel: channel,
+				var channelMembers []string
+				next := a.ChannelMembersIterator(100, channel.Id)
+				var channelMembersBatch *model.ChannelMembers
+				for channelMembersBatch = next(); len(*channelMembersBatch) > 0; channelMembersBatch = next() {
+					for _, cm := range *channelMembersBatch {
+						channelMembers = append(channelMembers, cm.UserId)
+					}
+				}
+
+				return a.PoliciesAllow(&PolicyInput{
+					RBACAccessGranted: true,
+					User:              user,
+					Permission:        permission,
+					Roles:             channelRoles,
+					Team:              team,
+					Channel:           channel,
+					Groups:            mockGroups,
+					ChannelMembers:    channelMembers,
 				})
 			}
 		}
@@ -122,6 +138,18 @@ func (a *App) SessionHasPermissionToChannel(session model.Session, channelId str
 	}
 
 	return a.SessionHasPermissionTo(session, permission)
+}
+
+func (a *App) ChannelMembersIterator(batchSize int, channelID string) func() *model.ChannelMembers {
+	offset := 0
+	return func() *model.ChannelMembers {
+		channelMembers, err := a.GetChannelMembersPage(channelID, offset, batchSize)
+		if err != nil {
+			return &model.ChannelMembers{}
+		}
+		offset += batchSize
+		return channelMembers
+	}
 }
 
 func (a *App) SessionHasPermissionToChannelByPost(session model.Session, postId string, permission *model.Permission) bool {
