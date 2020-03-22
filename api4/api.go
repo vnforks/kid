@@ -15,9 +15,30 @@ import (
 	_ "github.com/mattermost/go-i18n/i18n"
 )
 
+type Router struct {
+	muxRouter *mux.Router
+	api       *API
+}
+
+func (h *Router) Handle(path string, handler http.Handler) *mux.Route {
+	return h.muxRouter.Handle(path, handler)
+}
+
+func (h *Router) PathPrefix(tpl string) *mux.Route {
+	return h.muxRouter.PathPrefix(tpl)
+}
+
+func (h *Router) HandleWithMiddleware(path string, contextHandlerFunc web.ContextHandlerFunc, middleware ...func(web.ContextHandlerFunc) web.ContextHandlerFunc) *mux.Route {
+	handlerName := web.GetHandlerName(contextHandlerFunc)
+	for i := range middleware {
+		contextHandlerFunc = middleware[len(middleware)-1-i](contextHandlerFunc)
+	}
+	return h.muxRouter.Handle(path, h.api.NamedApiHandler(contextHandlerFunc, handlerName))
+}
+
 type Routes struct {
 	Root    *mux.Router // ''
-	ApiRoot *mux.Router // 'api/v4'
+	ApiRoot *Router     // 'api/v4'
 
 	Users          *mux.Router // 'api/v4/users'
 	User           *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}'
@@ -129,7 +150,7 @@ func Init(configservice configservice.ConfigService, globalOptionsFunc app.AppOp
 	}
 
 	api.BaseRoutes.Root = root
-	api.BaseRoutes.ApiRoot = root.PathPrefix(model.API_URL_SUFFIX).Subrouter()
+	api.BaseRoutes.ApiRoot = &Router{api: api, muxRouter: root.PathPrefix(model.API_URL_SUFFIX).Subrouter()}
 
 	api.BaseRoutes.Users = api.BaseRoutes.ApiRoot.PathPrefix("/users").Subrouter()
 	api.BaseRoutes.User = api.BaseRoutes.ApiRoot.PathPrefix("/users/{user_id:[A-Za-z0-9]+}").Subrouter()

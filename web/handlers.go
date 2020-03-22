@@ -26,7 +26,9 @@ import (
 	"github.com/mattermost/mattermost-server/v5/utils"
 )
 
-func GetHandlerName(h func(*Context, http.ResponseWriter, *http.Request)) string {
+type ContextHandlerFunc func(*Context, http.ResponseWriter, *http.Request)
+
+func GetHandlerName(h ContextHandlerFunc) string {
 	handlerName := runtime.FuncForPC(reflect.ValueOf(h).Pointer()).Name()
 	pos := strings.LastIndex(handlerName, ".")
 	if pos != -1 && len(handlerName) > pos {
@@ -35,7 +37,7 @@ func GetHandlerName(h func(*Context, http.ResponseWriter, *http.Request)) string
 	return handlerName
 }
 
-func (w *Web) NewHandler(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (w *Web) NewHandler(h ContextHandlerFunc) http.Handler {
 	return &Handler{
 		GetGlobalAppOptions: w.GetGlobalAppOptions,
 		HandleFunc:          h,
@@ -47,7 +49,7 @@ func (w *Web) NewHandler(h func(*Context, http.ResponseWriter, *http.Request)) h
 	}
 }
 
-func (w *Web) NewStaticHandler(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (w *Web) NewStaticHandler(h ContextHandlerFunc) http.Handler {
 	// Determine the CSP SHA directive needed for subpath support, if any. This value is fixed
 	// on server start and intentionally requires a restart to take effect.
 	subpath, _ := utils.GetSubpathFromConfig(w.ConfigService.Config())
@@ -67,7 +69,7 @@ func (w *Web) NewStaticHandler(h func(*Context, http.ResponseWriter, *http.Reque
 
 type Handler struct {
 	GetGlobalAppOptions app.AppOptionCreator
-	HandleFunc          func(*Context, http.ResponseWriter, *http.Request)
+	HandleFunc          ContextHandlerFunc
 	HandlerName         string
 	RequireSession      bool
 	TrustRequester      bool
@@ -312,7 +314,7 @@ func (h *Handler) checkCSRFToken(c *Context, r *http.Request, token string, toke
 
 // ApiHandler provides a handler for API endpoints which do not require the user to be logged in order for access to be
 // granted.
-func (w *Web) ApiHandler(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (w *Web) ApiHandler(h ContextHandlerFunc) http.Handler {
 	handler := &Handler{
 		GetGlobalAppOptions: w.GetGlobalAppOptions,
 		HandleFunc:          h,
@@ -331,7 +333,7 @@ func (w *Web) ApiHandler(h func(*Context, http.ResponseWriter, *http.Request)) h
 // ApiHandlerTrustRequester provides a handler for API endpoints which do not require the user to be logged in and are
 // allowed to be requested directly rather than via javascript/XMLHttpRequest, such as site branding images or the
 // websocket.
-func (w *Web) ApiHandlerTrustRequester(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (w *Web) ApiHandlerTrustRequester(h ContextHandlerFunc) http.Handler {
 	handler := &Handler{
 		GetGlobalAppOptions: w.GetGlobalAppOptions,
 		HandleFunc:          h,
@@ -349,7 +351,7 @@ func (w *Web) ApiHandlerTrustRequester(h func(*Context, http.ResponseWriter, *ht
 
 // ApiSessionRequired provides a handler for API endpoints which require the user to be logged in in order for access to
 // be granted.
-func (w *Web) ApiSessionRequired(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (w *Web) ApiSessionRequired(h ContextHandlerFunc) http.Handler {
 	handler := &Handler{
 		GetGlobalAppOptions: w.GetGlobalAppOptions,
 		HandleFunc:          h,

@@ -14,7 +14,7 @@ type Context = web.Context
 
 // ApiHandler provides a handler for API endpoints which do not require the user to be logged in order for access to be
 // granted.
-func (api *API) ApiHandler(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (api *API) ApiHandler(h web.ContextHandlerFunc) http.Handler {
 	handler := &web.Handler{
 		GetGlobalAppOptions: api.GetGlobalAppOptions,
 		HandleFunc:          h,
@@ -30,9 +30,25 @@ func (api *API) ApiHandler(h func(*Context, http.ResponseWriter, *http.Request))
 	return handler
 }
 
+func (api *API) NamedApiHandler(h web.ContextHandlerFunc, name string) http.Handler {
+	handler := &web.Handler{
+		GetGlobalAppOptions: api.GetGlobalAppOptions,
+		HandleFunc:          h,
+		HandlerName:         name,
+		RequireSession:      false,
+		TrustRequester:      false,
+		RequireMfa:          false,
+		IsStatic:            false,
+	}
+	if *api.ConfigService.Config().ServiceSettings.WebserverMode == "gzip" {
+		return gziphandler.GzipHandler(handler)
+	}
+	return handler
+}
+
 // ApiSessionRequired provides a handler for API endpoints which require the user to be logged in in order for access to
 // be granted.
-func (api *API) ApiSessionRequired(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (api *API) ApiSessionRequired(h web.ContextHandlerFunc) http.Handler {
 	handler := &web.Handler{
 		GetGlobalAppOptions: api.GetGlobalAppOptions,
 		HandleFunc:          h,
@@ -52,7 +68,7 @@ func (api *API) ApiSessionRequired(h func(*Context, http.ResponseWriter, *http.R
 // ApiSessionRequiredMfa provides a handler for API endpoints which require a logged-in user session  but when accessed,
 // if MFA is enabled, the MFA process is not yet complete, and therefore the requirement to have completed the MFA
 // authentication must be waived.
-func (api *API) ApiSessionRequiredMfa(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (api *API) ApiSessionRequiredMfa(h web.ContextHandlerFunc) http.Handler {
 	handler := &web.Handler{
 		GetGlobalAppOptions: api.GetGlobalAppOptions,
 		HandleFunc:          h,
@@ -72,7 +88,7 @@ func (api *API) ApiSessionRequiredMfa(h func(*Context, http.ResponseWriter, *htt
 // ApiHandlerTrustRequester provides a handler for API endpoints which do not require the user to be logged in and are
 // allowed to be requested directly rather than via javascript/XMLHttpRequest, such as site branding images or the
 // websocket.
-func (api *API) ApiHandlerTrustRequester(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (api *API) ApiHandlerTrustRequester(h web.ContextHandlerFunc) http.Handler {
 	handler := &web.Handler{
 		GetGlobalAppOptions: api.GetGlobalAppOptions,
 		HandleFunc:          h,
@@ -91,7 +107,7 @@ func (api *API) ApiHandlerTrustRequester(h func(*Context, http.ResponseWriter, *
 
 // ApiSessionRequiredTrustRequester provides a handler for API endpoints which do require the user to be logged in and
 // are allowed to be requested directly rather than via javascript/XMLHttpRequest, such as emoji or file uploads.
-func (api *API) ApiSessionRequiredTrustRequester(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (api *API) ApiSessionRequiredTrustRequester(h web.ContextHandlerFunc) http.Handler {
 	handler := &web.Handler{
 		GetGlobalAppOptions: api.GetGlobalAppOptions,
 		HandleFunc:          h,
@@ -110,7 +126,7 @@ func (api *API) ApiSessionRequiredTrustRequester(h func(*Context, http.ResponseW
 
 // DisableWhenBusy provides a handler for API endpoints which should be disabled when the server is under load,
 // responding with HTTP 503 (Service Unavailable).
-func (api *API) ApiSessionRequiredDisableWhenBusy(h func(*Context, http.ResponseWriter, *http.Request)) http.Handler {
+func (api *API) ApiSessionRequiredDisableWhenBusy(h web.ContextHandlerFunc) http.Handler {
 	handler := &web.Handler{
 		GetGlobalAppOptions: api.GetGlobalAppOptions,
 		HandleFunc:          h,

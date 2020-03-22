@@ -13,24 +13,29 @@ import (
 )
 
 func (api *API) InitLicense() {
-	api.BaseRoutes.ApiRoot.Handle("/license", api.ApiSessionRequired(addLicense)).Methods("POST")
-	api.BaseRoutes.ApiRoot.Handle("/license", api.ApiSessionRequired(removeLicense)).Methods("DELETE")
-	api.BaseRoutes.ApiRoot.Handle("/license/client", api.ApiHandler(getClientLicense)).Methods("GET")
+	api.BaseRoutes.ApiRoot.HandleWithMiddleware(
+		"/license",
+		addLicense,
+		requireSession(),
+		requireSystemPermissions(model.PERMISSION_MANAGE_SYSTEM),
+	).Methods("POST")
+
+	api.BaseRoutes.ApiRoot.HandleWithMiddleware(
+		"/license",
+		removeLicense,
+		requireSession(),
+		requireSystemPermissions(model.PERMISSION_MANAGE_SYSTEM),
+	).Methods("DELETE")
+
+	api.BaseRoutes.ApiRoot.HandleWithMiddleware(
+		"/license/client",
+		getClientLicense,
+		requireQueryParam("format"),
+		requireQueryInSet("format", []string{"old"}),
+	).Methods("GET")
 }
 
 func getClientLicense(c *Context, w http.ResponseWriter, r *http.Request) {
-	format := r.URL.Query().Get("format")
-
-	if format == "" {
-		c.Err = model.NewAppError("getClientLicense", "api.license.client.old_format.app_error", nil, "", http.StatusNotImplemented)
-		return
-	}
-
-	if format != "old" {
-		c.SetInvalidParam("format")
-		return
-	}
-
 	var clientLicense map[string]string
 
 	if c.App.SessionHasPermissionTo(*c.App.Session(), model.PERMISSION_MANAGE_SYSTEM) {
@@ -46,11 +51,6 @@ func addLicense(c *Context, w http.ResponseWriter, r *http.Request) {
 	auditRec := c.MakeAuditRecord("addLicense", audit.Fail)
 	defer c.LogAuditRec(auditRec)
 	c.LogAudit("attempt")
-
-	if !c.App.SessionHasPermissionTo(*c.App.Session(), model.PERMISSION_MANAGE_SYSTEM) {
-		c.SetPermissionError(model.PERMISSION_MANAGE_SYSTEM)
-		return
-	}
 
 	if *c.App.Config().ExperimentalSettings.RestrictSystemAdmin {
 		c.Err = model.NewAppError("addLicense", "api.restricted_system_admin", nil, "", http.StatusForbidden)
@@ -117,11 +117,6 @@ func removeLicense(c *Context, w http.ResponseWriter, r *http.Request) {
 	auditRec := c.MakeAuditRecord("removeLicense", audit.Fail)
 	defer c.LogAuditRec(auditRec)
 	c.LogAudit("attempt")
-
-	if !c.App.SessionHasPermissionTo(*c.App.Session(), model.PERMISSION_MANAGE_SYSTEM) {
-		c.SetPermissionError(model.PERMISSION_MANAGE_SYSTEM)
-		return
-	}
 
 	if *c.App.Config().ExperimentalSettings.RestrictSystemAdmin {
 		c.Err = model.NewAppError("removeLicense", "api.restricted_system_admin", nil, "", http.StatusForbidden)
