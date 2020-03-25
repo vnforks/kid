@@ -96,3 +96,21 @@ func requireSession() func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
 		}
 	}
 }
+
+func requireConfigValues(configFunc func(config *model.Config) bool, descriptions ...string) func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+	return func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+		return func(c *web.Context, w http.ResponseWriter, r *http.Request) {
+			if !configFunc(c.App.Config()) {
+				c.Err = model.NewAppError(
+					"",
+					"api.error.require_config_values",
+					map[string]interface{}{"descriptions": descriptions},
+					"",
+					http.StatusForbidden,
+				)
+				return
+			}
+			f(c, w, r)
+		}
+	}
+}

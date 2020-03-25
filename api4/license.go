@@ -13,23 +13,23 @@ import (
 )
 
 func (api *API) InitLicense() {
-	api.BaseRoutes.ApiRoot.HandleWithMiddleware(
-		"/license",
-		addLicense,
+	api.BaseRoutes.ApiRoot.HandleWithMiddleware("/license", addLicense,
 		requireSession(),
 		requireSystemPermissions(model.PERMISSION_MANAGE_SYSTEM),
+		requireConfigValues(func(config *model.Config) bool {
+			return !*config.ExperimentalSettings.RestrictSystemAdmin
+		}, "ExperimentalSettings.RestrictSystemAdmin"),
 	).Methods("POST")
 
-	api.BaseRoutes.ApiRoot.HandleWithMiddleware(
-		"/license",
-		removeLicense,
+	api.BaseRoutes.ApiRoot.HandleWithMiddleware("/license", removeLicense,
 		requireSession(),
 		requireSystemPermissions(model.PERMISSION_MANAGE_SYSTEM),
+		requireConfigValues(func(config *model.Config) bool {
+			return !*config.ExperimentalSettings.RestrictSystemAdmin
+		}, "ExperimentalSettings.RestrictSystemAdmin"),
 	).Methods("DELETE")
 
-	api.BaseRoutes.ApiRoot.HandleWithMiddleware(
-		"/license/client",
-		getClientLicense,
+	api.BaseRoutes.ApiRoot.HandleWithMiddleware("/license/client", getClientLicense,
 		requireQueryParam("format"),
 		requireQueryInSet("format", []string{"old"}),
 	).Methods("GET")
@@ -51,11 +51,6 @@ func addLicense(c *Context, w http.ResponseWriter, r *http.Request) {
 	auditRec := c.MakeAuditRecord("addLicense", audit.Fail)
 	defer c.LogAuditRec(auditRec)
 	c.LogAudit("attempt")
-
-	if *c.App.Config().ExperimentalSettings.RestrictSystemAdmin {
-		c.Err = model.NewAppError("addLicense", "api.restricted_system_admin", nil, "", http.StatusForbidden)
-		return
-	}
 
 	err := r.ParseMultipartForm(*c.App.Config().FileSettings.MaxFileSize)
 	if err != nil {
@@ -117,11 +112,6 @@ func removeLicense(c *Context, w http.ResponseWriter, r *http.Request) {
 	auditRec := c.MakeAuditRecord("removeLicense", audit.Fail)
 	defer c.LogAuditRec(auditRec)
 	c.LogAudit("attempt")
-
-	if *c.App.Config().ExperimentalSettings.RestrictSystemAdmin {
-		c.Err = model.NewAppError("removeLicense", "api.restricted_system_admin", nil, "", http.StatusForbidden)
-		return
-	}
 
 	if err := c.App.RemoveLicense(); err != nil {
 		c.Err = err
