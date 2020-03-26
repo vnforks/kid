@@ -7,7 +7,9 @@ import (
 	"github.com/mattermost/mattermost-server/v5/web"
 )
 
-func requireQueryParam(name string) func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+type ContextHandler func(f web.ContextHandlerFunc) web.ContextHandlerFunc
+
+func requireQueryParam(name string) ContextHandler {
 	return func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
 		return func(c *web.Context, w http.ResponseWriter, r *http.Request) {
 			val := r.URL.Query().Get(name)
@@ -26,7 +28,7 @@ func requireQueryParam(name string) func(f web.ContextHandlerFunc) web.ContextHa
 	}
 }
 
-func requireQueryInSet(name string, set []string) func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+func requireQueryInSet(name string, set []string) ContextHandler {
 	return func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
 		return func(c *web.Context, w http.ResponseWriter, r *http.Request) {
 			val := r.URL.Query().Get(name)
@@ -51,7 +53,7 @@ func requireQueryInSet(name string, set []string) func(f web.ContextHandlerFunc)
 	}
 }
 
-func requireSystemPermissions(permissions ...*model.Permission) func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+func requireSystemPermissions(permissions ...*model.Permission) ContextHandler {
 	return func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
 		return func(c *web.Context, w http.ResponseWriter, r *http.Request) {
 			for _, permissionID := range permissions {
@@ -65,7 +67,7 @@ func requireSystemPermissions(permissions ...*model.Permission) func(f web.Conte
 	}
 }
 
-func requireLicenseFeatures(features []string) func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+func requireLicenseFeatures(features []string) ContextHandler {
 	return func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
 		return func(c *web.Context, w http.ResponseWriter, r *http.Request) {
 			featureMap := c.App.License().Features.ToMap()
@@ -87,7 +89,7 @@ func requireLicenseFeatures(features []string) func(f web.ContextHandlerFunc) we
 	}
 }
 
-func requireSession() func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+func requireSession() ContextHandler {
 	return func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
 		return func(c *web.Context, w http.ResponseWriter, r *http.Request) {
 			c.SessionRequired()
@@ -97,7 +99,7 @@ func requireSession() func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
 	}
 }
 
-func requireConfigValues(configFunc func(config *model.Config) bool, descriptions ...string) func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+func requireConfigValues(configFunc func(config *model.Config) bool, descriptions ...string) ContextHandler {
 	return func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
 		return func(c *web.Context, w http.ResponseWriter, r *http.Request) {
 			if !configFunc(c.App.Config()) {
@@ -108,6 +110,18 @@ func requireConfigValues(configFunc func(config *model.Config) bool, description
 					"",
 					http.StatusForbidden,
 				)
+				return
+			}
+			f(c, w, r)
+		}
+	}
+}
+
+func restrictSystemAdmin() ContextHandler {
+	return func(f web.ContextHandlerFunc) web.ContextHandlerFunc {
+		return func(c *web.Context, w http.ResponseWriter, r *http.Request) {
+			if *c.App.Config().ExperimentalSettings.RestrictSystemAdmin {
+				c.Err = model.NewAppError("", "api.restricted_system_admin", nil, "", http.StatusForbidden)
 				return
 			}
 			f(c, w, r)

@@ -16,17 +16,13 @@ func (api *API) InitLicense() {
 	api.BaseRoutes.ApiRoot.HandleWithMiddleware("/license", addLicense,
 		requireSession(),
 		requireSystemPermissions(model.PERMISSION_MANAGE_SYSTEM),
-		requireConfigValues(func(config *model.Config) bool {
-			return !*config.ExperimentalSettings.RestrictSystemAdmin
-		}, "ExperimentalSettings.RestrictSystemAdmin"),
+		restrictSystemAdmin(),
 	).Methods("POST")
 
 	api.BaseRoutes.ApiRoot.HandleWithMiddleware("/license", removeLicense,
 		requireSession(),
 		requireSystemPermissions(model.PERMISSION_MANAGE_SYSTEM),
-		requireConfigValues(func(config *model.Config) bool {
-			return !*config.ExperimentalSettings.RestrictSystemAdmin
-		}, "ExperimentalSettings.RestrictSystemAdmin"),
+		restrictSystemAdmin(),
 	).Methods("DELETE")
 
 	api.BaseRoutes.ApiRoot.HandleWithMiddleware("/license/client", getClientLicense,
