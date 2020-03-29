@@ -108,6 +108,7 @@ pipeline {
 							GO111MODULE=off go get -u github.com/mattermost/mattermost-govet
 							export PATH=$PATH:$GOBIN
 							make config-reset
+							make gomodtidy
 							make check-style BUILD_NUMBER='${BRANCH_NAME}-${BUILD_NUMBER}' MM_NO_ENTERPRISE_LINT=true
 							make build BUILD_NUMBER='${BRANCH_NAME}-${BUILD_NUMBER}'
 							make package BUILD_NUMBER='${BRANCH_NAME}-${BUILD_NUMBER}'

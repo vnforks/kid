@@ -296,16 +296,14 @@ test-db-migration: start-docker ## Gets diff of upgrade vs new instance schemas.
 	./scripts/mysql-migration-test.sh
 	./scripts/psql-migration-test.sh
 
-gomodtidy:
-	@cp go.mod go.mod.orig
-	@cp go.sum go.sum.orig
-	$(GO) mod tidy
-	@if [ "$$(diff go.mod go.mod.orig)" != "" -o "$$(diff go.sum go.sum.orig)" != "" ]; then \
-		echo "go.mod/go.sum was modified. \ndiff- $$(diff go.mod go.mod.orig) \n$$(diff go.sum go.sum.orig) \nRun \"go mod tidy\"."; \
-		rm go.*.orig; \
-		exit 1; \
-	fi;
-	@rm go.*.orig;
+gomodtidy: ## Checks if commited Go Modules files are correct and tidy.
+	go mod tidy -v
+	@git --no-pager diff --exit-code go.mod go.sum; \
+	if [ $$? -eq 0 ]; then \
+    	echo "PASS"; \
+	else \
+		echo "FAIL"; \
+	fi
 
 test-server: start-docker go-junit-report do-cover-file ## Runs tests.
 ifeq ($(BUILD_ENTERPRISE_READY),true)
