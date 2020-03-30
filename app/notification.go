@@ -752,29 +752,25 @@ func (a *App) getMentionKeywordsInChannel(profiles map[string]*model.User, allow
 	return keywords
 }
 
-// insertGroupMentions adds Mentions for users that are part of the given group members and channel channel, adds group members that are not in the channel to OtherPotentialMentions
-// returns true if atleast one user from the group exists in the team that the channel belongs to.
+// insertGroupMentions adds group members in the channel to Mentions, adds group members not in the channel to OtherPotentialMentions
+// returns false if no group members present in the team that the channel belongs to
 func (a *App) insertGroupMentions(group *model.Group, channel *model.Channel, profileMap map[string]*model.User, mentions *ExplicitMentions) (bool, *model.AppError) {
-	userMentioned := false
-	users, err := a.Srv().Store.Group().GetMemberUsers(group.Id)
+	groupMembersInTeam, err := a.Srv().Store.Group().GetMemberUsers(group.Id)
+	outOfChannelGroupMembers := []*model.User{}
 	if err != nil {
-		return userMentioned, err
+		return false, err
 	}
 
 	if mentions.Mentions == nil {
 		mentions.Mentions = make(map[string]MentionType)
 	}
 
-	for _, user := range users {
-		if _, ok := profileMap[user.Id]; ok {
-			mentions.Mentions[user.Id] = GroupMention
-			userMentioned = true
+	for _, member := range groupMembersInTeam {
+		if _, ok := profileMap[member.Id]; ok {
+			mentions.Mentions[member.Id] = GroupMention
+		} else {
+			outOfChannelGroupMembers = append(outOfChannelGroupMembers, member)
 		}
-	}
-
-	outOfChannelGroupMembers, err := a.Srv().Store.Group().GetMemberUsersNotInChannel(group.Id, channel.Id)
-	if err != nil {
-		return false, err
 	}
 
 	potentialGroupMembersMentioned := []string{}
@@ -787,7 +783,7 @@ func (a *App) insertGroupMentions(group *model.Group, channel *model.Channel, pr
 		mentions.OtherPotentialMentions = append(mentions.OtherPotentialMentions, potentialGroupMembersMentioned...)
 	}
 
-	return (userMentioned || len(outOfChannelGroupMembers) > 0), nil
+	return len(groupMembersInTeam) > 0, nil
 }
 
 // addMentionKeywordsForUser adds the mention keywords for a given user to the given keyword map. Returns the provided keyword map.
@@ -965,6 +961,13 @@ func (m *ExplicitMentions) processText(text string, keywords map[string][]string
 		}
 
 		if _, ok := systemMentions[word]; !ok && strings.HasPrefix(word, "@") {
+			// No need to bother about unicode as we are looking for ASCII characters.
+			last := word[len(word)-1]
+			switch last {
+			// If the word is possibly at the end of a sentence, remove that character.
+			case '.', '-', ':':
+				word = word[:len(word)-1]
+			}
 			m.OtherPotentialMentions = append(m.OtherPotentialMentions, word[1:])
 		} else if strings.ContainsAny(word, ".-:") {
 			// This word contains a character that may be the end of a sentence, so split further

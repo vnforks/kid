@@ -16,6 +16,7 @@ import (
 
 	"github.com/mattermost/mattermost-server/v5/model"
 	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/mattermost/mattermost-server/v5/utils"
 )
 
 func TestGroupStore(t *testing.T, ss store.Store) {
@@ -31,6 +32,8 @@ func TestGroupStore(t *testing.T, ss store.Store) {
 
 	t.Run("GetMemberUsers", func(t *testing.T) { testGroupGetMemberUsers(t, ss) })
 	t.Run("GetMemberUsersPage", func(t *testing.T) { testGroupGetMemberUsersPage(t, ss) })
+
+	t.Run("GetMemberUsersInTeam", func(t *testing.T) { testGroupGetMemberUsersInTeam(t, ss) })
 	t.Run("GetMemberUsersNotInChannel", func(t *testing.T) { testGroupGetMemberUsersNotInChannel(t, ss) })
 
 	t.Run("UpsertMember", func(t *testing.T) { testUpsertMember(t, ss) })
@@ -681,6 +684,92 @@ func testGroupGetMemberUsersPage(t *testing.T, ss store.Store) {
 	groupMembers, err = ss.Group().GetMemberUsersPage(group.Id, 0, 100)
 	require.Nil(t, err)
 	require.Equal(t, 2, len(groupMembers))
+}
+
+func testGroupGetMemberUsersInTeam(t *testing.T, ss store.Store) {
+	// Save a team
+	team := &model.Team{
+		DisplayName: "Name",
+		Description: "Some description",
+		CompanyName: "Some company name",
+		Name:        "z-z-" + model.NewId() + "a",
+		Email:       "success+" + model.NewId() + "@simulator.amazonses.com",
+		Type:        model.TEAM_OPEN,
+	}
+	team, err := ss.Team().Save(team)
+	require.Nil(t, err)
+
+	// Save a group
+	g1 := &model.Group{
+		Name:        model.NewId(),
+		DisplayName: model.NewId(),
+		Description: model.NewId(),
+		Source:      model.GroupSourceLdap,
+		RemoteId:    model.NewId(),
+	}
+	group, err := ss.Group().Create(g1)
+	require.Nil(t, err)
+
+	u1 := &model.User{
+		Email:    MakeEmail(),
+		Username: model.NewId(),
+	}
+	user1, err := ss.User().Save(u1)
+	require.Nil(t, err)
+
+	_, err = ss.Group().UpsertMember(group.Id, user1.Id)
+	require.Nil(t, err)
+
+	u2 := &model.User{
+		Email:    MakeEmail(),
+		Username: model.NewId(),
+	}
+	user2, err := ss.User().Save(u2)
+	require.Nil(t, err)
+
+	_, err = ss.Group().UpsertMember(group.Id, user2.Id)
+	require.Nil(t, err)
+
+	u3 := &model.User{
+		Email:    MakeEmail(),
+		Username: model.NewId(),
+	}
+	user3, err := ss.User().Save(u3)
+	require.Nil(t, err)
+
+	_, err = ss.Group().UpsertMember(group.Id, user3.Id)
+	require.Nil(t, err)
+
+	// returns no members when team does not exist
+	groupMembers, err := ss.Group().GetMemberUsersInTeam(group.Id, "non-existant-channel-id")
+	require.Nil(t, err)
+	require.Equal(t, 0, len(groupMembers))
+
+	// returns no members when group has no members in the team
+	groupMembers, err = ss.Group().GetMemberUsersInTeam(group.Id, team.Id)
+	require.Nil(t, err)
+	require.Equal(t, 0, len(groupMembers))
+
+	m1 := &model.TeamMember{TeamId: team.Id, UserId: user1.Id}
+	_, err = ss.Team().SaveMember(m1, -1)
+	require.Nil(t, err)
+
+	// returns single member in team
+	groupMembers, err = ss.Group().GetMemberUsersInTeam(group.Id, team.Id)
+	require.Nil(t, err)
+	require.Equal(t, 1, len(groupMembers))
+
+	m2 := &model.TeamMember{TeamId: team.Id, UserId: user2.Id}
+	m3 := &model.TeamMember{TeamId: team.Id, UserId: user3.Id}
+	_, err = ss.Team().SaveMember(m2, -1)
+	require.Nil(t, err)
+	_, err = ss.Team().SaveMember(m3, -1)
+	require.Nil(t, err)
+
+	// returns all members when all members are in team
+	groupMembers, err = ss.Group().GetMemberUsersInTeam(group.Id, team.Id)
+	require.Nil(t, err)
+	require.Equal(t, 3, len(groupMembers))
 }
 
 func testGroupGetMemberUsersNotInChannel(t *testing.T, ss store.Store) {
@@ -4053,15 +4142,6 @@ func groupTestpUpdateMembersRoleTeam(t *testing.T, ss store.Store) {
 		},
 	}
 
-	includes := func(list []string, item string) bool {
-		for _, it := range list {
-			if it == item {
-				return true
-			}
-		}
-		return false
-	}
-
 	for _, tt := range tests {
 		t.Run(tt.testName, func(t *testing.T) {
 			err = ss.Team().UpdateMembersRole(team.Id, tt.inUserIDs)
@@ -4072,7 +4152,7 @@ func groupTestpUpdateMembersRoleTeam(t *testing.T, ss store.Store) {
 			require.GreaterOrEqual(t, len(members), 4) // sanity check for team membership
 
 			for _, member := range members {
-				if includes(tt.inUserIDs, member.UserId) {
+				if utils.StringInSlice(member.UserId, tt.inUserIDs) {
 					require.True(t, member.SchemeAdmin)
 				} else {
 					require.False(t, member.SchemeAdmin)
@@ -4171,15 +4251,6 @@ func groupTestpUpdateMembersRoleChannel(t *testing.T, ss store.Store) {
 		},
 	}
 
-	includes := func(list []string, item string) bool {
-		for _, it := range list {
-			if it == item {
-				return true
-			}
-		}
-		return false
-	}
-
 	for _, tt := range tests {
 		t.Run(tt.testName, func(t *testing.T) {
 			err = ss.Channel().UpdateMembersRole(channel.Id, tt.inUserIDs)
@@ -4191,7 +4262,7 @@ func groupTestpUpdateMembersRoleChannel(t *testing.T, ss store.Store) {
 			require.GreaterOrEqual(t, len(*members), 4) // sanity check for channel membership
 
 			for _, member := range *members {
-				if includes(tt.inUserIDs, member.UserId) {
+				if utils.StringInSlice(member.UserId, tt.inUserIDs) {
 					require.True(t, member.SchemeAdmin)
 				} else {
 					require.False(t, member.SchemeAdmin)
