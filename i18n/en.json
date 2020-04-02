@@ -425,7 +425,7 @@
   },
   {
     "id": "api.channel.update_channel.invalid_character.app_error",
-    "translation": "Invalid channel name. User ids are not permitted in channel name for non-direct message channels."
+    "translation": "Invalid character '__' in channel name for non-direct channel."
   },
   {
     "id": "api.channel.update_channel.tried.app_error",

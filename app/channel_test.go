@@ -743,6 +743,14 @@ func TestRenameChannel(t *testing.T) {
 			"",
 		},
 		{
+			"Fail on rename open channel with consecutive underscores in name",
+			th.createChannel(th.BasicTeam, model.CHANNEL_OPEN),
+			true,
+			"foo__bar",
+			"",
+			"",
+		},
+		{
 			"Fail on rename direct message channel",
 			th.CreateDmChannel(th.BasicUser2),
 			true,
