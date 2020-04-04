@@ -14,9 +14,11 @@ import (
 	"github.com/vnforks/kid/v5/store"
 	"github.com/vnforks/kid/v5/store/localcachelayer"
 	"github.com/vnforks/kid/v5/store/searchlayer"
+
+	//"github.com/vnforks/kid/v5/store/searchlayer"
+	"github.com/pkg/errors"
 	"github.com/vnforks/kid/v5/store/sqlstore"
 	"github.com/vnforks/kid/v5/utils"
-	"github.com/pkg/errors"
 )
 
 // This is a bridge between the old and new initialization for the context refactor.
