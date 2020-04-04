@@ -31,14 +31,13 @@ type IncomingWebhook struct {
 }
 
 type IncomingWebhookRequest struct {
-	Text        string             `json:"text"`
-	Username    string             `json:"username"`
-	IconURL     string             `json:"icon_url"`
-	ChannelName string             `json:"channel"`
-	Props       StringInterface    `json:"props"`
-	Attachments []*SlackAttachment `json:"attachments"`
-	Type        string             `json:"type"`
-	IconEmoji   string             `json:"icon_emoji"`
+	Text        string          `json:"text"`
+	Username    string          `json:"username"`
+	IconURL     string          `json:"icon_url"`
+	ChannelName string          `json:"channel"`
+	Props       StringInterface `json:"props"`
+	Type        string          `json:"type"`
+	IconEmoji   string          `json:"icon_emoji"`
 }
 
 func (o *IncomingWebhook) ToJson() string {
@@ -201,8 +200,6 @@ func IncomingWebhookRequestFromJson(data io.Reader) (*IncomingWebhookRequest, *A
 			return nil, NewAppError("IncomingWebhookRequestFromJson", "model.incoming_hook.parse_data.app_error", nil, err.Error(), http.StatusBadRequest)
 		}
 	}
-
-	o.Attachments = StringifySlackFieldValue(o.Attachments)
 
 	return o, nil
 }

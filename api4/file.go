@@ -16,10 +16,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v5/app"
-	"github.com/mattermost/mattermost-server/v5/audit"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/app"
+	"github.com/vnforks/kid/v5/audit"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/utils"
 )
 
 const (

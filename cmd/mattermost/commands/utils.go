@@ -10,7 +10,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/mlog"
+	"github.com/vnforks/kid/v5/mlog"
 )
 
 // prettyPrintStruct will return a prettyPrint version of a given struct

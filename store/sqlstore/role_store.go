@@ -11,8 +11,8 @@ import (
 
 	sq "github.com/Masterminds/squirrel"
 	"github.com/mattermost/gorp"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
 )
 
 type SqlRoleStore struct {
@@ -32,11 +32,9 @@ type Role struct {
 	BuiltIn       bool
 }
 
-type channelRolesPermissions struct {
-	GuestRoleName                string
+type classRolesPermissions struct {
 	UserRoleName                 string
 	AdminRoleName                string
-	HigherScopedGuestPermissions string
 	HigherScopedUserPermissions  string
 	HigherScopedAdminPermissions string
 }
@@ -248,66 +246,57 @@ func (s *SqlRoleStore) PermanentDeleteAll() *model.AppError {
 	return nil
 }
 
-func (s *SqlRoleStore) channelHigherScopedPermissionsQuery(roleNames []string) string {
+func (s *SqlRoleStore) classHigherScopedPermissionsQuery(roleNames []string) string {
 	sqlTmpl := `
 		SELECT
-			RoleSchemes.DefaultChannelGuestRole AS GuestRoleName,
-			RoleSchemes.DefaultChannelUserRole AS UserRoleName,
-			RoleSchemes.DefaultChannelAdminRole AS AdminRoleName,
-			GuestRoles.Permissions AS HigherScopedGuestPermissions,
+			RoleSchemes.DefaultClassUserRole AS UserRoleName,
+			RoleSchemes.DefaultClassAdminRole AS AdminRoleName,
 			UserRoles.Permissions AS HigherScopedUserPermissions,
 			AdminRoles.Permissions AS HigherScopedAdminPermissions
 		FROM
 			Schemes AS RoleSchemes
-			JOIN Channels ON Channels.SchemeId = RoleSchemes.Id
-			JOIN Teams ON Teams.Id = Channels.TeamId
-			JOIN Schemes ON Schemes.Id = Teams.SchemeId
-			JOIN Roles AS GuestRoles ON GuestRoles.Name = Schemes.DefaultChannelGuestRole
-			JOIN Roles AS UserRoles ON UserRoles.Name = Schemes.DefaultChannelUserRole
-			JOIN Roles AS AdminRoles ON AdminRoles.Name = Schemes.DefaultChannelAdminRole
+			JOIN Classes ON Classes.SchemeId = RoleSchemes.Id
+			JOIN Branches ON Branches.Id = Classes.BranchId
+			JOIN Schemes ON Schemes.Id = Branches.SchemeId
+			JOIN Roles AS UserRoles ON UserRoles.Name = Schemes.DefaultClassUserRole
+			JOIN Roles AS AdminRoles ON AdminRoles.Name = Schemes.DefaultClassAdminRole
 		WHERE
-			RoleSchemes.DefaultChannelGuestRole IN ('%[1]s')
-			OR RoleSchemes.DefaultChannelUserRole IN ('%[1]s')
-			OR RoleSchemes.DefaultChannelAdminRole IN ('%[1]s')
+			RoleSchemes.DefaultClassUserRole IN ('%[1]s')
+			OR RoleSchemes.DefaultClassAdminRole IN ('%[1]s')
 		UNION
 		SELECT
-			Schemes.DefaultChannelGuestRole AS GuestRoleName,
-			Schemes.DefaultChannelUserRole AS UserRoleName,
-			Schemes.DefaultChannelAdminRole AS AdminRoleName,
-			GuestRoles.Permissions AS HigherScopedGuestPermissions,
+			Schemes.DefaultClassUserRole AS UserRoleName,
+			Schemes.DefaultClassAdminRole AS AdminRoleName,
 			UserRoles.Permissions AS HigherScopedUserPermissions,
 			AdminRoles.Permissions AS HigherScopedAdminPermissions
 		FROM
 			Schemes
-			JOIN Channels ON Channels.SchemeId = Schemes.Id
-			JOIN Teams ON Teams.Id = Channels.TeamId
-			JOIN Roles AS GuestRoles ON GuestRoles.Name = '%[2]s'
+			JOIN Classes ON Classes.SchemeId = Schemes.Id
+			JOIN Branches ON Branches.Id = Classes.BranchId
 			JOIN Roles AS UserRoles ON UserRoles.Name = '%[3]s'
 			JOIN Roles AS AdminRoles ON AdminRoles.Name = '%[4]s'
 		WHERE
-			(Schemes.DefaultChannelGuestRole IN ('%[1]s')
-			OR Schemes.DefaultChannelUserRole IN ('%[1]s')
-			OR Schemes.DefaultChannelAdminRole IN ('%[1]s'))
-		AND (Teams.SchemeId = ''
-			OR Teams.SchemeId IS NULL)
+			(Schemes.DefaultClassUserRole IN ('%[1]s')
+			OR Schemes.DefaultClassAdminRole IN ('%[1]s'))
+		AND (Branches.SchemeId = ''
+			OR Branches.SchemeId IS NULL)
 	`
 
-	// The below three channel role names are referenced by their name value because there is no system scheme
-	// record that ships with Mattermost, otherwise the system scheme would be referenced by name and the channel
+	// The below three class role names are referenced by their name value because there is no system scheme
+	// record that ships with Mattermost, otherwise the system scheme would be referenced by name and the class
 	// roles would be referenced by their column names.
 	return fmt.Sprintf(
 		sqlTmpl,
 		strings.Join(roleNames, "', '"),
-		model.CHANNEL_GUEST_ROLE_ID,
-		model.CHANNEL_USER_ROLE_ID,
-		model.CHANNEL_ADMIN_ROLE_ID,
+		model.CLASS_USER_ROLE_ID,
+		model.CLASS_ADMIN_ROLE_ID,
 	)
 }
 
-func (s *SqlRoleStore) ChannelHigherScopedPermissions(roleNames []string) (map[string]*model.RolePermissions, *model.AppError) {
-	sql := s.channelHigherScopedPermissionsQuery(roleNames)
+func (s *SqlRoleStore) ClassHigherScopedPermissions(roleNames []string) (map[string]*model.RolePermissions, *model.AppError) {
+	sql := s.classHigherScopedPermissionsQuery(roleNames)
 
-	var rolesPermissions []*channelRolesPermissions
+	var rolesPermissions []*classRolesPermissions
 	if _, err := s.GetReplica().Select(&rolesPermissions, sql); err != nil {
 		return nil, model.NewAppError("SqlRoleStore.HigherScopedPermissions", "store.sql_role.get_by_names.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
@@ -315,31 +304,30 @@ func (s *SqlRoleStore) ChannelHigherScopedPermissions(roleNames []string) (map[s
 	roleNameHigherScopedPermissions := map[string]*model.RolePermissions{}
 
 	for _, rp := range rolesPermissions {
-		roleNameHigherScopedPermissions[rp.GuestRoleName] = &model.RolePermissions{RoleID: model.CHANNEL_GUEST_ROLE_ID, Permissions: strings.Split(rp.HigherScopedGuestPermissions, " ")}
-		roleNameHigherScopedPermissions[rp.UserRoleName] = &model.RolePermissions{RoleID: model.CHANNEL_USER_ROLE_ID, Permissions: strings.Split(rp.HigherScopedUserPermissions, " ")}
-		roleNameHigherScopedPermissions[rp.AdminRoleName] = &model.RolePermissions{RoleID: model.CHANNEL_ADMIN_ROLE_ID, Permissions: strings.Split(rp.HigherScopedAdminPermissions, " ")}
+		roleNameHigherScopedPermissions[rp.UserRoleName] = &model.RolePermissions{RoleID: model.CLASS_USER_ROLE_ID, Permissions: strings.Split(rp.HigherScopedUserPermissions, " ")}
+		roleNameHigherScopedPermissions[rp.AdminRoleName] = &model.RolePermissions{RoleID: model.CLASS_ADMIN_ROLE_ID, Permissions: strings.Split(rp.HigherScopedAdminPermissions, " ")}
 	}
 
 	return roleNameHigherScopedPermissions, nil
 }
 
-func (s *SqlRoleStore) AllChannelSchemeRoles() ([]*model.Role, *model.AppError) {
+func (s *SqlRoleStore) AllClassSchemeRoles() ([]*model.Role, *model.AppError) {
 	query := s.getQueryBuilder().
 		Select("Roles.*").
 		From("Schemes").
-		Join("Roles ON Schemes.DefaultChannelGuestRole = Roles.Name OR Schemes.DefaultChannelUserRole = Roles.Name OR Schemes.DefaultChannelAdminRole = Roles.Name").
-		Where(sq.Eq{"Schemes.Scope": model.SCHEME_SCOPE_CHANNEL}).
+		Join("Roles ON Schemes.DefaultClassUserRole = Roles.Name OR Schemes.DefaultClassAdminRole = Roles.Name").
+		Where(sq.Eq{"Schemes.Scope": model.SCHEME_SCOPE_CLASS}).
 		Where(sq.Eq{"Roles.DeleteAt": 0}).
 		Where(sq.Eq{"Schemes.DeleteAt": 0})
 
 	queryString, args, err := query.ToSql()
 	if err != nil {
-		return nil, model.NewAppError("SqlRoleStore.AllChannelSchemeManagedRoles", "store.sql.build_query.app_error", nil, err.Error(), http.StatusInternalServerError)
+		return nil, model.NewAppError("SqlRoleStore.AllClassSchemeManagedRoles", "store.sql.build_query.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
 	var dbRoles []*Role
 	if _, err = s.GetReplica().Select(&dbRoles, queryString, args...); err != nil {
-		return nil, model.NewAppError("SqlRoleStore.AllChannelSchemeManagedRoles", "store.sql_role.get.app_error", nil, err.Error(), http.StatusInternalServerError)
+		return nil, model.NewAppError("SqlRoleStore.AllClassSchemeManagedRoles", "store.sql_role.get.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
 	var roles []*model.Role
@@ -350,33 +338,33 @@ func (s *SqlRoleStore) AllChannelSchemeRoles() ([]*model.Role, *model.AppError) 
 	return roles, nil
 }
 
-// ChannelRolesUnderTeamRole finds all of the channel-scheme roles under the team of the given team-scheme role.
-func (s *SqlRoleStore) ChannelRolesUnderTeamRole(roleName string) ([]*model.Role, *model.AppError) {
+// ClassRolesUnderBranchRole finds all of the class-scheme roles under the branch of the given branch-scheme role.
+func (s *SqlRoleStore) ClassRolesUnderBranchRole(roleName string) ([]*model.Role, *model.AppError) {
 	query := s.getQueryBuilder().
-		Select("ChannelSchemeRoles.*").
+		Select("ClassSchemeRoles.*").
 		From("Roles AS HigherScopedRoles").
-		Join("Schemes AS HigherScopedSchemes ON (HigherScopedRoles.Name = HigherScopedSchemes.DefaultChannelGuestRole OR HigherScopedRoles.Name = HigherScopedSchemes.DefaultChannelUserRole OR HigherScopedRoles.Name = HigherScopedSchemes.DefaultChannelAdminRole)").
-		Join("Teams ON Teams.SchemeId = HigherScopedSchemes.Id").
-		Join("Channels ON Channels.TeamId = Teams.Id").
-		Join("Schemes AS ChannelSchemes ON Channels.SchemeId = ChannelSchemes.Id").
-		Join("Roles AS ChannelSchemeRoles ON (ChannelSchemeRoles.Name = ChannelSchemes.DefaultChannelGuestRole OR ChannelSchemeRoles.Name = ChannelSchemes.DefaultChannelUserRole OR ChannelSchemeRoles.Name = ChannelSchemes.DefaultChannelAdminRole)").
-		Where(sq.Eq{"HigherScopedSchemes.Scope": model.SCHEME_SCOPE_TEAM}).
+		Join("Schemes AS HigherScopedSchemes ON (HigherScopedRoles.Name = HigherScopedSchemes.DefaultClassUserRole OR HigherScopedRoles.Name = HigherScopedSchemes.DefaultClassAdminRole)").
+		Join("Branches ON Branches.SchemeId = HigherScopedSchemes.Id").
+		Join("Classes ON Classes.BranchId = Branches.Id").
+		Join("Schemes AS ClassSchemes ON Classes.SchemeId = ClassSchemes.Id").
+		Join("Roles AS ClassSchemeRoles ON (ClassSchemeRoles.Name = ClassSchemes.DefaultClassUserRole OR ClassSchemeRoles.Name = ClassSchemes.DefaultClassAdminRole)").
+		Where(sq.Eq{"HigherScopedSchemes.Scope": model.SCHEME_SCOPE_BRANCH}).
 		Where(sq.Eq{"HigherScopedRoles.Name": roleName}).
 		Where(sq.Eq{"HigherScopedRoles.DeleteAt": 0}).
 		Where(sq.Eq{"HigherScopedSchemes.DeleteAt": 0}).
-		Where(sq.Eq{"Teams.DeleteAt": 0}).
-		Where(sq.Eq{"Channels.DeleteAt": 0}).
-		Where(sq.Eq{"ChannelSchemes.DeleteAt": 0}).
-		Where(sq.Eq{"ChannelSchemeRoles.DeleteAt": 0})
+		Where(sq.Eq{"Branches.DeleteAt": 0}).
+		Where(sq.Eq{"Classes.DeleteAt": 0}).
+		Where(sq.Eq{"ClassSchemes.DeleteAt": 0}).
+		Where(sq.Eq{"ClassSchemeRoles.DeleteAt": 0})
 
 	queryString, args, err := query.ToSql()
 	if err != nil {
-		return nil, model.NewAppError("SqlRoleStore.ChannelRolesUnderTeamRole", "store.sql.build_query.app_error", nil, err.Error(), http.StatusInternalServerError)
+		return nil, model.NewAppError("SqlRoleStore.ClassRolesUnderBranchRole", "store.sql.build_query.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
 	var dbRoles []*Role
 	if _, err = s.GetReplica().Select(&dbRoles, queryString, args...); err != nil {
-		return nil, model.NewAppError("SqlRoleStore.ChannelRolesUnderTeamRole", "store.sql_role.get.app_error", nil, err.Error(), http.StatusInternalServerError)
+		return nil, model.NewAppError("SqlRoleStore.ClassRolesUnderBranchRole", "store.sql_role.get.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
 	var roles []*model.Role

@@ -24,23 +24,22 @@ import (
 	"github.com/throttled/throttled"
 	"golang.org/x/crypto/acme/autocert"
 
-	"github.com/mattermost/mattermost-server/v5/audit"
-	"github.com/mattermost/mattermost-server/v5/config"
-	"github.com/mattermost/mattermost-server/v5/einterfaces"
-	"github.com/mattermost/mattermost-server/v5/jobs"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/plugin"
-	"github.com/mattermost/mattermost-server/v5/services/cache"
-	"github.com/mattermost/mattermost-server/v5/services/cache/lru"
-	"github.com/mattermost/mattermost-server/v5/services/filesstore"
-	"github.com/mattermost/mattermost-server/v5/services/httpservice"
-	"github.com/mattermost/mattermost-server/v5/services/imageproxy"
-	"github.com/mattermost/mattermost-server/v5/services/searchengine"
-	"github.com/mattermost/mattermost-server/v5/services/timezones"
-	"github.com/mattermost/mattermost-server/v5/services/tracing"
-	"github.com/mattermost/mattermost-server/v5/store"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/audit"
+	"github.com/vnforks/kid/v5/config"
+	"github.com/vnforks/kid/v5/einterfaces"
+	"github.com/vnforks/kid/v5/jobs"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/services/cache"
+	"github.com/vnforks/kid/v5/services/cache/lru"
+	"github.com/vnforks/kid/v5/services/filesstore"
+	"github.com/vnforks/kid/v5/services/httpservice"
+	"github.com/vnforks/kid/v5/services/imageproxy"
+	"github.com/vnforks/kid/v5/services/searchengine"
+	"github.com/vnforks/kid/v5/services/timezones"
+	"github.com/vnforks/kid/v5/services/tracing"
+	"github.com/vnforks/kid/v5/store"
+	"github.com/vnforks/kid/v5/utils"
 )
 
 var MaxNotificationsPerChannelDefault int64 = 1000000
@@ -65,10 +64,6 @@ type Server struct {
 
 	goroutineCount      int32
 	goroutineExitSignal chan struct{}
-
-	PluginsEnvironment     *plugin.Environment
-	PluginConfigListenerId string
-	PluginsLock            sync.RWMutex
 
 	EmailBatching    *EmailBatchingJob
 	EmailRateLimiter *throttled.GCRARateLimiter
@@ -105,9 +100,6 @@ type Server struct {
 	configStore             config.Store
 	asymmetricSigningKey    *ecdsa.PrivateKey
 	postActionCookieSecret  []byte
-
-	pluginCommands     []*PluginCommand
-	pluginCommandsLock sync.RWMutex
 
 	clientConfig        map[string]string
 	clientConfigHash    string
@@ -237,18 +229,6 @@ func NewServer(options ...Option) (*Server, error) {
 	s.InitEmailBatching()
 	s.AddConfigListener(func(_, _ *model.Config) {
 		s.InitEmailBatching()
-	})
-
-	// Start plugin health check job
-	pluginsEnvironment := s.PluginsEnvironment
-	if pluginsEnvironment != nil {
-		pluginsEnvironment.InitPluginHealthCheckJob(*s.Config().PluginSettings.Enable && *s.Config().PluginSettings.EnableHealthCheck)
-	}
-	s.AddConfigListener(func(_, c *model.Config) {
-		pluginsEnvironment := s.PluginsEnvironment
-		if pluginsEnvironment != nil {
-			pluginsEnvironment.InitPluginHealthCheckJob(*s.Config().PluginSettings.Enable && *c.PluginSettings.EnableHealthCheck)
-		}
 	})
 
 	logCurrentVersion := fmt.Sprintf("Current version is %v (%v/%v/%v/%v)", model.CurrentVersion, model.BuildNumber, model.BuildDate, model.BuildHash, model.BuildHashEnterprise)

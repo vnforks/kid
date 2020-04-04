@@ -10,7 +10,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/vnforks/kid/v5/model"
 )
 
 func validateSchemeImportData(data *SchemeImportData) *model.AppError {
@@ -20,11 +20,11 @@ func validateSchemeImportData(data *SchemeImportData) *model.AppError {
 	}
 
 	switch *data.Scope {
-	case model.SCHEME_SCOPE_TEAM:
+	case model.SCHEME_SCOPE_BRANCH:
 		if data.DefaultTeamAdminRole == nil || data.DefaultTeamUserRole == nil || data.DefaultChannelAdminRole == nil || data.DefaultChannelUserRole == nil {
 			return model.NewAppError("BulkImport", "app.import.validate_scheme_import_data.wrong_roles_for_scope.error", nil, "", http.StatusBadRequest)
 		}
-	case model.SCHEME_SCOPE_CHANNEL:
+	case model.SCHEME_SCOPE_CLASS:
 		if data.DefaultTeamAdminRole != nil || data.DefaultTeamUserRole != nil || data.DefaultChannelAdminRole == nil || data.DefaultChannelUserRole == nil {
 			return model.NewAppError("BulkImport", "app.import.validate_scheme_import_data.wrong_roles_for_scope.error", nil, "", http.StatusBadRequest)
 		}

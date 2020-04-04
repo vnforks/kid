@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/vnforks/kid/v5/model"
 )
 
 // GenerateClientConfig renders the given configuration for a client.
@@ -16,13 +16,13 @@ func GenerateClientConfig(c *model.Config, diagnosticID string, license *model.L
 	props := GenerateLimitedClientConfig(c, diagnosticID, license)
 
 	props["SiteURL"] = strings.TrimRight(*c.ServiceSettings.SiteURL, "/")
-	props["EnableUserDeactivation"] = strconv.FormatBool(*c.TeamSettings.EnableUserDeactivation)
-	props["RestrictDirectMessage"] = *c.TeamSettings.RestrictDirectMessage
-	props["EnableXToLeaveChannelsFromLHS"] = strconv.FormatBool(*c.TeamSettings.EnableXToLeaveChannelsFromLHS)
-	props["TeammateNameDisplay"] = *c.TeamSettings.TeammateNameDisplay
-	props["LockTeammateNameDisplay"] = strconv.FormatBool(*c.TeamSettings.LockTeammateNameDisplay)
-	props["ExperimentalPrimaryTeam"] = *c.TeamSettings.ExperimentalPrimaryTeam
-	props["ExperimentalViewArchivedChannels"] = strconv.FormatBool(*c.TeamSettings.ExperimentalViewArchivedChannels)
+	props["EnableUserDeactivation"] = strconv.FormatBool(*c.BranchSettings.EnableUserDeactivation)
+	props["RestrictDirectMessage"] = *c.BranchSettings.RestrictDirectMessage
+	props["EnableXToLeaveClassesFromLHS"] = strconv.FormatBool(*c.BranchSettings.EnableXToLeaveClassesFromLHS)
+	props["BranchmateNameDisplay"] = *c.BranchSettings.BranchmateNameDisplay
+	props["LockBranchmateNameDisplay"] = strconv.FormatBool(*c.BranchSettings.LockBranchmateNameDisplay)
+	props["ExperimentalPrimaryBranch"] = *c.BranchSettings.ExperimentalPrimaryBranch
+	props["ExperimentalViewArchivedClasses"] = strconv.FormatBool(*c.BranchSettings.ExperimentalViewArchivedClasses)
 
 	props["EnableBotAccountCreation"] = strconv.FormatBool(*c.ServiceSettings.EnableBotAccountCreation)
 	props["EnableOAuthServiceProvider"] = strconv.FormatBool(*c.ServiceSettings.EnableOAuthServiceProvider)
@@ -41,8 +41,6 @@ func GenerateClientConfig(c *model.Config, diagnosticID string, license *model.L
 	props["CloseUnusedDirectMessages"] = strconv.FormatBool(*c.ServiceSettings.CloseUnusedDirectMessages)
 	props["EnablePreviewFeatures"] = strconv.FormatBool(*c.ServiceSettings.EnablePreviewFeatures)
 	props["EnableTutorial"] = strconv.FormatBool(*c.ServiceSettings.EnableTutorial)
-	props["ExperimentalEnableDefaultChannelLeaveJoinMessages"] = strconv.FormatBool(*c.ServiceSettings.ExperimentalEnableDefaultChannelLeaveJoinMessages)
-	props["ExperimentalGroupUnreadChannels"] = *c.ServiceSettings.ExperimentalGroupUnreadChannels
 	props["EnableSVGs"] = strconv.FormatBool(*c.ServiceSettings.EnableSVGs)
 	props["EnableMarketplace"] = strconv.FormatBool(*c.PluginSettings.EnableMarketplace)
 	props["EnableLatex"] = strconv.FormatBool(*c.ServiceSettings.EnableLatex)
@@ -51,14 +49,14 @@ func GenerateClientConfig(c *model.Config, diagnosticID string, license *model.L
 	props["ExperimentalEnablePostMetadata"] = "true"
 	props["ExperimentalEnableClickToReply"] = strconv.FormatBool(*c.ExperimentalSettings.EnableClickToReply)
 
-	if *c.ServiceSettings.ExperimentalChannelOrganization || *c.ServiceSettings.ExperimentalGroupUnreadChannels != model.GROUP_UNREAD_CHANNELS_DISABLED {
-		props["ExperimentalChannelOrganization"] = strconv.FormatBool(true)
+	if *c.ServiceSettings.ExperimentalClassOrganization {
+		props["ExperimentalClassOrganization"] = strconv.FormatBool(true)
 	} else {
-		props["ExperimentalChannelOrganization"] = strconv.FormatBool(false)
+		props["ExperimentalClassOrganization"] = strconv.FormatBool(false)
 	}
 
-	props["ExperimentalChannelSidebarOrganization"] = *c.ServiceSettings.ExperimentalChannelSidebarOrganization
-	props["ExperimentalEnableAutomaticReplies"] = strconv.FormatBool(*c.TeamSettings.ExperimentalEnableAutomaticReplies)
+	props["ExperimentalClassSidebarOrganization"] = *c.ServiceSettings.ExperimentalClassSidebarOrganization
+	props["ExperimentalEnableAutomaticReplies"] = strconv.FormatBool(*c.BranchSettings.ExperimentalEnableAutomaticReplies)
 	props["ExperimentalTimezone"] = strconv.FormatBool(*c.DisplaySettings.ExperimentalTimezone)
 
 	props["SendEmailNotifications"] = strconv.FormatBool(*c.EmailSettings.SendEmailNotifications)
@@ -82,11 +80,11 @@ func GenerateClientConfig(c *model.Config, diagnosticID string, license *model.L
 	props["GfycatApiSecret"] = *c.ServiceSettings.GfycatApiSecret
 	props["MaxFileSize"] = strconv.FormatInt(*c.FileSettings.MaxFileSize, 10)
 
-	props["MaxNotificationsPerChannel"] = strconv.FormatInt(*c.TeamSettings.MaxNotificationsPerChannel, 10)
-	props["EnableConfirmNotificationsToChannel"] = strconv.FormatBool(*c.TeamSettings.EnableConfirmNotificationsToChannel)
+	props["MaxNotificationsPerClass"] = strconv.FormatInt(*c.BranchSettings.MaxNotificationsPerClass, 10)
+	props["EnableConfirmNotificationsToClass"] = strconv.FormatBool(*c.BranchSettings.EnableConfirmNotificationsToClass)
 	props["TimeBetweenUserTypingUpdatesMilliseconds"] = strconv.FormatInt(*c.ServiceSettings.TimeBetweenUserTypingUpdatesMilliseconds, 10)
 	props["EnableUserTypingMessages"] = strconv.FormatBool(*c.ServiceSettings.EnableUserTypingMessages)
-	props["EnableChannelViewedMessages"] = strconv.FormatBool(*c.ServiceSettings.EnableChannelViewedMessages)
+	props["EnableClassViewedMessages"] = strconv.FormatBool(*c.ServiceSettings.EnableClassViewedMessages)
 
 	props["RunJobs"] = strconv.FormatBool(*c.JobSettings.RunJobs)
 
@@ -136,8 +134,8 @@ func GenerateClientConfig(c *model.Config, diagnosticID string, license *model.L
 	props["IsDefaultMarketplace"] = strconv.FormatBool(*c.PluginSettings.MarketplaceUrl == model.PLUGIN_SETTINGS_DEFAULT_MARKETPLACE_URL)
 
 	if license != nil {
-		props["ExperimentalHideTownSquareinLHS"] = strconv.FormatBool(*c.TeamSettings.ExperimentalHideTownSquareinLHS)
-		props["ExperimentalTownSquareIsReadOnly"] = strconv.FormatBool(*c.TeamSettings.ExperimentalTownSquareIsReadOnly)
+		props["ExperimentalHideTownSquareinLHS"] = strconv.FormatBool(*c.BranchSettings.ExperimentalHideTownSquareinLHS)
+		props["ExperimentalTownSquareIsReadOnly"] = strconv.FormatBool(*c.BranchSettings.ExperimentalTownSquareIsReadOnly)
 		props["ExperimentalEnableAuthenticationTransfer"] = strconv.FormatBool(*c.ServiceSettings.ExperimentalEnableAuthenticationTransfer)
 
 		if *license.Features.LDAP {
@@ -211,12 +209,12 @@ func GenerateLimitedClientConfig(c *model.Config, diagnosticID string, license *
 
 	props["EnableBotAccountCreation"] = strconv.FormatBool(*c.ServiceSettings.EnableBotAccountCreation)
 
-	props["SiteName"] = *c.TeamSettings.SiteName
+	props["SiteName"] = *c.BranchSettings.SiteName
 	props["WebsocketURL"] = strings.TrimRight(*c.ServiceSettings.WebsocketURL, "/")
 	props["WebsocketPort"] = fmt.Sprintf("%v", *c.ServiceSettings.WebsocketPort)
 	props["WebsocketSecurePort"] = fmt.Sprintf("%v", *c.ServiceSettings.WebsocketSecurePort)
-	props["EnableUserCreation"] = strconv.FormatBool(*c.TeamSettings.EnableUserCreation)
-	props["EnableOpenServer"] = strconv.FormatBool(*c.TeamSettings.EnableOpenServer)
+	props["EnableUserCreation"] = strconv.FormatBool(*c.BranchSettings.EnableUserCreation)
+	props["EnableOpenServer"] = strconv.FormatBool(*c.BranchSettings.EnableOpenServer)
 
 	props["AndroidLatestVersion"] = c.ClientRequirements.AndroidLatestVersion
 	props["AndroidMinVersion"] = c.ClientRequirements.AndroidMinVersion
@@ -274,9 +272,9 @@ func GenerateLimitedClientConfig(c *model.Config, diagnosticID string, license *
 	props["SamlLoginButtonTextColor"] = ""
 	props["EnableSignUpWithGoogle"] = "false"
 	props["EnableSignUpWithOffice365"] = "false"
-	props["EnableCustomBrand"] = strconv.FormatBool(*c.TeamSettings.EnableCustomBrand)
-	props["CustomBrandText"] = *c.TeamSettings.CustomBrandText
-	props["CustomDescriptionText"] = *c.TeamSettings.CustomDescriptionText
+	props["EnableCustomBrand"] = strconv.FormatBool(*c.BranchSettings.EnableCustomBrand)
+	props["CustomBrandText"] = *c.BranchSettings.CustomBrandText
+	props["CustomDescriptionText"] = *c.BranchSettings.CustomDescriptionText
 	props["EnableMultifactorAuthentication"] = strconv.FormatBool(*c.ServiceSettings.EnableMultifactorAuthentication)
 	props["EnforceMultifactorAuthentication"] = "false"
 	props["EnableGuestAccounts"] = strconv.FormatBool(*c.GuestAccountsSettings.Enable)

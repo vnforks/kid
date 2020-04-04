@@ -7,8 +7,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
 )
 
 type LocalCacheRoleStore struct {
@@ -99,7 +99,7 @@ func (s LocalCacheRoleStore) ChannelHigherScopedPermissions(roleNames []string) 
 		return rolePermissionsMap.(map[string]*model.RolePermissions), nil
 	}
 
-	rolePermissionsMap, err := s.RoleStore.ChannelHigherScopedPermissions(roleNames)
+	rolePermissionsMap, err := s.RoleStore.ClassHigherScopedPermissions(roleNames)
 	if err != nil {
 		return nil, err
 	}

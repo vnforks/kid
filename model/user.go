@@ -8,7 +8,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"regexp"
@@ -17,7 +16,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/mattermost/mattermost-server/v5/services/timezones"
+	"github.com/vnforks/kid/v5/services/timezones"
 	"golang.org/x/crypto/bcrypt"
 	"golang.org/x/text/language"
 )
@@ -125,20 +124,20 @@ type UserForIndexing struct {
 	LastName    string   `json:"last_name"`
 	CreateAt    int64    `json:"create_at"`
 	DeleteAt    int64    `json:"delete_at"`
-	TeamsIds    []string `json:"team_id"`
-	ChannelsIds []string `json:"channel_id"`
+	BranchesIds []string `json:"branch_id"`
+	ClassesIds  []string `json:"class_id"`
 }
 
 type ViewUsersRestrictions struct {
-	Teams    []string
-	Channels []string
+	Branches []string
+	Classes  []string
 }
 
 func (r *ViewUsersRestrictions) Hash() string {
 	if r == nil {
 		return ""
 	}
-	ids := append(r.Teams, r.Channels...)
+	ids := append(r.Branches, r.Classes...)
 	sort.Strings(ids)
 	hash := sha256.New()
 	hash.Write([]byte(strings.Join(ids, "")))
@@ -793,12 +792,6 @@ func CleanUsername(s string) string {
 	return s
 }
 
-func IsValidUserNotifyLevel(notifyLevel string) bool {
-	return notifyLevel == CHANNEL_NOTIFY_ALL ||
-		notifyLevel == CHANNEL_NOTIFY_MENTION ||
-		notifyLevel == CHANNEL_NOTIFY_NONE
-}
-
 func IsValidPushStatusNotifyLevel(notifyLevel string) bool {
 	return notifyLevel == STATUS_ONLINE ||
 		notifyLevel == STATUS_AWAY ||
@@ -827,38 +820,6 @@ func IsValidLocale(locale string) bool {
 	}
 
 	return true
-}
-
-type UserWithGroups struct {
-	User
-	GroupIDs    *string  `json:"-"`
-	Groups      []*Group `json:"groups"`
-	SchemeGuest bool     `json:"scheme_guest"`
-	SchemeUser  bool     `json:"scheme_user"`
-	SchemeAdmin bool     `json:"scheme_admin"`
-}
-
-func (u *UserWithGroups) GetGroupIDs() []string {
-	if u.GroupIDs == nil {
-		return nil
-	}
-	trimmed := strings.TrimSpace(*u.GroupIDs)
-	if len(trimmed) == 0 {
-		return nil
-	}
-	return strings.Split(trimmed, ",")
-}
-
-type UsersWithGroupsAndCount struct {
-	Users []*UserWithGroups `json:"users"`
-	Count int64             `json:"total_count"`
-}
-
-func UsersWithGroupsAndCountFromJson(data io.Reader) *UsersWithGroupsAndCount {
-	uwg := &UsersWithGroupsAndCount{}
-	bodyBytes, _ := ioutil.ReadAll(data)
-	json.Unmarshal(bodyBytes, uwg)
-	return uwg
 }
 
 var passwordRandomSource = rand.NewSource(time.Now().Unix())

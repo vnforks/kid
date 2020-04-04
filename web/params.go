@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/gorilla/mux"
-	"github.com/mattermost/mattermost-server/v5/model"
 )
 
 const (
@@ -24,7 +23,7 @@ const (
 
 type Params struct {
 	UserId                 string
-	TeamId                 string
+	BranchId               string
 	InviteId               string
 	TokenId                string
 	ChannelId              string
@@ -39,7 +38,7 @@ type Params struct {
 	AppId                  string
 	Email                  string
 	Username               string
-	TeamName               string
+	BranchName             string
 	ChannelName            string
 	PreferenceName         string
 	EmojiName              string
@@ -59,12 +58,11 @@ type Params struct {
 	Permanent              bool
 	RemoteId               string
 	SyncableId             string
-	SyncableType           model.GroupSyncableType
 	BotUserId              string
 	Q                      string
 	IsLinked               *bool
 	IsConfigured           *bool
-	NotAssociatedToTeam    string
+	NotAssociatedToBranch  string
 	NotAssociatedToChannel string
 	Paginate               *bool
 	IncludeMemberCount     bool
@@ -87,8 +85,8 @@ func ParamsFromRequest(r *http.Request) *Params {
 		params.UserId = val
 	}
 
-	if val, ok := props["team_id"]; ok {
-		params.TeamId = val
+	if val, ok := props["branch_id"]; ok {
+		params.BranchId = val
 	}
 
 	if val, ok := props["invite_id"]; ok {
@@ -147,8 +145,8 @@ func ParamsFromRequest(r *http.Request) *Params {
 		params.Username = val
 	}
 
-	if val, ok := props["team_name"]; ok {
-		params.TeamName = strings.ToLower(val)
+	if val, ok := props["branch_name"]; ok {
+		params.BranchName = strings.ToLower(val)
 	}
 
 	if val, ok := props["channel_name"]; ok {
@@ -251,15 +249,6 @@ func ParamsFromRequest(r *http.Request) *Params {
 		params.SyncableId = val
 	}
 
-	if val, ok := props["syncable_type"]; ok {
-		switch val {
-		case "teams":
-			params.SyncableType = model.GroupSyncableTypeTeam
-		case "channels":
-			params.SyncableType = model.GroupSyncableTypeChannel
-		}
-	}
-
 	if val, ok := props["bot_user_id"]; ok {
 		params.BotUserId = val
 	}
@@ -274,7 +263,7 @@ func ParamsFromRequest(r *http.Request) *Params {
 		params.IsConfigured = &val
 	}
 
-	params.NotAssociatedToTeam = query.Get("not_associated_to_team")
+	params.NotAssociatedToBranch = query.Get("not_associated_to_branch")
 	params.NotAssociatedToChannel = query.Get("not_associated_to_channel")
 
 	if val, err := strconv.ParseBool(query.Get("paginate")); err == nil {

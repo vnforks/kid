@@ -44,23 +44,23 @@ const (
 	SERVICE_GOOGLE    = "google"
 	SERVICE_OFFICE365 = "office365"
 
-	GENERIC_NO_CHANNEL_NOTIFICATION = "generic_no_channel"
-	GENERIC_NOTIFICATION            = "generic"
-	GENERIC_NOTIFICATION_SERVER     = "https://push-test.mattermost.com"
-	FULL_NOTIFICATION               = "full"
-	ID_LOADED_NOTIFICATION          = "id_loaded"
+	GENERIC_NO_CLASS_NOTIFICATION = "generic_no_class"
+	GENERIC_NOTIFICATION          = "generic"
+	GENERIC_NOTIFICATION_SERVER   = "https://push-test.mattermost.com"
+	FULL_NOTIFICATION             = "full"
+	ID_LOADED_NOTIFICATION        = "id_loaded"
 
-	DIRECT_MESSAGE_ANY  = "any"
-	DIRECT_MESSAGE_TEAM = "team"
+	DIRECT_MESSAGE_ANY    = "any"
+	DIRECT_MESSAGE_BRANCH = "branch"
 
 	SHOW_USERNAME          = "username"
 	SHOW_NICKNAME_FULLNAME = "nickname_full_name"
 	SHOW_FULLNAME          = "full_name"
 
-	PERMISSIONS_ALL           = "all"
-	PERMISSIONS_CHANNEL_ADMIN = "channel_admin"
-	PERMISSIONS_TEAM_ADMIN    = "team_admin"
-	PERMISSIONS_SYSTEM_ADMIN  = "system_admin"
+	PERMISSIONS_ALL          = "all"
+	PERMISSIONS_CLASS_ADMIN  = "class_admin"
+	PERMISSIONS_BRANCH_ADMIN = "branch_admin"
+	PERMISSIONS_SYSTEM_ADMIN = "system_admin"
 
 	FAKE_SETTING = "********************************"
 
@@ -69,16 +69,16 @@ const (
 	RESTRICT_EMOJI_CREATION_SYSTEM_ADMIN = "system_admin"
 
 	PERMISSIONS_DELETE_POST_ALL          = "all"
-	PERMISSIONS_DELETE_POST_TEAM_ADMIN   = "team_admin"
+	PERMISSIONS_DELETE_POST_BRANCH_ADMIN = "branch_admin"
 	PERMISSIONS_DELETE_POST_SYSTEM_ADMIN = "system_admin"
 
 	ALLOW_EDIT_POST_ALWAYS     = "always"
 	ALLOW_EDIT_POST_NEVER      = "never"
 	ALLOW_EDIT_POST_TIME_LIMIT = "time_limit"
 
-	GROUP_UNREAD_CHANNELS_DISABLED    = "disabled"
-	GROUP_UNREAD_CHANNELS_DEFAULT_ON  = "default_on"
-	GROUP_UNREAD_CHANNELS_DEFAULT_OFF = "default_off"
+	GROUP_UNREAD_CLASSES_DISABLED    = "disabled"
+	GROUP_UNREAD_CLASSES_DEFAULT_ON  = "default_on"
+	GROUP_UNREAD_CLASSES_DEFAULT_OFF = "default_off"
 
 	EMAIL_BATCHING_BUFFER_SIZE = 256
 	EMAIL_BATCHING_INTERVAL    = 30
@@ -100,11 +100,11 @@ const (
 	SERVICE_SETTINGS_DEFAULT_GFYCAT_API_KEY     = "2_KtH_W5"
 	SERVICE_SETTINGS_DEFAULT_GFYCAT_API_SECRET  = "3wLVZPiswc3DnaiaFoLkDvB4X0IV6CpMkj4tf2inJRsBY6-FnkT08zGmppWFgeof"
 
-	TEAM_SETTINGS_DEFAULT_SITE_NAME                = "Mattermost"
-	TEAM_SETTINGS_DEFAULT_MAX_USERS_PER_TEAM       = 50
-	TEAM_SETTINGS_DEFAULT_CUSTOM_BRAND_TEXT        = ""
-	TEAM_SETTINGS_DEFAULT_CUSTOM_DESCRIPTION_TEXT  = ""
-	TEAM_SETTINGS_DEFAULT_USER_STATUS_AWAY_TIMEOUT = 300
+	BRANCH_SETTINGS_DEFAULT_SITE_NAME                = "Mattermost"
+	BRANCH_SETTINGS_DEFAULT_MAX_USERS_PER_BRANCH     = 50
+	BRANCH_SETTINGS_DEFAULT_CUSTOM_BRAND_TEXT        = ""
+	BRANCH_SETTINGS_DEFAULT_CUSTOM_DESCRIPTION_TEXT  = ""
+	BRANCH_SETTINGS_DEFAULT_USER_STATUS_AWAY_TIMEOUT = 300
 
 	SQL_SETTINGS_DEFAULT_DATA_SOURCE = "mmuser:mostest@tcp(localhost:3306)/mattermost_test?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s"
 
@@ -162,15 +162,15 @@ const (
 	ANNOUNCEMENT_SETTINGS_DEFAULT_BANNER_COLOR      = "#f2a93b"
 	ANNOUNCEMENT_SETTINGS_DEFAULT_BANNER_TEXT_COLOR = "#333333"
 
-	TEAM_SETTINGS_DEFAULT_TEAM_TEXT = "default"
+	BRANCH_SETTINGS_DEFAULT_BRANCH_TEXT = "default"
 
 	ELASTICSEARCH_SETTINGS_DEFAULT_CONNECTION_URL                    = "http://localhost:9200"
 	ELASTICSEARCH_SETTINGS_DEFAULT_USERNAME                          = "elastic"
 	ELASTICSEARCH_SETTINGS_DEFAULT_PASSWORD                          = "changeme"
 	ELASTICSEARCH_SETTINGS_DEFAULT_POST_INDEX_REPLICAS               = 1
 	ELASTICSEARCH_SETTINGS_DEFAULT_POST_INDEX_SHARDS                 = 1
-	ELASTICSEARCH_SETTINGS_DEFAULT_CHANNEL_INDEX_REPLICAS            = 1
-	ELASTICSEARCH_SETTINGS_DEFAULT_CHANNEL_INDEX_SHARDS              = 1
+	ELASTICSEARCH_SETTINGS_DEFAULT_CLASS_INDEX_REPLICAS              = 1
+	ELASTICSEARCH_SETTINGS_DEFAULT_CLASS_INDEX_SHARDS                = 1
 	ELASTICSEARCH_SETTINGS_DEFAULT_USER_INDEX_REPLICAS               = 1
 	ELASTICSEARCH_SETTINGS_DEFAULT_USER_INDEX_SHARDS                 = 1
 	ELASTICSEARCH_SETTINGS_DEFAULT_AGGREGATE_POSTS_AFTER_DAYS        = 365
@@ -304,21 +304,21 @@ type ServiceSettings struct {
 	EnablePostSearch                                  *bool  `restricted:"true"`
 	MinimumHashtagLength                              *int   `restricted:"true"`
 	EnableUserTypingMessages                          *bool  `restricted:"true"`
-	EnableChannelViewedMessages                       *bool  `restricted:"true"`
+	EnableClassViewedMessages                         *bool  `restricted:"true"`
 	EnableUserStatuses                                *bool  `restricted:"true"`
 	ExperimentalEnableAuthenticationTransfer          *bool  `restricted:"true"`
 	ClusterLogTimeoutMilliseconds                     *int   `restricted:"true"`
 	CloseUnusedDirectMessages                         *bool
 	EnablePreviewFeatures                             *bool
 	EnableTutorial                                    *bool
-	ExperimentalEnableDefaultChannelLeaveJoinMessages *bool
-	ExperimentalGroupUnreadChannels                   *string
-	ExperimentalChannelOrganization                   *bool
-	ExperimentalChannelSidebarOrganization            *string
+	ExperimentalEnableDefaultClassLeaveJoinMessages   *bool
+	ExperimentalGroupUnreadClasses                    *string
+	ExperimentalClassOrganization                     *bool
+	ExperimentalClassSidebarOrganization              *string
 	DEPRECATED_DO_NOT_USE_ImageProxyType              *string `json:"ImageProxyType" mapstructure:"ImageProxyType"`       // This field is deprecated and must not be used.
 	DEPRECATED_DO_NOT_USE_ImageProxyURL               *string `json:"ImageProxyURL" mapstructure:"ImageProxyURL"`         // This field is deprecated and must not be used.
 	DEPRECATED_DO_NOT_USE_ImageProxyOptions           *string `json:"ImageProxyOptions" mapstructure:"ImageProxyOptions"` // This field is deprecated and must not be used.
-	EnableAPITeamDeletion                             *bool
+	EnableAPIBranchDeletion                           *bool
 	ExperimentalEnableHardenedMode                    *bool
 	DisableLegacyMFA                                  *bool `restricted:"true"`
 	ExperimentalStrictCSRFEnforcement                 *bool `restricted:"true"`
@@ -501,8 +501,8 @@ func (s *ServiceSettings) SetDefaults(isUpdate bool) {
 		s.EnableUserTypingMessages = NewBool(true)
 	}
 
-	if s.EnableChannelViewedMessages == nil {
-		s.EnableChannelViewedMessages = NewBool(true)
+	if s.EnableClassViewedMessages == nil {
+		s.EnableClassViewedMessages = NewBool(true)
 	}
 
 	if s.EnableUserStatuses == nil {
@@ -635,25 +635,25 @@ func (s *ServiceSettings) SetDefaults(isUpdate bool) {
 		s.EnablePreviewFeatures = NewBool(true)
 	}
 
-	if s.ExperimentalEnableDefaultChannelLeaveJoinMessages == nil {
-		s.ExperimentalEnableDefaultChannelLeaveJoinMessages = NewBool(true)
+	if s.ExperimentalEnableDefaultClassLeaveJoinMessages == nil {
+		s.ExperimentalEnableDefaultClassLeaveJoinMessages = NewBool(true)
 	}
 
-	if s.ExperimentalGroupUnreadChannels == nil {
-		s.ExperimentalGroupUnreadChannels = NewString(GROUP_UNREAD_CHANNELS_DISABLED)
-	} else if *s.ExperimentalGroupUnreadChannels == "0" {
-		s.ExperimentalGroupUnreadChannels = NewString(GROUP_UNREAD_CHANNELS_DISABLED)
-	} else if *s.ExperimentalGroupUnreadChannels == "1" {
-		s.ExperimentalGroupUnreadChannels = NewString(GROUP_UNREAD_CHANNELS_DEFAULT_ON)
+	if s.ExperimentalGroupUnreadClasses == nil {
+		s.ExperimentalGroupUnreadClasses = NewString(GROUP_UNREAD_CLASSES_DISABLED)
+	} else if *s.ExperimentalGroupUnreadClasses == "0" {
+		s.ExperimentalGroupUnreadClasses = NewString(GROUP_UNREAD_CLASSES_DISABLED)
+	} else if *s.ExperimentalGroupUnreadClasses == "1" {
+		s.ExperimentalGroupUnreadClasses = NewString(GROUP_UNREAD_CLASSES_DEFAULT_ON)
 	}
 
-	if s.ExperimentalChannelOrganization == nil {
-		experimentalUnreadEnabled := *s.ExperimentalGroupUnreadChannels != GROUP_UNREAD_CHANNELS_DISABLED
-		s.ExperimentalChannelOrganization = NewBool(experimentalUnreadEnabled)
+	if s.ExperimentalClassOrganization == nil {
+		experimentalUnreadEnabled := *s.ExperimentalGroupUnreadClasses != GROUP_UNREAD_CLASSES_DISABLED
+		s.ExperimentalClassOrganization = NewBool(experimentalUnreadEnabled)
 	}
 
-	if s.ExperimentalChannelSidebarOrganization == nil {
-		s.ExperimentalChannelSidebarOrganization = NewString("disabled")
+	if s.ExperimentalClassSidebarOrganization == nil {
+		s.ExperimentalClassSidebarOrganization = NewString("disabled")
 	}
 
 	if s.DEPRECATED_DO_NOT_USE_ImageProxyType == nil {
@@ -668,8 +668,8 @@ func (s *ServiceSettings) SetDefaults(isUpdate bool) {
 		s.DEPRECATED_DO_NOT_USE_ImageProxyOptions = NewString("")
 	}
 
-	if s.EnableAPITeamDeletion == nil {
-		s.EnableAPITeamDeletion = NewBool(false)
+	if s.EnableAPIBranchDeletion == nil {
+		s.EnableAPIBranchDeletion = NewBool(false)
 	}
 
 	if s.ExperimentalEnableHardenedMode == nil {
@@ -1311,7 +1311,7 @@ type EmailSettings struct {
 	EnableSignInWithEmail             *bool
 	EnableSignInWithUsername          *bool
 	SendEmailNotifications            *bool
-	UseChannelInEmailNotifications    *bool
+	UseClassInEmailNotifications      *bool
 	RequireEmailVerification          *bool
 	FeedbackName                      *string
 	FeedbackEmail                     *string
@@ -1355,8 +1355,8 @@ func (s *EmailSettings) SetDefaults(isUpdate bool) {
 		s.SendEmailNotifications = NewBool(true)
 	}
 
-	if s.UseChannelInEmailNotifications == nil {
-		s.UseChannelInEmailNotifications = NewBool(false)
+	if s.UseClassInEmailNotifications == nil {
+		s.UseClassInEmailNotifications = NewBool(false)
 	}
 
 	if s.RequireEmailVerification == nil {
@@ -1635,7 +1635,7 @@ func (s *ThemeSettings) SetDefaults() {
 	}
 
 	if s.DefaultTheme == nil {
-		s.DefaultTheme = NewString(TEAM_SETTINGS_DEFAULT_TEAM_TEXT)
+		s.DefaultTheme = NewString(BRANCH_SETTINGS_DEFAULT_BRANCH_TEXT)
 	}
 
 	if s.AllowCustomThemes == nil {
@@ -1647,53 +1647,53 @@ func (s *ThemeSettings) SetDefaults() {
 	}
 }
 
-type TeamSettings struct {
-	SiteName                                                  *string
-	MaxUsersPerTeam                                           *int
-	DEPRECATED_DO_NOT_USE_EnableTeamCreation                  *bool `json:"EnableTeamCreation" mapstructure:"EnableTeamCreation"` // This field is deprecated and must not be used.
-	EnableUserCreation                                        *bool
-	EnableOpenServer                                          *bool
-	EnableUserDeactivation                                    *bool
-	RestrictCreationToDomains                                 *string
-	EnableCustomBrand                                         *bool
-	CustomBrandText                                           *string
-	CustomDescriptionText                                     *string
-	RestrictDirectMessage                                     *string
-	DEPRECATED_DO_NOT_USE_RestrictTeamInvite                  *string `json:"RestrictTeamInvite" mapstructure:"RestrictTeamInvite"`                                   // This field is deprecated and must not be used.
-	DEPRECATED_DO_NOT_USE_RestrictPublicChannelManagement     *string `json:"RestrictPublicChannelManagement" mapstructure:"RestrictPublicChannelManagement"`         // This field is deprecated and must not be used.
-	DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManagement    *string `json:"RestrictPrivateChannelManagement" mapstructure:"RestrictPrivateChannelManagement"`       // This field is deprecated and must not be used.
-	DEPRECATED_DO_NOT_USE_RestrictPublicChannelCreation       *string `json:"RestrictPublicChannelCreation" mapstructure:"RestrictPublicChannelCreation"`             // This field is deprecated and must not be used.
-	DEPRECATED_DO_NOT_USE_RestrictPrivateChannelCreation      *string `json:"RestrictPrivateChannelCreation" mapstructure:"RestrictPrivateChannelCreation"`           // This field is deprecated and must not be used.
-	DEPRECATED_DO_NOT_USE_RestrictPublicChannelDeletion       *string `json:"RestrictPublicChannelDeletion" mapstructure:"RestrictPublicChannelDeletion"`             // This field is deprecated and must not be used.
-	DEPRECATED_DO_NOT_USE_RestrictPrivateChannelDeletion      *string `json:"RestrictPrivateChannelDeletion" mapstructure:"RestrictPrivateChannelDeletion"`           // This field is deprecated and must not be used.
-	DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManageMembers *string `json:"RestrictPrivateChannelManageMembers" mapstructure:"RestrictPrivateChannelManageMembers"` // This field is deprecated and must not be used.
-	EnableXToLeaveChannelsFromLHS                             *bool
-	UserStatusAwayTimeout                                     *int64
-	MaxChannelsPerTeam                                        *int64
-	MaxNotificationsPerChannel                                *int64
-	EnableConfirmNotificationsToChannel                       *bool
-	TeammateNameDisplay                                       *string
-	ExperimentalViewArchivedChannels                          *bool
-	ExperimentalEnableAutomaticReplies                        *bool
-	ExperimentalHideTownSquareinLHS                           *bool
-	ExperimentalTownSquareIsReadOnly                          *bool
-	LockTeammateNameDisplay                                   *bool
-	ExperimentalPrimaryTeam                                   *string
-	ExperimentalDefaultChannels                               []string
+type BranchSettings struct {
+	SiteName                                                *string
+	MaxUsersPerBranch                                       *int
+	DEPRECATED_DO_NOT_USE_EnableBranchCreation              *bool `json:"EnableBranchCreation" mapstructure:"EnableBranchCreation"` // This field is deprecated and must not be used.
+	EnableUserCreation                                      *bool
+	EnableOpenServer                                        *bool
+	EnableUserDeactivation                                  *bool
+	RestrictCreationToDomains                               *string
+	EnableCustomBrand                                       *bool
+	CustomBrandText                                         *string
+	CustomDescriptionText                                   *string
+	RestrictDirectMessage                                   *string
+	DEPRECATED_DO_NOT_USE_RestrictBranchInvite              *string `json:"RestrictBranchInvite" mapstructure:"RestrictBranchInvite"`                           // This field is deprecated and must not be used.
+	DEPRECATED_DO_NOT_USE_RestrictPublicClassManagement     *string `json:"RestrictPublicClassManagement" mapstructure:"RestrictPublicClassManagement"`         // This field is deprecated and must not be used.
+	DEPRECATED_DO_NOT_USE_RestrictPrivateClassManagement    *string `json:"RestrictPrivateClassManagement" mapstructure:"RestrictPrivateClassManagement"`       // This field is deprecated and must not be used.
+	DEPRECATED_DO_NOT_USE_RestrictPublicClassCreation       *string `json:"RestrictPublicClassCreation" mapstructure:"RestrictPublicClassCreation"`             // This field is deprecated and must not be used.
+	DEPRECATED_DO_NOT_USE_RestrictPrivateClassCreation      *string `json:"RestrictPrivateClassCreation" mapstructure:"RestrictPrivateClassCreation"`           // This field is deprecated and must not be used.
+	DEPRECATED_DO_NOT_USE_RestrictPublicClassDeletion       *string `json:"RestrictPublicClassDeletion" mapstructure:"RestrictPublicClassDeletion"`             // This field is deprecated and must not be used.
+	DEPRECATED_DO_NOT_USE_RestrictPrivateClassDeletion      *string `json:"RestrictPrivateClassDeletion" mapstructure:"RestrictPrivateClassDeletion"`           // This field is deprecated and must not be used.
+	DEPRECATED_DO_NOT_USE_RestrictPrivateClassManageMembers *string `json:"RestrictPrivateClassManageMembers" mapstructure:"RestrictPrivateClassManageMembers"` // This field is deprecated and must not be used.
+	EnableXToLeaveClassesFromLHS                            *bool
+	UserStatusAwayTimeout                                   *int64
+	MaxClassesPerBranch                                     *int64
+	MaxNotificationsPerClass                                *int64
+	EnableConfirmNotificationsToClass                       *bool
+	BranchmateNameDisplay                                   *string
+	ExperimentalViewArchivedClasses                         *bool
+	ExperimentalEnableAutomaticReplies                      *bool
+	ExperimentalHideTownSquareinLHS                         *bool
+	ExperimentalTownSquareIsReadOnly                        *bool
+	LockBranchmateNameDisplay                               *bool
+	ExperimentalPrimaryBranch                               *string
+	ExperimentalDefaultClasses                              []string
 }
 
-func (s *TeamSettings) SetDefaults() {
+func (s *BranchSettings) SetDefaults() {
 
 	if s.SiteName == nil || *s.SiteName == "" {
-		s.SiteName = NewString(TEAM_SETTINGS_DEFAULT_SITE_NAME)
+		s.SiteName = NewString(BRANCH_SETTINGS_DEFAULT_SITE_NAME)
 	}
 
-	if s.MaxUsersPerTeam == nil {
-		s.MaxUsersPerTeam = NewInt(TEAM_SETTINGS_DEFAULT_MAX_USERS_PER_TEAM)
+	if s.MaxUsersPerBranch == nil {
+		s.MaxUsersPerBranch = NewInt(BRANCH_SETTINGS_DEFAULT_MAX_USERS_PER_BRANCH)
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_EnableTeamCreation == nil {
-		s.DEPRECATED_DO_NOT_USE_EnableTeamCreation = NewBool(true)
+	if s.DEPRECATED_DO_NOT_USE_EnableBranchCreation == nil {
+		s.DEPRECATED_DO_NOT_USE_EnableBranchCreation = NewBool(true)
 	}
 
 	if s.EnableUserCreation == nil {
@@ -1717,80 +1717,80 @@ func (s *TeamSettings) SetDefaults() {
 	}
 
 	if s.CustomBrandText == nil {
-		s.CustomBrandText = NewString(TEAM_SETTINGS_DEFAULT_CUSTOM_BRAND_TEXT)
+		s.CustomBrandText = NewString(BRANCH_SETTINGS_DEFAULT_CUSTOM_BRAND_TEXT)
 	}
 
 	if s.CustomDescriptionText == nil {
-		s.CustomDescriptionText = NewString(TEAM_SETTINGS_DEFAULT_CUSTOM_DESCRIPTION_TEXT)
+		s.CustomDescriptionText = NewString(BRANCH_SETTINGS_DEFAULT_CUSTOM_DESCRIPTION_TEXT)
 	}
 
 	if s.RestrictDirectMessage == nil {
 		s.RestrictDirectMessage = NewString(DIRECT_MESSAGE_ANY)
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_RestrictTeamInvite == nil {
-		s.DEPRECATED_DO_NOT_USE_RestrictTeamInvite = NewString(PERMISSIONS_ALL)
+	if s.DEPRECATED_DO_NOT_USE_RestrictBranchInvite == nil {
+		s.DEPRECATED_DO_NOT_USE_RestrictBranchInvite = NewString(PERMISSIONS_ALL)
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelManagement == nil {
-		s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelManagement = NewString(PERMISSIONS_ALL)
+	if s.DEPRECATED_DO_NOT_USE_RestrictPublicClassManagement == nil {
+		s.DEPRECATED_DO_NOT_USE_RestrictPublicClassManagement = NewString(PERMISSIONS_ALL)
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManagement == nil {
-		s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManagement = NewString(PERMISSIONS_ALL)
+	if s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassManagement == nil {
+		s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassManagement = NewString(PERMISSIONS_ALL)
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelCreation == nil {
-		s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelCreation = new(string)
+	if s.DEPRECATED_DO_NOT_USE_RestrictPublicClassCreation == nil {
+		s.DEPRECATED_DO_NOT_USE_RestrictPublicClassCreation = new(string)
 		// If this setting does not exist, assume migration from <3.6, so use management setting as default.
-		if *s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelManagement == PERMISSIONS_CHANNEL_ADMIN {
-			*s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelCreation = PERMISSIONS_TEAM_ADMIN
+		if *s.DEPRECATED_DO_NOT_USE_RestrictPublicClassManagement == PERMISSIONS_CLASS_ADMIN {
+			*s.DEPRECATED_DO_NOT_USE_RestrictPublicClassCreation = PERMISSIONS_BRANCH_ADMIN
 		} else {
-			*s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelCreation = *s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelManagement
+			*s.DEPRECATED_DO_NOT_USE_RestrictPublicClassCreation = *s.DEPRECATED_DO_NOT_USE_RestrictPublicClassManagement
 		}
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelCreation == nil {
+	if s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassCreation == nil {
 		// If this setting does not exist, assume migration from <3.6, so use management setting as default.
-		if *s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManagement == PERMISSIONS_CHANNEL_ADMIN {
-			s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelCreation = NewString(PERMISSIONS_TEAM_ADMIN)
+		if *s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassManagement == PERMISSIONS_CLASS_ADMIN {
+			s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassCreation = NewString(PERMISSIONS_BRANCH_ADMIN)
 		} else {
-			s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelCreation = NewString(*s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManagement)
+			s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassCreation = NewString(*s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassManagement)
 		}
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelDeletion == nil {
+	if s.DEPRECATED_DO_NOT_USE_RestrictPublicClassDeletion == nil {
 		// If this setting does not exist, assume migration from <3.6, so use management setting as default.
-		s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelDeletion = NewString(*s.DEPRECATED_DO_NOT_USE_RestrictPublicChannelManagement)
+		s.DEPRECATED_DO_NOT_USE_RestrictPublicClassDeletion = NewString(*s.DEPRECATED_DO_NOT_USE_RestrictPublicClassManagement)
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelDeletion == nil {
+	if s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassDeletion == nil {
 		// If this setting does not exist, assume migration from <3.6, so use management setting as default.
-		s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelDeletion = NewString(*s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManagement)
+		s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassDeletion = NewString(*s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassManagement)
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManageMembers == nil {
-		s.DEPRECATED_DO_NOT_USE_RestrictPrivateChannelManageMembers = NewString(PERMISSIONS_ALL)
+	if s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassManageMembers == nil {
+		s.DEPRECATED_DO_NOT_USE_RestrictPrivateClassManageMembers = NewString(PERMISSIONS_ALL)
 	}
 
-	if s.EnableXToLeaveChannelsFromLHS == nil {
-		s.EnableXToLeaveChannelsFromLHS = NewBool(false)
+	if s.EnableXToLeaveClassesFromLHS == nil {
+		s.EnableXToLeaveClassesFromLHS = NewBool(false)
 	}
 
 	if s.UserStatusAwayTimeout == nil {
-		s.UserStatusAwayTimeout = NewInt64(TEAM_SETTINGS_DEFAULT_USER_STATUS_AWAY_TIMEOUT)
+		s.UserStatusAwayTimeout = NewInt64(BRANCH_SETTINGS_DEFAULT_USER_STATUS_AWAY_TIMEOUT)
 	}
 
-	if s.MaxChannelsPerTeam == nil {
-		s.MaxChannelsPerTeam = NewInt64(2000)
+	if s.MaxClassesPerBranch == nil {
+		s.MaxClassesPerBranch = NewInt64(2000)
 	}
 
-	if s.MaxNotificationsPerChannel == nil {
-		s.MaxNotificationsPerChannel = NewInt64(1000)
+	if s.MaxNotificationsPerClass == nil {
+		s.MaxNotificationsPerClass = NewInt64(1000)
 	}
 
-	if s.EnableConfirmNotificationsToChannel == nil {
-		s.EnableConfirmNotificationsToChannel = NewBool(true)
+	if s.EnableConfirmNotificationsToClass == nil {
+		s.EnableConfirmNotificationsToClass = NewBool(true)
 	}
 
 	if s.ExperimentalEnableAutomaticReplies == nil {
@@ -1805,28 +1805,28 @@ func (s *TeamSettings) SetDefaults() {
 		s.ExperimentalTownSquareIsReadOnly = NewBool(false)
 	}
 
-	if s.ExperimentalPrimaryTeam == nil {
-		s.ExperimentalPrimaryTeam = NewString("")
+	if s.ExperimentalPrimaryBranch == nil {
+		s.ExperimentalPrimaryBranch = NewString("")
 	}
 
-	if s.ExperimentalDefaultChannels == nil {
-		s.ExperimentalDefaultChannels = []string{}
+	if s.ExperimentalDefaultClasses == nil {
+		s.ExperimentalDefaultClasses = []string{}
 	}
 
-	if s.DEPRECATED_DO_NOT_USE_EnableTeamCreation == nil {
-		s.DEPRECATED_DO_NOT_USE_EnableTeamCreation = NewBool(true)
+	if s.DEPRECATED_DO_NOT_USE_EnableBranchCreation == nil {
+		s.DEPRECATED_DO_NOT_USE_EnableBranchCreation = NewBool(true)
 	}
 
 	if s.EnableUserCreation == nil {
 		s.EnableUserCreation = NewBool(true)
 	}
 
-	if s.ExperimentalViewArchivedChannels == nil {
-		s.ExperimentalViewArchivedChannels = NewBool(false)
+	if s.ExperimentalViewArchivedClasses == nil {
+		s.ExperimentalViewArchivedClasses = NewBool(false)
 	}
 
-	if s.LockTeammateNameDisplay == nil {
-		s.LockTeammateNameDisplay = NewBool(false)
+	if s.LockBranchmateNameDisplay == nil {
+		s.LockBranchmateNameDisplay = NewBool(false)
 	}
 }
 
@@ -2265,8 +2265,8 @@ type ElasticsearchSettings struct {
 	Sniff                         *bool   `restricted:"true"`
 	PostIndexReplicas             *int    `restricted:"true"`
 	PostIndexShards               *int    `restricted:"true"`
-	ChannelIndexReplicas          *int    `restricted:"true"`
-	ChannelIndexShards            *int    `restricted:"true"`
+	ClassIndexReplicas            *int    `restricted:"true"`
+	ClassIndexShards              *int    `restricted:"true"`
 	UserIndexReplicas             *int    `restricted:"true"`
 	UserIndexShards               *int    `restricted:"true"`
 	AggregatePostsAfterDays       *int    `restricted:"true"`
@@ -2316,12 +2316,12 @@ func (s *ElasticsearchSettings) SetDefaults() {
 		s.PostIndexShards = NewInt(ELASTICSEARCH_SETTINGS_DEFAULT_POST_INDEX_SHARDS)
 	}
 
-	if s.ChannelIndexReplicas == nil {
-		s.ChannelIndexReplicas = NewInt(ELASTICSEARCH_SETTINGS_DEFAULT_CHANNEL_INDEX_REPLICAS)
+	if s.ClassIndexReplicas == nil {
+		s.ClassIndexReplicas = NewInt(ELASTICSEARCH_SETTINGS_DEFAULT_CLASS_INDEX_REPLICAS)
 	}
 
-	if s.ChannelIndexShards == nil {
-		s.ChannelIndexShards = NewInt(ELASTICSEARCH_SETTINGS_DEFAULT_CHANNEL_INDEX_SHARDS)
+	if s.ClassIndexShards == nil {
+		s.ClassIndexShards = NewInt(ELASTICSEARCH_SETTINGS_DEFAULT_CLASS_INDEX_SHARDS)
 	}
 
 	if s.UserIndexReplicas == nil {
@@ -2640,7 +2640,7 @@ type ConfigFunc func() *Config
 
 type Config struct {
 	ServiceSettings           ServiceSettings
-	TeamSettings              TeamSettings
+	BranchSettings            BranchSettings
 	ClientRequirements        ClientRequirements
 	SqlSettings               SqlSettings
 	LogSettings               LogSettings
@@ -2719,11 +2719,11 @@ func (o *Config) SetDefaults() {
 	o.LdapSettings.SetDefaults()
 	o.SamlSettings.SetDefaults()
 
-	if o.TeamSettings.TeammateNameDisplay == nil {
-		o.TeamSettings.TeammateNameDisplay = NewString(SHOW_USERNAME)
+	if o.BranchSettings.BranchmateNameDisplay == nil {
+		o.BranchSettings.BranchmateNameDisplay = NewString(SHOW_USERNAME)
 
 		if *o.SamlSettings.Enable || *o.LdapSettings.Enable {
-			*o.TeamSettings.TeammateNameDisplay = SHOW_FULLNAME
+			*o.BranchSettings.BranchmateNameDisplay = SHOW_FULLNAME
 		}
 	}
 
@@ -2736,7 +2736,7 @@ func (o *Config) SetDefaults() {
 	o.GoogleSettings.setDefaults(GOOGLE_SETTINGS_DEFAULT_SCOPE, GOOGLE_SETTINGS_DEFAULT_AUTH_ENDPOINT, GOOGLE_SETTINGS_DEFAULT_TOKEN_ENDPOINT, GOOGLE_SETTINGS_DEFAULT_USER_API_ENDPOINT)
 	o.ServiceSettings.SetDefaults(isUpdate)
 	o.PasswordSettings.SetDefaults()
-	o.TeamSettings.SetDefaults()
+	o.BranchSettings.SetDefaults()
 	o.MetricsSettings.SetDefaults()
 	o.ExperimentalSettings.SetDefaults()
 	o.SupportSettings.SetDefaults()
@@ -2774,7 +2774,7 @@ func (o *Config) IsValid() *AppError {
 		return NewAppError("Config.IsValid", "model.config.is_valid.allow_cookies_for_subdomains.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if err := o.TeamSettings.isValid(); err != nil {
+	if err := o.BranchSettings.isValid(); err != nil {
 		return err
 	}
 
@@ -2836,25 +2836,25 @@ func (o *Config) IsValid() *AppError {
 	return nil
 }
 
-func (s *TeamSettings) isValid() *AppError {
-	if *s.MaxUsersPerTeam <= 0 {
+func (s *BranchSettings) isValid() *AppError {
+	if *s.MaxUsersPerBranch <= 0 {
 		return NewAppError("Config.IsValid", "model.config.is_valid.max_users.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if *s.MaxChannelsPerTeam <= 0 {
-		return NewAppError("Config.IsValid", "model.config.is_valid.max_channels.app_error", nil, "", http.StatusBadRequest)
+	if *s.MaxClassesPerBranch <= 0 {
+		return NewAppError("Config.IsValid", "model.config.is_valid.max_classes.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if *s.MaxNotificationsPerChannel <= 0 {
-		return NewAppError("Config.IsValid", "model.config.is_valid.max_notify_per_channel.app_error", nil, "", http.StatusBadRequest)
+	if *s.MaxNotificationsPerClass <= 0 {
+		return NewAppError("Config.IsValid", "model.config.is_valid.max_notify_per_class.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if !(*s.RestrictDirectMessage == DIRECT_MESSAGE_ANY || *s.RestrictDirectMessage == DIRECT_MESSAGE_TEAM) {
+	if !(*s.RestrictDirectMessage == DIRECT_MESSAGE_ANY || *s.RestrictDirectMessage == DIRECT_MESSAGE_BRANCH) {
 		return NewAppError("Config.IsValid", "model.config.is_valid.restrict_direct_message.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if !(*s.TeammateNameDisplay == SHOW_FULLNAME || *s.TeammateNameDisplay == SHOW_NICKNAME_FULLNAME || *s.TeammateNameDisplay == SHOW_USERNAME) {
-		return NewAppError("Config.IsValid", "model.config.is_valid.teammate_name_display.app_error", nil, "", http.StatusBadRequest)
+	if !(*s.BranchmateNameDisplay == SHOW_FULLNAME || *s.BranchmateNameDisplay == SHOW_NICKNAME_FULLNAME || *s.BranchmateNameDisplay == SHOW_USERNAME) {
+		return NewAppError("Config.IsValid", "model.config.is_valid.branchmate_name_display.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	if len(*s.SiteName) > SITENAME_MAX_LENGTH {
@@ -3150,10 +3150,10 @@ func (s *ServiceSettings) isValid() *AppError {
 		return NewAppError("Config.IsValid", "model.config.is_valid.listen_address.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if *s.ExperimentalGroupUnreadChannels != GROUP_UNREAD_CHANNELS_DISABLED &&
-		*s.ExperimentalGroupUnreadChannels != GROUP_UNREAD_CHANNELS_DEFAULT_ON &&
-		*s.ExperimentalGroupUnreadChannels != GROUP_UNREAD_CHANNELS_DEFAULT_OFF {
-		return NewAppError("Config.IsValid", "model.config.is_valid.group_unread_channels.app_error", nil, "", http.StatusBadRequest)
+	if *s.ExperimentalGroupUnreadClasses != GROUP_UNREAD_CLASSES_DISABLED &&
+		*s.ExperimentalGroupUnreadClasses != GROUP_UNREAD_CLASSES_DEFAULT_ON &&
+		*s.ExperimentalGroupUnreadClasses != GROUP_UNREAD_CLASSES_DEFAULT_OFF {
+		return NewAppError("Config.IsValid", "model.config.is_valid.group_unread_classes.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	return nil

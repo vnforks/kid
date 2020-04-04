@@ -28,17 +28,17 @@ const (
 )
 
 type Session struct {
-	Id             string        `json:"id"`
-	Token          string        `json:"token"`
-	CreateAt       int64         `json:"create_at"`
-	ExpiresAt      int64         `json:"expires_at"`
-	LastActivityAt int64         `json:"last_activity_at"`
-	UserId         string        `json:"user_id"`
-	DeviceId       string        `json:"device_id"`
-	Roles          string        `json:"roles"`
-	IsOAuth        bool          `json:"is_oauth"`
-	Props          StringMap     `json:"props"`
-	TeamMembers    []*TeamMember `json:"team_members" db:"-"`
+	Id             string          `json:"id"`
+	Token          string          `json:"token"`
+	CreateAt       int64           `json:"create_at"`
+	ExpiresAt      int64           `json:"expires_at"`
+	LastActivityAt int64           `json:"last_activity_at"`
+	UserId         string          `json:"user_id"`
+	DeviceId       string          `json:"device_id"`
+	Roles          string          `json:"roles"`
+	IsOAuth        bool            `json:"is_oauth"`
+	Props          StringMap       `json:"props"`
+	BranchMembers  []*BranchMember `json:"branch_members" db:"-"`
 }
 
 func (me *Session) DeepCopy() *Session {
@@ -48,11 +48,11 @@ func (me *Session) DeepCopy() *Session {
 		copySession.Props = CopyStringMap(me.Props)
 	}
 
-	if me.TeamMembers != nil {
-		copySession.TeamMembers = make([]*TeamMember, len(me.TeamMembers))
-		for index, tm := range me.TeamMembers {
-			copySession.TeamMembers[index] = new(TeamMember)
-			*copySession.TeamMembers[index] = *tm
+	if me.BranchMembers != nil {
+		copySession.BranchMembers = make([]*BranchMember, len(me.BranchMembers))
+		for index, tm := range me.BranchMembers {
+			copySession.BranchMembers[index] = new(BranchMember)
+			*copySession.BranchMembers[index] = *tm
 		}
 	}
 
@@ -121,13 +121,12 @@ func (me *Session) AddProp(key string, value string) {
 	me.Props[key] = value
 }
 
-func (me *Session) GetTeamByTeamId(teamId string) *TeamMember {
-	for _, team := range me.TeamMembers {
-		if team.TeamId == teamId {
-			return team
+func (me *Session) GetBranchByBranchId(branchId string) *BranchMember {
+	for _, branch := range me.BranchMembers {
+		if branch.BranchId == branchId {
+			return branch
 		}
 	}
-
 	return nil
 }
 

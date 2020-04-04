@@ -27,11 +27,10 @@ import (
 	"github.com/rwcarlsen/goexif/exif"
 	_ "golang.org/x/image/bmp"
 
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/plugin"
-	"github.com/mattermost/mattermost-server/v5/services/filesstore"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/services/filesstore"
+	"github.com/vnforks/kid/v5/utils"
 )
 
 const (
@@ -513,7 +512,7 @@ type UploadFileTask struct {
 	ClientId string
 
 	// If Raw, do not execute special processing for images, just upload
-	// the file.  Plugins are still invoked.
+	// the file.
 	Raw bool
 
 	//=============================================================
@@ -533,9 +532,8 @@ type UploadFileTask struct {
 	imageOrientation int
 
 	// Testing: overrideable dependency functions
-	pluginsEnvironment *plugin.Environment
-	writeFile          func(io.Reader, string) (int64, *model.AppError)
-	saveToDatabase     func(*model.FileInfo) (*model.FileInfo, *model.AppError)
+	writeFile      func(io.Reader, string) (int64, *model.AppError)
+	saveToDatabase func(*model.FileInfo) (*model.FileInfo, *model.AppError)
 }
 
 func (t *UploadFileTask) init(a *App) {
@@ -568,16 +566,12 @@ func (t *UploadFileTask) init(a *App) {
 	}
 	t.teeInput = io.TeeReader(t.limitedInput, t.buf)
 
-	t.pluginsEnvironment = a.GetPluginsEnvironment()
 	t.writeFile = a.WriteFile
 	t.saveToDatabase = a.Srv().Store.FileInfo().Save
 }
 
 // UploadFileX uploads a single file as specified in t. It applies the upload
-// constraints, executes plugins and image processing logic as needed. It
-// returns a filled-out FileInfo and an optional error. A plugin may reject the
-// upload, returning a rejection error. In this case FileInfo would have
-// contained the last "good" FileInfo before the execution of that plugin.
+// constraints, executes processing logic as needed
 func (a *App) UploadFileX(channelId, name string, input io.Reader,
 	opts ...func(*UploadFileTask)) (*model.FileInfo, *model.AppError) {
 
@@ -609,11 +603,6 @@ func (a *App) UploadFileX(channelId, name string, input io.Reader,
 	}
 
 	aerr = t.readAll()
-	if aerr != nil {
-		return t.fileinfo, aerr
-	}
-
-	aerr = t.runPlugins()
 	if aerr != nil {
 		return t.fileinfo, aerr
 	}
@@ -662,43 +651,6 @@ func (t *UploadFileTask) readAll() *model.AppError {
 
 	t.limitedInput = nil
 	t.teeInput = nil
-	return nil
-}
-
-func (t *UploadFileTask) runPlugins() *model.AppError {
-	if t.pluginsEnvironment == nil {
-		return nil
-	}
-
-	pluginContext := &plugin.Context{}
-	var rejectionError *model.AppError
-
-	t.pluginsEnvironment.RunMultiPluginHook(func(hooks plugin.Hooks) bool {
-		buf := &bytes.Buffer{}
-		replacementInfo, rejectionReason := hooks.FileWillBeUploaded(pluginContext,
-			t.fileinfo, t.newReader(), buf)
-		if rejectionReason != "" {
-			rejectionError = t.newAppError("api.file.upload_file.rejected_by_plugin.app_error",
-				rejectionReason, http.StatusForbidden, "Reason", rejectionReason)
-			return false
-		}
-		if replacementInfo != nil {
-			t.fileinfo = replacementInfo
-		}
-		if buf.Len() != 0 {
-			t.buf = buf
-			t.teeInput = nil
-			t.limitedInput = nil
-			t.fileinfo.Size = int64(buf.Len())
-		}
-
-		return true
-	}, plugin.FileWillBeUploadedId)
-
-	if rejectionError != nil {
-		return rejectionError
-	}
-
 	return nil
 }
 
@@ -918,31 +870,6 @@ func (a *App) DoUploadFileExpectModification(now time.Time, rawTeamId string, ra
 		nameWithoutExtension := filename[:strings.LastIndex(filename, ".")]
 		info.PreviewPath = pathPrefix + nameWithoutExtension + "_preview.jpg"
 		info.ThumbnailPath = pathPrefix + nameWithoutExtension + "_thumb.jpg"
-	}
-
-	if pluginsEnvironment := a.GetPluginsEnvironment(); pluginsEnvironment != nil {
-		var rejectionError *model.AppError
-		pluginContext := a.PluginContext()
-		pluginsEnvironment.RunMultiPluginHook(func(hooks plugin.Hooks) bool {
-			var newBytes bytes.Buffer
-			replacementInfo, rejectionReason := hooks.FileWillBeUploaded(pluginContext, info, bytes.NewReader(data), &newBytes)
-			if rejectionReason != "" {
-				rejectionError = model.NewAppError("DoUploadFile", "File rejected by plugin. "+rejectionReason, nil, "", http.StatusBadRequest)
-				return false
-			}
-			if replacementInfo != nil {
-				info = replacementInfo
-			}
-			if newBytes.Len() != 0 {
-				data = newBytes.Bytes()
-				info.Size = int64(len(data))
-			}
-
-			return true
-		}, plugin.FileWillBeUploadedId)
-		if rejectionError != nil {
-			return nil, data, rejectionError
-		}
 	}
 
 	if _, err := a.WriteFile(bytes.NewReader(data), info.Path); err != nil {

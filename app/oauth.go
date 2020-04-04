@@ -15,11 +15,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v5/einterfaces"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/einterfaces"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
+	"github.com/vnforks/kid/v5/utils"
 )
 
 const (

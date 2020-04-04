@@ -9,12 +9,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/app"
-	"github.com/mattermost/mattermost-server/v5/audit"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/utils"
-	"github.com/mattermost/mattermost-server/v5/utils/fileutils"
+	"github.com/vnforks/kid/v5/app"
+	"github.com/vnforks/kid/v5/audit"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/utils"
+	"github.com/vnforks/kid/v5/utils/fileutils"
 )
 
 func (w *Web) InitOAuth() {
@@ -379,7 +379,7 @@ func signupWithOAuth(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !*c.App.Config().TeamSettings.EnableUserCreation {
+	if !*c.App.Config().BranchSettings.EnableUserCreation {
 		utils.RenderWebError(c.App.Config(), w, r, http.StatusBadRequest, url.Values{
 			"message": []string{utils.T("api.oauth.singup_with_oauth.disabled.app_error")},
 		}, c.App.AsymmetricSigningKey())

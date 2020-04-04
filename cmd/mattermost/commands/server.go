@@ -9,14 +9,13 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/mattermost/mattermost-server/v5/api4"
-	"github.com/mattermost/mattermost-server/v5/app"
-	"github.com/mattermost/mattermost-server/v5/config"
-	"github.com/mattermost/mattermost-server/v5/manualtesting"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/utils"
-	"github.com/mattermost/mattermost-server/v5/web"
-	"github.com/mattermost/mattermost-server/v5/wsapi"
+	"github.com/vnforks/kid/v5/api4"
+	"github.com/vnforks/kid/v5/app"
+	"github.com/vnforks/kid/v5/config"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/utils"
+	"github.com/vnforks/kid/v5/web"
+	"github.com/vnforks/kid/v5/wsapi"
 	"github.com/mattermost/viper"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
@@ -80,11 +79,6 @@ func runServer(configStore config.Store, disableConfigWatch bool, usedPlatform b
 	if serverErr != nil {
 		mlog.Critical(serverErr.Error())
 		return serverErr
-	}
-
-	// If we allow testing then listen for manual testing URL hits
-	if *server.Config().ServiceSettings.EnableTesting {
-		manualtesting.Init(api)
 	}
 
 	notifyReady()

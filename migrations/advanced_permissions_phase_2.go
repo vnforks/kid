@@ -9,13 +9,13 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/vnforks/kid/v5/model"
 )
 
 type AdvancedPermissionsPhase2Progress struct {
 	CurrentTable  string `json:"current_table"`
-	LastTeamId    string `json:"last_team_id"`
-	LastChannelId string `json:"last_channel_id"`
+	LastBranchId    string `json:"last_branch_id"`
+	LastClassId string `json:"last_class_id"`
 	LastUserId    string `json:"last_user"`
 }
 
@@ -31,11 +31,11 @@ func AdvancedPermissionsPhase2ProgressFromJson(data io.Reader) *AdvancedPermissi
 }
 
 func (p *AdvancedPermissionsPhase2Progress) IsValid() bool {
-	if len(p.LastChannelId) != 26 {
+	if len(p.LastClassId) != 26 {
 		return false
 	}
 
-	if len(p.LastTeamId) != 26 {
+	if len(p.LastBranchId) != 26 {
 		return false
 	}
 
@@ -44,8 +44,8 @@ func (p *AdvancedPermissionsPhase2Progress) IsValid() bool {
 	}
 
 	switch p.CurrentTable {
-	case "TeamMembers":
-	case "ChannelMembers":
+	case "BranchMembers":
+	case "ClassMembers":
 	default:
 		return false
 	}
@@ -58,9 +58,9 @@ func (worker *Worker) runAdvancedPermissionsPhase2Migration(lastDone string) (bo
 	if len(lastDone) == 0 {
 		// Haven't started the migration yet.
 		progress = new(AdvancedPermissionsPhase2Progress)
-		progress.CurrentTable = "TeamMembers"
-		progress.LastChannelId = strings.Repeat("0", 26)
-		progress.LastTeamId = strings.Repeat("0", 26)
+		progress.CurrentTable = "BranchMembers"
+		progress.LastClassId = strings.Repeat("0", 26)
+		progress.LastBranchId = strings.Repeat("0", 26)
 		progress.LastUserId = strings.Repeat("0", 26)
 	} else {
 		progress = AdvancedPermissionsPhase2ProgressFromJson(strings.NewReader(lastDone))
@@ -69,24 +69,24 @@ func (worker *Worker) runAdvancedPermissionsPhase2Migration(lastDone string) (bo
 		}
 	}
 
-	if progress.CurrentTable == "TeamMembers" {
-		// Run a TeamMembers migration batch.
-		if result, err := worker.app.Srv().Store.Team().MigrateTeamMembers(progress.LastTeamId, progress.LastUserId); err != nil {
+	if progress.CurrentTable == "BranchMembers" {
+		// Run a BranchMembers migration batch.
+		if result, err := worker.app.Srv().Store.Branch().MigrateBranchMembers(progress.LastBranchId, progress.LastUserId); err != nil {
 			return false, progress.ToJson(), err
 		} else {
 			if result == nil {
 				// We haven't progressed. That means that we've reached the end of this stage of the migration, and should now advance to the next stage.
 				progress.LastUserId = strings.Repeat("0", 26)
-				progress.CurrentTable = "ChannelMembers"
+				progress.CurrentTable = "ClassMembers"
 				return false, progress.ToJson(), nil
 			}
 
-			progress.LastTeamId = result["TeamId"]
+			progress.LastBranchId = result["BranchId"]
 			progress.LastUserId = result["UserId"]
 		}
-	} else if progress.CurrentTable == "ChannelMembers" {
-		// Run a ChannelMembers migration batch.
-		if data, err := worker.app.Srv().Store.Channel().MigrateChannelMembers(progress.LastChannelId, progress.LastUserId); err != nil {
+	} else if progress.CurrentTable == "ClassMembers" {
+		// Run a ClassMembers migration batch.
+		if data, err := worker.app.Srv().Store.Class().MigrateClassMembers(progress.LastClassId, progress.LastUserId); err != nil {
 			return false, progress.ToJson(), err
 		} else {
 			if data == nil {
@@ -95,7 +95,7 @@ func (worker *Worker) runAdvancedPermissionsPhase2Migration(lastDone string) (bo
 				return true, progress.ToJson(), nil
 			}
 
-			progress.LastChannelId = data["ChannelId"]
+			progress.LastClassId = data["ClassId"]
 			progress.LastUserId = data["UserId"]
 		}
 	}

@@ -7,8 +7,8 @@ import (
 	"database/sql"
 	"net/http"
 
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
 )
 
 type SqlLinkMetadataStore struct {

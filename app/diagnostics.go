@@ -10,9 +10,9 @@ import (
 
 	"github.com/segmentio/analytics-go"
 
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
 )
 
 const (
@@ -866,7 +866,7 @@ func (a *App) trackPermissions() {
 		"channel_guest_permissions": channelGuestPermissions,
 	})
 
-	if schemes, err := a.GetSchemes(model.SCHEME_SCOPE_TEAM, 0, 100); err == nil {
+	if schemes, err := a.GetSchemes(model.SCHEME_SCOPE_BRANCH, 0, 100); err == nil {
 		for _, scheme := range schemes {
 			teamAdminPermissions := ""
 			if role, err := a.GetRoleByName(scheme.DefaultTeamAdminRole); err == nil {
@@ -974,44 +974,44 @@ func (a *App) trackGroups() {
 }
 
 func (a *App) trackChannelModeration() {
-	channelSchemeCount, err := a.Srv().Store.Scheme().CountByScope(model.SCHEME_SCOPE_CHANNEL)
+	channelSchemeCount, err := a.Srv().Store.Scheme().CountByScope(model.SCHEME_SCOPE_CLASS)
 	if err != nil {
 		mlog.Error(err.Error())
 	}
 
-	createPostUser, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CHANNEL, model.PERMISSION_CREATE_POST.Id, model.RoleScopeChannel, model.RoleTypeUser)
+	createPostUser, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CLASS, model.PERMISSION_CREATE_POST.Id, model.RoleScopeChannel, model.RoleTypeUser)
 	if err != nil {
 		mlog.Error(err.Error())
 	}
 
-	createPostGuest, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CHANNEL, model.PERMISSION_CREATE_POST.Id, model.RoleScopeChannel, model.RoleTypeGuest)
+	createPostGuest, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CLASS, model.PERMISSION_CREATE_POST.Id, model.RoleScopeChannel, model.RoleTypeGuest)
 	if err != nil {
 		mlog.Error(err.Error())
 	}
 
 	// only need to track one of 'add_reaction' or 'remove_reaction` because they're both toggled together by the channel moderation feature
-	postReactionsUser, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CHANNEL, model.PERMISSION_ADD_REACTION.Id, model.RoleScopeChannel, model.RoleTypeUser)
+	postReactionsUser, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CLASS, model.PERMISSION_ADD_REACTION.Id, model.RoleScopeChannel, model.RoleTypeUser)
 	if err != nil {
 		mlog.Error(err.Error())
 	}
 
-	postReactionsGuest, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CHANNEL, model.PERMISSION_ADD_REACTION.Id, model.RoleScopeChannel, model.RoleTypeGuest)
+	postReactionsGuest, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CLASS, model.PERMISSION_ADD_REACTION.Id, model.RoleScopeChannel, model.RoleTypeGuest)
 	if err != nil {
 		mlog.Error(err.Error())
 	}
 
 	// only need to track one of 'manage_public_channel_members' or 'manage_private_channel_members` because they're both toggled together by the channel moderation feature
-	manageMembersUser, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CHANNEL, model.PERMISSION_MANAGE_PUBLIC_CHANNEL_MEMBERS.Id, model.RoleScopeChannel, model.RoleTypeUser)
+	manageMembersUser, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CLASS, model.PERMISSION_MANAGE_PUBLIC_CHANNEL_MEMBERS.Id, model.RoleScopeChannel, model.RoleTypeUser)
 	if err != nil {
 		mlog.Error(err.Error())
 	}
 
-	useChannelMentionsUser, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CHANNEL, model.PERMISSION_USE_CHANNEL_MENTIONS.Id, model.RoleScopeChannel, model.RoleTypeUser)
+	useChannelMentionsUser, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CLASS, model.PERMISSION_USE_CHANNEL_MENTIONS.Id, model.RoleScopeChannel, model.RoleTypeUser)
 	if err != nil {
 		mlog.Error(err.Error())
 	}
 
-	useChannelMentionsGuest, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CHANNEL, model.PERMISSION_USE_CHANNEL_MENTIONS.Id, model.RoleScopeChannel, model.RoleTypeGuest)
+	useChannelMentionsGuest, err := a.Srv().Store.Scheme().CountWithoutPermission(model.SCHEME_SCOPE_CLASS, model.PERMISSION_USE_CHANNEL_MENTIONS.Id, model.RoleScopeChannel, model.RoleTypeGuest)
 	if err != nil {
 		mlog.Error(err.Error())
 	}

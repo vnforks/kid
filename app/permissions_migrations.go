@@ -6,7 +6,7 @@ package app
 import (
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/vnforks/kid/v5/model"
 )
 
 type permissionTransformation struct {
@@ -304,7 +304,7 @@ func (a *App) channelModerationPermissionsMigration() (permissionsMap, error) {
 	transformations := permissionsMap{}
 
 	var allTeamSchemes []*model.Scheme
-	next := a.SchemesIterator(model.SCHEME_SCOPE_TEAM, 100)
+	next := a.SchemesIterator(model.SCHEME_SCOPE_BRANCH, 100)
 	var schemeBatch []*model.Scheme
 	for schemeBatch = next(); len(schemeBatch) > 0; schemeBatch = next() {
 		allTeamSchemes = append(allTeamSchemes, schemeBatch...)

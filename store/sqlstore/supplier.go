@@ -19,11 +19,11 @@ import (
 	"github.com/go-sql-driver/mysql"
 	"github.com/lib/pq"
 	"github.com/mattermost/gorp"
-	"github.com/mattermost/mattermost-server/v5/einterfaces"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/einterfaces"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
+	"github.com/vnforks/kid/v5/utils"
 )
 
 const (
@@ -68,42 +68,37 @@ const (
 )
 
 type SqlSupplierStores struct {
-	team                 store.TeamStore
-	channel              store.ChannelStore
-	post                 store.PostStore
-	user                 store.UserStore
-	bot                  store.BotStore
-	audit                store.AuditStore
-	cluster              store.ClusterDiscoveryStore
-	compliance           store.ComplianceStore
-	session              store.SessionStore
-	oauth                store.OAuthStore
-	system               store.SystemStore
-	webhook              store.WebhookStore
-	command              store.CommandStore
-	commandWebhook       store.CommandWebhookStore
-	preference           store.PreferenceStore
-	license              store.LicenseStore
-	token                store.TokenStore
-	emoji                store.EmojiStore
-	status               store.StatusStore
-	fileInfo             store.FileInfoStore
-	reaction             store.ReactionStore
-	job                  store.JobStore
-	userAccessToken      store.UserAccessTokenStore
-	plugin               store.PluginStore
-	channelMemberHistory store.ChannelMemberHistoryStore
-	role                 store.RoleStore
-	scheme               store.SchemeStore
-	TermsOfService       store.TermsOfServiceStore
-	group                store.GroupStore
-	UserTermsOfService   store.UserTermsOfServiceStore
-	linkMetadata         store.LinkMetadataStore
+	branch             store.BranchStore
+	class              store.ClassStore
+	user               store.UserStore
+	audit              store.AuditStore
+	cluster            store.ClusterDiscoveryStore
+	compliance         store.ComplianceStore
+	session            store.SessionStore
+	oauth              store.OAuthStore
+	system             store.SystemStore
+	webhook            store.WebhookStore
+	command            store.CommandStore
+	commandWebhook     store.CommandWebhookStore
+	preference         store.PreferenceStore
+	license            store.LicenseStore
+	token              store.TokenStore
+	emoji              store.EmojiStore
+	status             store.StatusStore
+	fileInfo           store.FileInfoStore
+	reaction           store.ReactionStore
+	job                store.JobStore
+	userAccessToken    store.UserAccessTokenStore
+	role               store.RoleStore
+	scheme             store.SchemeStore
+	TermsOfService     store.TermsOfServiceStore
+	UserTermsOfService store.UserTermsOfServiceStore
+	linkMetadata       store.LinkMetadataStore
 }
 
 type SqlSupplier struct {
 	// rrCounter and srCounter should be kept first.
-	// See https://github.com/mattermost/mattermost-server/v5/pull/7281
+	// See https://github.com/vnforks/kid/v5/pull/7281
 	rrCounter      int64
 	srCounter      int64
 	master         *gorp.DbMap
@@ -134,11 +129,9 @@ func NewSqlSupplier(settings model.SqlSettings, metrics einterfaces.MetricsInter
 
 	supplier.initConnection()
 
-	supplier.stores.team = newSqlTeamStore(supplier)
-	supplier.stores.channel = newSqlChannelStore(supplier, metrics)
-	supplier.stores.post = newSqlPostStore(supplier, metrics)
+	supplier.stores.branch = newSqlBranchStore(supplier)
+	supplier.stores.class = newSqlClassStore(supplier, metrics)
 	supplier.stores.user = newSqlUserStore(supplier, metrics)
-	supplier.stores.bot = newSqlBotStore(supplier, metrics)
 	supplier.stores.audit = newSqlAuditStore(supplier)
 	supplier.stores.cluster = newSqlClusterDiscoveryStore(supplier)
 	supplier.stores.compliance = newSqlComplianceStore(supplier)
@@ -156,15 +149,12 @@ func NewSqlSupplier(settings model.SqlSettings, metrics einterfaces.MetricsInter
 	supplier.stores.fileInfo = newSqlFileInfoStore(supplier, metrics)
 	supplier.stores.job = newSqlJobStore(supplier)
 	supplier.stores.userAccessToken = newSqlUserAccessTokenStore(supplier)
-	supplier.stores.channelMemberHistory = newSqlChannelMemberHistoryStore(supplier)
-	supplier.stores.plugin = newSqlPluginStore(supplier)
 	supplier.stores.TermsOfService = newSqlTermsOfServiceStore(supplier, metrics)
 	supplier.stores.UserTermsOfService = newSqlUserTermsOfServiceStore(supplier)
 	supplier.stores.linkMetadata = newSqlLinkMetadataStore(supplier)
 	supplier.stores.reaction = newSqlReactionStore(supplier)
 	supplier.stores.role = newSqlRoleStore(supplier)
 	supplier.stores.scheme = newSqlSchemeStore(supplier)
-	supplier.stores.group = newSqlGroupStore(supplier)
 
 	err := supplier.GetMaster().CreateTablesIfNotExists()
 	if err != nil {
@@ -173,18 +163,16 @@ func NewSqlSupplier(settings model.SqlSettings, metrics einterfaces.MetricsInter
 		os.Exit(EXIT_CREATE_TABLE)
 	}
 
-	err = upgradeDatabase(supplier, model.CurrentVersion)
-	if err != nil {
-		mlog.Critical("Failed to upgrade database.", mlog.Err(err))
-		time.Sleep(time.Second)
-		os.Exit(EXIT_GENERIC_FAILURE)
-	}
+	// err = upgradeDatabase(supplier, model.CurrentVersion)
+	// if err != nil {
+	// 	mlog.Critical("Failed to upgrade database.", mlog.Err(err))
+	// 	time.Sleep(time.Second)
+	// 	os.Exit(EXIT_GENERIC_FAILURE)
+	// }
 
-	supplier.stores.team.(*SqlTeamStore).createIndexesIfNotExists()
-	supplier.stores.channel.(*SqlChannelStore).createIndexesIfNotExists()
-	supplier.stores.post.(*SqlPostStore).createIndexesIfNotExists()
+	supplier.stores.branch.(*SqlBranchStore).createIndexesIfNotExists()
+	supplier.stores.class.(*SqlClassStore).createIndexesIfNotExists()
 	supplier.stores.user.(*SqlUserStore).createIndexesIfNotExists()
-	supplier.stores.bot.(*SqlBotStore).createIndexesIfNotExists()
 	supplier.stores.audit.(*SqlAuditStore).createIndexesIfNotExists()
 	supplier.stores.compliance.(*SqlComplianceStore).createIndexesIfNotExists()
 	supplier.stores.session.(*SqlSessionStore).createIndexesIfNotExists()
@@ -201,11 +189,9 @@ func NewSqlSupplier(settings model.SqlSettings, metrics einterfaces.MetricsInter
 	supplier.stores.fileInfo.(*SqlFileInfoStore).createIndexesIfNotExists()
 	supplier.stores.job.(*SqlJobStore).createIndexesIfNotExists()
 	supplier.stores.userAccessToken.(*SqlUserAccessTokenStore).createIndexesIfNotExists()
-	supplier.stores.plugin.(*SqlPluginStore).createIndexesIfNotExists()
 	supplier.stores.TermsOfService.(SqlTermsOfServiceStore).createIndexesIfNotExists()
 	supplier.stores.UserTermsOfService.(SqlUserTermsOfServiceStore).createIndexesIfNotExists()
 	supplier.stores.linkMetadata.(*SqlLinkMetadataStore).createIndexesIfNotExists()
-	supplier.stores.group.(*SqlGroupStore).createIndexesIfNotExists()
 	supplier.stores.scheme.(*SqlSchemeStore).createIndexesIfNotExists()
 	supplier.stores.preference.(*SqlPreferenceStore).deleteUnusedFeatures()
 
@@ -998,24 +984,16 @@ func (ss *SqlSupplier) UnlockFromMaster() {
 	ss.lockedToMaster = false
 }
 
-func (ss *SqlSupplier) Team() store.TeamStore {
-	return ss.stores.team
+func (ss *SqlSupplier) Branch() store.BranchStore {
+	return ss.stores.branch
 }
 
-func (ss *SqlSupplier) Channel() store.ChannelStore {
-	return ss.stores.channel
-}
-
-func (ss *SqlSupplier) Post() store.PostStore {
-	return ss.stores.post
+func (ss *SqlSupplier) Class() store.ClassStore {
+	return ss.stores.class
 }
 
 func (ss *SqlSupplier) User() store.UserStore {
 	return ss.stores.user
-}
-
-func (ss *SqlSupplier) Bot() store.BotStore {
-	return ss.stores.bot
 }
 
 func (ss *SqlSupplier) Session() store.SessionStore {
@@ -1090,14 +1068,6 @@ func (ss *SqlSupplier) UserAccessToken() store.UserAccessTokenStore {
 	return ss.stores.userAccessToken
 }
 
-func (ss *SqlSupplier) ChannelMemberHistory() store.ChannelMemberHistoryStore {
-	return ss.stores.channelMemberHistory
-}
-
-func (ss *SqlSupplier) Plugin() store.PluginStore {
-	return ss.stores.plugin
-}
-
 func (ss *SqlSupplier) Role() store.RoleStore {
 	return ss.stores.role
 }
@@ -1112,10 +1082,6 @@ func (ss *SqlSupplier) UserTermsOfService() store.UserTermsOfServiceStore {
 
 func (ss *SqlSupplier) Scheme() store.SchemeStore {
 	return ss.stores.scheme
-}
-
-func (ss *SqlSupplier) Group() store.GroupStore {
-	return ss.stores.group
 }
 
 func (ss *SqlSupplier) LinkMetadata() store.LinkMetadataStore {

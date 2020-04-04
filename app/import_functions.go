@@ -12,10 +12,10 @@ import (
 	"path"
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
+	"github.com/vnforks/kid/v5/utils"
 )
 
 //
@@ -59,7 +59,7 @@ func (a *App) importScheme(data *SchemeImportData, dryRun bool) *model.AppError 
 		return err
 	}
 
-	if scheme.Scope == model.SCHEME_SCOPE_TEAM {
+	if scheme.Scope == model.SCHEME_SCOPE_BRANCH {
 		data.DefaultTeamAdminRole.Name = &scheme.DefaultTeamAdminRole
 		if err := a.importRole(data.DefaultTeamAdminRole, dryRun, true); err != nil {
 			return err
@@ -81,7 +81,7 @@ func (a *App) importScheme(data *SchemeImportData, dryRun bool) *model.AppError 
 		}
 	}
 
-	if scheme.Scope == model.SCHEME_SCOPE_TEAM || scheme.Scope == model.SCHEME_SCOPE_CHANNEL {
+	if scheme.Scope == model.SCHEME_SCOPE_BRANCH || scheme.Scope == model.SCHEME_SCOPE_CLASS {
 		data.DefaultChannelAdminRole.Name = &scheme.DefaultChannelAdminRole
 		if err := a.importRole(data.DefaultChannelAdminRole, dryRun, true); err != nil {
 			return err
@@ -191,7 +191,7 @@ func (a *App) importTeam(data *TeamImportData, dryRun bool) *model.AppError {
 			return model.NewAppError("BulkImport", "app.import.import_team.scheme_deleted.error", nil, "", http.StatusBadRequest)
 		}
 
-		if scheme.Scope != model.SCHEME_SCOPE_TEAM {
+		if scheme.Scope != model.SCHEME_SCOPE_BRANCH {
 			return model.NewAppError("BulkImport", "app.import.import_team.scheme_wrong_scope.error", nil, "", http.StatusBadRequest)
 		}
 
@@ -256,7 +256,7 @@ func (a *App) importChannel(data *ChannelImportData, dryRun bool) *model.AppErro
 			return model.NewAppError("BulkImport", "app.import.import_channel.scheme_deleted.error", nil, "", http.StatusBadRequest)
 		}
 
-		if scheme.Scope != model.SCHEME_SCOPE_CHANNEL {
+		if scheme.Scope != model.SCHEME_SCOPE_CLASS {
 			return model.NewAppError("BulkImport", "app.import.import_channel.scheme_wrong_scope.error", nil, "", http.StatusBadRequest)
 		}
 

@@ -26,14 +26,13 @@ import (
 	"github.com/disintegration/imaging"
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
-	"github.com/mattermost/mattermost-server/v5/einterfaces"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/plugin"
-	"github.com/mattermost/mattermost-server/v5/services/mfa"
-	"github.com/mattermost/mattermost-server/v5/store"
-	"github.com/mattermost/mattermost-server/v5/utils"
-	"github.com/mattermost/mattermost-server/v5/utils/fileutils"
+	"github.com/vnforks/kid/v5/einterfaces"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/services/mfa"
+	"github.com/vnforks/kid/v5/store"
+	"github.com/vnforks/kid/v5/utils"
+	"github.com/vnforks/kid/v5/utils/fileutils"
 )
 
 const (
@@ -253,16 +252,6 @@ func (a *App) createUserOrGuest(user *model.User, guest bool) (*model.User, *mod
 	message := model.NewWebSocketEvent(model.WEBSOCKET_EVENT_NEW_USER, "", "", "", nil)
 	message.Add("user_id", ruser.Id)
 	a.Publish(message)
-
-	if pluginsEnvironment := a.GetPluginsEnvironment(); pluginsEnvironment != nil {
-		a.Srv().Go(func() {
-			pluginContext := a.PluginContext()
-			pluginsEnvironment.RunMultiPluginHook(func(hooks plugin.Hooks) bool {
-				hooks.UserHasBeenCreated(pluginContext, user)
-				return true
-			}, plugin.UserHasBeenCreatedId)
-		})
-	}
 
 	return ruser, nil
 }

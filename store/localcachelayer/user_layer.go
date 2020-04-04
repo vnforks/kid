@@ -6,8 +6,8 @@ package localcachelayer
 import (
 	"net/http"
 
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
 )
 
 type LocalCacheUserStore struct {
@@ -23,21 +23,21 @@ func (s *LocalCacheUserStore) handleClusterInvalidateScheme(msg *model.ClusterMe
 	}
 }
 
-func (s *LocalCacheUserStore) handleClusterInvalidateProfilesInChannel(msg *model.ClusterMessage) {
+func (s *LocalCacheUserStore) handleClusterInvalidateProfilesInClass(msg *model.ClusterMessage) {
 	if msg.Data == CLEAR_CACHE_MESSAGE_DATA {
-		s.rootStore.profilesInChannelCache.Purge()
+		s.rootStore.profilesInClassCache.Purge()
 	} else {
-		s.rootStore.profilesInChannelCache.Remove(msg.Data)
+		s.rootStore.profilesInClassCache.Remove(msg.Data)
 	}
 }
 
 func (s LocalCacheUserStore) ClearCaches() {
 	s.rootStore.userProfileByIdsCache.Purge()
-	s.rootStore.profilesInChannelCache.Purge()
+	s.rootStore.profilesInClassCache.Purge()
 
 	if s.rootStore.metrics != nil {
 		s.rootStore.metrics.IncrementMemCacheInvalidationCounter("Profile By Ids - Purge")
-		s.rootStore.metrics.IncrementMemCacheInvalidationCounter("Profiles in Channel - Purge")
+		s.rootStore.metrics.IncrementMemCacheInvalidationCounter("Profiles in Class - Purge")
 	}
 }
 
@@ -49,43 +49,43 @@ func (s LocalCacheUserStore) InvalidateProfileCacheForUser(userId string) {
 	}
 }
 
-func (s LocalCacheUserStore) InvalidateProfilesInChannelCacheByUser(userId string) {
-	keys := s.rootStore.profilesInChannelCache.Keys()
+func (s LocalCacheUserStore) InvalidateProfilesInClassCacheByUser(userId string) {
+	keys := s.rootStore.profilesInClassCache.Keys()
 
 	for _, key := range keys {
-		if cacheItem, ok := s.rootStore.profilesInChannelCache.Get(key); ok {
+		if cacheItem, ok := s.rootStore.profilesInClassCache.Get(key); ok {
 			userMap := cacheItem.(map[string]*model.User)
 			if _, userInCache := userMap[userId]; userInCache {
-				s.rootStore.doInvalidateCacheCluster(s.rootStore.profilesInChannelCache, key)
+				s.rootStore.doInvalidateCacheCluster(s.rootStore.profilesInClassCache, key)
 				if s.rootStore.metrics != nil {
-					s.rootStore.metrics.IncrementMemCacheInvalidationCounter("Profiles in Channel - Remove by User")
+					s.rootStore.metrics.IncrementMemCacheInvalidationCounter("Profiles in Class - Remove by User")
 				}
 			}
 		}
 	}
 }
 
-func (s LocalCacheUserStore) InvalidateProfilesInChannelCache(channelId string) {
-	s.rootStore.doInvalidateCacheCluster(s.rootStore.profilesInChannelCache, channelId)
+func (s LocalCacheUserStore) InvalidateProfilesInClassCache(classId string) {
+	s.rootStore.doInvalidateCacheCluster(s.rootStore.profilesInClassCache, classId)
 	if s.rootStore.metrics != nil {
-		s.rootStore.metrics.IncrementMemCacheInvalidationCounter("Profiles in Channel - Remove by Channel")
+		s.rootStore.metrics.IncrementMemCacheInvalidationCounter("Profiles in Class - Remove by Class")
 	}
 }
 
-func (s LocalCacheUserStore) GetAllProfilesInChannel(channelId string, allowFromCache bool) (map[string]*model.User, *model.AppError) {
+func (s LocalCacheUserStore) GetAllProfilesInClass(classId string, allowFromCache bool) (map[string]*model.User, *model.AppError) {
 	if allowFromCache {
-		if cacheItem := s.rootStore.doStandardReadCache(s.rootStore.profilesInChannelCache, channelId); cacheItem != nil {
+		if cacheItem := s.rootStore.doStandardReadCache(s.rootStore.profilesInClassCache, classId); cacheItem != nil {
 			return cacheItem.(map[string]*model.User), nil
 		}
 	}
 
-	userMap, err := s.UserStore.GetAllProfilesInChannel(channelId, allowFromCache)
+	userMap, err := s.UserStore.GetAllProfilesInClass(classId, allowFromCache)
 	if err != nil {
 		return nil, err
 	}
 
 	if allowFromCache {
-		s.rootStore.doStandardAddToCache(s.rootStore.profilesInChannelCache, channelId, userMap)
+		s.rootStore.doStandardAddToCache(s.rootStore.profilesInClassCache, classId, userMap)
 	}
 
 	return userMap, nil

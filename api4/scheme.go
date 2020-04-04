@@ -6,8 +6,8 @@ package api4
 import (
 	"net/http"
 
-	"github.com/mattermost/mattermost-server/v5/audit"
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/vnforks/kid/v5/audit"
+	"github.com/vnforks/kid/v5/model"
 )
 
 func (api *API) InitScheme() {
@@ -83,7 +83,7 @@ func getSchemes(c *Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	scope := c.Params.Scope
-	if scope != "" && scope != model.SCHEME_SCOPE_TEAM && scope != model.SCHEME_SCOPE_CHANNEL {
+	if scope != "" && scope != model.SCHEME_SCOPE_BRANCH && scope != model.SCHEME_SCOPE_CLASS {
 		c.SetInvalidParam("scope")
 		return
 	}
@@ -114,7 +114,7 @@ func getTeamsForScheme(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if scheme.Scope != model.SCHEME_SCOPE_TEAM {
+	if scheme.Scope != model.SCHEME_SCOPE_BRANCH {
 		c.Err = model.NewAppError("Api4.GetTeamsForScheme", "api.scheme.get_teams_for_scheme.scope.error", nil, "", http.StatusBadRequest)
 		return
 	}
@@ -145,7 +145,7 @@ func getChannelsForScheme(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if scheme.Scope != model.SCHEME_SCOPE_CHANNEL {
+	if scheme.Scope != model.SCHEME_SCOPE_CLASS {
 		c.Err = model.NewAppError("Api4.GetChannelsForScheme", "api.scheme.get_channels_for_scheme.scope.error", nil, "", http.StatusBadRequest)
 		return
 	}

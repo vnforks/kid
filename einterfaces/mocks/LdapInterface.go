@@ -5,7 +5,7 @@
 package mocks
 
 import (
-	model "github.com/mattermost/mattermost-server/v5/model"
+	model "github.com/vnforks/kid/v5/model"
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -87,38 +87,6 @@ func (_m *LdapInterface) FirstLoginSync(userID string, userAuthService string, u
 	return r0
 }
 
-// GetAllGroupsPage provides a mock function with given fields: page, perPage, opts
-func (_m *LdapInterface) GetAllGroupsPage(page int, perPage int, opts model.LdapGroupSearchOpts) ([]*model.Group, int, *model.AppError) {
-	ret := _m.Called(page, perPage, opts)
-
-	var r0 []*model.Group
-	if rf, ok := ret.Get(0).(func(int, int, model.LdapGroupSearchOpts) []*model.Group); ok {
-		r0 = rf(page, perPage, opts)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).([]*model.Group)
-		}
-	}
-
-	var r1 int
-	if rf, ok := ret.Get(1).(func(int, int, model.LdapGroupSearchOpts) int); ok {
-		r1 = rf(page, perPage, opts)
-	} else {
-		r1 = ret.Get(1).(int)
-	}
-
-	var r2 *model.AppError
-	if rf, ok := ret.Get(2).(func(int, int, model.LdapGroupSearchOpts) *model.AppError); ok {
-		r2 = rf(page, perPage, opts)
-	} else {
-		if ret.Get(2) != nil {
-			r2 = ret.Get(2).(*model.AppError)
-		}
-	}
-
-	return r0, r1, r2
-}
-
 // GetAllLdapUsers provides a mock function with given fields:
 func (_m *LdapInterface) GetAllLdapUsers() ([]*model.User, *model.AppError) {
 	ret := _m.Called()
@@ -135,31 +103,6 @@ func (_m *LdapInterface) GetAllLdapUsers() ([]*model.User, *model.AppError) {
 	var r1 *model.AppError
 	if rf, ok := ret.Get(1).(func() *model.AppError); ok {
 		r1 = rf()
-	} else {
-		if ret.Get(1) != nil {
-			r1 = ret.Get(1).(*model.AppError)
-		}
-	}
-
-	return r0, r1
-}
-
-// GetGroup provides a mock function with given fields: groupUID
-func (_m *LdapInterface) GetGroup(groupUID string) (*model.Group, *model.AppError) {
-	ret := _m.Called(groupUID)
-
-	var r0 *model.Group
-	if rf, ok := ret.Get(0).(func(string) *model.Group); ok {
-		r0 = rf(groupUID)
-	} else {
-		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(*model.Group)
-		}
-	}
-
-	var r1 *model.AppError
-	if rf, ok := ret.Get(1).(func(string) *model.AppError); ok {
-		r1 = rf(groupUID)
 	} else {
 		if ret.Get(1) != nil {
 			r1 = ret.Get(1).(*model.AppError)

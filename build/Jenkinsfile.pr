@@ -28,11 +28,11 @@ pipeline {
 				}
 				cleanWs notFailBuild: true
 				sh """
-					mkdir -p src/github.com/mattermost/mattermost-server
+					mkdir -p src/github.com/vnforks/kid
 					mkdir -p src/github.com/mattermost/mattermost-webapp
 					mkdir -p src/github.com/mattermost/enterprise
 				"""
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					checkout scm
 				}
 				dir('src/github.com/mattermost/mattermost-webapp') {
@@ -74,14 +74,14 @@ pipeline {
 		stage('Check i18n') {
 			environment {
 				GOPATH = "/go"
-				GOBIN = "/go/src/github.com/mattermost/mattermost-server/bin"
+				GOBIN = "/go/src/github.com/vnforks/kid/bin"
 			}
 
 			steps {
 				withDockerContainer(args: '-u root --privileged -v ${WORKSPACE}/src:/go/src/', image: 'mattermost/mattermost-build-server:20200322_golang-1.14.1') {
 					ansiColor('xterm') {
 						sh """
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 							cp i18n/en.json /tmp/en.json
 							make i18n-extract
 							diff /tmp/en.json i18n/en.json
@@ -94,14 +94,14 @@ pipeline {
 		stage('Build') {
 			environment {
 				GOPATH = "/go"
-				GOBIN = "/go/src/github.com/mattermost/mattermost-server/bin"
+				GOBIN = "/go/src/github.com/vnforks/kid/bin"
 			}
 
 			steps {
 				withDockerContainer(args: '-u root --privileged -v ${WORKSPACE}/src:/go/src/', image: 'mattermost/mattermost-build-server:20200322_golang-1.14.1') {
 					ansiColor('xterm') {
 						sh """
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 							echo "Installing golangci-lint"
 							curl -sfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh| sh -s -- -b /usr/local/bin v1.23.6 # Keep this in sync with .circleci/config.yml
 							echo "Installing mattermost-govet"
@@ -127,7 +127,7 @@ pipeline {
 						}
 					}
 					steps {
-						dir('src/github.com/mattermost/mattermost-server/dist') {
+						dir('src/github.com/vnforks/kid/dist') {
 							step([$class: 'S3BucketPublisher', dontWaitForConcurrentBuildCompletion: false, entries: [[
 								bucket: "pr-builds.mattermost.com/mattermost-server/${CHANGE_ID}",
 								excludedFile: '',
@@ -167,7 +167,7 @@ pipeline {
 						expression { env.CHANGE_ID == null }
 					}
 					steps {
-						dir('src/github.com/mattermost/mattermost-server/dist') {
+						dir('src/github.com/vnforks/kid/dist') {
 							step([$class: 'S3BucketPublisher', dontWaitForConcurrentBuildCompletion: false, entries: [[
 								bucket: "pr-builds.mattermost.com/mattermost-server/${BRANCH_NAME}",
 								excludedFile: '',
@@ -207,7 +207,7 @@ pipeline {
 						doGenerateSubmoduleConfigurations: false, extensions: [],
 						submoduleCfg: [], userRemoteConfigs:  [
 						[refspec: "+refs/pull/${CHANGE_ID}/head:refs/remotes/origin/PR-${CHANGE_ID}",
-						credentialsId: "310159d3-f7c5-4f5d-bfa1-151e3ef2db57",url: "https://github.com/mattermost/mattermost-server.git"]]])
+						credentialsId: "310159d3-f7c5-4f5d-bfa1-151e3ef2db57",url: "https://github.com/vnforks/kid.git"]]])
 					sh 'git rev-parse --short HEAD'
 				}
 			}
@@ -224,7 +224,7 @@ pipeline {
 				expression { env.CHANGE_ID != null }
 			}
 			steps {
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					withCredentials([usernamePassword(credentialsId: 'matterbuild-docker-hub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
 						sh 'docker login --username ${DOCKER_USER} --password ${DOCKER_PASS}'
 						sh """
@@ -240,7 +240,7 @@ pipeline {
 		stage('Test-Mysql') {
 			environment {
 				GOPATH = "/go"
-				GOBIN = "/go/src/github.com/mattermost/mattermost-server/bin"
+				GOBIN = "/go/src/github.com/vnforks/kid/bin"
 				TEST_DATABASE_MYSQL_DSN = "mmuser:mostest@tcp(mysql:3306)/mattermost_test?charset=utf8mb4,utf8\u0026readTimeout=30s\u0026writeTimeout=30s"
 				TEST_DATABASE_POSTGRESQL_DSN = "postgres://mmuser:mostest@postgres:5432/mattermost_test?sslmode=disable&connect_timeout=10"
 				TEST_DATABASE_MYSQL_ROOT_PASSWD = "mostest"
@@ -260,7 +260,7 @@ pipeline {
 			}
 
 			steps {
-				dir('src/github.com/mattermost/mattermost-server/build') {
+				dir('src/github.com/vnforks/kid/build') {
 					ansiColor('xterm') {
 						sh """
 						/usr/local/bin/docker-compose --no-ansi run --rm start_dependencies
@@ -270,7 +270,7 @@ pipeline {
 					}
 				}
 
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					ansiColor('xterm') {
 						sh """
 						echo "Creating databases"
@@ -284,7 +284,7 @@ pipeline {
 				withDockerContainer(args: "-u root --privileged --net ${COMPOSE_PROJECT_NAME}_mm-test -v ${WORKSPACE}/src:/go/src/", image: 'mattermost/mattermost-build-server:20200322_golang-1.14.1') {
 					ansiColor('xterm') {
 						sh """
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 							echo "Setting up config for db migration"
 							export MM_SQLSETTINGS_DATASOURCE=\"postgres://mmuser:mostest@postgres:5432/migrated?sslmode=disable&connect_timeout=10\"
 							export MM_SQLSETTINGS_DRIVERNAME=\"postgres\"
@@ -303,7 +303,7 @@ pipeline {
 				}
 
 
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					ansiColor('xterm') {
 						sh """
 						echo "Generating dump"
@@ -326,7 +326,7 @@ pipeline {
 					}
 				}
 
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					ansiColor('xterm') {
 						sh """
 						echo "Creating databases"
@@ -340,7 +340,7 @@ pipeline {
 				withDockerContainer(args: "-u root --privileged --net ${COMPOSE_PROJECT_NAME}_mm-test -v ${WORKSPACE}/src:/go/src/", image: 'mattermost/mattermost-build-server:20200322_golang-1.14.1') {
 					ansiColor('xterm') {
 						sh """
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 							echo "Setting up config for db migration"
 							export MM_SQLSETTINGS_DATASOURCE=\"mmuser:mostest@tcp(mysql:3306)/migrated?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s\"
 							export MM_SQLSETTINGS_DRIVERNAME=\"mysql\"
@@ -359,7 +359,7 @@ pipeline {
 				}
 
 
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					ansiColor('xterm') {
 						sh """
 						echo "Ignoring known MySQL mismatch: ChannelMembers.SchemeGuest"
@@ -387,7 +387,7 @@ pipeline {
 				withDockerContainer(args: "-u root --privileged --net ${COMPOSE_PROJECT_NAME}_mm-test -v ${WORKSPACE}/src:/go/src/", image: 'mattermost/mattermost-build-server:20200322_golang-1.14.1') {
 					ansiColor('xterm') {
 						sh """
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 
 							mkdir -p client/plugins
 							cat config/config.json
@@ -397,7 +397,7 @@ pipeline {
 					}
 					withCredentials([string(credentialsId: 'CODECOV_TOKEN', variable: 'CODECOV')]) {
 						sh '''
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 							curl -s https://codecov.io/bash | bash -s - -t $CODECOV || echo 'Codecov failed to upload'
 						'''
 					}
@@ -408,7 +408,7 @@ pipeline {
 		stage('Test-Postgres') {
 			environment {
 				GOPATH = "/go"
-				GOBIN = "/go/src/github.com/mattermost/mattermost-server/bin"
+				GOBIN = "/go/src/github.com/vnforks/kid/bin"
 				TEST_DATABASE_MYSQL_DSN = "mmuser:mostest@tcp(mysql:3306)/mattermost_test?charset=utf8mb4,utf8\u0026readTimeout=30s\u0026writeTimeout=30s"
 				TEST_DATABASE_POSTGRESQL_DSN = "postgres://mmuser:mostest@postgres:5432/mattermost_test?sslmode=disable&connect_timeout=10"
 				TEST_DATABASE_MYSQL_ROOT_PASSWD = "mostest"
@@ -428,7 +428,7 @@ pipeline {
 			}
 
 			steps {
-				dir('src/github.com/mattermost/mattermost-server/build') {
+				dir('src/github.com/vnforks/kid/build') {
 					ansiColor('xterm') {
 						sh """
 						/usr/local/bin/docker-compose --no-ansi run --rm start_dependencies
@@ -437,7 +437,7 @@ pipeline {
 					}
 				}
 
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					ansiColor('xterm') {
 						sh """
 						echo "Creating databases"
@@ -451,7 +451,7 @@ pipeline {
 				withDockerContainer(args: "-u root --privileged --net ${COMPOSE_PROJECT_NAME}_mm-test -v ${WORKSPACE}/src:/go/src/", image: 'mattermost/mattermost-build-server:20200322_golang-1.14.1') {
 					ansiColor('xterm') {
 						sh """
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 							echo "Setting up config for db migration"
 							export MM_SQLSETTINGS_DATASOURCE=\"postgres://mmuser:mostest@postgres:5432/migrated?sslmode=disable&connect_timeout=10\"
 							export MM_SQLSETTINGS_DRIVERNAME=\"postgres\"
@@ -470,7 +470,7 @@ pipeline {
 				}
 
 
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					ansiColor('xterm') {
 						sh """
 						echo "Generating dump"
@@ -493,7 +493,7 @@ pipeline {
 					}
 				}
 
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					ansiColor('xterm') {
 						sh """
 						echo "Creating databases"
@@ -507,7 +507,7 @@ pipeline {
 				withDockerContainer(args: "-u root --privileged --net ${COMPOSE_PROJECT_NAME}_mm-test -v ${WORKSPACE}/src:/go/src/", image: 'mattermost/mattermost-build-server:20200322_golang-1.14.1') {
 					ansiColor('xterm') {
 						sh """
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 							echo "Setting up config for db migration"
 							export MM_SQLSETTINGS_DATASOURCE=\"mmuser:mostest@tcp(mysql:3306)/migrated?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s\"
 							export MM_SQLSETTINGS_DRIVERNAME=\"mysql\"
@@ -526,7 +526,7 @@ pipeline {
 				}
 
 
-				dir('src/github.com/mattermost/mattermost-server') {
+				dir('src/github.com/vnforks/kid') {
 					ansiColor('xterm') {
 						sh """
 						echo "Ignoring known MySQL mismatch: ChannelMembers.SchemeGuest"
@@ -554,7 +554,7 @@ pipeline {
 				withDockerContainer(args: "-u root --privileged --net ${COMPOSE_PROJECT_NAME}_mm-test -v ${WORKSPACE}/src:/go/src/", image: 'mattermost/mattermost-build-server:20200322_golang-1.14.1') {
 					ansiColor('xterm') {
 						sh """
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 
 							mkdir -p client/plugins
 							cat config/config.json
@@ -564,7 +564,7 @@ pipeline {
 					}
 					withCredentials([string(credentialsId: 'CODECOV_TOKEN', variable: 'CODECOV')]) {
 						sh '''
-							cd /go/src/github.com/mattermost/mattermost-server
+							cd /go/src/github.com/vnforks/kid
 							curl -s https://codecov.io/bash | bash -s - -t $CODECOV || echo 'Codecov failed to upload'
 						'''
 					}
@@ -575,11 +575,11 @@ pipeline {
 
 	post {
 		always {
-			dir('src/github.com/mattermost/mattermost-server') {
+			dir('src/github.com/vnforks/kid') {
 				junit allowEmptyResults: true, healthScaleFactor: 0.0, testResults: 'report*.xml'
 				archiveArtifacts 'report*.xml'
 			}
-			dir('src/github.com/mattermost/mattermost-server/build') {
+			dir('src/github.com/vnforks/kid/build') {
 				ansiColor('xterm') {
 					sh """
 						# Capture docker logs

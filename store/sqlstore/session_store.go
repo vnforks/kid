@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
 )
 
 const (
@@ -54,15 +54,15 @@ func (me SqlSessionStore) Save(session *model.Session) (*model.Session, *model.A
 		return nil, model.NewAppError("SqlSessionStore.Save", "store.sql_session.save.app_error", nil, "id="+session.Id+", "+err.Error(), http.StatusInternalServerError)
 	}
 
-	teamMembers, err := me.Team().GetTeamsForUser(session.UserId)
+	branchMembers, err := me.Branch().GetBranchesForUser(session.UserId)
 	if err != nil {
 		return nil, model.NewAppError("SqlSessionStore.Save", "store.sql_session.save.app_error", nil, "id="+session.Id+", "+err.Error(), http.StatusInternalServerError)
 	}
 
-	session.TeamMembers = make([]*model.TeamMember, 0, len(teamMembers))
-	for _, tm := range teamMembers {
+	session.BranchMembers = make([]*model.BranchMember, 0, len(branchMembers))
+	for _, tm := range branchMembers {
 		if tm.DeleteAt == 0 {
-			session.TeamMembers = append(session.TeamMembers, tm)
+			session.BranchMembers = append(session.BranchMembers, tm)
 		}
 	}
 
@@ -79,14 +79,14 @@ func (me SqlSessionStore) Get(sessionIdOrToken string) (*model.Session, *model.A
 	}
 	session := sessions[0]
 
-	tempMembers, err := me.Team().GetTeamsForUser(sessions[0].UserId)
+	tempMembers, err := me.Branch().GetBranchesForUser(sessions[0].UserId)
 	if err != nil {
 		return nil, model.NewAppError("SqlSessionStore.Get", "store.sql_session.get.app_error", nil, "sessionIdOrToken="+sessionIdOrToken+", "+err.Error(), http.StatusInternalServerError)
 	}
-	sessions[0].TeamMembers = make([]*model.TeamMember, 0, len(tempMembers))
+	sessions[0].BranchMembers = make([]*model.BranchMember, 0, len(tempMembers))
 	for _, tm := range tempMembers {
 		if tm.DeleteAt == 0 {
-			sessions[0].TeamMembers = append(sessions[0].TeamMembers, tm)
+			sessions[0].BranchMembers = append(sessions[0].BranchMembers, tm)
 		}
 	}
 	return session, nil
@@ -99,16 +99,16 @@ func (me SqlSessionStore) GetSessions(userId string) ([]*model.Session, *model.A
 		return nil, model.NewAppError("SqlSessionStore.GetSessions", "store.sql_session.get_sessions.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
-	teamMembers, err := me.Team().GetTeamsForUser(userId)
+	branchMembers, err := me.Branch().GetBranchesForUser(userId)
 	if err != nil {
 		return nil, model.NewAppError("SqlSessionStore.GetSessions", "store.sql_session.get_sessions.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
 	for _, session := range sessions {
-		session.TeamMembers = make([]*model.TeamMember, 0, len(teamMembers))
-		for _, tm := range teamMembers {
+		session.BranchMembers = make([]*model.BranchMember, 0, len(branchMembers))
+		for _, tm := range branchMembers {
 			if tm.DeleteAt == 0 {
-				session.TeamMembers = append(session.TeamMembers, tm)
+				session.BranchMembers = append(session.BranchMembers, tm)
 			}
 		}
 	}
@@ -146,7 +146,7 @@ func (me SqlSessionStore) Remove(sessionIdOrToken string) *model.AppError {
 func (me SqlSessionStore) RemoveAllSessions() *model.AppError {
 	_, err := me.GetMaster().Exec("DELETE FROM Sessions")
 	if err != nil {
-		return model.NewAppError("SqlSessionStore.RemoveAllSessions", "store.sql_session.remove_all_sessions_for_team.app_error", nil, err.Error(), http.StatusInternalServerError)
+		return model.NewAppError("SqlSessionStore.RemoveAllSessions", "store.sql_session.remove_all_sessions_for_branch.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 	return nil
 }

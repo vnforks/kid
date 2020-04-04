@@ -8,36 +8,8 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	_ "github.com/lib/pq"
 	"github.com/mattermost/gorp"
-	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/vnforks/kid/v5/store"
 )
-
-/*type SqlStore struct {
-	master         *gorp.DbMap
-	replicas       []*gorp.DbMap
-	searchReplicas []*gorp.DbMap
-	team           TeamStore
-	channel        ChannelStore
-	post           PostStore
-	user           UserStore
-	audit          AuditStore
-	compliance     ComplianceStore
-	session        SessionStore
-	oauth          OAuthStore
-	system         SystemStore
-	webhook        WebhookStore
-	command        CommandStore
-	preference     PreferenceStore
-	license        LicenseStore
-	token          TokenStore
-	emoji          EmojiStore
-	status         StatusStore
-	fileInfo       FileInfoStore
-	reaction       ReactionStore
-	jobStatus      JobStatusStore
-	SchemaVersion  string
-	rrCounter      int64
-	srCounter      int64
-}*/
 
 type SqlStore interface {
 	DriverName() string
@@ -70,11 +42,9 @@ type SqlStore interface {
 	Close()
 	LockToMaster()
 	UnlockFromMaster()
-	Team() store.TeamStore
-	Channel() store.ChannelStore
-	Post() store.PostStore
+	Branch() store.BranchStore
+	Class() store.ClassStore
 	User() store.UserStore
-	Bot() store.BotStore
 	Audit() store.AuditStore
 	ClusterDiscovery() store.ClusterDiscoveryStore
 	Compliance() store.ComplianceStore
@@ -92,7 +62,6 @@ type SqlStore interface {
 	FileInfo() store.FileInfoStore
 	Reaction() store.ReactionStore
 	Job() store.JobStore
-	Plugin() store.PluginStore
 	UserAccessToken() store.UserAccessTokenStore
 	Role() store.RoleStore
 	Scheme() store.SchemeStore

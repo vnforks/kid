@@ -9,11 +9,11 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/app"
-	"github.com/mattermost/mattermost-server/v5/audit"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/app"
+	"github.com/vnforks/kid/v5/audit"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/utils"
 )
 
 type Context struct {
@@ -272,13 +272,13 @@ func (c *Context) RequireUserId() *Context {
 	return c
 }
 
-func (c *Context) RequireTeamId() *Context {
+func (c *Context) RequireBranchId() *Context {
 	if c.Err != nil {
 		return c
 	}
 
-	if len(c.Params.TeamId) != 26 {
-		c.SetInvalidUrlParam("team_id")
+	if len(c.Params.BranchId) != 26 {
+		c.SetInvalidUrlParam("branch_id")
 	}
 	return c
 }
@@ -305,13 +305,13 @@ func (c *Context) RequireTokenId() *Context {
 	return c
 }
 
-func (c *Context) RequireChannelId() *Context {
+func (c *Context) RequireClassId() *Context {
 	if c.Err != nil {
 		return c
 	}
 
-	if len(c.Params.ChannelId) != 26 {
-		c.SetInvalidUrlParam("channel_id")
+	if len(c.Params.ClassId) != 26 {
+		c.SetInvalidUrlParam("class_id")
 	}
 	return c
 }
@@ -408,25 +408,25 @@ func (c *Context) RequireEmojiId() *Context {
 	return c
 }
 
-func (c *Context) RequireTeamName() *Context {
+func (c *Context) RequireBranchName() *Context {
 	if c.Err != nil {
 		return c
 	}
 
-	if !model.IsValidTeamName(c.Params.TeamName) {
-		c.SetInvalidUrlParam("team_name")
+	if !model.IsValidBranchName(c.Params.BranchName) {
+		c.SetInvalidUrlParam("branch_name")
 	}
 
 	return c
 }
 
-func (c *Context) RequireChannelName() *Context {
+func (c *Context) RequireClassName() *Context {
 	if c.Err != nil {
 		return c
 	}
 
-	if !model.IsValidChannelIdentifier(c.Params.ChannelName) {
-		c.SetInvalidUrlParam("channel_name")
+	if !model.IsValidClassIdentifier(c.Params.ClassName) {
+		c.SetInvalidUrlParam("class_name")
 	}
 
 	return c
@@ -611,7 +611,7 @@ func (c *Context) RequireSyncableType() *Context {
 		return c
 	}
 
-	if c.Params.SyncableType != model.GroupSyncableTypeTeam && c.Params.SyncableType != model.GroupSyncableTypeChannel {
+	if c.Params.SyncableType != model.GroupSyncableTypeBranch && c.Params.SyncableType != model.GroupSyncableTypeClass {
 		c.SetInvalidUrlParam("syncable_type")
 	}
 	return c

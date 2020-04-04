@@ -3,7 +3,7 @@
 
 package interfaces
 
-import "github.com/mattermost/mattermost-server/v5/model"
+import "github.com/vnforks/kid/v5/model"
 
 type PluginsJobInterface interface {
 	MakeWorker() model.Worker

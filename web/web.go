@@ -11,11 +11,11 @@ import (
 	"github.com/avct/uasurfer"
 	"github.com/gorilla/mux"
 
-	"github.com/mattermost/mattermost-server/v5/app"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/services/configservice"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/app"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/services/configservice"
+	"github.com/vnforks/kid/v5/utils"
 )
 
 type Web struct {

@@ -102,9 +102,6 @@ func (o *LinkMetadata) IsValid() *AppError {
 			return NewAppError("LinkMetadata.IsValid", "model.link_metadata.is_valid.data.app_error", nil, "", http.StatusBadRequest)
 		}
 
-		if _, ok := o.Data.(*PostImage); !ok {
-			return NewAppError("LinkMetadata.IsValid", "model.link_metadata.is_valid.data_type.app_error", nil, "", http.StatusBadRequest)
-		}
 	case LINK_METADATA_TYPE_NONE:
 		if o.Data != nil {
 			return NewAppError("LinkMetadata.IsValid", "model.link_metadata.is_valid.data_type.app_error", nil, "", http.StatusBadRequest)
@@ -146,12 +143,12 @@ func (o *LinkMetadata) DeserializeDataToConcreteType() error {
 	var err error
 
 	switch o.Type {
-	case LINK_METADATA_TYPE_IMAGE:
-		image := &PostImage{}
+	// case LINK_METADATA_TYPE_IMAGE:
+	// 	image := &PostImage{}
 
-		err = json.Unmarshal(b, &image)
+	// 	err = json.Unmarshal(b, &image)
 
-		data = image
+	// 	data = image
 	case LINK_METADATA_TYPE_OPENGRAPH:
 		og := &opengraph.OpenGraph{}
 

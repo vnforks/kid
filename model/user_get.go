@@ -5,17 +5,17 @@ package model
 
 type UserGetOptions struct {
 	// Filters the users in the team
-	InTeamId string
+	InBranchId string
 	// Filters the users not in the team
-	NotInTeamId string
+	NotInBranchId string
 	// Filters the users in the channel
-	InChannelId string
+	InClassId string
 	// Filters the users not in the channel
-	NotInChannelId string
+	NotInClassId string
 	// Filters the users group constrained
 	GroupConstrained bool
 	// Filters the users without a team
-	WithoutTeam bool
+	WithoutBranch bool
 	// Filters the inactive users
 	Inactive bool
 	// Filters for the given role

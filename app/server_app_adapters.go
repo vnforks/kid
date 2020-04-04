@@ -8,14 +8,14 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/services/mailservice"
-	"github.com/mattermost/mattermost-server/v5/store"
-	"github.com/mattermost/mattermost-server/v5/store/localcachelayer"
-	"github.com/mattermost/mattermost-server/v5/store/searchlayer"
-	"github.com/mattermost/mattermost-server/v5/store/sqlstore"
-	"github.com/mattermost/mattermost-server/v5/utils"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/services/mailservice"
+	"github.com/vnforks/kid/v5/store"
+	"github.com/vnforks/kid/v5/store/localcachelayer"
+	"github.com/vnforks/kid/v5/store/searchlayer"
+	"github.com/vnforks/kid/v5/store/sqlstore"
+	"github.com/vnforks/kid/v5/utils"
 	"github.com/pkg/errors"
 )
 

@@ -4,7 +4,7 @@
 package wsapi
 
 import (
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/vnforks/kid/v5/model"
 )
 
 func (api *API) InitSystem() {

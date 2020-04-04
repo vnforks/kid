@@ -7,9 +7,9 @@ import (
 	"database/sql"
 	"net/http"
 
-	"github.com/mattermost/mattermost-server/v5/einterfaces"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/store"
+	"github.com/vnforks/kid/v5/einterfaces"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/store"
 )
 
 type SqlTermsOfServiceStore struct {
@@ -24,7 +24,7 @@ func newSqlTermsOfServiceStore(sqlStore SqlStore, metrics einterfaces.MetricsInt
 		table := db.AddTableWithName(model.TermsOfService{}, "TermsOfService").SetKeys(false, "Id")
 		table.ColMap("Id").SetMaxSize(26)
 		table.ColMap("UserId").SetMaxSize(26)
-		table.ColMap("Text").SetMaxSize(model.POST_MESSAGE_MAX_BYTES_V2)
+		table.ColMap("Text").SetMaxSize(65535)
 	}
 
 	return s

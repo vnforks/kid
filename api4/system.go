@@ -11,11 +11,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v5/audit"
-	"github.com/mattermost/mattermost-server/v5/mlog"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/services/cache/lru"
-	"github.com/mattermost/mattermost-server/v5/services/filesstore"
+	"github.com/vnforks/kid/v5/audit"
+	"github.com/vnforks/kid/v5/mlog"
+	"github.com/vnforks/kid/v5/model"
+	"github.com/vnforks/kid/v5/services/cache/lru"
+	"github.com/vnforks/kid/v5/services/filesstore"
 )
 
 const (

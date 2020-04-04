@@ -14,25 +14,23 @@ const (
 	SCHEME_DISPLAY_NAME_MAX_LENGTH = 128
 	SCHEME_NAME_MAX_LENGTH         = 64
 	SCHEME_DESCRIPTION_MAX_LENGTH  = 1024
-	SCHEME_SCOPE_TEAM              = "team"
-	SCHEME_SCOPE_CHANNEL           = "channel"
+	SCHEME_SCOPE_BRANCH            = "branch"
+	SCHEME_SCOPE_CLASS             = "class"
 )
 
 type Scheme struct {
-	Id                      string `json:"id"`
-	Name                    string `json:"name"`
-	DisplayName             string `json:"display_name"`
-	Description             string `json:"description"`
-	CreateAt                int64  `json:"create_at"`
-	UpdateAt                int64  `json:"update_at"`
-	DeleteAt                int64  `json:"delete_at"`
-	Scope                   string `json:"scope"`
-	DefaultTeamAdminRole    string `json:"default_team_admin_role"`
-	DefaultTeamUserRole     string `json:"default_team_user_role"`
-	DefaultChannelAdminRole string `json:"default_channel_admin_role"`
-	DefaultChannelUserRole  string `json:"default_channel_user_role"`
-	DefaultTeamGuestRole    string `json:"default_team_guest_role"`
-	DefaultChannelGuestRole string `json:"default_channel_guest_role"`
+	Id                     string `json:"id"`
+	Name                   string `json:"name"`
+	DisplayName            string `json:"display_name"`
+	Description            string `json:"description"`
+	CreateAt               int64  `json:"create_at"`
+	UpdateAt               int64  `json:"update_at"`
+	DeleteAt               int64  `json:"delete_at"`
+	Scope                  string `json:"scope"`
+	DefaultBranchAdminRole string `json:"default_branch_admin_role"`
+	DefaultBranchUserRole  string `json:"default_branch_user_role"`
+	DefaultClassAdminRole  string `json:"default_class_admin_role"`
+	DefaultClassUserRole   string `json:"default_class_user_role"`
 }
 
 type SchemePatch struct {
@@ -47,38 +45,33 @@ type SchemeIDPatch struct {
 
 // SchemeConveyor is used for importing and exporting a Scheme and its associated Roles.
 type SchemeConveyor struct {
-	Name         string  `json:"name"`
-	DisplayName  string  `json:"display_name"`
-	Description  string  `json:"description"`
-	Scope        string  `json:"scope"`
-	TeamAdmin    string  `json:"default_team_admin_role"`
-	TeamUser     string  `json:"default_team_user_role"`
-	TeamGuest    string  `json:"default_team_guest_role"`
-	ChannelAdmin string  `json:"default_channel_admin_role"`
-	ChannelUser  string  `json:"default_channel_user_role"`
-	ChannelGuest string  `json:"default_channel_guest_role"`
-	Roles        []*Role `json:"roles"`
+	Name        string  `json:"name"`
+	DisplayName string  `json:"display_name"`
+	Description string  `json:"description"`
+	Scope       string  `json:"scope"`
+	BranchAdmin string  `json:"default_branch_admin_role"`
+	BranchUser  string  `json:"default_branch_user_role"`
+	ClassAdmin  string  `json:"default_class_admin_role"`
+	ClassUser   string  `json:"default_class_user_role"`
+	Roles       []*Role `json:"roles"`
 }
 
 func (sc *SchemeConveyor) Scheme() *Scheme {
 	return &Scheme{
-		DisplayName:             sc.DisplayName,
-		Name:                    sc.Name,
-		Description:             sc.Description,
-		Scope:                   sc.Scope,
-		DefaultTeamAdminRole:    sc.TeamAdmin,
-		DefaultTeamUserRole:     sc.TeamUser,
-		DefaultTeamGuestRole:    sc.TeamGuest,
-		DefaultChannelAdminRole: sc.ChannelAdmin,
-		DefaultChannelUserRole:  sc.ChannelUser,
-		DefaultChannelGuestRole: sc.ChannelGuest,
+		DisplayName:            sc.DisplayName,
+		Name:                   sc.Name,
+		Description:            sc.Description,
+		Scope:                  sc.Scope,
+		DefaultBranchAdminRole: sc.BranchAdmin,
+		DefaultBranchUserRole:  sc.BranchUser,
+		DefaultClassAdminRole:  sc.ClassAdmin,
+		DefaultClassUserRole:   sc.ClassUser,
 	}
 }
 
 type SchemeRoles struct {
 	SchemeAdmin bool `json:"scheme_admin"`
 	SchemeUser  bool `json:"scheme_user"`
-	SchemeGuest bool `json:"scheme_guest"`
 }
 
 func (scheme *Scheme) ToJson() string {
@@ -128,49 +121,39 @@ func (scheme *Scheme) IsValidForCreate() bool {
 	}
 
 	switch scheme.Scope {
-	case SCHEME_SCOPE_TEAM, SCHEME_SCOPE_CHANNEL:
+	case SCHEME_SCOPE_BRANCH, SCHEME_SCOPE_CLASS:
 	default:
 		return false
 	}
 
-	if !IsValidRoleName(scheme.DefaultChannelAdminRole) {
+	if !IsValidRoleName(scheme.DefaultClassAdminRole) {
 		return false
 	}
 
-	if !IsValidRoleName(scheme.DefaultChannelUserRole) {
+	if !IsValidRoleName(scheme.DefaultClassUserRole) {
 		return false
 	}
 
-	if !IsValidRoleName(scheme.DefaultChannelGuestRole) {
-		return false
+	if scheme.Scope == SCHEME_SCOPE_BRANCH {
+		if !IsValidRoleName(scheme.DefaultBranchAdminRole) {
+			return false
+		}
+
+		if !IsValidRoleName(scheme.DefaultBranchUserRole) {
+			return false
+		}
+
 	}
 
-	if scheme.Scope == SCHEME_SCOPE_TEAM {
-		if !IsValidRoleName(scheme.DefaultTeamAdminRole) {
+	if scheme.Scope == SCHEME_SCOPE_CLASS {
+		if len(scheme.DefaultBranchAdminRole) != 0 {
 			return false
 		}
 
-		if !IsValidRoleName(scheme.DefaultTeamUserRole) {
+		if len(scheme.DefaultBranchUserRole) != 0 {
 			return false
 		}
 
-		if !IsValidRoleName(scheme.DefaultTeamGuestRole) {
-			return false
-		}
-	}
-
-	if scheme.Scope == SCHEME_SCOPE_CHANNEL {
-		if len(scheme.DefaultTeamAdminRole) != 0 {
-			return false
-		}
-
-		if len(scheme.DefaultTeamUserRole) != 0 {
-			return false
-		}
-
-		if len(scheme.DefaultTeamGuestRole) != 0 {
-			return false
-		}
 	}
 
 	return true

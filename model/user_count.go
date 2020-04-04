@@ -12,7 +12,7 @@ type UserCountOptions struct {
 	// Exclude regular users
 	ExcludeRegularUsers bool
 	// Only include users on a specific team. "" for any team.
-	TeamId string
+	BranchId string
 	// Restrict to search in a list of teams and channels
 	ViewRestrictions *ViewUsersRestrictions
 }

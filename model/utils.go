@@ -146,15 +146,6 @@ func NewId() string {
 	return b.String()
 }
 
-// NewRandomTeamName is a NewId that will be a valid team name.
-func NewRandomTeamName() string {
-	teamName := NewId()
-	for IsReservedTeamName(teamName) {
-		teamName = NewId()
-	}
-	return teamName
-}
-
 func NewRandomString(length int) string {
 	var b bytes.Buffer
 	str := make([]byte, length+8)
@@ -379,23 +370,23 @@ var reservedName = []string{
 	"plugins",
 }
 
-func IsValidChannelIdentifier(s string) bool {
+func IsValidAlphaNum(s string) bool {
+	validAlphaNum := regexp.MustCompile(`^[a-z0-9]+([a-z\-0-9]+|(__)?)[a-z0-9]+$`)
+
+	return validAlphaNum.MatchString(s)
+}
+
+func IsValidClassIdentifier(s string) bool {
 
 	if !IsValidAlphaNumHyphenUnderscore(s, true) {
 		return false
 	}
 
-	if len(s) < CHANNEL_NAME_MIN_LENGTH {
+	if len(s) < CLASS_NAME_MIN_LENGTH {
 		return false
 	}
 
 	return true
-}
-
-func IsValidAlphaNum(s string) bool {
-	validAlphaNum := regexp.MustCompile(`^[a-z0-9]+([a-z\-0-9]+|(__)?)[a-z0-9]+$`)
-
-	return validAlphaNum.MatchString(s)
 }
 
 func IsValidAlphaNumHyphenUnderscore(s string, withFormat bool) bool {
