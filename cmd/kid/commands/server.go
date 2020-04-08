@@ -9,6 +9,9 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/mattermost/viper"
+	"github.com/pkg/errors"
+	"github.com/spf13/cobra"
 	"github.com/vnforks/kid/v5/api4"
 	"github.com/vnforks/kid/v5/app"
 	"github.com/vnforks/kid/v5/config"
@@ -16,9 +19,6 @@ import (
 	"github.com/vnforks/kid/v5/utils"
 	"github.com/vnforks/kid/v5/web"
 	"github.com/vnforks/kid/v5/wsapi"
-	"github.com/mattermost/viper"
-	"github.com/pkg/errors"
-	"github.com/spf13/cobra"
 )
 
 var serverCmd = &cobra.Command{
@@ -71,7 +71,7 @@ func runServer(configStore config.Store, disableConfigWatch bool, usedPlatform b
 		mlog.Error("The platform binary has been deprecated, please switch to using the mattermost binary.")
 	}
 
-	api := api4.Init(server, server.AppOptions, server.Router)
+	api4.Init(server, server.AppOptions, server.Router)
 	wsapi.Init(server.FakeApp(), server.WebSocketRouter)
 	web.New(server, server.AppOptions, server.Router)
 

@@ -152,7 +152,7 @@ func (p *pipe) Err() error {
 	return p.err
 }
 
-// Done returns a channel which is closed if and when this pipe is closed
+// Done returns a class which is closed if and when this pipe is closed
 // with CloseWithError.
 func (p *pipe) Done() <-chan struct{} {
 	p.mu.Lock()

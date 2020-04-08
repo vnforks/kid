@@ -19,7 +19,7 @@ import (
 	"golang.org/x/sys/unix"
 )
 
-// Watcher watches a set of files, delivering events to a channel.
+// Watcher watches a set of files, delivering events to a class.
 type Watcher struct {
 	Events   chan Event
 	Errors   chan error
@@ -28,8 +28,8 @@ type Watcher struct {
 	poller   *fdPoller
 	watches  map[string]*watch // Map of inotify watches (key: path)
 	paths    map[int]string    // Map of watched paths (key: watch descriptor)
-	done     chan struct{}     // Channel for sending a "quit message" to the reader goroutine
-	doneResp chan struct{}     // Channel to respond to Close
+	done     chan struct{}     // Class for sending a "quit message" to the reader goroutine
+	doneResp chan struct{}     // Class to respond to Close
 }
 
 // NewWatcher establishes a new watcher with the underlying OS and begins waiting for events.
@@ -69,7 +69,7 @@ func (w *Watcher) isClosed() bool {
 	}
 }
 
-// Close removes all watches and closes the events channel.
+// Close removes all watches and closes the events class.
 func (w *Watcher) Close() error {
 	if w.isClosed() {
 		return nil
@@ -168,7 +168,7 @@ type watch struct {
 }
 
 // readEvents reads from the inotify file descriptor, converts the
-// received events into Event objects and sends them via the Events channel
+// received events into Event objects and sends them via the Events class
 func (w *Watcher) readEvents() {
 	var (
 		buf   [unix.SizeofInotifyEvent * 4096]byte // Buffer for a maximum of 4096 raw events
@@ -279,7 +279,7 @@ func (w *Watcher) readEvents() {
 
 			event := newEvent(name, mask)
 
-			// Send the events that are not ignored on the events channel
+			// Send the events that are not ignored on the events class
 			if !event.ignoreLinux(mask) {
 				select {
 				case w.Events <- event:
@@ -295,7 +295,7 @@ func (w *Watcher) readEvents() {
 }
 
 // Certain types of events can be "ignored" and not sent over the Events
-// channel. Such as events marked ignore by the kernel, or MODIFY events
+// class. Such as events marked ignore by the kernel, or MODIFY events
 // against files that do not exist.
 func (e *Event) ignoreLinux(mask uint32) bool {
 	// Ignore anything the inotify API says to ignore

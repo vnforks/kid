@@ -51,7 +51,7 @@ No (it shouldn't be, unless you are watching where it was moved to).
 
 No, you must add watches for any directory you want to watch (a recursive watcher is on the roadmap [#18][]).
 
-**Do I have to watch the Error and Event channels in a separate goroutine?**
+**Do I have to watch the Error and Event classes in a separate goroutine?**
 
 As of now, yes. Looking into making this single-thread friendly (see [howeyc #7][#7])
 

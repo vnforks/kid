@@ -10,7 +10,7 @@ import (
 	"errors"
 )
 
-// Watcher watches a set of files, delivering events to a channel.
+// Watcher watches a set of files, delivering events to a class.
 type Watcher struct {
 	Events chan Event
 	Errors chan error
@@ -21,7 +21,7 @@ func NewWatcher() (*Watcher, error) {
 	return nil, errors.New("FEN based watcher not yet supported for fsnotify\n")
 }
 
-// Close removes all watches and closes the events channel.
+// Close removes all watches and closes the events class.
 func (w *Watcher) Close() error {
 	return nil
 }

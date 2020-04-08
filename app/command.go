@@ -40,40 +40,9 @@ func GetCommandProvider(name string) CommandProvider {
 	return nil
 }
 
-// @openTracingParams teamId, skipSlackParsing
-func (a *App) CreateCommandPost(post *model.Post, teamId string, response *model.CommandResponse, skipSlackParsing bool) (*model.Post, *model.AppError) {
-	if skipSlackParsing {
-		post.Message = response.Text
-	} else {
-		post.Message = model.ParseSlackLinksToMarkdown(response.Text)
-	}
-
-	post.CreateAt = model.GetMillis()
-
-	if strings.HasPrefix(post.Type, model.POST_SYSTEM_MESSAGE_PREFIX) {
-		err := model.NewAppError("CreateCommandPost", "api.context.invalid_param.app_error", map[string]interface{}{"Name": "post.type"}, "", http.StatusBadRequest)
-		return nil, err
-	}
-
-	if response.Attachments != nil {
-		model.ParseSlackAttachment(post, response.Attachments)
-	}
-
-	if response.ResponseType == model.COMMAND_RESPONSE_TYPE_IN_CHANNEL {
-		return a.CreatePostMissingChannel(post, true)
-	}
-
-	if (response.ResponseType == "" || response.ResponseType == model.COMMAND_RESPONSE_TYPE_EPHEMERAL) && (response.Text != "" || response.Attachments != nil) {
-		post.ParentId = ""
-		a.SendEphemeralPost(post.UserId, post)
-	}
-
-	return post, nil
-}
-
-// @openTracingParams teamId
+// @openTracingParams branchId
 // previous ListCommands now ListAutocompleteCommands
-func (a *App) ListAutocompleteCommands(teamId string, T goi18n.TranslateFunc) ([]*model.Command, *model.AppError) {
+func (a *App) ListAutocompleteCommands(branchId string, T goi18n.TranslateFunc) ([]*model.Command, *model.AppError) {
 	commands := make([]*model.Command, 0, 32)
 	seen := make(map[string]bool)
 	for _, value := range commandProviders {
@@ -87,20 +56,13 @@ func (a *App) ListAutocompleteCommands(teamId string, T goi18n.TranslateFunc) ([
 		}
 	}
 
-	for _, cmd := range a.PluginCommandsForTeam(teamId) {
-		if cmd.AutoComplete && !seen[cmd.Trigger] {
-			seen[cmd.Trigger] = true
-			commands = append(commands, cmd)
-		}
-	}
-
 	if *a.Config().ServiceSettings.EnableCommands {
-		teamCmds, err := a.Srv().Store.Command().GetByTeam(teamId)
+		branchCmds, err := a.Srv().Store.Command().GetByBranch(branchId)
 		if err != nil {
 			return nil, err
 		}
 
-		for _, cmd := range teamCmds {
+		for _, cmd := range branchCmds {
 			if cmd.AutoComplete && !seen[cmd.Id] {
 				cmd.Sanitize()
 				seen[cmd.Trigger] = true
@@ -112,15 +74,15 @@ func (a *App) ListAutocompleteCommands(teamId string, T goi18n.TranslateFunc) ([
 	return commands, nil
 }
 
-func (a *App) ListTeamCommands(teamId string) ([]*model.Command, *model.AppError) {
+func (a *App) ListBranchCommands(branchId string) ([]*model.Command, *model.AppError) {
 	if !*a.Config().ServiceSettings.EnableCommands {
-		return nil, model.NewAppError("ListTeamCommands", "api.command.disabled.app_error", nil, "", http.StatusNotImplemented)
+		return nil, model.NewAppError("ListBranchCommands", "api.command.disabled.app_error", nil, "", http.StatusNotImplemented)
 	}
 
-	return a.Srv().Store.Command().GetByTeam(teamId)
+	return a.Srv().Store.Command().GetByBranch(branchId)
 }
 
-func (a *App) ListAllCommands(teamId string, T goi18n.TranslateFunc) ([]*model.Command, *model.AppError) {
+func (a *App) ListAllCommands(branchId string, T goi18n.TranslateFunc) ([]*model.Command, *model.AppError) {
 	commands := make([]*model.Command, 0, 32)
 	seen := make(map[string]bool)
 	for _, value := range commandProviders {
@@ -134,19 +96,12 @@ func (a *App) ListAllCommands(teamId string, T goi18n.TranslateFunc) ([]*model.C
 		}
 	}
 
-	for _, cmd := range a.PluginCommandsForTeam(teamId) {
-		if !seen[cmd.Trigger] {
-			seen[cmd.Trigger] = true
-			commands = append(commands, cmd)
-		}
-	}
-
 	if *a.Config().ServiceSettings.EnableCommands {
-		teamCmds, err := a.Srv().Store.Command().GetByTeam(teamId)
+		branchCmds, err := a.Srv().Store.Command().GetByBranch(branchId)
 		if err != nil {
 			return nil, err
 		}
-		for _, cmd := range teamCmds {
+		for _, cmd := range branchCmds {
 			if !seen[cmd.Trigger] {
 				cmd.Sanitize()
 				seen[cmd.Trigger] = true
@@ -187,10 +142,7 @@ func (a *App) ExecuteCommand(args *model.CommandArgs) (*model.CommandResponse, *
 		return a.HandleCommandResponse(cmd, args, response, true)
 	}
 
-	cmd, response, appErr = a.tryExecutePluginCommand(args)
-	if appErr != nil {
-		return nil, appErr
-	} else if cmd != nil && response != nil {
+	if cmd != nil && response != nil {
 		response.TriggerId = clientTriggerId
 		return a.HandleCommandResponse(cmd, args, response, true)
 	}
@@ -206,9 +158,9 @@ func (a *App) ExecuteCommand(args *model.CommandArgs) (*model.CommandResponse, *
 	return nil, model.NewAppError("command", "api.command.execute_command.not_found.app_error", map[string]interface{}{"Trigger": trigger}, "", http.StatusNotFound)
 }
 
-// mentionsToTeamMembers returns all the @ mentions found in message that
-// belong to users in the specified team, linking them to their users
-func (a *App) mentionsToTeamMembers(message, teamId string) model.UserMentionMap {
+// mentionsToBranchMembers returns all the @ mentions found in message that
+// belong to users in the specified branch, linking them to their users
+func (a *App) mentionsToBranchMembers(message, branchId string) model.UserMentionMap {
 	type mentionMapItem struct {
 		Name string
 		Id   string
@@ -243,9 +195,9 @@ func (a *App) mentionsToTeamMembers(message, teamId string) model.UserMentionMap
 						continue
 					}
 
-					_, err = a.GetTeamMember(teamId, userFromTrimmed.Id)
+					_, err = a.GetBranchMember(branchId, userFromTrimmed.Id)
 					if err != nil {
-						// The user is not in the team, so we should ignore it
+						// The user is not in the branch, so we should ignore it
 						return
 					}
 
@@ -256,9 +208,9 @@ func (a *App) mentionsToTeamMembers(message, teamId string) model.UserMentionMap
 				return
 			}
 
-			_, err = a.GetTeamMember(teamId, user.Id)
+			_, err = a.GetBranchMember(branchId, user.Id)
 			if err != nil {
-				// The user is not in the team, so we should ignore it
+				// The user is not in the branch, so we should ignore it
 				return
 			}
 
@@ -275,46 +227,6 @@ func (a *App) mentionsToTeamMembers(message, teamId string) model.UserMentionMap
 	}
 
 	return atMentionMap
-}
-
-// mentionsToPublicChannels returns all the mentions to public channels,
-// linking them to their channels
-func (a *App) mentionsToPublicChannels(message, teamId string) model.ChannelMentionMap {
-	type mentionMapItem struct {
-		Name string
-		Id   string
-	}
-
-	channelMentions := model.ChannelMentions(message)
-	mentionChan := make(chan *mentionMapItem, len(channelMentions))
-
-	var wg sync.WaitGroup
-	for _, channelName := range channelMentions {
-		wg.Add(1)
-		go func(channelName string) {
-			defer wg.Done()
-			channel, err := a.GetChannelByName(channelName, teamId, false)
-			if err != nil {
-				return
-			}
-
-			if !channel.IsOpen() {
-				return
-			}
-
-			mentionChan <- &mentionMapItem{channelName, channel.Id}
-		}(channelName)
-	}
-
-	wg.Wait()
-	close(mentionChan)
-
-	channelMentionMap := make(model.ChannelMentionMap)
-	for mention := range mentionChan {
-		channelMentionMap[mention.Name] = mention.Id
-	}
-
-	return channelMentionMap
 }
 
 // tryExecuteBuiltInCommand attempts to run a built in command based on the given arguments. If no such command can be
@@ -343,16 +255,16 @@ func (a *App) tryExecuteCustomCommand(args *model.CommandArgs, trigger string, m
 
 	chanChan := make(chan store.StoreResult, 1)
 	go func() {
-		channel, err := a.Srv().Store.Channel().Get(args.ChannelId, true)
-		chanChan <- store.StoreResult{Data: channel, Err: err}
+		class, err := a.Srv().Store.Class().Get(args.ClassId, true)
+		chanChan <- store.StoreResult{Data: class, Err: err}
 		close(chanChan)
 	}()
 
-	teamChan := make(chan store.StoreResult, 1)
+	branchChan := make(chan store.StoreResult, 1)
 	go func() {
-		team, err := a.Srv().Store.Team().Get(args.TeamId)
-		teamChan <- store.StoreResult{Data: team, Err: err}
-		close(teamChan)
+		branch, err := a.Srv().Store.Branch().Get(args.BranchId)
+		branchChan <- store.StoreResult{Data: branch, Err: err}
+		close(branchChan)
 	}()
 
 	userChan := make(chan store.StoreResult, 1)
@@ -362,16 +274,16 @@ func (a *App) tryExecuteCustomCommand(args *model.CommandArgs, trigger string, m
 		close(userChan)
 	}()
 
-	teamCmds, err := a.Srv().Store.Command().GetByTeam(args.TeamId)
+	branchCmds, err := a.Srv().Store.Command().GetByBranch(args.BranchId)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	tr := <-teamChan
+	tr := <-branchChan
 	if tr.Err != nil {
 		return nil, nil, tr.Err
 	}
-	team := tr.Data.(*model.Team)
+	branch := tr.Data.(*model.Branch)
 
 	ur := <-userChan
 	if ur.Err != nil {
@@ -383,13 +295,13 @@ func (a *App) tryExecuteCustomCommand(args *model.CommandArgs, trigger string, m
 	if cr.Err != nil {
 		return nil, nil, cr.Err
 	}
-	channel := cr.Data.(*model.Channel)
+	class := cr.Data.(*model.Class)
 
 	var cmd *model.Command
 
-	for _, teamCmd := range teamCmds {
-		if trigger == teamCmd.Trigger {
-			cmd = teamCmd
+	for _, branchCmd := range branchCmds {
+		if trigger == branchCmd.Trigger {
+			cmd = branchCmd
 		}
 	}
 
@@ -402,11 +314,11 @@ func (a *App) tryExecuteCustomCommand(args *model.CommandArgs, trigger string, m
 	p := url.Values{}
 	p.Set("token", cmd.Token)
 
-	p.Set("team_id", cmd.TeamId)
-	p.Set("team_domain", team.Name)
+	p.Set("branch_id", cmd.BranchId)
+	p.Set("branch_domain", branch.Name)
 
-	p.Set("channel_id", args.ChannelId)
-	p.Set("channel_name", channel.Name)
+	p.Set("class_id", args.ClassId)
+	p.Set("class_name", class.Name)
 
 	p.Set("user_id", args.UserId)
 	p.Set("user_name", user.Username)
@@ -416,21 +328,10 @@ func (a *App) tryExecuteCustomCommand(args *model.CommandArgs, trigger string, m
 
 	p.Set("trigger_id", args.TriggerId)
 
-	userMentionMap := a.mentionsToTeamMembers(message, team.Id)
+	userMentionMap := a.mentionsToBranchMembers(message, branch.Id)
 	for key, values := range userMentionMap.ToURLValues() {
 		p[key] = values
 	}
-
-	channelMentionMap := a.mentionsToPublicChannels(message, team.Id)
-	for key, values := range channelMentionMap.ToURLValues() {
-		p[key] = values
-	}
-
-	hook, appErr := a.CreateCommandWebhook(cmd.Id, args)
-	if appErr != nil {
-		return cmd, nil, model.NewAppError("command", "api.command.execute_command.failed.app_error", map[string]interface{}{"Trigger": trigger}, appErr.Error(), http.StatusInternalServerError)
-	}
-	p.Set("response_url", args.SiteURL+"/hooks/commands/"+hook.Id)
 
 	return a.doCommandRequest(cmd, p)
 }
@@ -471,7 +372,7 @@ func (a *App) doCommandRequest(cmd *model.Command, p url.Values) (*model.Command
 	defer resp.Body.Close()
 
 	// Handle the response
-	body := io.LimitReader(resp.Body, MaxIntegrationResponseSize)
+	body := io.LimitReader(resp.Body, 1024*1024)
 
 	if resp.StatusCode != http.StatusOK {
 		// Ignore the error below because the resulting string will just be the empty string if bodyBytes is nil
@@ -498,89 +399,7 @@ func (a *App) HandleCommandResponse(command *model.Command, args *model.CommandA
 		trigger = strings.ToLower(trigger)
 	}
 
-	var lastError *model.AppError
-	_, err := a.HandleCommandResponsePost(command, args, response, builtIn)
-
-	if err != nil {
-		mlog.Error("error occurred in handling command response post", mlog.Err(err))
-		lastError = err
-	}
-
-	if response.ExtraResponses != nil {
-		for _, resp := range response.ExtraResponses {
-			_, err := a.HandleCommandResponsePost(command, args, resp, builtIn)
-
-			if err != nil {
-				mlog.Error("error occurred in handling command response post", mlog.Err(err))
-				lastError = err
-			}
-		}
-	}
-
-	if lastError != nil {
-		return response, model.NewAppError("command", "api.command.execute_command.create_post_failed.app_error", map[string]interface{}{"Trigger": trigger}, "", http.StatusInternalServerError)
-	}
-
 	return response, nil
-}
-
-func (a *App) HandleCommandResponsePost(command *model.Command, args *model.CommandArgs, response *model.CommandResponse, builtIn bool) (*model.Post, *model.AppError) {
-	post := &model.Post{}
-	post.ChannelId = args.ChannelId
-	post.RootId = args.RootId
-	post.ParentId = args.ParentId
-	post.UserId = args.UserId
-	post.Type = response.Type
-	post.SetProps(response.Props)
-
-	if len(response.ChannelId) != 0 {
-		_, err := a.GetChannelMember(response.ChannelId, args.UserId)
-		if err != nil {
-			err = model.NewAppError("HandleCommandResponsePost", "api.command.command_post.forbidden.app_error", nil, err.Error(), http.StatusForbidden)
-			return nil, err
-		}
-		post.ChannelId = response.ChannelId
-	}
-
-	isBotPost := !builtIn
-
-	if *a.Config().ServiceSettings.EnablePostUsernameOverride {
-		if len(command.Username) != 0 {
-			post.AddProp("override_username", command.Username)
-			isBotPost = true
-		} else if len(response.Username) != 0 {
-			post.AddProp("override_username", response.Username)
-			isBotPost = true
-		}
-	}
-
-	if *a.Config().ServiceSettings.EnablePostIconOverride {
-		if len(command.IconURL) != 0 {
-			post.AddProp("override_icon_url", command.IconURL)
-			isBotPost = true
-		} else if len(response.IconURL) != 0 {
-			post.AddProp("override_icon_url", response.IconURL)
-			isBotPost = true
-		} else {
-			post.AddProp("override_icon_url", "")
-		}
-	}
-
-	if isBotPost {
-		post.AddProp("from_webhook", "true")
-	}
-
-	// Process Slack text replacements if the response does not contain "skip_slack_parsing": true.
-	if !response.SkipSlackParsing {
-		response.Text = a.ProcessSlackText(response.Text)
-		response.Attachments = a.ProcessSlackAttachments(response.Attachments)
-	}
-
-	if _, err := a.CreateCommandPost(post, args.TeamId, response, response.SkipSlackParsing); err != nil {
-		return post, err
-	}
-
-	return post, nil
 }
 
 func (a *App) CreateCommand(cmd *model.Command) (*model.Command, *model.AppError) {
@@ -590,12 +409,12 @@ func (a *App) CreateCommand(cmd *model.Command) (*model.Command, *model.AppError
 
 	cmd.Trigger = strings.ToLower(cmd.Trigger)
 
-	teamCmds, err := a.Srv().Store.Command().GetByTeam(cmd.TeamId)
+	branchCmds, err := a.Srv().Store.Command().GetByBranch(cmd.BranchId)
 	if err != nil {
 		return nil, err
 	}
 
-	for _, existingCommand := range teamCmds {
+	for _, existingCommand := range branchCmds {
 		if cmd.Trigger == existingCommand.Trigger {
 			return nil, model.NewAppError("CreateCommand", "api.command.duplicate_trigger.app_error", nil, "", http.StatusBadRequest)
 		}
@@ -637,13 +456,13 @@ func (a *App) UpdateCommand(oldCmd, updatedCmd *model.Command) (*model.Command, 
 	updatedCmd.UpdateAt = model.GetMillis()
 	updatedCmd.DeleteAt = oldCmd.DeleteAt
 	updatedCmd.CreatorId = oldCmd.CreatorId
-	updatedCmd.TeamId = oldCmd.TeamId
+	updatedCmd.BranchId = oldCmd.BranchId
 
 	return a.Srv().Store.Command().Update(updatedCmd)
 }
 
-func (a *App) MoveCommand(team *model.Team, command *model.Command) *model.AppError {
-	command.TeamId = team.Id
+func (a *App) MoveCommand(branch *model.Branch, command *model.Command) *model.AppError {
+	command.BranchId = branch.Id
 
 	_, err := a.Srv().Store.Command().Update(command)
 	if err != nil {

@@ -11,8 +11,8 @@ type UserCountOptions struct {
 	IncludeDeleted bool
 	// Exclude regular users
 	ExcludeRegularUsers bool
-	// Only include users on a specific team. "" for any team.
+	// Only include users on a specific branch. "" for any branch.
 	BranchId string
-	// Restrict to search in a list of teams and channels
+	// Restrict to search in a list of branches and classes
 	ViewRestrictions *ViewUsersRestrictions
 }

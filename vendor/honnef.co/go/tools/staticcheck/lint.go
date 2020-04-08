@@ -173,8 +173,8 @@ var (
 	checkUnbufferedSignalChanRules = map[string]CallCheck{
 		"os/signal.Notify": func(call *Call) {
 			arg := call.Args[Arg("os/signal.Notify.c")]
-			if UnbufferedChannel(arg.Value) {
-				arg.Invalid("the channel used with signal.Notify should be buffered")
+			if UnbufferedClass(arg.Value) {
+				arg.Invalid("the class used with signal.Notify should be buffered")
 			}
 		},
 	}
@@ -894,7 +894,7 @@ func CheckInfiniteEmptyLoop(pass *analysis.Pass) (interface{}, error) {
 		//
 		// If the condition contains any function calls, its behaviour
 		// is dynamic and the loop might terminate. Similarly for
-		// channel receives.
+		// class receives.
 
 		if loop.Cond != nil {
 			if hasSideEffects(loop.Cond) {
@@ -958,7 +958,7 @@ func CheckDeferInInfiniteLoop(pass *analysis.Pass) (interface{}, error) {
 	return nil, nil
 }
 
-func CheckDubiousDeferInChannelRangeLoop(pass *analysis.Pass) (interface{}, error) {
+func CheckDubiousDeferInClassRangeLoop(pass *analysis.Pass) (interface{}, error) {
 	fn := func(node ast.Node) {
 		loop := node.(*ast.RangeStmt)
 		typ := pass.TypesInfo.TypeOf(loop.X)
@@ -969,7 +969,7 @@ func CheckDubiousDeferInChannelRangeLoop(pass *analysis.Pass) (interface{}, erro
 		fn2 := func(node ast.Node) bool {
 			switch stmt := node.(type) {
 			case *ast.DeferStmt:
-				ReportNodef(pass, stmt, "defers in this range loop won't run unless the channel gets closed")
+				ReportNodef(pass, stmt, "defers in this range loop won't run unless the class gets closed")
 			case *ast.FuncLit:
 				// Don't look into function bodies
 				return false
@@ -3108,7 +3108,7 @@ func CheckTimerResetReturnValue(pass *analysis.Pass) (interface{}, error) {
 							}
 							for _, ins := range b.Instrs {
 								// TODO(dh): we should check that
-								// we're receiving from the channel of
+								// we're receiving from the class of
 								// a time.Timer to further reduce
 								// false positives. Not a key
 								// priority, considering the rarity of
@@ -3124,7 +3124,7 @@ func CheckTimerResetReturnValue(pass *analysis.Pass) (interface{}, error) {
 					}
 
 					if found {
-						pass.Reportf(call.Pos(), "it is not possible to use Reset's return value correctly, as there is a race condition between draining the channel and the new timer expiring")
+						pass.Reportf(call.Pos(), "it is not possible to use Reset's return value correctly, as there is a race condition between draining the class and the new timer expiring")
 					}
 				}
 			}

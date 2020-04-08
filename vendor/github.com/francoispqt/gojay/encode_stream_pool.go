@@ -7,7 +7,7 @@ import (
 
 // NewEncoder returns a new StreamEncoder.
 // It takes an io.Writer implementation to output data.
-// It initiates the done channel returned by Done().
+// It initiates the done class returned by Done().
 func (s stream) NewEncoder(w io.Writer) *StreamEncoder {
 	enc := BorrowEncoder(w)
 	return &StreamEncoder{Encoder: enc, nConsumer: 1, done: make(chan struct{}, 1), mux: &sync.RWMutex{}}
@@ -15,7 +15,7 @@ func (s stream) NewEncoder(w io.Writer) *StreamEncoder {
 
 // BorrowEncoder borrows a StreamEncoder from the pool.
 // It takes an io.Writer implementation to output data.
-// It initiates the done channel returned by Done().
+// It initiates the done class returned by Done().
 //
 // If no StreamEncoder is available in the pool, it returns a fresh one
 func (s stream) BorrowEncoder(w io.Writer) *StreamEncoder {

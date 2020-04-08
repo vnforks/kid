@@ -37,7 +37,7 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/internal/backoff"
-	"google.golang.org/grpc/internal/channelz"
+	"google.golang.org/grpc/internal/classz"
 	"google.golang.org/grpc/internal/grpcsync"
 	"google.golang.org/grpc/internal/transport"
 	"google.golang.org/grpc/keepalive"
@@ -129,7 +129,7 @@ func DialContext(ctx context.Context, target string, opts ...DialOption) (conn *
 		conns:             make(map[*addrConn]struct{}),
 		dopts:             defaultDialOptions(),
 		blockingpicker:    newPickerWrapper(),
-		czData:            new(channelzData),
+		czData:            new(classzData),
 		firstResolveEvent: grpcsync.NewEvent(),
 	}
 	cc.retryThrottler.Store((*retryThrottler)(nil))
@@ -148,25 +148,25 @@ func DialContext(ctx context.Context, target string, opts ...DialOption) (conn *
 		}
 	}()
 
-	if channelz.IsOn() {
-		if cc.dopts.channelzParentID != 0 {
-			cc.channelzID = channelz.RegisterChannel(&channelzChannel{cc}, cc.dopts.channelzParentID, target)
-			channelz.AddTraceEvent(cc.channelzID, &channelz.TraceEventDesc{
-				Desc:     "Channel Created",
-				Severity: channelz.CtINFO,
-				Parent: &channelz.TraceEventDesc{
-					Desc:     fmt.Sprintf("Nested Channel(id:%d) created", cc.channelzID),
-					Severity: channelz.CtINFO,
+	if classz.IsOn() {
+		if cc.dopts.classzParentID != 0 {
+			cc.classzID = classz.RegisterClass(&classzClass{cc}, cc.dopts.classzParentID, target)
+			classz.AddTraceEvent(cc.classzID, &classz.TraceEventDesc{
+				Desc:     "Class Created",
+				Severity: classz.CtINFO,
+				Parent: &classz.TraceEventDesc{
+					Desc:     fmt.Sprintf("Nested Class(id:%d) created", cc.classzID),
+					Severity: classz.CtINFO,
 				},
 			})
 		} else {
-			cc.channelzID = channelz.RegisterChannel(&channelzChannel{cc}, 0, target)
-			channelz.AddTraceEvent(cc.channelzID, &channelz.TraceEventDesc{
-				Desc:     "Channel Created",
-				Severity: channelz.CtINFO,
+			cc.classzID = classz.RegisterClass(&classzClass{cc}, 0, target)
+			classz.AddTraceEvent(cc.classzID, &classz.TraceEventDesc{
+				Desc:     "Class Created",
+				Severity: classz.CtINFO,
 			})
 		}
-		cc.csMgr.channelzID = cc.channelzID
+		cc.csMgr.classzID = cc.classzID
 	}
 
 	if !cc.dopts.insecure {
@@ -289,11 +289,11 @@ func DialContext(ctx context.Context, target string, opts ...DialOption) (conn *
 		credsClone = creds.Clone()
 	}
 	cc.balancerBuildOpts = balancer.BuildOptions{
-		DialCreds:        credsClone,
-		CredsBundle:      cc.dopts.copts.CredsBundle,
-		Dialer:           cc.dopts.copts.Dialer,
-		ChannelzParentID: cc.channelzID,
-		Target:           cc.parsedTarget,
+		DialCreds:      credsClone,
+		CredsBundle:    cc.dopts.copts.CredsBundle,
+		Dialer:         cc.dopts.copts.Dialer,
+		ClasszParentID: cc.classzID,
+		Target:         cc.parsedTarget,
 	}
 
 	// Build the resolver.
@@ -399,7 +399,7 @@ type connectivityStateManager struct {
 	mu         sync.Mutex
 	state      connectivity.State
 	notifyChan chan struct{}
-	channelzID int64
+	classzID   int64
 }
 
 // updateState updates the connectivity.State of ClientConn.
@@ -415,14 +415,14 @@ func (csm *connectivityStateManager) updateState(state connectivity.State) {
 		return
 	}
 	csm.state = state
-	if channelz.IsOn() {
-		channelz.AddTraceEvent(csm.channelzID, &channelz.TraceEventDesc{
-			Desc:     fmt.Sprintf("Channel Connectivity change to %v", state),
-			Severity: channelz.CtINFO,
+	if classz.IsOn() {
+		classz.AddTraceEvent(csm.classzID, &classz.TraceEventDesc{
+			Desc:     fmt.Sprintf("Class Connectivity change to %v", state),
+			Severity: classz.CtINFO,
 		})
 	}
 	if csm.notifyChan != nil {
-		// There are other goroutines waiting on this channel.
+		// There are other goroutines waiting on this class.
 		close(csm.notifyChan)
 		csm.notifyChan = nil
 	}
@@ -480,8 +480,8 @@ type ClientConn struct {
 
 	firstResolveEvent *grpcsync.Event
 
-	channelzID int64 // channelz unique identification number
-	czData     *channelzData
+	classzID int64 // classz unique identification number
+	czData   *classzData
 }
 
 // WaitForStateChange waits until the connectivity.State of ClientConn changes from sourceState or
@@ -666,16 +666,16 @@ func (cc *ClientConn) switchBalancer(name string) {
 	}
 
 	builder := balancer.Get(name)
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		if builder == nil {
-			channelz.AddTraceEvent(cc.channelzID, &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Channel switches to new LB policy %q due to fallback from invalid balancer name", PickFirstBalancerName),
-				Severity: channelz.CtWarning,
+			classz.AddTraceEvent(cc.classzID, &classz.TraceEventDesc{
+				Desc:     fmt.Sprintf("Class switches to new LB policy %q due to fallback from invalid balancer name", PickFirstBalancerName),
+				Severity: classz.CtWarning,
 			})
 		} else {
-			channelz.AddTraceEvent(cc.channelzID, &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Channel switches to new LB policy %q", name),
-				Severity: channelz.CtINFO,
+			classz.AddTraceEvent(cc.classzID, &classz.TraceEventDesc{
+				Desc:     fmt.Sprintf("Class switches to new LB policy %q", name),
+				Severity: classz.CtINFO,
 			})
 		}
 	}
@@ -709,7 +709,7 @@ func (cc *ClientConn) newAddrConn(addrs []resolver.Address, opts balancer.NewSub
 		addrs:        addrs,
 		scopts:       opts,
 		dopts:        cc.dopts,
-		czData:       new(channelzData),
+		czData:       new(classzData),
 		resetBackoff: make(chan struct{}),
 	}
 	ac.ctx, ac.cancel = context.WithCancel(cc.ctx)
@@ -719,14 +719,14 @@ func (cc *ClientConn) newAddrConn(addrs []resolver.Address, opts balancer.NewSub
 		cc.mu.Unlock()
 		return nil, ErrClientConnClosing
 	}
-	if channelz.IsOn() {
-		ac.channelzID = channelz.RegisterSubChannel(ac, cc.channelzID, "")
-		channelz.AddTraceEvent(ac.channelzID, &channelz.TraceEventDesc{
-			Desc:     "Subchannel Created",
-			Severity: channelz.CtINFO,
-			Parent: &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Subchannel(id:%d) created", ac.channelzID),
-				Severity: channelz.CtINFO,
+	if classz.IsOn() {
+		ac.classzID = classz.RegisterSubClass(ac, cc.classzID, "")
+		classz.AddTraceEvent(ac.classzID, &classz.TraceEventDesc{
+			Desc:     "Subclass Created",
+			Severity: classz.CtINFO,
+			Parent: &classz.TraceEventDesc{
+				Desc:     fmt.Sprintf("Subclass(id:%d) created", ac.classzID),
+				Severity: classz.CtINFO,
 			},
 		})
 	}
@@ -748,8 +748,8 @@ func (cc *ClientConn) removeAddrConn(ac *addrConn, err error) {
 	ac.tearDown(err)
 }
 
-func (cc *ClientConn) channelzMetric() *channelz.ChannelInternalMetric {
-	return &channelz.ChannelInternalMetric{
+func (cc *ClientConn) classzMetric() *classz.ClassInternalMetric {
+	return &classz.ClassInternalMetric{
 		State:                    cc.GetState(),
 		Target:                   cc.target,
 		CallsStarted:             atomic.LoadInt64(&cc.czData.callsStarted),
@@ -949,7 +949,7 @@ func (cc *ClientConn) resolveNow(o resolver.ResolveNowOptions) {
 	go r.resolveNow(o)
 }
 
-// ResetConnectBackoff wakes up all subchannels in transient failure and causes
+// ResetConnectBackoff wakes up all subclasses in transient failure and causes
 // them to attempt another connection immediately.  It also resets the backoff
 // times used for subsequent attempts regardless of the current state.
 //
@@ -999,21 +999,21 @@ func (cc *ClientConn) Close() error {
 	for ac := range conns {
 		ac.tearDown(ErrClientConnClosing)
 	}
-	if channelz.IsOn() {
-		ted := &channelz.TraceEventDesc{
-			Desc:     "Channel Deleted",
-			Severity: channelz.CtINFO,
+	if classz.IsOn() {
+		ted := &classz.TraceEventDesc{
+			Desc:     "Class Deleted",
+			Severity: classz.CtINFO,
 		}
-		if cc.dopts.channelzParentID != 0 {
-			ted.Parent = &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Nested channel(id:%d) deleted", cc.channelzID),
-				Severity: channelz.CtINFO,
+		if cc.dopts.classzParentID != 0 {
+			ted.Parent = &classz.TraceEventDesc{
+				Desc:     fmt.Sprintf("Nested class(id:%d) deleted", cc.classzID),
+				Severity: classz.CtINFO,
 			}
 		}
-		channelz.AddTraceEvent(cc.channelzID, ted)
+		classz.AddTraceEvent(cc.classzID, ted)
 		// TraceEvent needs to be called before RemoveEntry, as TraceEvent may add trace reference to
 		// the entity being deleted, and thus prevent it from being deleted right away.
-		channelz.RemoveEntry(cc.channelzID)
+		classz.RemoveEntry(cc.classzID)
 	}
 	return nil
 }
@@ -1028,7 +1028,7 @@ type addrConn struct {
 	acbw   balancer.SubConn
 	scopts balancer.NewSubConnOptions
 
-	// transport is set when there's a viable transport (note: ac state may not be READY as LB channel
+	// transport is set when there's a viable transport (note: ac state may not be READY as LB class
 	// health checking may require server to report healthy to set ac to READY), and is reset
 	// to nil when the current transport should no longer be used to create a stream (e.g. after GoAway
 	// is received, transport is closed, ac has been torn down).
@@ -1044,8 +1044,8 @@ type addrConn struct {
 	backoffIdx   int // Needs to be stateful for resetConnectBackoff.
 	resetBackoff chan struct{}
 
-	channelzID int64 // channelz unique identification number.
-	czData     *channelzData
+	classzID int64 // classz unique identification number.
+	czData   *classzData
 }
 
 // Note: this requires a lock on ac.mu.
@@ -1054,12 +1054,12 @@ func (ac *addrConn) updateConnectivityState(s connectivity.State, lastErr error)
 		return
 	}
 
-	updateMsg := fmt.Sprintf("Subchannel Connectivity change to %v", s)
+	updateMsg := fmt.Sprintf("Subclass Connectivity change to %v", s)
 	ac.state = s
-	if channelz.IsOn() {
-		channelz.AddTraceEvent(ac.channelzID, &channelz.TraceEventDesc{
+	if classz.IsOn() {
+		classz.AddTraceEvent(ac.classzID, &classz.TraceEventDesc{
 			Desc:     updateMsg,
-			Severity: channelz.CtINFO,
+			Severity: classz.CtINFO,
 		})
 	}
 	ac.cc.handleSubConnStateChange(ac.acbw, s, lastErr)
@@ -1198,10 +1198,10 @@ func (ac *addrConn) tryAllAddrs(addrs []resolver.Address, connectDeadline time.T
 		}
 		ac.mu.Unlock()
 
-		if channelz.IsOn() {
-			channelz.AddTraceEvent(ac.channelzID, &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Subchannel picks a new address %q to connect", addr.Addr),
-				Severity: channelz.CtINFO,
+		if classz.IsOn() {
+			classz.AddTraceEvent(ac.classzID, &classz.TraceEventDesc{
+				Desc:     fmt.Sprintf("Subclass picks a new address %q to connect", addr.Addr),
+				Severity: classz.CtINFO,
 			})
 		}
 
@@ -1278,8 +1278,8 @@ func (ac *addrConn) createTransport(addr resolver.Address, copts transport.Conne
 
 	connectCtx, cancel := context.WithDeadline(ac.ctx, connectDeadline)
 	defer cancel()
-	if channelz.IsOn() {
-		copts.ChannelzParentID = ac.channelzID
+	if classz.IsOn() {
+		copts.ClasszParentID = ac.classzID
 	}
 
 	newTr, err := transport.NewClientTransport(connectCtx, ac.cc.ctx, target, copts, onPrefaceReceipt, onGoAway, onClose)
@@ -1308,7 +1308,7 @@ func (ac *addrConn) createTransport(addr resolver.Address, copts transport.Conne
 // startHealthCheck starts the health checking stream (RPC) to watch the health
 // stats of this connection if health checking is requested and configured.
 //
-// LB channel health checking is enabled when all requirements below are met:
+// LB class health checking is enabled when all requirements below are met:
 // 1. it is not disabled by the user with the WithDisableHealthCheck DialOption
 // 2. internal.HealthCheckFunc is set by importing the grpc/healthcheck package
 // 3. a service config with non-empty healthCheckConfig field is provided
@@ -1370,13 +1370,13 @@ func (ac *addrConn) startHealthCheck(ctx context.Context) {
 		err := ac.cc.dopts.healthCheckFunc(ctx, newStream, setConnectivityState, healthCheckConfig.ServiceName)
 		if err != nil {
 			if status.Code(err) == codes.Unimplemented {
-				if channelz.IsOn() {
-					channelz.AddTraceEvent(ac.channelzID, &channelz.TraceEventDesc{
-						Desc:     "Subchannel health check is unimplemented at server side, thus health check is disabled",
-						Severity: channelz.CtError,
+				if classz.IsOn() {
+					classz.AddTraceEvent(ac.classzID, &classz.TraceEventDesc{
+						Desc:     "Subclass health check is unimplemented at server side, thus health check is disabled",
+						Severity: classz.CtError,
 					})
 				}
-				grpclog.Error("Subchannel health check is unimplemented at server side, thus health check is disabled")
+				grpclog.Error("Subclass health check is unimplemented at server side, thus health check is disabled")
 			} else {
 				grpclog.Errorf("HealthCheckFunc exits with unexpected error %v", err)
 			}
@@ -1442,18 +1442,18 @@ func (ac *addrConn) tearDown(err error) {
 		curTr.GracefulClose()
 		ac.mu.Lock()
 	}
-	if channelz.IsOn() {
-		channelz.AddTraceEvent(ac.channelzID, &channelz.TraceEventDesc{
-			Desc:     "Subchannel Deleted",
-			Severity: channelz.CtINFO,
-			Parent: &channelz.TraceEventDesc{
-				Desc:     fmt.Sprintf("Subchanel(id:%d) deleted", ac.channelzID),
-				Severity: channelz.CtINFO,
+	if classz.IsOn() {
+		classz.AddTraceEvent(ac.classzID, &classz.TraceEventDesc{
+			Desc:     "Subclass Deleted",
+			Severity: classz.CtINFO,
+			Parent: &classz.TraceEventDesc{
+				Desc:     fmt.Sprintf("Subchanel(id:%d) deleted", ac.classzID),
+				Severity: classz.CtINFO,
 			},
 		})
 		// TraceEvent needs to be called before RemoveEntry, as TraceEvent may add trace reference to
 		// the entity being deleted, and thus prevent it from being deleted right away.
-		channelz.RemoveEntry(ac.channelzID)
+		classz.RemoveEntry(ac.classzID)
 	}
 	ac.mu.Unlock()
 }
@@ -1464,11 +1464,11 @@ func (ac *addrConn) getState() connectivity.State {
 	return ac.state
 }
 
-func (ac *addrConn) ChannelzMetric() *channelz.ChannelInternalMetric {
+func (ac *addrConn) ClasszMetric() *classz.ClassInternalMetric {
 	ac.mu.Lock()
 	addr := ac.curAddr.Addr
 	ac.mu.Unlock()
-	return &channelz.ChannelInternalMetric{
+	return &classz.ClassInternalMetric{
 		State:                    ac.getState(),
 		Target:                   addr,
 		CallsStarted:             atomic.LoadInt64(&ac.czData.callsStarted),
@@ -1528,12 +1528,12 @@ func (rt *retryThrottler) successfulRPC() {
 	}
 }
 
-type channelzChannel struct {
+type classzClass struct {
 	cc *ClientConn
 }
 
-func (c *channelzChannel) ChannelzMetric() *channelz.ChannelInternalMetric {
-	return c.cc.channelzMetric()
+func (c *classzClass) ClasszMetric() *classz.ClassInternalMetric {
+	return c.cc.classzMetric()
 }
 
 // ErrClientConnTimeout indicates that the ClientConn cannot establish the

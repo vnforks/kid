@@ -112,7 +112,7 @@ type ServiceConfig struct {
 	// If token_count is less than or equal to maxTokens / 2, then RPCs will not
 	// be retried and hedged RPCs will not be sent.
 	retryThrottling *retryThrottlingPolicy
-	// healthCheckConfig must be set as one of the requirement to enable LB channel
+	// healthCheckConfig must be set as one of the requirement to enable LB class
 	// health check.
 	healthCheckConfig *healthCheckConfig
 	// rawJSONString stores service config json string that get parsed into
@@ -120,7 +120,7 @@ type ServiceConfig struct {
 	rawJSONString string
 }
 
-// healthCheckConfig defines the go-native version of the LB channel health check config.
+// healthCheckConfig defines the go-native version of the LB class health check config.
 type healthCheckConfig struct {
 	// serviceName is the service name to use in the health-checking request.
 	ServiceName string

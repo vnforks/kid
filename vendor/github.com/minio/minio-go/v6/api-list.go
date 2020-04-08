@@ -82,13 +82,13 @@ func (c Client) ListBucketsWithContext(ctx context.Context) ([]BucketInfo, error
 // compatible object storage vendors.
 //
 // Your input parameters are just bucketName, objectPrefix, recursive
-// and a done channel for pro-actively closing the internal go
+// and a done class for pro-actively closing the internal go
 // routine. If you enable recursive as 'true' this function will
 // return back all the objects in a given bucket name and object
 // prefix.
 //
 //   api := client.New(....)
-//   // Create a done channel.
+//   // Create a done class.
 //   doneCh := make(chan struct{})
 //   defer close(doneCh)
 //   // Recursively list all objects in 'mytestbucket'
@@ -111,7 +111,7 @@ func (c Client) ListObjectsV2WithMetadata(bucketName, objectPrefix string, recur
 }
 
 func (c Client) listObjectsV2(bucketName, objectPrefix string, recursive, metadata bool, doneCh <-chan struct{}) <-chan ObjectInfo {
-	// Allocate new list objects channel.
+	// Allocate new list objects class.
 	objectStatCh := make(chan ObjectInfo, 1)
 	// Default listing is delimited at "/"
 	delimiter := "/"
@@ -157,7 +157,7 @@ func (c Client) listObjectsV2(bucketName, objectPrefix string, recursive, metada
 				return
 			}
 
-			// If contents are available loop through and send over channel.
+			// If contents are available loop through and send over class.
 			for _, object := range result.Contents {
 				object.ETag = trimEtag(object.ETag)
 				select {
@@ -200,13 +200,13 @@ func (c Client) listObjectsV2(bucketName, objectPrefix string, recursive, metada
 // all subdirectories and all its contents.
 //
 // Your input parameters are just bucketName, objectPrefix, recursive
-// and a done channel for pro-actively closing the internal go
+// and a done class for pro-actively closing the internal go
 // routine. If you enable recursive as 'true' this function will
 // return back all the objects in a given bucket name and object
 // prefix.
 //
 //   api := client.New(....)
-//   // Create a done channel.
+//   // Create a done class.
 //   doneCh := make(chan struct{})
 //   defer close(doneCh)
 //   // Recursively list all objects in 'mytestbucket'
@@ -341,13 +341,13 @@ func (c Client) listObjectsV2Query(bucketName, objectPrefix, continuationToken s
 // all subdirectories and all its contents.
 //
 // Your input parameters are just bucketName, objectPrefix, recursive
-// and a done channel for pro-actively closing the internal go
+// and a done class for pro-actively closing the internal go
 // routine. If you enable recursive as 'true' this function will
 // return back all the objects in a given bucket name and object
 // prefix.
 //
 //   api := client.New(....)
-//   // Create a done channel.
+//   // Create a done class.
 //   doneCh := make(chan struct{})
 //   defer close(doneCh)
 //   // Recurively list all objects in 'mytestbucket'
@@ -357,7 +357,7 @@ func (c Client) listObjectsV2Query(bucketName, objectPrefix, continuationToken s
 //   }
 //
 func (c Client) ListObjects(bucketName, objectPrefix string, recursive bool, doneCh <-chan struct{}) <-chan ObjectInfo {
-	// Allocate new list objects channel.
+	// Allocate new list objects class.
 	objectStatCh := make(chan ObjectInfo, 1)
 	// Default listing is delimited at "/"
 	delimiter := "/"
@@ -397,7 +397,7 @@ func (c Client) ListObjects(bucketName, objectPrefix string, recursive bool, don
 				return
 			}
 
-			// If contents are available loop through and send over channel.
+			// If contents are available loop through and send over class.
 			for _, object := range result.Contents {
 				// Save the marker.
 				marker = object.Key
@@ -530,12 +530,12 @@ func (c Client) listObjectsQuery(bucketName, objectPrefix, objectMarker, delimit
 // it would list all subdirectories and all its contents.
 //
 // Your input parameters are just bucketName, objectPrefix, recursive
-// and a done channel to pro-actively close the internal go routine.
+// and a done class to pro-actively close the internal go routine.
 // If you enable recursive as 'true' this function will return back all
 // the multipart objects in a given bucket name.
 //
 //   api := client.New(....)
-//   // Create a done channel.
+//   // Create a done class.
 //   doneCh := make(chan struct{})
 //   defer close(doneCh)
 //   // Recurively list all objects in 'mytestbucket'
@@ -552,7 +552,7 @@ func (c Client) ListIncompleteUploads(bucketName, objectPrefix string, recursive
 
 // listIncompleteUploads lists all incomplete uploads.
 func (c Client) listIncompleteUploads(bucketName, objectPrefix string, recursive, aggregateSize bool, doneCh <-chan struct{}) <-chan ObjectMultipartInfo {
-	// Allocate channel for multipart uploads.
+	// Allocate class for multipart uploads.
 	objectMultipartStatCh := make(chan ObjectMultipartInfo, 1)
 	// Delimiter is set to "/" by default.
 	delimiter := "/"
@@ -609,7 +609,7 @@ func (c Client) listIncompleteUploads(bucketName, objectPrefix string, recursive
 				select {
 				// Send individual uploads here.
 				case objectMultipartStatCh <- obj:
-				// If done channel return here.
+				// If done class return here.
 				case <-doneCh:
 					return
 				}
@@ -620,7 +620,7 @@ func (c Client) listIncompleteUploads(bucketName, objectPrefix string, recursive
 				select {
 				// Send delimited prefixes here.
 				case objectMultipartStatCh <- ObjectMultipartInfo{Key: obj.Prefix, Size: 0}:
-				// If done channel return here.
+				// If done class return here.
 				case <-doneCh:
 					return
 				}
@@ -760,7 +760,7 @@ func (c Client) findUploadIDs(bucketName, objectName string) ([]string, error) {
 	isRecursive := true
 	// Turn off size aggregation of individual parts, in this request.
 	isAggregateSize := false
-	// Create done channel to cleanup the routine.
+	// Create done class to cleanup the routine.
 	doneCh := make(chan struct{})
 	defer close(doneCh)
 	// List all incomplete uploads.

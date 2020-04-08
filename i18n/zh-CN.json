@@ -128,195 +128,195 @@
     "translation": "无法上传文件。文件太大。"
   },
   {
-    "id": "api.channel.add_member.added",
+    "id": "api.class.add_member.added",
     "translation": "%v 由 %v 邀请加入频道。"
   },
   {
-    "id": "api.channel.add_user.to.channel.failed.app_error",
+    "id": "api.class.add_user.to.class.failed.app_error",
     "translation": "添加用户到频道出错"
   },
   {
-    "id": "api.channel.add_user.to.channel.failed.deleted.app_error",
+    "id": "api.class.add_user.to.class.failed.deleted.app_error",
     "translation": "无法将用户添加到频道，因为用户已从团队中移除。"
   },
   {
-    "id": "api.channel.add_user_to_channel.type.app_error",
+    "id": "api.class.add_user_to_class.type.app_error",
     "translation": "不能添加用户到该频道类型"
   },
   {
-    "id": "api.channel.change_channel_privacy.private_to_public",
+    "id": "api.class.change_class_privacy.private_to_public",
     "translation": "此频道已转换到公共频道并允许任何团队成员加入。"
   },
   {
-    "id": "api.channel.change_channel_privacy.public_to_private",
+    "id": "api.class.change_class_privacy.public_to_private",
     "translation": "此频道已转换到私有频道。"
   },
   {
-    "id": "api.channel.convert_channel_to_private.default_channel_error",
+    "id": "api.class.convert_class_to_private.default_class_error",
     "translation": "默认频道无法转换成私有频道。"
   },
   {
-    "id": "api.channel.convert_channel_to_private.private_channel_error",
+    "id": "api.class.convert_class_to_private.private_class_error",
     "translation": "请求转换的频道已经是私有频道。"
   },
   {
-    "id": "api.channel.create_channel.direct_channel.app_error",
-    "translation": "必须使用 createDirectChannel API 创建私信频道"
+    "id": "api.class.create_class.direct_class.app_error",
+    "translation": "必须使用 createDirectClass API 创建私信频道"
   },
   {
-    "id": "api.channel.create_channel.invalid_character.app_error",
+    "id": "api.class.create_class.invalid_character.app_error",
     "translation": "非直接频道的频道名不能出现无效字符 '__'"
   },
   {
-    "id": "api.channel.create_channel.max_channel_limit.app_error",
-    "translation": "当前团队无法创建超过 {{.MaxChannelsPerTeam}} 个频道"
+    "id": "api.class.create_class.max_class_limit.app_error",
+    "translation": "当前团队无法创建超过 {{.MaxClassesPerBranch}} 个频道"
   },
   {
-    "id": "api.channel.create_default_channels.off_topic",
+    "id": "api.class.create_default_classes.off_topic",
     "translation": "闲聊"
   },
   {
-    "id": "api.channel.create_default_channels.town_square",
+    "id": "api.class.create_default_classes.town_square",
     "translation": "公共频道"
   },
   {
-    "id": "api.channel.create_direct_channel.invalid_user.app_error",
+    "id": "api.class.create_direct_class.invalid_user.app_error",
     "translation": "用于创建私信频道的用户 ID 无效"
   },
   {
-    "id": "api.channel.create_group.bad_size.app_error",
+    "id": "api.class.create_group.bad_size.app_error",
     "translation": "团体消息频道必须至少包含 3 个但不超过 8 位用户"
   },
   {
-    "id": "api.channel.create_group.bad_user.app_error",
+    "id": "api.class.create_group.bad_user.app_error",
     "translation": "有不存在的用户"
   },
   {
-    "id": "api.channel.delete_channel.archived",
+    "id": "api.class.delete_class.archived",
     "translation": "%v 已归档该频道。"
   },
   {
-    "id": "api.channel.delete_channel.cannot.app_error",
-    "translation": "不能删除默认频道{{.Channel}}"
+    "id": "api.class.delete_class.cannot.app_error",
+    "translation": "不能删除默认频道{{.Class}}"
   },
   {
-    "id": "api.channel.delete_channel.deleted.app_error",
+    "id": "api.class.delete_class.deleted.app_error",
     "translation": "该频道已归档或者被删除"
   },
   {
-    "id": "api.channel.delete_channel.type.invalid",
+    "id": "api.class.delete_class.type.invalid",
     "translation": "无法删除私信或组消息频道"
   },
   {
-    "id": "api.channel.join_channel.permissions.app_error",
+    "id": "api.class.join_class.permissions.app_error",
     "translation": "您没有对应的权限"
   },
   {
-    "id": "api.channel.join_channel.post_and_forget",
+    "id": "api.class.join_class.post_and_forget",
     "translation": "%v 已加入到该频道。"
   },
   {
-    "id": "api.channel.leave.default.app_error",
-    "translation": "不能退出默认频道{{.Channel}}"
+    "id": "api.class.leave.default.app_error",
+    "translation": "不能退出默认频道{{.Class}}"
   },
   {
-    "id": "api.channel.leave.direct.app_error",
+    "id": "api.class.leave.direct.app_error",
     "translation": "不能退出私信频道"
   },
   {
-    "id": "api.channel.leave.last_member.app_error",
+    "id": "api.class.leave.last_member.app_error",
     "translation": "你是本组最后一人，请删除私有组而不是离开。"
   },
   {
-    "id": "api.channel.leave.left",
+    "id": "api.class.leave.left",
     "translation": "%v 已退出该频道。"
   },
   {
-    "id": "api.channel.patch_update_channel.forbidden.app_error",
+    "id": "api.class.patch_update_class.forbidden.app_error",
     "translation": "更新频道失败"
   },
   {
-    "id": "api.channel.post_channel_privacy_message.error",
+    "id": "api.class.post_class_privacy_message.error",
     "translation": "发布频道隐私更新消息失败。"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.create_post.error",
+    "id": "api.class.post_update_class_displayname_message_and_forget.create_post.error",
     "translation": "发送显示名更新信息时失败"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.retrieve_user.error",
+    "id": "api.class.post_update_class_displayname_message_and_forget.retrieve_user.error",
     "translation": "更新频道 DisplayName 字段时获取用户失败"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.updated_from",
+    "id": "api.class.post_update_class_displayname_message_and_forget.updated_from",
     "translation": "%s 将频道显示名从 %s 更新为 %s"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.post.error",
+    "id": "api.class.post_update_class_header_message_and_forget.post.error",
     "translation": "更新频道标题消息失败"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.removed",
+    "id": "api.class.post_update_class_header_message_and_forget.removed",
     "translation": "%s 删除了频道标题 (原为: %s)"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.retrieve_user.error",
+    "id": "api.class.post_update_class_header_message_and_forget.retrieve_user.error",
     "translation": "尝试保存更新的频道标题时获取用户信息失败"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.updated_from",
+    "id": "api.class.post_update_class_header_message_and_forget.updated_from",
     "translation": "%s 将频道标题从 %s 更新为 %s"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.updated_to",
+    "id": "api.class.post_update_class_header_message_and_forget.updated_to",
     "translation": "%s 更新频道标题为: %s"
   },
   {
-    "id": "api.channel.post_user_add_remove_message_and_forget.error",
+    "id": "api.class.post_user_add_remove_message_and_forget.error",
     "translation": "发布添加/退出消息失败"
   },
   {
-    "id": "api.channel.remove.default.app_error",
-    "translation": "不能从默认频道 {{.Channel}} 移出用户"
+    "id": "api.class.remove.default.app_error",
+    "translation": "不能从默认频道 {{.Class}} 移出用户"
   },
   {
-    "id": "api.channel.remove_channel_member.type.app_error",
+    "id": "api.class.remove_class_member.type.app_error",
     "translation": "无法从频道移除用户。"
   },
   {
-    "id": "api.channel.remove_member.removed",
+    "id": "api.class.remove_member.removed",
     "translation": "%v 已从频道移出。"
   },
   {
-    "id": "api.channel.rename_channel.cant_rename_direct_messages.app_error",
+    "id": "api.class.rename_class.cant_rename_direct_messages.app_error",
     "translation": "您不能重命名私信频道"
   },
   {
-    "id": "api.channel.rename_channel.cant_rename_group_messages.app_error",
+    "id": "api.class.rename_class.cant_rename_group_messages.app_error",
     "translation": "您不能重命名群消息频道"
   },
   {
-    "id": "api.channel.update_channel.deleted.app_error",
+    "id": "api.class.update_class.deleted.app_error",
     "translation": "该频道已归档或者被删除"
   },
   {
-    "id": "api.channel.update_channel.tried.app_error",
-    "translation": "对默认频道试图执行一个无效的更新 {{.Channel}}"
+    "id": "api.class.update_class.tried.app_error",
+    "translation": "对默认频道试图执行一个无效的更新 {{.Class}}"
   },
   {
-    "id": "api.channel.update_channel_member_roles.scheme_role.app_error",
+    "id": "api.class.update_class_member_roles.scheme_role.app_error",
     "translation": "提供的角色由方案管理，因此无法直接应用到频道成员"
   },
   {
-    "id": "api.channel.update_channel_scheme.license.error",
+    "id": "api.class.update_class_scheme.license.error",
     "translation": "您的许可证不支持更新团队方案"
   },
   {
-    "id": "api.channel.update_channel_scheme.scheme_scope.error",
+    "id": "api.class.update_class_scheme.scheme_scope.error",
     "translation": "无法设定频道方案因为提供的方案不是频道方案。"
   },
   {
-    "id": "api.channel.update_team_member_roles.scheme_role.app_error",
+    "id": "api.class.update_branch_member_roles.scheme_role.app_error",
     "translation": "提供的角色由方案管理，因此无法直接应用到团队成员"
   },
   {
@@ -400,7 +400,7 @@
     "translation": "邮件邀请已发送"
   },
   {
-    "id": "api.command.team_mismatch.app_error",
+    "id": "api.command.branch_mismatch.app_error",
     "translation": "无法跨团队更新命令"
   },
   {
@@ -416,107 +416,107 @@
     "translation": "您现在离开了"
   },
   {
-    "id": "api.command_channel_header.channel.app_error",
+    "id": "api.command_class_header.class.app_error",
     "translation": "获取当前频道错误。"
   },
   {
-    "id": "api.command_channel_header.desc",
+    "id": "api.command_class_header.desc",
     "translation": "修改频道标题"
   },
   {
-    "id": "api.command_channel_header.hint",
+    "id": "api.command_class_header.hint",
     "translation": "[文字]"
   },
   {
-    "id": "api.command_channel_header.message.app_error",
+    "id": "api.command_class_header.message.app_error",
     "translation": "比如提供 /header 命令的文字。"
   },
   {
-    "id": "api.command_channel_header.name",
+    "id": "api.command_class_header.name",
     "translation": "标题"
   },
   {
-    "id": "api.command_channel_header.permission.app_error",
+    "id": "api.command_class_header.permission.app_error",
     "translation": "您没有权限更改频道标题。"
   },
   {
-    "id": "api.command_channel_header.update_channel.app_error",
+    "id": "api.command_class_header.update_class.app_error",
     "translation": "更新当前频道错误。"
   },
   {
-    "id": "api.command_channel_purpose.channel.app_error",
+    "id": "api.command_class_purpose.class.app_error",
     "translation": "获取当前频道错误。"
   },
   {
-    "id": "api.command_channel_purpose.desc",
+    "id": "api.command_class_purpose.desc",
     "translation": "更改频道用途"
   },
   {
-    "id": "api.command_channel_purpose.direct_group.app_error",
+    "id": "api.command_class_purpose.direct_group.app_error",
     "translation": "无法更改私信频道用途。可使用 /header 修改标题。"
   },
   {
-    "id": "api.command_channel_purpose.hint",
+    "id": "api.command_class_purpose.hint",
     "translation": "[文字]"
   },
   {
-    "id": "api.command_channel_purpose.message.app_error",
+    "id": "api.command_class_purpose.message.app_error",
     "translation": "/purpose 命令必须有消息。"
   },
   {
-    "id": "api.command_channel_purpose.name",
+    "id": "api.command_class_purpose.name",
     "translation": "用途"
   },
   {
-    "id": "api.command_channel_purpose.permission.app_error",
+    "id": "api.command_class_purpose.permission.app_error",
     "translation": "您没有权限更改频道用途。"
   },
   {
-    "id": "api.command_channel_purpose.update_channel.app_error",
+    "id": "api.command_class_purpose.update_class.app_error",
     "translation": "更新当前频道错误。"
   },
   {
-    "id": "api.command_channel_remove.channel.app_error",
+    "id": "api.command_class_remove.class.app_error",
     "translation": "获取当前频道错误。"
   },
   {
-    "id": "api.command_channel_rename.channel.app_error",
+    "id": "api.command_class_rename.class.app_error",
     "translation": "获取当前频道错误。"
   },
   {
-    "id": "api.command_channel_rename.desc",
+    "id": "api.command_class_rename.desc",
     "translation": "重命名频道"
   },
   {
-    "id": "api.command_channel_rename.direct_group.app_error",
+    "id": "api.command_class_rename.direct_group.app_error",
     "translation": "不能重命名私信频道。"
   },
   {
-    "id": "api.command_channel_rename.hint",
+    "id": "api.command_class_rename.hint",
     "translation": "[文字]"
   },
   {
-    "id": "api.command_channel_rename.message.app_error",
+    "id": "api.command_class_rename.message.app_error",
     "translation": "/name 命令必须有消息。"
   },
   {
-    "id": "api.command_channel_rename.name",
+    "id": "api.command_class_rename.name",
     "translation": "重命名"
   },
   {
-    "id": "api.command_channel_rename.permission.app_error",
+    "id": "api.command_class_rename.permission.app_error",
     "translation": "您没有权限重命名频道。"
   },
   {
-    "id": "api.command_channel_rename.too_long.app_error",
+    "id": "api.command_class_rename.too_long.app_error",
     "translation": "频道名称必须小于或等于 {{.Length}} 个字符"
   },
   {
-    "id": "api.command_channel_rename.too_short.app_error",
+    "id": "api.command_class_rename.too_short.app_error",
     "translation": "频道名称必须大于或等于 {{.Length}} 个字符"
   },
   {
-    "id": "api.command_channel_rename.update_channel.app_error",
+    "id": "api.command_class_rename.update_class.app_error",
     "translation": "更新当前频道错误。"
   },
   {
@@ -655,19 +655,19 @@
     "translation": "帮助"
   },
   {
-    "id": "api.command_invite.channel.app_error",
+    "id": "api.command_invite.class.app_error",
     "translation": "获取当前频道错误。"
   },
   {
-    "id": "api.command_invite.channel.error",
-    "translation": "无法找到频道 {{.Channel}}。请使用[频道识别](https://about.mattermost.com/default-channel-handle-documentation)  以分辨频道。"
+    "id": "api.command_invite.class.error",
+    "translation": "无法找到频道 {{.Class}}。请使用[频道识别](https://about.mattermost.com/default-class-handle-documentation)  以分辨频道。"
   },
   {
     "id": "api.command_invite.desc",
     "translation": "邀请用户到频道"
   },
   {
-    "id": "api.command_invite.directchannel.app_error",
+    "id": "api.command_invite.directclass.app_error",
     "translation": "您不能添加成员到私信频道。"
   },
   {
@@ -692,18 +692,18 @@
   },
   {
     "id": "api.command_invite.permission.app_error",
-    "translation": "您没有足够的权限在 {{.Channel}} 添加 {{.User}}。"
+    "translation": "您没有足够的权限在 {{.Class}} 添加 {{.User}}。"
   },
   {
-    "id": "api.command_invite.private_channel.app_error",
-    "translation": "无法找到频道 {{.Channel}}。请使用频道识别查找频道。"
+    "id": "api.command_invite.private_class.app_error",
+    "translation": "无法找到频道 {{.Class}}。请使用频道识别查找频道。"
   },
   {
     "id": "api.command_invite.success",
-    "translation": "已添加 {{.User}} 到 {{.Channel}} 频道。"
+    "translation": "已添加 {{.User}} 到 {{.Class}} 频道。"
   },
   {
-    "id": "api.command_invite.user_already_in_channel.app_error",
+    "id": "api.command_invite.user_already_in_class.app_error",
     "translation": "{{.User}} 已在频道。"
   },
   {
@@ -808,7 +808,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "无法找到频道 {{.Channel}}。请使用[频道识别](https://about.mattermost.com/default-channel-handle-documentation)  以分辨频道。"
+    "translation": "无法找到频道 {{.Class}}。请使用[频道识别](https://about.mattermost.com/default-class-handle-documentation)  以分辨频道。"
   },
   {
     "id": "api.command_mute.hint",
@@ -819,16 +819,16 @@
     "translation": "静音"
   },
   {
-    "id": "api.command_mute.no_channel.error",
-    "translation": "无法找到指定的频道。请使用[频道识别](https://about.mattermost.com/default-channel-handle-documentation)  以分辨频道。"
+    "id": "api.command_mute.no_class.error",
+    "translation": "无法找到指定的频道。请使用[频道识别](https://about.mattermost.com/default-class-handle-documentation)  以分辨频道。"
   },
   {
     "id": "api.command_mute.not_member.error",
-    "translation": "无法静音频道 {{.Channel}} 因为您不是成员。"
+    "translation": "无法静音频道 {{.Class}} 因为您不是成员。"
   },
   {
     "id": "api.command_mute.success_mute",
-    "translation": "您将不会收到 {{.Channel}} 的通知直到取消频道静音。"
+    "translation": "您将不会收到 {{.Class}} 的通知直到取消频道静音。"
   },
   {
     "id": "api.command_mute.success_mute_direct_msg",
@@ -836,7 +836,7 @@
   },
   {
     "id": "api.command_mute.success_unmute",
-    "translation": "{{.Channel}} 不再被静音。"
+    "translation": "{{.Class}} 不再被静音。"
   },
   {
     "id": "api.command_mute.success_unmute_direct_msg",
@@ -899,7 +899,7 @@
     "translation": "您没有权限移除成员。"
   },
   {
-    "id": "api.command_remove.user_not_in_channel",
+    "id": "api.command_remove.user_not_in_class",
     "translation": "{{.Username}} 不是此频道的成员。"
   },
   {
@@ -1003,7 +1003,7 @@
     "translation": "请输入您的自定义服务条款文字。"
   },
   {
-    "id": "api.email_batching.add_notification_email_to_batch.channel_full.app_error",
+    "id": "api.email_batching.add_notification_email_to_batch.class_full.app_error",
     "translation": "批量电子邮件任务接收频道已满。请提高EmailBatchingBufferSize。"
   },
   {
@@ -1201,8 +1201,8 @@
     "translation": "{{.Filename}} 的尺寸 ({{.Width}}x{{.Height}} 像素) 超过了限制"
   },
   {
-    "id": "api.file.upload_file.multiple_channel_ids.app_error",
-    "translation": "无法上传文件。多个冲突的 channel_ids。"
+    "id": "api.file.upload_file.multiple_class_ids.app_error",
+    "translation": "无法上传文件。多个冲突的 class_ids。"
   },
   {
     "id": "api.file.upload_file.read_form_value.app_error",
@@ -1417,11 +1417,11 @@
     "translation": "multipart/form 请求缺少文件"
   },
   {
-    "id": "api.post.check_for_out_of_channel_mentions.message.multiple",
+    "id": "api.post.check_for_out_of_class_mentions.message.multiple",
     "translation": "@{{.Usernames}} 与 @{{.LastUsername}} 被提到了，但是他们因不在这个频道而不会收到通知。"
   },
   {
-    "id": "api.post.check_for_out_of_channel_mentions.message.one",
+    "id": "api.post.check_for_out_of_class_mentions.message.one",
     "translation": "@{{.Username}} 被提到了，但是他因不在此频道而不会收到通知。"
   },
   {
@@ -1429,8 +1429,8 @@
     "translation": "无法发信息到已删除的频道。"
   },
   {
-    "id": "api.post.create_post.channel_root_id.app_error",
-    "translation": "RootId参数无效ChannelId"
+    "id": "api.post.create_post.class_root_id.app_error",
+    "translation": "RootId参数无效ClassId"
   },
   {
     "id": "api.post.create_post.parent_id.app_error",
@@ -1458,15 +1458,15 @@
   },
   {
     "id": "api.post.delete_post.can_not_delete_post_in_deleted.error",
-    "translation": "Can not delete a post in a deleted channel."
+    "translation": "Can not delete a post in a deleted class."
   },
   {
     "id": "api.post.disabled_all",
-    "translation": "@all has been disabled because the channel has more than {{.Users}} users."
+    "translation": "@all has been disabled because the class has more than {{.Users}} users."
   },
   {
-    "id": "api.post.disabled_channel",
-    "translation": "@channel has been disabled because the channel has more than {{.Users}} users."
+    "id": "api.post.disabled_class",
+    "translation": "@class has been disabled because the class has more than {{.Users}} users."
   },
   {
     "id": "api.post.disabled_here",
@@ -1500,14 +1500,14 @@
   },
   {
     "id": "api.post.patch_post.can_not_update_post_in_deleted.error",
-    "translation": "Can not update a post in a deleted channel."
+    "translation": "Can not update a post in a deleted class."
   },
   {
     "id": "api.post.save_is_pinned_post.town_square_read_only",
     "translation": "此频道为只读。只有拥有权限的成员可以置顶或取消置顶消息。"
   },
   {
-    "id": "api.post.send_notification_and_forget.push_channel_mention",
+    "id": "api.post.send_notification_and_forget.push_class_mention",
     "translation": " 通知了频道。"
   },
   {
@@ -1536,7 +1536,7 @@
   },
   {
     "id": "api.post.update_post.can_not_update_post_in_deleted.error",
-    "translation": "Can not update a post in a deleted channel."
+    "translation": "Can not update a post in a deleted class."
   },
   {
     "id": "api.post.update_post.find.app_error",
@@ -1571,11 +1571,11 @@
     "translation": "无法设置用户偏好。"
   },
   {
-    "id": "api.reaction.delete.archived_channel.app_error",
+    "id": "api.reaction.delete.archived_class.app_error",
     "translation": "您不能移除已归档的频道中的互动。"
   },
   {
-    "id": "api.reaction.save.archived_channel.app_error",
+    "id": "api.reaction.save.archived_class.app_error",
     "translation": "您不能在已归档的频道互动。"
   },
   {
@@ -1607,11 +1607,11 @@
     "translation": "您的许可证不支持删除权限方案。"
   },
   {
-    "id": "api.scheme.get_channels_for_scheme.scope.error",
+    "id": "api.scheme.get_classes_for_scheme.scope.error",
     "translation": "无法获取方案的频道因为提供的方案不是频道方案。"
   },
   {
-    "id": "api.scheme.get_teams_for_scheme.scope.error",
+    "id": "api.scheme.get_branches_for_scheme.scope.error",
     "translation": "无法获取方案的团队因为提供的方案不是团队方案。"
   },
   {
@@ -1647,19 +1647,19 @@
     "translation": "无法导入整合/Slack 机器人用户 {{.Username}}。\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.added",
+    "id": "api.slackimport.slack_add_classes.added",
     "translation": "\r\n频道已添加：\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.failed_to_add_user",
+    "id": "api.slackimport.slack_add_classes.failed_to_add_user",
     "translation": "无法添加 Slack 用户 {{.Username}} 到频道。\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.import_failed",
+    "id": "api.slackimport.slack_add_classes.import_failed",
     "translation": "无法导入 Slack 频道 {{.DisplayName}}。\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.merge",
+    "id": "api.slackimport.slack_add_classes.merge",
     "translation": "Slack 频道 {{.DisplayName}} 已在 Masttermost 频道存在。已合并两频道。\r\n"
   },
   {
@@ -1711,7 +1711,7 @@
     "translation": "无法打开文件：{{.Filename}}。\r\n"
   },
   {
-    "id": "api.slackimport.slack_import.team_fail",
+    "id": "api.slackimport.slack_import.branch_fail",
     "translation": "导入时无法获取要导入的团队。\r\n"
   },
   {
@@ -1723,171 +1723,171 @@
     "translation": "未找到用户"
   },
   {
-    "id": "api.team.add_user_to_team.added",
+    "id": "api.branch.add_user_to_branch.added",
     "translation": "%v 由 %v 邀请加入到团队。"
   },
   {
-    "id": "api.team.add_user_to_team.missing_parameter.app_error",
+    "id": "api.branch.add_user_to_branch.missing_parameter.app_error",
     "translation": "添加用户到团队所需的参数。"
   },
   {
-    "id": "api.team.get_invite_info.not_open_team",
+    "id": "api.branch.get_invite_info.not_open_branch",
     "translation": "不能邀请进入非开放团队。"
   },
   {
-    "id": "api.team.get_team_icon.filesettings_no_driver.app_error",
+    "id": "api.branch.get_branch_icon.filesettings_no_driver.app_error",
     "translation": "文件设置中驱动名无效。必须为 'local' 或 'amazons3'"
   },
   {
-    "id": "api.team.get_team_icon.read_file.app_error",
+    "id": "api.branch.get_branch_icon.read_file.app_error",
     "translation": "无法读取团队图标文件。"
   },
   {
-    "id": "api.team.import_team.array.app_error",
+    "id": "api.branch.import_branch.array.app_error",
     "translation": "请求中 'file' 为空数组"
   },
   {
-    "id": "api.team.import_team.integer.app_error",
+    "id": "api.branch.import_branch.integer.app_error",
     "translation": "文件大小不是一个整数"
   },
   {
-    "id": "api.team.import_team.no_file.app_error",
+    "id": "api.branch.import_branch.no_file.app_error",
     "translation": "请求中‘file’，文件不存在"
   },
   {
-    "id": "api.team.import_team.no_import_from.app_error",
+    "id": "api.branch.import_branch.no_import_from.app_error",
     "translation": "错误请求：缺少 importFrom 字段。"
   },
   {
-    "id": "api.team.import_team.open.app_error",
+    "id": "api.branch.import_branch.open.app_error",
     "translation": "不能打开文件"
   },
   {
-    "id": "api.team.import_team.parse.app_error",
+    "id": "api.branch.import_branch.parse.app_error",
     "translation": "不能解析混合表单"
   },
   {
-    "id": "api.team.import_team.unavailable.app_error",
+    "id": "api.branch.import_branch.unavailable.app_error",
     "translation": "错误请求：缺少 filesize 字段。"
   },
   {
-    "id": "api.team.invite_members.disabled.app_error",
+    "id": "api.branch.invite_members.disabled.app_error",
     "translation": "邮件邀请已停用。"
   },
   {
-    "id": "api.team.invite_members.invalid_email.app_error",
+    "id": "api.branch.invite_members.invalid_email.app_error",
     "translation": "以下邮箱地址不在允许的域名范围内：{{.Addresses}}。请联系您的系统管理员了解详情。"
   },
   {
-    "id": "api.team.invite_members.member",
+    "id": "api.branch.invite_members.member",
     "translation": "成员"
   },
   {
-    "id": "api.team.invite_members.no_one.app_error",
+    "id": "api.branch.invite_members.no_one.app_error",
     "translation": "没有人可邀请。"
   },
   {
-    "id": "api.team.is_team_creation_allowed.disabled.app_error",
+    "id": "api.branch.is_branch_creation_allowed.disabled.app_error",
     "translation": "团队创建被禁用。详细请询问您的系统管理员。"
   },
   {
-    "id": "api.team.is_team_creation_allowed.domain.app_error",
+    "id": "api.branch.is_branch_creation_allowed.domain.app_error",
     "translation": "电子邮件必须来自指定域名 (例如 @example.com)。详情请询问您的系统管理员。"
   },
   {
-    "id": "api.team.join_team.post_and_forget",
+    "id": "api.branch.join_branch.post_and_forget",
     "translation": "%v 已加入团队。"
   },
   {
-    "id": "api.team.join_user_to_team.allowed_domains.app_error",
+    "id": "api.branch.join_user_to_branch.allowed_domains.app_error",
     "translation": "电子邮件必须来自指定域名 (例如 @example.com)。详情请询问您的系统管理员。"
   },
   {
-    "id": "api.team.leave.left",
+    "id": "api.branch.leave.left",
     "translation": "%v 离开了团队。"
   },
   {
-    "id": "api.team.move_channel.post.error",
+    "id": "api.branch.move_class.post.error",
     "translation": "发送频道移动消息失败。"
   },
   {
-    "id": "api.team.move_channel.success",
+    "id": "api.branch.move_class.success",
     "translation": "此频道已从 %v 移至此团队。"
   },
   {
-    "id": "api.team.remove_team_icon.get_team.app_error",
+    "id": "api.branch.remove_branch_icon.get_branch.app_error",
     "translation": "获取团队时发生错误"
   },
   {
-    "id": "api.team.remove_user_from_team.missing.app_error",
+    "id": "api.branch.remove_user_from_branch.missing.app_error",
     "translation": "此用户似乎不属于此团队。"
   },
   {
-    "id": "api.team.remove_user_from_team.removed",
+    "id": "api.branch.remove_user_from_branch.removed",
     "translation": "%v 已移出团队。"
   },
   {
-    "id": "api.team.set_team_icon.array.app_error",
+    "id": "api.branch.set_branch_icon.array.app_error",
     "translation": "请求中 'image' 为空"
   },
   {
-    "id": "api.team.set_team_icon.decode.app_error",
+    "id": "api.branch.set_branch_icon.decode.app_error",
     "translation": "无法解码团队图标"
   },
   {
-    "id": "api.team.set_team_icon.decode_config.app_error",
+    "id": "api.branch.set_branch_icon.decode_config.app_error",
     "translation": "无法解码团队图标元数据"
   },
   {
-    "id": "api.team.set_team_icon.encode.app_error",
+    "id": "api.branch.set_branch_icon.encode.app_error",
     "translation": "无法编码团队图标"
   },
   {
-    "id": "api.team.set_team_icon.get_team.app_error",
+    "id": "api.branch.set_branch_icon.get_branch.app_error",
     "translation": "获取团队时发生错误"
   },
   {
-    "id": "api.team.set_team_icon.no_file.app_error",
+    "id": "api.branch.set_branch_icon.no_file.app_error",
     "translation": "请求中缺失图片文件"
   },
   {
-    "id": "api.team.set_team_icon.open.app_error",
+    "id": "api.branch.set_branch_icon.open.app_error",
     "translation": "无法打开图像文件"
   },
   {
-    "id": "api.team.set_team_icon.parse.app_error",
+    "id": "api.branch.set_branch_icon.parse.app_error",
     "translation": "不能解析混合表单"
   },
   {
-    "id": "api.team.set_team_icon.storage.app_error",
+    "id": "api.branch.set_branch_icon.storage.app_error",
     "translation": "不能上传团队图标。没有配置图片存储。"
   },
   {
-    "id": "api.team.set_team_icon.too_large.app_error",
+    "id": "api.branch.set_branch_icon.too_large.app_error",
     "translation": "不能上传团队图标。文件太大。"
   },
   {
-    "id": "api.team.set_team_icon.write_file.app_error",
+    "id": "api.branch.set_branch_icon.write_file.app_error",
     "translation": "无法保存团队图标"
   },
   {
-    "id": "api.team.team_icon.update.app_error",
+    "id": "api.branch.branch_icon.update.app_error",
     "translation": "更新团队图标时发生错误"
   },
   {
-    "id": "api.team.update_member_roles.not_a_member",
+    "id": "api.branch.update_member_roles.not_a_member",
     "translation": "指定的用户不属于指定的团队。"
   },
   {
-    "id": "api.team.update_restricted_domains.mismatch.app_error",
+    "id": "api.branch.update_restricted_domains.mismatch.app_error",
     "translation": "系统设定不允许限制团队到 {{ .Domain }}。请联系您的系统管理员。"
   },
   {
-    "id": "api.team.update_team_scheme.license.error",
+    "id": "api.branch.update_branch_scheme.license.error",
     "translation": "您的许可证不支持更新团队方案"
   },
   {
-    "id": "api.team.update_team_scheme.scheme_scope.error",
+    "id": "api.branch.update_branch_scheme.scheme_scope.error",
     "translation": "无法设定团队方案因为提供的方案不是团队方案。"
   },
   {
@@ -1908,7 +1908,7 @@
   },
   {
     "id": "api.templates.email_change_body.info",
-    "translation": "您在 {{.TeamDisplayName}} 的邮件地址被更改至 {{.NewEmail}}。"
+    "translation": "您在 {{.BranchDisplayName}} 的邮件地址被更改至 {{.NewEmail}}。"
   },
   {
     "id": "api.templates.email_change_body.title",
@@ -1924,7 +1924,7 @@
   },
   {
     "id": "api.templates.email_change_verify_body.info",
-    "translation": "请点击下面的链接确认这是正确的地址，以完成在{{.TeamDisplayName}}的电子邮件地址更新。"
+    "translation": "请点击下面的链接确认这是正确的地址，以完成在{{.BranchDisplayName}}的电子邮件地址更新。"
   },
   {
     "id": "api.templates.email_change_verify_body.title",
@@ -1964,11 +1964,11 @@
   },
   {
     "id": "api.templates.invite_body.extra_info",
-    "translation": "Mattermost 允许您通过电脑、电话分享消息和文件，即时查找和归档。当你加入[[{{.TeamDisplayName}}]]后，你可以登录到你的新团队并在任何时候从网络地址访问这些功能："
+    "translation": "Mattermost 允许您通过电脑、电话分享消息和文件，即时查找和归档。当你加入[[{{.BranchDisplayName}}]]后，你可以登录到你的新团队并在任何时候从网络地址访问这些功能："
   },
   {
     "id": "api.templates.invite_body.info",
-    "translation": "团队 {{.SenderStatus}} [[{{.SenderName}}]] 邀请您加入 [[{{.TeamDisplayName}}]]。"
+    "translation": "团队 {{.SenderStatus}} [[{{.SenderName}}]] 邀请您加入 [[{{.BranchDisplayName}}]]。"
   },
   {
     "id": "api.templates.invite_body.title",
@@ -1976,7 +1976,7 @@
   },
   {
     "id": "api.templates.invite_subject",
-    "translation": "[{{ .SiteName }}] {{ .SenderName }} 邀请您加入 {{ .TeamDisplayName }} 团队"
+    "translation": "[{{ .SiteName }}] {{ .SenderName }} 邀请您加入 {{ .BranchDisplayName }} 团队"
   },
   {
     "id": "api.templates.mfa_activated_body.info",
@@ -2000,7 +2000,7 @@
   },
   {
     "id": "api.templates.password_change_body.info",
-    "translation": "您在 {{ .TeamURL }} 上 {{.TeamDisplayName}} 的密码已由 {{.Method}} 修改。"
+    "translation": "您在 {{ .BranchURL }} 上 {{.BranchDisplayName}} 的密码已由 {{.Method}} 修改。"
   },
   {
     "id": "api.templates.password_change_body.title",
@@ -2064,7 +2064,7 @@
   },
   {
     "id": "api.templates.username_change_body.info",
-    "translation": "您在 {{.TeamDisplayName}} 的用户名被更改至 {{.NewUsername}}。"
+    "translation": "您在 {{.BranchDisplayName}} 的用户名被更改至 {{.NewUsername}}。"
   },
   {
     "id": "api.templates.username_change_body.title",
@@ -2123,8 +2123,8 @@
     "translation": "此帐户类型不支持多重验证"
   },
   {
-    "id": "api.user.add_direct_channels_and_forget.failed.error",
-    "translation": "添加用户直接频道偏好设定失败 user_id={{.UserId}}, team_id={{.TeamId}}, err={{.Error}}"
+    "id": "api.user.add_direct_classes_and_forget.failed.error",
+    "translation": "添加用户直接频道偏好设定失败 user_id={{.UserId}}, branch_id={{.BranchId}}, err={{.Error}}"
   },
   {
     "id": "api.user.authorize_oauth_user.bad_response.app_error",
@@ -2159,7 +2159,7 @@
     "translation": "不支持的认证服务商"
   },
   {
-    "id": "api.user.autocomplete_users.invalid_team_id",
+    "id": "api.user.autocomplete_users.invalid_branch_id",
     "translation": "无效的团队 id"
   },
   {
@@ -2548,14 +2548,14 @@
   },
   {
     "id": "api.webhook.create_outgoing.triggers.app_error",
-    "translation": "无论是trigger_words或channel_id必须设置"
+    "translation": "无论是trigger_words或class_id必须设置"
   },
   {
     "id": "api.webhook.incoming.error",
     "translation": "无法解码传入的 webhook 混合数据。"
   },
   {
-    "id": "api.webhook.team_mismatch.app_error",
+    "id": "api.webhook.branch_mismatch.app_error",
     "translation": "无法跨团队更新 webhook"
   },
   {
@@ -2571,31 +2571,31 @@
     "translation": "连接失败：{{.Error}}"
   },
   {
-    "id": "app.channel.create_channel.no_team_id.app_error",
+    "id": "app.class.create_class.no_branch_id.app_error",
     "translation": "必须指定团队ID才能创建频道"
   },
   {
-    "id": "app.channel.move_channel.members_do_not_match.error",
+    "id": "app.class.move_class.members_do_not_match.error",
     "translation": "无法移动频道除非所有成员已是目标团队的成员。"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.post.error",
+    "id": "app.class.post_update_class_purpose_message.post.error",
     "translation": "发送频道作用消息失败"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.removed",
+    "id": "app.class.post_update_class_purpose_message.removed",
     "translation": "%s 删除了频道作用 (原为: %s)"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.retrieve_user.error",
+    "id": "app.class.post_update_class_purpose_message.retrieve_user.error",
     "translation": "尝试保存更新的频道作用消息 %v 时获取用户信息失败"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.updated_from",
+    "id": "app.class.post_update_class_purpose_message.updated_from",
     "translation": "%s 将频道作用从: %s 更新为: %s"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.updated_to",
+    "id": "app.class.post_update_class_purpose_message.updated_to",
     "translation": "%s 更新了频道作用为: %s"
   },
   {
@@ -2635,43 +2635,43 @@
     "translation": "导入表情符图像文件出错。表情符：“{{.EmojiName}}”"
   },
   {
-    "id": "app.import.import_channel.scheme_deleted.error",
+    "id": "app.import.import_class.scheme_deleted.error",
     "translation": "无法设定频道使用已删除的方案。"
   },
   {
-    "id": "app.import.import_channel.scheme_wrong_scope.error",
+    "id": "app.import.import_class.scheme_wrong_scope.error",
     "translation": "频道必须指定到频道范围的方案。"
   },
   {
-    "id": "app.import.import_channel.team_not_found.error",
-    "translation": "导入频道失败。团队名 \"{{.TeamName}}\" 无法找到。"
+    "id": "app.import.import_class.branch_not_found.error",
+    "translation": "导入频道失败。团队名 \"{{.BranchName}}\" 无法找到。"
   },
   {
-    "id": "app.import.import_direct_channel.create_direct_channel.error",
+    "id": "app.import.import_direct_class.create_direct_class.error",
     "translation": "船舰私信组频道失败"
   },
   {
-    "id": "app.import.import_direct_channel.create_group_channel.error",
+    "id": "app.import.import_direct_class.create_group_class.error",
     "translation": "创建群频道失败"
   },
   {
-    "id": "app.import.import_direct_channel.member_not_found.error",
+    "id": "app.import.import_direct_class.member_not_found.error",
     "translation": "导入私信频道时无法找到频道成员"
   },
   {
-    "id": "app.import.import_direct_channel.update_header_failed.error",
+    "id": "app.import.import_direct_class.update_header_failed.error",
     "translation": "更新私信频道标题失败"
   },
   {
-    "id": "app.import.import_direct_post.channel_member_not_found.error",
+    "id": "app.import.import_direct_post.class_member_not_found.error",
     "translation": "导入私信频道消息时无法找到频道成员"
   },
   {
-    "id": "app.import.import_direct_post.create_direct_channel.error",
+    "id": "app.import.import_direct_post.create_direct_class.error",
     "translation": "获取私信频道失败"
   },
   {
-    "id": "app.import.import_direct_post.create_group_channel.error",
+    "id": "app.import.import_direct_post.create_group_class.error",
     "translation": "获取组频道失败"
   },
   {
@@ -2683,12 +2683,12 @@
     "translation": "消息用户不存在"
   },
   {
-    "id": "app.import.import_line.null_channel.error",
-    "translation": "导入数据行有类型 \"channel\" 但频道对象是无。"
+    "id": "app.import.import_line.null_class.error",
+    "translation": "导入数据行有类型 \"class\" 但频道对象是无。"
   },
   {
-    "id": "app.import.import_line.null_direct_channel.error",
-    "translation": "导入数据行有类型 \"direct_channel\" 但 direct_channel 对象为 null。"
+    "id": "app.import.import_line.null_direct_class.error",
+    "translation": "导入数据行有类型 \"direct_class\" 但 direct_class 对象为 null。"
   },
   {
     "id": "app.import.import_line.null_direct_post.error",
@@ -2707,8 +2707,8 @@
     "translation": "导入数据行有类型 \"方案\" 但方案对象是无。"
   },
   {
-    "id": "app.import.import_line.null_team.error",
-    "translation": "导入数据行有类型 \"team\" 但团队对象是无。"
+    "id": "app.import.import_line.null_branch.error",
+    "translation": "导入数据行有类型 \"branch\" 但团队对象是无。"
   },
   {
     "id": "app.import.import_line.null_user.error",
@@ -2719,16 +2719,16 @@
     "translation": "导入数据行有无效的类型 \"{{.Type}}\"。"
   },
   {
-    "id": "app.import.import_post.channel_not_found.error",
-    "translation": "导入消息失败。无法找到频道 \"{{.ChannelName}}\"。"
+    "id": "app.import.import_post.class_not_found.error",
+    "translation": "导入消息失败。无法找到频道 \"{{.ClassName}}\"。"
   },
   {
     "id": "app.import.import_post.save_preferences.error",
     "translation": "导入消息错误。无法保存偏好。"
   },
   {
-    "id": "app.import.import_post.team_not_found.error",
-    "translation": "导入消息失败。无法找到团队 \"{{.TeamName}}\"。"
+    "id": "app.import.import_post.branch_not_found.error",
+    "translation": "导入消息失败。无法找到团队 \"{{.BranchName}}\"。"
   },
   {
     "id": "app.import.import_post.user_not_found.error",
@@ -2739,11 +2739,11 @@
     "translation": "批量导入器无法更改现有的方案的范围。"
   },
   {
-    "id": "app.import.import_team.scheme_deleted.error",
+    "id": "app.import.import_branch.scheme_deleted.error",
     "translation": "无法指定团队使用已删除的方案。"
   },
   {
-    "id": "app.import.import_team.scheme_wrong_scope.error",
+    "id": "app.import.import_branch.scheme_wrong_scope.error",
     "translation": "团队必须指定到团队范围的方案。"
   },
   {
@@ -2751,7 +2751,7 @@
     "translation": "导入用户偏好错误。无法保存偏好。"
   },
   {
-    "id": "app.import.import_user_channels.save_preferences.error",
+    "id": "app.import.import_user_classes.save_preferences.error",
     "translation": "导入用户频道成员错误。无法保存偏好。"
   },
   {
@@ -2759,79 +2759,79 @@
     "translation": "无法读取数据导入文件版本。"
   },
   {
-    "id": "app.import.validate_channel_import_data.display_name_length.error",
+    "id": "app.import.validate_class_import_data.display_name_length.error",
     "translation": "频道 display_name 不在允许的长度范围内。"
   },
   {
-    "id": "app.import.validate_channel_import_data.display_name_missing.error",
+    "id": "app.import.validate_class_import_data.display_name_missing.error",
     "translation": "缺少频道必须属性：display_name"
   },
   {
-    "id": "app.import.validate_channel_import_data.header_length.error",
+    "id": "app.import.validate_class_import_data.header_length.error",
     "translation": "频道标题过长。"
   },
   {
-    "id": "app.import.validate_channel_import_data.name_characters.error",
+    "id": "app.import.validate_class_import_data.name_characters.error",
     "translation": "频道名称包含无效字符。"
   },
   {
-    "id": "app.import.validate_channel_import_data.name_length.error",
+    "id": "app.import.validate_class_import_data.name_length.error",
     "translation": "频道名称过长。"
   },
   {
-    "id": "app.import.validate_channel_import_data.name_missing.error",
+    "id": "app.import.validate_class_import_data.name_missing.error",
     "translation": "缺少频道必须属性：name"
   },
   {
-    "id": "app.import.validate_channel_import_data.purpose_length.error",
+    "id": "app.import.validate_class_import_data.purpose_length.error",
     "translation": "频道作用过长。"
   },
   {
-    "id": "app.import.validate_channel_import_data.scheme_invalid.error",
+    "id": "app.import.validate_class_import_data.scheme_invalid.error",
     "translation": "无效的频道方案名。"
   },
   {
-    "id": "app.import.validate_channel_import_data.team_missing.error",
-    "translation": "缺少频道必须属性：team"
+    "id": "app.import.validate_class_import_data.branch_missing.error",
+    "translation": "缺少频道必须属性：branch"
   },
   {
-    "id": "app.import.validate_channel_import_data.type_invalid.error",
+    "id": "app.import.validate_class_import_data.type_invalid.error",
     "translation": "无效频道类型。"
   },
   {
-    "id": "app.import.validate_channel_import_data.type_missing.error",
+    "id": "app.import.validate_class_import_data.type_missing.error",
     "translation": "缺少频道必须属性：type。"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.header_length.error",
+    "id": "app.import.validate_direct_class_import_data.header_length.error",
     "translation": "私信频道标题过长"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_required.error",
+    "id": "app.import.validate_direct_class_import_data.members_required.error",
     "translation": "缺少私信频道必须属性：members"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_too_few.error",
+    "id": "app.import.validate_direct_class_import_data.members_too_few.error",
     "translation": "私信频道成员列表数量过少"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_too_many.error",
+    "id": "app.import.validate_direct_class_import_data.members_too_many.error",
     "translation": "私信频道成员列表数量过多"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.unknown_favoriter.error",
+    "id": "app.import.validate_direct_class_import_data.unknown_favoriter.error",
     "translation": "私信频道只能被成员设为最爱。\"{{.Username}}\" 不是成员。"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_required.error",
-    "translation": "缺少私信消息必须属性：channel_members"
+    "id": "app.import.validate_direct_post_import_data.class_members_required.error",
+    "translation": "缺少私信消息必须属性：class_members"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_too_few.error",
+    "id": "app.import.validate_direct_post_import_data.class_members_too_few.error",
     "translation": "私信频道成员列表数量过少"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_too_many.error",
+    "id": "app.import.validate_direct_post_import_data.class_members_too_many.error",
     "translation": "私信频道成员列表数量过多"
   },
   {
@@ -2871,8 +2871,8 @@
     "translation": "导入表情符名栏为空。"
   },
   {
-    "id": "app.import.validate_post_import_data.channel_missing.error",
-    "translation": "缺少消息必须属性：Channel。"
+    "id": "app.import.validate_post_import_data.class_missing.error",
+    "translation": "缺少消息必须属性：Class。"
   },
   {
     "id": "app.import.validate_post_import_data.create_at_missing.error",
@@ -2891,8 +2891,8 @@
     "translation": "缺少消息必须属性：Message。"
   },
   {
-    "id": "app.import.validate_post_import_data.team_missing.error",
-    "translation": "缺少消息必须属性：Team。"
+    "id": "app.import.validate_post_import_data.branch_missing.error",
+    "translation": "缺少消息必须属性：Branch。"
   },
   {
     "id": "app.import.validate_post_import_data.user_missing.error",
@@ -2987,63 +2987,63 @@
     "translation": "错误的角色提供给了拥有此范围的方案。"
   },
   {
-    "id": "app.import.validate_team_import_data.description_length.error",
+    "id": "app.import.validate_branch_import_data.description_length.error",
     "translation": "团队简介过长。"
   },
   {
-    "id": "app.import.validate_team_import_data.display_name_length.error",
+    "id": "app.import.validate_branch_import_data.display_name_length.error",
     "translation": "团队 display_name 不在允许的长度范围内。"
   },
   {
-    "id": "app.import.validate_team_import_data.display_name_missing.error",
+    "id": "app.import.validate_branch_import_data.display_name_missing.error",
     "translation": "缺少团队必须属性：display_name。"
   },
   {
-    "id": "app.import.validate_team_import_data.name_characters.error",
+    "id": "app.import.validate_branch_import_data.name_characters.error",
     "translation": "团队名包含非法字符。"
   },
   {
-    "id": "app.import.validate_team_import_data.name_length.error",
+    "id": "app.import.validate_branch_import_data.name_length.error",
     "translation": "团队名过长。"
   },
   {
-    "id": "app.import.validate_team_import_data.name_missing.error",
+    "id": "app.import.validate_branch_import_data.name_missing.error",
     "translation": "缺少频道必须属性：name。"
   },
   {
-    "id": "app.import.validate_team_import_data.name_reserved.error",
+    "id": "app.import.validate_branch_import_data.name_reserved.error",
     "translation": "团队名含有预留词。"
   },
   {
-    "id": "app.import.validate_team_import_data.scheme_invalid.error",
+    "id": "app.import.validate_branch_import_data.scheme_invalid.error",
     "translation": "无效的团队方案名。"
   },
   {
-    "id": "app.import.validate_team_import_data.type_invalid.error",
+    "id": "app.import.validate_branch_import_data.type_invalid.error",
     "translation": "无效团队类型。"
   },
   {
-    "id": "app.import.validate_team_import_data.type_missing.error",
+    "id": "app.import.validate_branch_import_data.type_missing.error",
     "translation": "缺少频道必须属性：type。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.channel_name_missing.error",
+    "id": "app.import.validate_user_classes_import_data.class_name_missing.error",
     "translation": "用户频道会员资格中缺少频道名称。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_desktop.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_desktop.error",
     "translation": "用户的频道身份的桌面 NotifyProps 无效。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_mark_unread.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_mark_unread.error",
     "translation": "用户的频道身份的 MarkUnread NotifyProps 无效。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_mobile.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_mobile.error",
     "translation": "用户的频道身份的移动设备 NotifyProps 无效。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_roles.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_roles.error",
     "translation": "用户频道成员资格的角色无效。"
   },
   {
@@ -3075,7 +3075,7 @@
     "translation": "用户昵称过长。"
   },
   {
-    "id": "app.import.validate_user_import_data.notify_props_channel_trigger_invalid.error",
+    "id": "app.import.validate_user_import_data.notify_props_class_trigger_invalid.error",
     "translation": "无效用户频道触发 Notify Prop。"
   },
   {
@@ -3127,11 +3127,11 @@
     "translation": "缺少用户必须属性：username。"
   },
   {
-    "id": "app.import.validate_user_teams_import_data.invalid_roles.error",
+    "id": "app.import.validate_user_branches_import_data.invalid_roles.error",
     "translation": "用户团队成员资格的角色无效。"
   },
   {
-    "id": "app.import.validate_user_teams_import_data.team_name_missing.error",
+    "id": "app.import.validate_user_branches_import_data.branch_name_missing.error",
     "translation": "用户的团队成员资格中缺少团队名称。"
   },
   {
@@ -3168,7 +3168,7 @@
   },
   {
     "id": "app.notification.body.text.group_message.full",
-    "translation": "频道：{{.ChannelName}}"
+    "translation": "频道：{{.ClassName}}"
   },
   {
     "id": "app.notification.body.text.group_message.full2",
@@ -3180,7 +3180,7 @@
   },
   {
     "id": "app.notification.body.text.notification.full",
-    "translation": "频道：{{.ChannelName}}"
+    "translation": "频道：{{.ClassName}}"
   },
   {
     "id": "app.notification.body.text.notification.full2",
@@ -3299,7 +3299,7 @@
     "translation": "解析安装日期失败"
   },
   {
-    "id": "app.team.join_user_to_team.max_accounts.app_error",
+    "id": "app.branch.join_user_to_branch.max_accounts.app_error",
     "translation": "这个团队已经达到允许的最大帐号数量。请与系统管理员联系以设置更高的限制。"
   },
   {
@@ -3927,67 +3927,67 @@
     "translation": "无效用户名"
   },
   {
-    "id": "model.channel.is_valid.2_or_more.app_error",
+    "id": "model.class.is_valid.2_or_more.app_error",
     "translation": "名称必须是2个或以上的小写字母"
   },
   {
-    "id": "model.channel.is_valid.create_at.app_error",
+    "id": "model.class.is_valid.create_at.app_error",
     "translation": "创建时必须是有效时间"
   },
   {
-    "id": "model.channel.is_valid.creator_id.app_error",
+    "id": "model.class.is_valid.creator_id.app_error",
     "translation": "无效创建者id"
   },
   {
-    "id": "model.channel.is_valid.display_name.app_error",
+    "id": "model.class.is_valid.display_name.app_error",
     "translation": "无效显示名"
   },
   {
-    "id": "model.channel.is_valid.header.app_error",
+    "id": "model.class.is_valid.header.app_error",
     "translation": "无效标题"
   },
   {
-    "id": "model.channel.is_valid.id.app_error",
+    "id": "model.class.is_valid.id.app_error",
     "translation": "无效Id"
   },
   {
-    "id": "model.channel.is_valid.purpose.app_error",
+    "id": "model.class.is_valid.purpose.app_error",
     "translation": "无效用途"
   },
   {
-    "id": "model.channel.is_valid.type.app_error",
+    "id": "model.class.is_valid.type.app_error",
     "translation": "无效类型"
   },
   {
-    "id": "model.channel.is_valid.update_at.app_error",
+    "id": "model.class.is_valid.update_at.app_error",
     "translation": "更新时必须是有效时间"
   },
   {
-    "id": "model.channel_member.is_valid.channel_id.app_error",
+    "id": "model.class_member.is_valid.class_id.app_error",
     "translation": "无效的频道id"
   },
   {
-    "id": "model.channel_member.is_valid.email_value.app_error",
+    "id": "model.class_member.is_valid.email_value.app_error",
     "translation": "无效的电子邮件通知值"
   },
   {
-    "id": "model.channel_member.is_valid.ignore_channel_mentions_value.app_error",
+    "id": "model.class_member.is_valid.ignore_class_mentions_value.app_error",
     "translation": "无效的忽略频道提及状态"
   },
   {
-    "id": "model.channel_member.is_valid.notify_level.app_error",
+    "id": "model.class_member.is_valid.notify_level.app_error",
     "translation": "无效通知级别"
   },
   {
-    "id": "model.channel_member.is_valid.push_level.app_error",
+    "id": "model.class_member.is_valid.push_level.app_error",
     "translation": "无效的推送通知等级"
   },
   {
-    "id": "model.channel_member.is_valid.unread_level.app_error",
+    "id": "model.class_member.is_valid.unread_level.app_error",
     "translation": "无效的未读标记级别"
   },
   {
-    "id": "model.channel_member.is_valid.user_id.app_error",
+    "id": "model.class_member.is_valid.user_id.app_error",
     "translation": "无效用户id"
   },
   {
@@ -4007,15 +4007,15 @@
     "translation": "无法写入请求"
   },
   {
-    "id": "model.client.get_flagged_posts_in_channel.missing_parameter.app_error",
+    "id": "model.client.get_flagged_posts_in_class.missing_parameter.app_error",
     "translation": "缺少频道参数"
   },
   {
-    "id": "model.client.get_flagged_posts_in_team.missing_parameter.app_error",
+    "id": "model.client.get_flagged_posts_in_branch.missing_parameter.app_error",
     "translation": "缺少团队参数"
   },
   {
-    "id": "model.client.get_team_icon.app_error",
+    "id": "model.client.get_branch_icon.app_error",
     "translation": "无法从回应中读取团队图标。"
   },
   {
@@ -4031,15 +4031,15 @@
     "translation": "无法写入请求"
   },
   {
-    "id": "model.client.set_team_icon.no_file.app_error",
+    "id": "model.client.set_branch_icon.no_file.app_error",
     "translation": "请求中缺失图片文件"
   },
   {
-    "id": "model.client.set_team_icon.writer.app_error",
+    "id": "model.client.set_branch_icon.writer.app_error",
     "translation": "无法写入请求。"
   },
   {
-    "id": "model.client.upload_post_attachment.channel_id.app_error",
+    "id": "model.client.upload_post_attachment.class_id.app_error",
     "translation": "写入频道 id 到混合表单错误"
   },
   {
@@ -4111,7 +4111,7 @@
     "translation": "无效方式"
   },
   {
-    "id": "model.command.is_valid.team_id.app_error",
+    "id": "model.command.is_valid.branch_id.app_error",
     "translation": "无效的团队 ID"
   },
   {
@@ -4139,7 +4139,7 @@
     "translation": "无效用户id"
   },
   {
-    "id": "model.command_hook.channel_id.app_error",
+    "id": "model.command_hook.class_id.app_error",
     "translation": "无效的频道 id"
   },
   {
@@ -4283,7 +4283,7 @@
     "translation": "文件设置中的公共链接盐无效。必须至少32位字符。"
   },
   {
-    "id": "model.config.is_valid.group_unread_channels.app_error",
+    "id": "model.config.is_valid.group_unread_classes.app_error",
     "translation": "无效未读频道分组的服务设定。必须为 'disabled'、'default_on' 或 'default_off'。"
   },
   {
@@ -4343,7 +4343,7 @@
     "translation": "最大过载必须大于零。"
   },
   {
-    "id": "model.config.is_valid.max_channels.app_error",
+    "id": "model.config.is_valid.max_classes.app_error",
     "translation": "团队设置中每团队的最多频道数无效，必须是正整数。"
   },
   {
@@ -4351,7 +4351,7 @@
     "translation": "无效文件设定的最大文件大小。必须为大于零的整数。"
   },
   {
-    "id": "model.config.is_valid.max_notify_per_channel.app_error",
+    "id": "model.config.is_valid.max_notify_per_class.app_error",
     "translation": "无效团队设置中每频道最大通知数。必须是正整数。"
   },
   {
@@ -4416,7 +4416,7 @@
   },
   {
     "id": "model.config.is_valid.restrict_direct_message.app_error",
-    "translation": "无效的私信限制。必须为 'any' 或 'team'"
+    "translation": "无效的私信限制。必须为 'any' 或 'branch'"
   },
   {
     "id": "model.config.is_valid.saml_assertion_consumer_service_url.app_error",
@@ -4491,7 +4491,7 @@
     "translation": "无效 SQL 查询超时设定。必须是正整数。"
   },
   {
-    "id": "model.config.is_valid.teammate_name_display.app_error",
+    "id": "model.config.is_valid.branchmate_name_display.app_error",
     "translation": "无效的团员显示。必须为 'full_name'，'nickname_full_name' 或 'username'"
   },
   {
@@ -4628,10 +4628,10 @@
   },
   {
     "id": "model.group_syncable.unmarshaljson.duplicate_type_identifier",
-    "translation": "类型已存在：也许 json 同时拥有 'team_id' 以及 'channel_id'"
+    "translation": "类型已存在：也许 json 同时拥有 'branch_id' 以及 'class_id'"
   },
   {
-    "id": "model.incoming_hook.channel_id.app_error",
+    "id": "model.incoming_hook.class_id.app_error",
     "translation": "无效的频道id"
   },
   {
@@ -4659,7 +4659,7 @@
     "translation": "无法解析传入数据"
   },
   {
-    "id": "model.incoming_hook.team_id.app_error",
+    "id": "model.incoming_hook.branch_id.app_error",
     "translation": "无效的团队 ID"
   },
   {
@@ -4771,7 +4771,7 @@
     "translation": "无效的回调网址"
   },
   {
-    "id": "model.outgoing_hook.is_valid.channel_id.app_error",
+    "id": "model.outgoing_hook.is_valid.class_id.app_error",
     "translation": "无效的频道id"
   },
   {
@@ -4795,7 +4795,7 @@
     "translation": "无效Id"
   },
   {
-    "id": "model.outgoing_hook.is_valid.team_id.app_error",
+    "id": "model.outgoing_hook.is_valid.branch_id.app_error",
     "translation": "无效的团队 ID"
   },
   {
@@ -4839,7 +4839,7 @@
     "translation": "无效插件 ID，必须为 {{.Min}} 至 {{.Max}} 个字符。"
   },
   {
-    "id": "model.post.is_valid.channel_id.app_error",
+    "id": "model.post.is_valid.class_id.app_error",
     "translation": "无效的频道id"
   },
   {
@@ -4935,59 +4935,59 @@
     "translation": "无效用户id"
   },
   {
-    "id": "model.team.is_valid.characters.app_error",
+    "id": "model.branch.is_valid.characters.app_error",
     "translation": "名称必须是2个或以上的小写字母"
   },
   {
-    "id": "model.team.is_valid.company.app_error",
+    "id": "model.branch.is_valid.company.app_error",
     "translation": "无效的公司名"
   },
   {
-    "id": "model.team.is_valid.create_at.app_error",
+    "id": "model.branch.is_valid.create_at.app_error",
     "translation": "创建时必须是有效时间"
   },
   {
-    "id": "model.team.is_valid.description.app_error",
+    "id": "model.branch.is_valid.description.app_error",
     "translation": "无效的描述"
   },
   {
-    "id": "model.team.is_valid.domains.app_error",
+    "id": "model.branch.is_valid.domains.app_error",
     "translation": "无效允许域"
   },
   {
-    "id": "model.team.is_valid.email.app_error",
+    "id": "model.branch.is_valid.email.app_error",
     "translation": "无效邮箱"
   },
   {
-    "id": "model.team.is_valid.id.app_error",
+    "id": "model.branch.is_valid.id.app_error",
     "translation": "无效Id"
   },
   {
-    "id": "model.team.is_valid.name.app_error",
+    "id": "model.branch.is_valid.name.app_error",
     "translation": "无效名称"
   },
   {
-    "id": "model.team.is_valid.reserved.app_error",
+    "id": "model.branch.is_valid.reserved.app_error",
     "translation": "这个网址是不可用。请尝试另一个。"
   },
   {
-    "id": "model.team.is_valid.type.app_error",
+    "id": "model.branch.is_valid.type.app_error",
     "translation": "无效类型"
   },
   {
-    "id": "model.team.is_valid.update_at.app_error",
+    "id": "model.branch.is_valid.update_at.app_error",
     "translation": "更新时必须是有效时间"
   },
   {
-    "id": "model.team.is_valid.url.app_error",
+    "id": "model.branch.is_valid.url.app_error",
     "translation": "无效的网址标识"
   },
   {
-    "id": "model.team_member.is_valid.team_id.app_error",
+    "id": "model.branch_member.is_valid.branch_id.app_error",
     "translation": "无效的团队 ID"
   },
   {
-    "id": "model.team_member.is_valid.user_id.app_error",
+    "id": "model.branch_member.is_valid.user_id.app_error",
     "translation": "无效用户id"
   },
   {
@@ -5215,383 +5215,383 @@
     "translation": "我们更新这个app出现一个错误"
   },
   {
-    "id": "store.sql_channel.analytics_deleted_type_count.app_error",
+    "id": "store.sql_class.analytics_deleted_type_count.app_error",
     "translation": "无法获取已删除的频道类型数"
   },
   {
-    "id": "store.sql_channel.analytics_type_count.app_error",
+    "id": "store.sql_class.analytics_type_count.app_error",
     "translation": "无法获取频道类型数"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.commit_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.commit_transaction.app_error",
     "translation": "提交数据库事务失败"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.open_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.open_transaction.app_error",
     "translation": "开始数据库事务失败"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.rollback_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.rollback_transaction.app_error",
     "translation": "回滚数据库事务失败"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.select.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.select.app_error",
     "translation": "获取频道成员失败"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.update.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.update.app_error",
     "translation": "更新频道成员失败"
   },
   {
-    "id": "store.sql_channel.delete.channel.app_error",
+    "id": "store.sql_class.delete.class.app_error",
     "translation": "无法删除频道"
   },
   {
-    "id": "store.sql_channel.get.existing.app_error",
+    "id": "store.sql_class.get.existing.app_error",
     "translation": "找不到现有的频道"
   },
   {
-    "id": "store.sql_channel.get.find.app_error",
+    "id": "store.sql_class.get.find.app_error",
     "translation": "我们查找该频道时遇到了一个错误"
   },
   {
-    "id": "store.sql_channel.get_all.app_error",
+    "id": "store.sql_class.get_all.app_error",
     "translation": "无法获取所有频道"
   },
   {
-    "id": "store.sql_channel.get_by_name.existing.app_error",
+    "id": "store.sql_class.get_by_name.existing.app_error",
     "translation": "找不到现有的频道"
   },
   {
-    "id": "store.sql_channel.get_by_name.missing.app_error",
+    "id": "store.sql_class.get_by_name.missing.app_error",
     "translation": "频道不存在"
   },
   {
-    "id": "store.sql_channel.get_by_scheme.app_error",
+    "id": "store.sql_class.get_by_scheme.app_error",
     "translation": "无法用提供的方案获取频道"
   },
   {
-    "id": "store.sql_channel.get_channel_counts.get.app_error",
+    "id": "store.sql_class.get_class_counts.get.app_error",
     "translation": "无法获取频道数"
   },
   {
-    "id": "store.sql_channel.get_channels.get.app_error",
+    "id": "store.sql_class.get_classes.get.app_error",
     "translation": "无法获得频道"
   },
   {
-    "id": "store.sql_channel.get_channels.not_found.app_error",
+    "id": "store.sql_class.get_classes.not_found.app_error",
     "translation": "没有找到频道"
   },
   {
-    "id": "store.sql_channel.get_channels_by_ids.get.app_error",
+    "id": "store.sql_class.get_classes_by_ids.get.app_error",
     "translation": "无法获得频道"
   },
   {
-    "id": "store.sql_channel.get_channels_by_ids.not_found.app_error",
+    "id": "store.sql_class.get_classes_by_ids.not_found.app_error",
     "translation": "未找到频道"
   },
   {
-    "id": "store.sql_channel.get_deleted.existing.app_error",
+    "id": "store.sql_class.get_deleted.existing.app_error",
     "translation": "找不到现有的已删除的频道"
   },
   {
-    "id": "store.sql_channel.get_deleted.missing.app_error",
+    "id": "store.sql_class.get_deleted.missing.app_error",
     "translation": "没有已删除的频道"
   },
   {
-    "id": "store.sql_channel.get_deleted_by_name.existing.app_error",
+    "id": "store.sql_class.get_deleted_by_name.existing.app_error",
     "translation": "找不到现有的已删除的频道"
   },
   {
-    "id": "store.sql_channel.get_deleted_by_name.missing.app_error",
+    "id": "store.sql_class.get_deleted_by_name.missing.app_error",
     "translation": "没有用于此名的已删频道"
   },
   {
-    "id": "store.sql_channel.get_for_post.app_error",
+    "id": "store.sql_class.get_for_post.app_error",
     "translation": "无法从提供的消息获得频道"
   },
   {
-    "id": "store.sql_channel.get_member.app_error",
+    "id": "store.sql_class.get_member.app_error",
     "translation": "无法获取频道成员"
   },
   {
-    "id": "store.sql_channel.get_member.missing.app_error",
+    "id": "store.sql_class.get_member.missing.app_error",
     "translation": "无法找到与此用户id和频道id相关联的频道成员"
   },
   {
-    "id": "store.sql_channel.get_member_count.app_error",
+    "id": "store.sql_class.get_member_count.app_error",
     "translation": "无法获得该频道成员数"
   },
   {
-    "id": "store.sql_channel.get_member_for_post.app_error",
+    "id": "store.sql_class.get_member_for_post.app_error",
     "translation": "无法从提供的消息获得频道成员"
   },
   {
-    "id": "store.sql_channel.get_members.app_error",
+    "id": "store.sql_class.get_members.app_error",
     "translation": "无法获取频道成员"
   },
   {
-    "id": "store.sql_channel.get_members_by_ids.app_error",
+    "id": "store.sql_class.get_members_by_ids.app_error",
     "translation": "无法获取频道成员"
   },
   {
-    "id": "store.sql_channel.get_more_channels.get.app_error",
+    "id": "store.sql_class.get_more_classes.get.app_error",
     "translation": "无法获取频道"
   },
   {
-    "id": "store.sql_channel.get_public_channels.get.app_error",
+    "id": "store.sql_class.get_public_classes.get.app_error",
     "translation": "无法获取公开频道"
   },
   {
-    "id": "store.sql_channel.get_timezone.app_error",
+    "id": "store.sql_class.get_timezone.app_error",
     "translation": "我们无法获得频道成员时区"
   },
   {
-    "id": "store.sql_channel.get_unread.app_error",
+    "id": "store.sql_class.get_unread.app_error",
     "translation": "无法获取频道未读消息"
   },
   {
-    "id": "store.sql_channel.increment_mention_count.app_error",
+    "id": "store.sql_class.increment_mention_count.app_error",
     "translation": "无法添加提及数"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.commit_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.commit_transaction.app_error",
     "translation": "无法提交数据库事务"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.open_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.open_transaction.app_error",
     "translation": "打开数据库事务失败。"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.rollback_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.rollback_transaction.app_error",
     "translation": "回滚数据库事务失败。"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.select.app_error",
+    "id": "store.sql_class.migrate_class_members.select.app_error",
     "translation": "批量选择频道成员失败"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.update.app_error",
+    "id": "store.sql_class.migrate_class_members.update.app_error",
     "translation": "无法更新频道成员"
   },
   {
-    "id": "store.sql_channel.permanent_delete.app_error",
+    "id": "store.sql_class.permanent_delete.app_error",
     "translation": "无法删除频道"
   },
   {
-    "id": "store.sql_channel.permanent_delete.commit_transaction.app_error",
+    "id": "store.sql_class.permanent_delete.commit_transaction.app_error",
     "translation": "无法提交事务"
   },
   {
-    "id": "store.sql_channel.permanent_delete.delete_public_channel.app_error",
+    "id": "store.sql_class.permanent_delete.delete_public_class.app_error",
     "translation": "无法删除已实体化的公开频道"
   },
   {
-    "id": "store.sql_channel.permanent_delete.open_transaction.app_error",
+    "id": "store.sql_class.permanent_delete.open_transaction.app_error",
     "translation": "无法打开事务"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.app_error",
     "translation": "无法删除频道"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.commit_transaction.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.commit_transaction.app_error",
     "translation": "无法提交事务"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.delete_public_channels.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.delete_public_classes.app_error",
     "translation": "无法删除已实体化的公开频道"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.open_transaction.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.open_transaction.app_error",
     "translation": "无法打开事务"
   },
   {
-    "id": "store.sql_channel.permanent_delete_members_by_user.app_error",
+    "id": "store.sql_class.permanent_delete_members_by_user.app_error",
     "translation": "无法获取频道成员"
   },
   {
-    "id": "store.sql_channel.pinned_posts.app_error",
+    "id": "store.sql_class.pinned_posts.app_error",
     "translation": "无法找到指定消息"
   },
   {
-    "id": "store.sql_channel.remove_all_deactivated_members.app_error",
+    "id": "store.sql_class.remove_all_deactivated_members.app_error",
     "translation": "我们无法从频道移除已停用的用户"
   },
   {
-    "id": "store.sql_channel.remove_member.app_error",
+    "id": "store.sql_class.remove_member.app_error",
     "translation": "无法获取频道成员"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.app_error",
     "translation": "我们无法重置频道方案"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.commit_transaction.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.commit_transaction.app_error",
     "translation": "无法提交事务"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.open_transaction.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.open_transaction.app_error",
     "translation": "无法打开事务"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.app_error",
+    "id": "store.sql_class.reset_last_post_at.app_error",
     "translation": "我们无法重置频道最近消息日期"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.commit_transaction.app_error",
+    "id": "store.sql_class.reset_last_post_at.commit_transaction.app_error",
     "translation": "无法提交事务"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.open_transaction.app_error",
+    "id": "store.sql_class.reset_last_post_at.open_transaction.app_error",
     "translation": "无法打开事务"
   },
   {
-    "id": "store.sql_channel.save.archived_channel.app_error",
+    "id": "store.sql_class.save.archived_class.app_error",
     "translation": "您不能更改已归档的频道"
   },
   {
-    "id": "store.sql_channel.save.commit_transaction.app_error",
+    "id": "store.sql_class.save.commit_transaction.app_error",
     "translation": "不能提交事务"
   },
   {
-    "id": "store.sql_channel.save.direct_channel.app_error",
-    "translation": "使用 SaveDirectChannel 创建私聊频道"
+    "id": "store.sql_class.save.direct_class.app_error",
+    "translation": "使用 SaveDirectClass 创建私聊频道"
   },
   {
-    "id": "store.sql_channel.save.open_transaction.app_error",
+    "id": "store.sql_class.save.open_transaction.app_error",
     "translation": "不能打开事务"
   },
   {
-    "id": "store.sql_channel.save.upsert_public_channel.app_error",
+    "id": "store.sql_class.save.upsert_public_class.app_error",
     "translation": "无法插入或更新已实体化的公开频道"
   },
   {
-    "id": "store.sql_channel.save_channel.current_count.app_error",
+    "id": "store.sql_class.save_class.current_count.app_error",
     "translation": "获取当前频道数失败"
   },
   {
-    "id": "store.sql_channel.save_channel.existing.app_error",
+    "id": "store.sql_class.save_class.existing.app_error",
     "translation": "必须对现有的频道执行更新"
   },
   {
-    "id": "store.sql_channel.save_channel.exists.app_error",
+    "id": "store.sql_class.save_class.exists.app_error",
     "translation": "频道名称在团队中已存在"
   },
   {
-    "id": "store.sql_channel.save_channel.limit.app_error",
+    "id": "store.sql_class.save_class.limit.app_error",
     "translation": "您已经达到了允许的频道数量上限。"
   },
   {
-    "id": "store.sql_channel.save_channel.previously.app_error",
+    "id": "store.sql_class.save_class.previously.app_error",
     "translation": "先前已创建使用该 URL 的频道"
   },
   {
-    "id": "store.sql_channel.save_channel.save.app_error",
+    "id": "store.sql_class.save_class.save.app_error",
     "translation": "无法保存频道"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.add_members.app_error",
+    "id": "store.sql_class.save_direct_class.add_members.app_error",
     "translation": "不能添加私聊频道成员"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.commit.app_error",
+    "id": "store.sql_class.save_direct_class.commit.app_error",
     "translation": "不能提交事务"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.not_direct.app_error",
-    "translation": "不能试图用SaveDirectChannel创建私聊频道"
+    "id": "store.sql_class.save_direct_class.not_direct.app_error",
+    "translation": "不能试图用SaveDirectClass创建私聊频道"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.open_transaction.app_error",
+    "id": "store.sql_class.save_direct_class.open_transaction.app_error",
     "translation": "不能开启事务"
   },
   {
-    "id": "store.sql_channel.save_member.commit_transaction.app_error",
+    "id": "store.sql_class.save_member.commit_transaction.app_error",
     "translation": "不能提交事务"
   },
   {
-    "id": "store.sql_channel.save_member.exists.app_error",
+    "id": "store.sql_class.save_member.exists.app_error",
     "translation": "该频道已存在拥有此 ID 的成员"
   },
   {
-    "id": "store.sql_channel.save_member.open_transaction.app_error",
+    "id": "store.sql_class.save_member.open_transaction.app_error",
     "translation": "不能开启事务"
   },
   {
-    "id": "store.sql_channel.save_member.save.app_error",
+    "id": "store.sql_class.save_member.save.app_error",
     "translation": "无法保存频道成员"
   },
   {
-    "id": "store.sql_channel.search.app_error",
+    "id": "store.sql_class.search.app_error",
     "translation": "我们搜索频道时遇到错误"
   },
   {
-    "id": "store.sql_channel.set_delete_at.commit_transaction.app_error",
+    "id": "store.sql_class.set_delete_at.commit_transaction.app_error",
     "translation": "无法提交事务"
   },
   {
-    "id": "store.sql_channel.set_delete_at.open_transaction.app_error",
+    "id": "store.sql_class.set_delete_at.open_transaction.app_error",
     "translation": "无法打开事务"
   },
   {
-    "id": "store.sql_channel.set_delete_at.update_public_channel.app_error",
+    "id": "store.sql_class.set_delete_at.update_public_class.app_error",
     "translation": "无法更新已实体化的公开频道"
   },
   {
-    "id": "store.sql_channel.update.app_error",
+    "id": "store.sql_class.update.app_error",
     "translation": "无法更新频道"
   },
   {
-    "id": "store.sql_channel.update.archived_channel.app_error",
+    "id": "store.sql_class.update.archived_class.app_error",
     "translation": "您不能更改已归档的频道"
   },
   {
-    "id": "store.sql_channel.update.commit_transaction.app_error",
+    "id": "store.sql_class.update.commit_transaction.app_error",
     "translation": "无法提交事务"
   },
   {
-    "id": "store.sql_channel.update.exists.app_error",
+    "id": "store.sql_class.update.exists.app_error",
     "translation": "已存在使用该识别名的频道"
   },
   {
-    "id": "store.sql_channel.update.open_transaction.app_error",
+    "id": "store.sql_class.update.open_transaction.app_error",
     "translation": "无法打开事务"
   },
   {
-    "id": "store.sql_channel.update.previously.app_error",
+    "id": "store.sql_class.update.previously.app_error",
     "translation": "先前已创建过使用该识别名的频道"
   },
   {
-    "id": "store.sql_channel.update.updating.app_error",
+    "id": "store.sql_class.update.updating.app_error",
     "translation": "我们无法更新这个频道"
   },
   {
-    "id": "store.sql_channel.update.upsert_public_channel.app_error",
+    "id": "store.sql_class.update.upsert_public_class.app_error",
     "translation": "无法插入或更新已实体化的公开频道"
   },
   {
-    "id": "store.sql_channel.update_last_viewed_at.app_error",
+    "id": "store.sql_class.update_last_viewed_at.app_error",
     "translation": "无法能更新最后查看时间"
   },
   {
-    "id": "store.sql_channel.update_member.app_error",
+    "id": "store.sql_class.update_member.app_error",
     "translation": "我们更新频道成员遇到了一个错误"
   },
   {
-    "id": "store.sql_channel_member_history.get_users_in_channel_during.app_error",
+    "id": "store.sql_class_member_history.get_users_in_class_during.app_error",
     "translation": "获取频道在指定时间段的用户失败"
   },
   {
-    "id": "store.sql_channel_member_history.log_join_event.app_error",
+    "id": "store.sql_class_member_history.log_join_event.app_error",
     "translation": "记录频道成员历史失败"
   },
   {
-    "id": "store.sql_channel_member_history.log_leave_event.update_error",
+    "id": "store.sql_class_member_history.log_leave_event.update_error",
     "translation": "记录频道成员历史失败。更新加入记录失败"
   },
   {
-    "id": "store.sql_channel_member_history.permanent_delete_batch.app_error",
+    "id": "store.sql_class_member_history.permanent_delete_batch.app_error",
     "translation": "清理记录失败"
   },
   {
@@ -5639,7 +5639,7 @@
     "translation": "无法获取命令"
   },
   {
-    "id": "store.sql_command.save.get_team.app_error",
+    "id": "store.sql_command.save.get_branch.app_error",
     "translation": "无法获取命令"
   },
   {
@@ -6007,7 +6007,7 @@
     "translation": "批量永久删除消息时遇到错误"
   },
   {
-    "id": "store.sql_post.permanent_delete_by_channel.app_error",
+    "id": "store.sql_post.permanent_delete_by_class.app_error",
     "translation": "无法根据频道删除消息"
   },
   {
@@ -6207,11 +6207,11 @@
     "translation": "我们无法永久删除方案"
   },
   {
-    "id": "store.sql_scheme.reset_channels.app_error",
+    "id": "store.sql_scheme.reset_classes.app_error",
     "translation": "无法将此方案做为默认方案重置到所有频道"
   },
   {
-    "id": "store.sql_scheme.reset_teams.app_error",
+    "id": "store.sql_scheme.reset_branches.app_error",
     "translation": "无法将此方案做为默认方案重置到所有团队"
   },
   {
@@ -6259,7 +6259,7 @@
     "translation": "无法移除该会话"
   },
   {
-    "id": "store.sql_session.remove_all_sessions_for_team.app_error",
+    "id": "store.sql_session.remove_all_sessions_for_branch.app_error",
     "translation": "无法移除所有会话"
   },
   {
@@ -6299,7 +6299,7 @@
     "translation": "获取所有在线/离开状态时遇到错误"
   },
   {
-    "id": "store.sql_status.get_team_statuses.app_error",
+    "id": "store.sql_status.get_branch_statuses.app_error",
     "translation": "获取所有团队成员状态时遇到错误"
   },
   {
@@ -6343,171 +6343,171 @@
     "translation": "我们更新系统属性时遇到了一个错误"
   },
   {
-    "id": "store.sql_team.analytics_get_team_count_for_scheme.app_error",
+    "id": "store.sql_branch.analytics_get_branch_count_for_scheme.app_error",
     "translation": "无法从方案获取频道数。"
   },
   {
-    "id": "store.sql_team.analytics_team_count.app_error",
+    "id": "store.sql_branch.analytics_branch_count.app_error",
     "translation": "无法团队计数"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.commit_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.commit_transaction.app_error",
     "translation": "提交数据库事务失败"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.open_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.open_transaction.app_error",
     "translation": "开始数据库事务失败"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.rollback_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.rollback_transaction.app_error",
     "translation": "回滚数据库事务失败"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.select.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.select.app_error",
     "translation": "获取团队成员失败"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.update.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.update.app_error",
     "translation": "更新团队成员失败"
   },
   {
-    "id": "store.sql_team.get.find.app_error",
+    "id": "store.sql_branch.get.find.app_error",
     "translation": "未找到现有的团队"
   },
   {
-    "id": "store.sql_team.get.finding.app_error",
+    "id": "store.sql_branch.get.finding.app_error",
     "translation": "我们查找团队时遇到错误"
   },
   {
-    "id": "store.sql_team.get_all.app_error",
+    "id": "store.sql_branch.get_all.app_error",
     "translation": "我们无法获取所有的团队"
   },
   {
-    "id": "store.sql_team.get_all_team_listing.app_error",
+    "id": "store.sql_branch.get_all_branch_listing.app_error",
     "translation": "我们无法获取所有的团队"
   },
   {
-    "id": "store.sql_team.get_by_invite_id.find.app_error",
+    "id": "store.sql_branch.get_by_invite_id.find.app_error",
     "translation": "未找到现有的团队"
   },
   {
-    "id": "store.sql_team.get_by_invite_id.finding.app_error",
+    "id": "store.sql_branch.get_by_invite_id.finding.app_error",
     "translation": "未找到现有的团队"
   },
   {
-    "id": "store.sql_team.get_by_name.app_error",
+    "id": "store.sql_branch.get_by_name.app_error",
     "translation": "未找到现有的团队"
   },
   {
-    "id": "store.sql_team.get_by_scheme.app_error",
+    "id": "store.sql_branch.get_by_scheme.app_error",
     "translation": "无法用提供的方案获取频道"
   },
   {
-    "id": "store.sql_team.get_member.app_error",
+    "id": "store.sql_branch.get_member.app_error",
     "translation": "无法获取团队成员"
   },
   {
-    "id": "store.sql_team.get_member.missing.app_error",
+    "id": "store.sql_branch.get_member.missing.app_error",
     "translation": "无法找到此用户id和团队id相关联的团队成员"
   },
   {
-    "id": "store.sql_team.get_member_count.app_error",
+    "id": "store.sql_branch.get_member_count.app_error",
     "translation": "无法团队成员计数"
   },
   {
-    "id": "store.sql_team.get_members.app_error",
+    "id": "store.sql_branch.get_members.app_error",
     "translation": "无法获取团队成员"
   },
   {
-    "id": "store.sql_team.get_members_by_ids.app_error",
+    "id": "store.sql_branch.get_members_by_ids.app_error",
     "translation": "无法获取团队成员"
   },
   {
-    "id": "store.sql_team.get_unread.app_error",
+    "id": "store.sql_branch.get_unread.app_error",
     "translation": "无法获取团队未读消息"
   },
   {
-    "id": "store.sql_team.migrate_team_members.commit_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.commit_transaction.app_error",
     "translation": "提交数据库事务失败"
   },
   {
-    "id": "store.sql_team.migrate_team_members.open_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.open_transaction.app_error",
     "translation": "无法打开数据库事务"
   },
   {
-    "id": "store.sql_team.migrate_team_members.rollback_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.rollback_transaction.app_error",
     "translation": "回滚数据库事务失败。"
   },
   {
-    "id": "store.sql_team.migrate_team_members.select.app_error",
+    "id": "store.sql_branch.migrate_branch_members.select.app_error",
     "translation": " 批量选择团队成员失败"
   },
   {
-    "id": "store.sql_team.migrate_team_members.update.app_error",
+    "id": "store.sql_branch.migrate_branch_members.update.app_error",
     "translation": "无法更新团队成员"
   },
   {
-    "id": "store.sql_team.permanent_delete.app_error",
+    "id": "store.sql_branch.permanent_delete.app_error",
     "translation": "无法删除现有的团队"
   },
   {
-    "id": "store.sql_team.remove_member.app_error",
+    "id": "store.sql_branch.remove_member.app_error",
     "translation": "无法移除团队成员"
   },
   {
-    "id": "store.sql_team.reset_all_team_schemes.app_error",
+    "id": "store.sql_branch.reset_all_branch_schemes.app_error",
     "translation": "我们无法重置团队方案"
   },
   {
-    "id": "store.sql_team.save.app_error",
+    "id": "store.sql_branch.save.app_error",
     "translation": "无法保存团队"
   },
   {
-    "id": "store.sql_team.save.domain_exists.app_error",
+    "id": "store.sql_branch.save.domain_exists.app_error",
     "translation": "已有团队拥有此名称"
   },
   {
-    "id": "store.sql_team.save.existing.app_error",
+    "id": "store.sql_branch.save.existing.app_error",
     "translation": "必须对现有的团队执行更新"
   },
   {
-    "id": "store.sql_team.save_member.exists.app_error",
+    "id": "store.sql_branch.save_member.exists.app_error",
     "translation": "已存在拥有此 ID 的团队成员"
   },
   {
-    "id": "store.sql_team.save_member.save.app_error",
+    "id": "store.sql_branch.save_member.save.app_error",
     "translation": "无法保存团队成员"
   },
   {
-    "id": "store.sql_team.search_all_team.app_error",
+    "id": "store.sql_branch.search_all_branch.app_error",
     "translation": "我们搜索团队时遇到错误"
   },
   {
-    "id": "store.sql_team.search_open_team.app_error",
+    "id": "store.sql_branch.search_open_branch.app_error",
     "translation": "我们搜索公开团队时遇到错误"
   },
   {
-    "id": "store.sql_team.update.app_error",
+    "id": "store.sql_branch.update.app_error",
     "translation": "无法更新团队"
   },
   {
-    "id": "store.sql_team.update.find.app_error",
+    "id": "store.sql_branch.update.find.app_error",
     "translation": "没找到现有的团队以更新"
   },
   {
-    "id": "store.sql_team.update.finding.app_error",
+    "id": "store.sql_branch.update.finding.app_error",
     "translation": "我们查找该团队时遇到一个错误"
   },
   {
-    "id": "store.sql_team.update.updating.app_error",
+    "id": "store.sql_branch.update.updating.app_error",
     "translation": "我们更新该团队时遇到一个错误"
   },
   {
-    "id": "store.sql_team.update_display_name.app_error",
+    "id": "store.sql_branch.update_display_name.app_error",
     "translation": "无法更新团队名称"
   },
   {
-    "id": "store.sql_team.update_last_team_icon_update.app_error",
+    "id": "store.sql_branch.update_last_branch_icon_update.app_error",
     "translation": "无法更新团队图标更新日期"
   },
   {
@@ -6619,7 +6619,7 @@
     "translation": "我们无法为用户获取到未读信息数量"
   },
   {
-    "id": "store.sql_user.get_unread_count_for_channel.app_error",
+    "id": "store.sql_user.get_unread_count_for_class.app_error",
     "translation": "我们无法为用户和频道获取未读信息数量"
   },
   {
@@ -6811,7 +6811,7 @@
     "translation": "无法获取 webhook"
   },
   {
-    "id": "store.sql_webhooks.get_incoming_by_channel.app_error",
+    "id": "store.sql_webhooks.get_incoming_by_class.app_error",
     "translation": "无法获取 webhook"
   },
   {
@@ -6823,15 +6823,15 @@
     "translation": "无法获取 webhook"
   },
   {
-    "id": "store.sql_webhooks.get_outgoing_by_channel.app_error",
+    "id": "store.sql_webhooks.get_outgoing_by_class.app_error",
     "translation": "无法获取 webhook"
   },
   {
-    "id": "store.sql_webhooks.get_outgoing_by_team.app_error",
+    "id": "store.sql_webhooks.get_outgoing_by_branch.app_error",
     "translation": "无法获取 webhook"
   },
   {
-    "id": "store.sql_webhooks.permanent_delete_incoming_by_channel.app_error",
+    "id": "store.sql_webhooks.permanent_delete_incoming_by_class.app_error",
     "translation": "无法删除 webhook"
   },
   {
@@ -6839,7 +6839,7 @@
     "translation": "无法删除 webhook"
   },
   {
-    "id": "store.sql_webhooks.permanent_delete_outgoing_by_channel.app_error",
+    "id": "store.sql_webhooks.permanent_delete_outgoing_by_class.app_error",
     "translation": "无法删除 webhook"
   },
   {
@@ -6995,11 +6995,11 @@
     "translation": "无法更新用户访问数据。"
   },
   {
-    "id": "web.incoming_webhook.channel.app_error",
+    "id": "web.incoming_webhook.class.app_error",
     "translation": "找不到该频道"
   },
   {
-    "id": "web.incoming_webhook.channel_locked.app_error",
+    "id": "web.incoming_webhook.class_locked.app_error",
     "translation": "此 webhook 不允许发消息到指定的频道"
   },
   {

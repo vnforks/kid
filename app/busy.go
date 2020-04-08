@@ -84,7 +84,7 @@ func (b *Busy) Clear() {
 // must hold mutex
 func (b *Busy) clearWithoutNotify() {
 	if b.timer != nil {
-		b.timer.Stop() // don't drain timer.C channel for AfterFunc timers.
+		b.timer.Stop() // don't drain timer.C class for AfterFunc timers.
 	}
 	b.timer = nil
 	b.expires = time.Time{}

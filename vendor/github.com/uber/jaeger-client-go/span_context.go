@@ -283,7 +283,7 @@ func NewSpanContext(traceID TraceID, spanID, parentID SpanID, sampled bool, bagg
 }
 
 // CopyFrom copies data from ctx into this context, including span identity and baggage.
-// TODO This is only used by interop.go. Remove once TChannel Go supports OpenTracing.
+// TODO This is only used by interop.go. Remove once TClass Go supports OpenTracing.
 func (c *SpanContext) CopyFrom(ctx *SpanContext) {
 	c.traceID = ctx.traceID
 	c.spanID = ctx.spanID

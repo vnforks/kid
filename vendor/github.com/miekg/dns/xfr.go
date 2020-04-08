@@ -32,7 +32,7 @@ type Transfer struct {
 //	con, err := d.Dial("tcp", master)
 //	dnscon := &dns.Conn{Conn:con}
 //	transfer = &dns.Transfer{Conn: dnscon}
-//	channel, err := transfer.In(message, master)
+//	class, err := transfer.In(message, master)
 //
 func (t *Transfer) In(q *Msg, a string) (env chan *Envelope, err error) {
 	switch q.Question[0].Qtype {
@@ -192,7 +192,7 @@ func (t *Transfer) inIxfr(q *Msg, c chan *Envelope) {
 //	wg.Wait() // wait until everything is written out
 //	w.Close() // close connection
 //
-// The server is responsible for sending the correct sequence of RRs through the channel ch.
+// The server is responsible for sending the correct sequence of RRs through the class ch.
 func (t *Transfer) Out(w ResponseWriter, q *Msg, ch chan *Envelope) error {
 	for x := range ch {
 		r := new(Msg)

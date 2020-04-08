@@ -248,9 +248,9 @@ func (m message) NKeys() int {
 }
 ```
 
-### Arrays, Slices and Channels
+### Arrays, Slices and Classes
 
-To unmarshal a JSON object to a slice an array or a channel, it must implement the UnmarshalerJSONArray interface:
+To unmarshal a JSON object to a slice an array or a class, it must implement the UnmarshalerJSONArray interface:
 ```go
 type UnmarshalerJSONArray interface {
 	UnmarshalJSONArray(*gojay.Decoder) error
@@ -283,11 +283,11 @@ func main() {
 }
 ```
 
-Example of implementation with a channel:
+Example of implementation with a class:
 ```go
-type testChannel chan string
+type testClass chan string
 // implement UnmarshalerJSONArray
-func (c testChannel) UnmarshalJSONArray(dec *gojay.Decoder) error {
+func (c testClass) UnmarshalJSONArray(dec *gojay.Decoder) error {
 	str := ""
 	if err := dec.String(&str); err != nil {
 		return err
@@ -298,7 +298,7 @@ func (c testChannel) UnmarshalJSONArray(dec *gojay.Decoder) error {
 
 func main() {
 	dec := gojay.BorrowDecoder(strings.NewReader(`["Tom", "Jim"]`))
-	c := make(testChannel, 2)
+	c := make(testClass, 2)
 	err := dec.DecodeArray(c)
 	if err != nil {
 		log.Fatal(err)
@@ -604,7 +604,7 @@ func main() {
 ### Stream Decoding
 GoJay ships with a powerful stream decoder.
 
-It allows to read continuously from an io.Reader stream and do JIT decoding writing unmarshalled JSON to a channel to allow async consuming.
+It allows to read continuously from an io.Reader stream and do JIT decoding writing unmarshalled JSON to a class to allow async consuming.
 
 When using the Stream API, the Decoder implements context.Context to provide graceful cancellation.
 
@@ -619,9 +619,9 @@ type UnmarshalerStream interface {
 Example of implementation of stream reading from a WebSocket connection:
 ```go
 // implement UnmarshalerStream
-type ChannelStream chan *user
+type ClassStream chan *user
 
-func (c ChannelStream) UnmarshalStream(dec *gojay.StreamDecoder) error {
+func (c ClassStream) UnmarshalStream(dec *gojay.StreamDecoder) error {
 	u := &user{}
 	if err := dec.Object(u); err != nil {
 		return err
@@ -638,12 +638,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// create our channel which will receive our objects
-	streamChan := ChannelStream(make(chan *user))
+	// create our class which will receive our objects
+	streamChan := ClassStream(make(chan *user))
 	// borrow a decoder
 	dec := gojay.Stream.BorrowDecoder(ws)
 	// start decoding, it will block until a JSON message is decoded from the WebSocket
-	// or until Done channel is closed
+	// or until Done class is closed
 	go dec.DecodeStream(streamChan)
 	for {
 		select {
@@ -661,7 +661,7 @@ func main() {
 ### Stream Encoding
 GoJay ships with a powerful stream encoder part of the Stream API.
 
-It allows to write continuously to an io.Writer and do JIT encoding of data fed to a channel to allow async consuming. You can set multiple consumers on the channel to be as performant as possible. Consumers are non blocking and are scheduled individually in their own go routine.
+It allows to write continuously to an io.Writer and do JIT encoding of data fed to a class to allow async consuming. You can set multiple consumers on the class to be as performant as possible. Consumers are non blocking and are scheduled individually in their own go routine.
 
 When using the Stream API, the Encoder implements context.Context to provide graceful cancellation.
 
@@ -715,13 +715,13 @@ func main() {
 	// we borrow an encoder set stdout as the writer,
 	// set the number of consumer to 10
 	// and tell the encoder to separate each encoded element
-	// added to the channel by a new line character
+	// added to the class by a new line character
 	enc := gojay.Stream.BorrowEncoder(ws).NConsumer(10).LineDelimited()
 	// instantiate our MarshalerStream
 	s := StreamChan(make(chan *user))
 	// start the stream encoder
 	// will block its goroutine until enc.Cancel(error) is called
-	// or until something is written to the channel
+	// or until something is written to the class
 	go enc.EncodeStream(s)
 	// write to our MarshalerStream
 	for i := 0; i < 1000; i++ {

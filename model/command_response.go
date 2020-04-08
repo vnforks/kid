@@ -13,8 +13,8 @@ import (
 )
 
 const (
-	COMMAND_RESPONSE_TYPE_IN_CHANNEL = "in_class"
-	COMMAND_RESPONSE_TYPE_EPHEMERAL  = "ephemeral"
+	COMMAND_RESPONSE_TYPE_IN_CLASS  = "in_class"
+	COMMAND_RESPONSE_TYPE_EPHEMERAL = "ephemeral"
 )
 
 type CommandResponse struct {

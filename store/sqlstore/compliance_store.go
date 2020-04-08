@@ -124,11 +124,11 @@ func (s SqlComplianceStore) ComplianceExport(job *model.Compliance) ([]*model.Co
 
 	query :=
 		`(SELECT
-			Teams.Name AS TeamName,
-			Teams.DisplayName AS TeamDisplayName,
-			Channels.Name AS ChannelName,
-			Channels.DisplayName AS ChannelDisplayName,
-			Channels.Type AS ChannelType,
+			Branches.Name AS BranchName,
+			Branches.DisplayName AS BranchDisplayName,
+			Classes.Name AS ClassName,
+			Classes.DisplayName AS ClassDisplayName,
+			Classes.Type AS ClassType,
 			Users.Username AS UserUsername,
 			Users.Email AS UserEmail,
 			Users.Nickname AS UserNickname,
@@ -146,14 +146,14 @@ func (s SqlComplianceStore) ComplianceExport(job *model.Compliance) ([]*model.Co
 			Posts.FileIds AS PostFileIds,
 			Bots.UserId IS NOT NULL AS IsBot
 		FROM
-			Teams,
-			Channels,
+			Branches,
+			Classes,
 			Users,
 			Posts
         LEFT JOIN Bots ON Bots.UserId = Posts.UserId
 		WHERE
-			Teams.Id = Channels.TeamId
-				AND Posts.ChannelId = Channels.Id
+			Branches.Id = Classes.BranchId
+				AND Posts.ClassId = Classes.Id
 				AND Posts.UserId = Users.Id
 				AND Posts.CreateAt > :StartTime
 				AND Posts.CreateAt <= :EndTime
@@ -161,11 +161,11 @@ func (s SqlComplianceStore) ComplianceExport(job *model.Compliance) ([]*model.Co
 				` + keywordQuery + `)
 		UNION ALL
 		(SELECT
-			'direct-messages' AS TeamName,
-			'Direct Messages' AS TeamDisplayName,
-			Channels.Name AS ChannelName,
-			Channels.DisplayName AS ChannelDisplayName,
-			Channels.Type AS ChannelType,
+			'direct-messages' AS BranchName,
+			'Direct Messages' AS BranchDisplayName,
+			Classes.Name AS ClassName,
+			Classes.DisplayName AS ClassDisplayName,
+			Classes.Type AS ClassType,
 			Users.Username AS UserUsername,
 			Users.Email AS UserEmail,
 			Users.Nickname AS UserNickname,
@@ -183,13 +183,13 @@ func (s SqlComplianceStore) ComplianceExport(job *model.Compliance) ([]*model.Co
 			Posts.FileIds AS PostFileIds,
 			Bots.UserId IS NOT NULL AS IsBot
 		FROM
-			Channels,
+			Classes,
 			Users,
 			Posts
 		LEFT JOIN Bots ON Bots.UserId = Posts.UserId
 		WHERE
-			Channels.TeamId = ''
-				AND Posts.ChannelId = Channels.Id
+			Classes.BranchId = ''
+				AND Posts.ClassId = Classes.Id
 				AND Posts.UserId = Users.Id
 				AND Posts.CreateAt > :StartTime
 				AND Posts.CreateAt <= :EndTime
@@ -221,25 +221,25 @@ func (s SqlComplianceStore) MessageExport(after int64, limit int) ([]*model.Mess
 			Posts.RootId AS PostRootId,
 			Posts.Props AS PostProps,
 			Posts.FileIds AS PostFileIds,
-			Teams.Id AS TeamId,
-			Teams.Name AS TeamName,
-			Teams.DisplayName AS TeamDisplayName,
-			Channels.Id AS ChannelId,
+			Branches.Id AS BranchId,
+			Branches.Name AS BranchName,
+			Branches.DisplayName AS BranchDisplayName,
+			Classes.Id AS ClassId,
 			CASE
-				WHEN Channels.Type = 'D' THEN 'Direct Message'
-				WHEN Channels.Type = 'G' THEN 'Group Message'
-				ELSE Channels.DisplayName
-			END AS ChannelDisplayName,
-			Channels.Name AS ChannelName,
-			Channels.Type AS ChannelType,
+				WHEN Classes.Type = 'D' THEN 'Direct Message'
+				WHEN Classes.Type = 'G' THEN 'Group Message'
+				ELSE Classes.DisplayName
+			END AS ClassDisplayName,
+			Classes.Name AS ClassName,
+			Classes.Type AS ClassType,
 			Users.Id AS UserId,
 			Users.Email AS UserEmail,
 			Users.Username,
 			Bots.UserId IS NOT NULL AS IsBot
 		FROM
 			Posts
-		LEFT OUTER JOIN Channels ON Posts.ChannelId = Channels.Id
-		LEFT OUTER JOIN Teams ON Channels.TeamId = Teams.Id
+		LEFT OUTER JOIN Classes ON Posts.ClassId = Classes.Id
+		LEFT OUTER JOIN Branches ON Classes.BranchId = Branches.Id
 		LEFT OUTER JOIN Users ON Posts.UserId = Users.Id
 		LEFT JOIN Bots ON Bots.UserId = Posts.UserId
 		WHERE

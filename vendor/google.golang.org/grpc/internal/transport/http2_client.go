@@ -36,7 +36,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/internal"
-	"google.golang.org/grpc/internal/channelz"
+	"google.golang.org/grpc/internal/classz"
 	"google.golang.org/grpc/internal/syscall"
 	"google.golang.org/grpc/keepalive"
 	"google.golang.org/grpc/metadata"
@@ -58,7 +58,7 @@ type http2Client struct {
 	ctxDone    <-chan struct{} // Cache the ctx.Done() chan.
 	userAgent  string
 	md         interface{}
-	conn       net.Conn // underlying communication channel
+	conn       net.Conn // underlying communication class
 	loopy      *loopyWriter
 	remoteAddr net.Addr
 	localAddr  net.Addr
@@ -123,9 +123,9 @@ type http2Client struct {
 	// variable.
 	kpDormant bool
 
-	// Fields below are for channelz metric collection.
-	channelzID int64 // channelz unique identification number
-	czData     *channelzData
+	// Fields below are for classz metric collection.
+	classzID int64 // classz unique identification number
+	czData   *classzData
 
 	onGoAway func(GoAwayReason)
 	onClose  func()
@@ -260,7 +260,7 @@ func newHTTP2Client(connectCtx, ctx context.Context, addr TargetInfo, opts Conne
 		maxConcurrentStreams:  defaultMaxStreamsClient,
 		streamQuota:           defaultMaxStreamsClient,
 		streamsQuotaAvailable: make(chan struct{}, 1),
-		czData:                new(channelzData),
+		czData:                new(classzData),
 		onGoAway:              onGoAway,
 		onClose:               onClose,
 		keepaliveEnabled:      keepaliveEnabled,
@@ -287,8 +287,8 @@ func newHTTP2Client(connectCtx, ctx context.Context, addr TargetInfo, opts Conne
 		}
 		t.statsHandler.HandleConn(t.ctx, connBegin)
 	}
-	if channelz.IsOn() {
-		t.channelzID = channelz.RegisterNormalSocket(t, opts.ChannelzParentID, fmt.Sprintf("%s -> %s", t.localAddr, t.remoteAddr))
+	if classz.IsOn() {
+		t.classzID = classz.RegisterNormalSocket(t, opts.ClasszParentID, fmt.Sprintf("%s -> %s", t.localAddr, t.remoteAddr))
 	}
 	if t.keepaliveEnabled {
 		t.kpDormancyCond = sync.NewCond(&t.mu)
@@ -592,7 +592,7 @@ func (t *http2Client) NewStream(ctx context.Context, callHdr *CallHdr) (_ *Strea
 				return err
 			}
 			t.activeStreams[id] = s
-			if channelz.IsOn() {
+			if classz.IsOn() {
 				atomic.AddInt64(&t.czData.streamsStarted, 1)
 				atomic.StoreInt64(&t.czData.lastStreamCreatedTime, time.Now().UnixNano())
 			}
@@ -739,7 +739,7 @@ func (t *http2Client) closeStream(s *Stream, err error, rst bool, rstCode http2.
 				delete(t.activeStreams, s.id)
 			}
 			t.mu.Unlock()
-			if channelz.IsOn() {
+			if classz.IsOn() {
 				if eosReceived {
 					atomic.AddInt64(&t.czData.streamsSucceeded, 1)
 				} else {
@@ -794,8 +794,8 @@ func (t *http2Client) Close() error {
 	t.controlBuf.finish()
 	t.cancel()
 	err := t.conn.Close()
-	if channelz.IsOn() {
-		channelz.RemoveEntry(t.channelzID)
+	if classz.IsOn() {
+		classz.RemoveEntry(t.classzID)
 	}
 	// Notify all active streams.
 	for _, s := range streams {
@@ -1370,7 +1370,7 @@ func (t *http2Client) keepalive() {
 			// created which unblocked the Wait() call, or because the
 			// keepalive timer expired. In both cases, we need to send a ping.
 			if !outstandingPing {
-				if channelz.IsOn() {
+				if classz.IsOn() {
 					atomic.AddInt64(&t.czData.kpCount, 1)
 				}
 				t.controlBuf.put(p)
@@ -1401,8 +1401,8 @@ func (t *http2Client) GoAway() <-chan struct{} {
 	return t.goAway
 }
 
-func (t *http2Client) ChannelzMetric() *channelz.SocketInternalMetric {
-	s := channelz.SocketInternalMetric{
+func (t *http2Client) ClasszMetric() *classz.SocketInternalMetric {
+	s := classz.SocketInternalMetric{
 		StreamsStarted:                  atomic.LoadInt64(&t.czData.streamsStarted),
 		StreamsSucceeded:                atomic.LoadInt64(&t.czData.streamsSucceeded),
 		StreamsFailed:                   atomic.LoadInt64(&t.czData.streamsFailed),
@@ -1413,12 +1413,12 @@ func (t *http2Client) ChannelzMetric() *channelz.SocketInternalMetric {
 		LastMessageSentTimestamp:        time.Unix(0, atomic.LoadInt64(&t.czData.lastMsgSentTime)),
 		LastMessageReceivedTimestamp:    time.Unix(0, atomic.LoadInt64(&t.czData.lastMsgRecvTime)),
 		LocalFlowControlWindow:          int64(t.fc.getSize()),
-		SocketOptions:                   channelz.GetSocketOption(t.conn),
+		SocketOptions:                   classz.GetSocketOption(t.conn),
 		LocalAddr:                       t.localAddr,
 		RemoteAddr:                      t.remoteAddr,
 		// RemoteName :
 	}
-	if au, ok := t.authInfo.(credentials.ChannelzSecurityInfo); ok {
+	if au, ok := t.authInfo.(credentials.ClasszSecurityInfo); ok {
 		s.Security = au.GetSecurityValue()
 	}
 	s.RemoteFlowControlWindow = t.getOutFlowWindow()

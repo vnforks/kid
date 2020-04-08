@@ -8,18 +8,18 @@ import (
 	"io"
 )
 
-type UserAutocompleteInChannel struct {
-	InChannel    []*User `json:"in_channel"`
-	OutOfChannel []*User `json:"out_of_channel"`
+type UserAutocompleteInClass struct {
+	InClass    []*User `json:"in_class"`
+	OutOfClass []*User `json:"out_of_class"`
 }
 
-type UserAutocompleteInTeam struct {
-	InTeam []*User `json:"in_team"`
+type UserAutocompleteInBranch struct {
+	InBranch []*User `json:"in_branch"`
 }
 
 type UserAutocomplete struct {
-	Users        []*User `json:"users"`
-	OutOfChannel []*User `json:"out_of_channel,omitempty"`
+	Users      []*User `json:"users"`
+	OutOfClass []*User `json:"out_of_class,omitempty"`
 }
 
 func (o *UserAutocomplete) ToJson() string {
@@ -38,24 +38,24 @@ func UserAutocompleteFromJson(data io.Reader) *UserAutocomplete {
 	}
 }
 
-func (o *UserAutocompleteInChannel) ToJson() string {
+func (o *UserAutocompleteInClass) ToJson() string {
 	b, _ := json.Marshal(o)
 	return string(b)
 }
 
-func UserAutocompleteInChannelFromJson(data io.Reader) *UserAutocompleteInChannel {
-	var o *UserAutocompleteInChannel
+func UserAutocompleteInClassFromJson(data io.Reader) *UserAutocompleteInClass {
+	var o *UserAutocompleteInClass
 	json.NewDecoder(data).Decode(&o)
 	return o
 }
 
-func (o *UserAutocompleteInTeam) ToJson() string {
+func (o *UserAutocompleteInBranch) ToJson() string {
 	b, _ := json.Marshal(o)
 	return string(b)
 }
 
-func UserAutocompleteInTeamFromJson(data io.Reader) *UserAutocompleteInTeam {
-	var o *UserAutocompleteInTeam
+func UserAutocompleteInBranchFromJson(data io.Reader) *UserAutocompleteInBranch {
+	var o *UserAutocompleteInBranch
 	json.NewDecoder(data).Decode(&o)
 	return o
 }

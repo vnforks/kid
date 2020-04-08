@@ -27,31 +27,31 @@ type Routes struct {
 	Bots *mux.Router // 'api/v4/bots'
 	Bot  *mux.Router // 'api/v4/bots/{bot_user_id:[A-Za-z0-9]+}'
 
-	Teams              *mux.Router // 'api/v4/teams'
-	TeamsForUser       *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/teams'
-	Team               *mux.Router // 'api/v4/teams/{team_id:[A-Za-z0-9]+}'
-	TeamForUser        *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/teams/{team_id:[A-Za-z0-9]+}'
-	TeamByName         *mux.Router // 'api/v4/teams/name/{team_name:[A-Za-z0-9_-]+}'
-	TeamMembers        *mux.Router // 'api/v4/teams/{team_id:[A-Za-z0-9_-]+}/members'
-	TeamMember         *mux.Router // 'api/v4/teams/{team_id:[A-Za-z0-9_-]+}/members/{user_id:[A-Za-z0-9_-]+}'
-	TeamMembersForUser *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/teams/members'
+	Branches             *mux.Router // 'api/v4/branches'
+	BranchesForUser      *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/branches'
+	Branch               *mux.Router // 'api/v4/branches/{branch_id:[A-Za-z0-9]+}'
+	BranchForUser        *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/branches/{branch_id:[A-Za-z0-9]+}'
+	BranchByName         *mux.Router // 'api/v4/branches/name/{branch_name:[A-Za-z0-9_-]+}'
+	BranchMembers        *mux.Router // 'api/v4/branches/{branch_id:[A-Za-z0-9_-]+}/members'
+	BranchMember         *mux.Router // 'api/v4/branches/{branch_id:[A-Za-z0-9_-]+}/members/{user_id:[A-Za-z0-9_-]+}'
+	BranchMembersForUser *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/branches/members'
 
-	Channels                 *mux.Router // 'api/v4/channels'
-	Channel                  *mux.Router // 'api/v4/channels/{channel_id:[A-Za-z0-9]+}'
-	ChannelForUser           *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/channels/{channel_id:[A-Za-z0-9]+}'
-	ChannelByName            *mux.Router // 'api/v4/teams/{team_id:[A-Za-z0-9]+}/channels/name/{channel_name:[A-Za-z0-9_-]+}'
-	ChannelByNameForTeamName *mux.Router // 'api/v4/teams/name/{team_name:[A-Za-z0-9_-]+}/channels/name/{channel_name:[A-Za-z0-9_-]+}'
-	ChannelsForTeam          *mux.Router // 'api/v4/teams/{team_id:[A-Za-z0-9]+}/channels'
-	ChannelMembers           *mux.Router // 'api/v4/channels/{channel_id:[A-Za-z0-9]+}/members'
-	ChannelMember            *mux.Router // 'api/v4/channels/{channel_id:[A-Za-z0-9]+}/members/{user_id:[A-Za-z0-9]+}'
-	ChannelMembersForUser    *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/teams/{team_id:[A-Za-z0-9]+}/channels/members'
-	ChannelModerations       *mux.Router // 'api/v4/channels/{channel_id:[A-Za-z0-9]+}/moderations'
+	Classes                  *mux.Router // 'api/v4/classes'
+	Class                    *mux.Router // 'api/v4/classes/{class_id:[A-Za-z0-9]+}'
+	ClassForUser             *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/classes/{class_id:[A-Za-z0-9]+}'
+	ClassByName              *mux.Router // 'api/v4/branches/{branch_id:[A-Za-z0-9]+}/classes/name/{class_name:[A-Za-z0-9_-]+}'
+	ClassByNameForBranchName *mux.Router // 'api/v4/branches/name/{branch_name:[A-Za-z0-9_-]+}/classes/name/{class_name:[A-Za-z0-9_-]+}'
+	ClassesForBranch         *mux.Router // 'api/v4/branches/{branch_id:[A-Za-z0-9]+}/classes'
+	ClassMembers             *mux.Router // 'api/v4/classes/{class_id:[A-Za-z0-9]+}/members'
+	ClassMember              *mux.Router // 'api/v4/classes/{class_id:[A-Za-z0-9]+}/members/{user_id:[A-Za-z0-9]+}'
+	ClassMembersForUser      *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/branches/{branch_id:[A-Za-z0-9]+}/classes/members'
+	ClassModerations         *mux.Router // 'api/v4/classes/{class_id:[A-Za-z0-9]+}/moderations'
 
-	Posts           *mux.Router // 'api/v4/posts'
-	Post            *mux.Router // 'api/v4/posts/{post_id:[A-Za-z0-9]+}'
-	PostsForChannel *mux.Router // 'api/v4/channels/{channel_id:[A-Za-z0-9]+}/posts'
-	PostsForUser    *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/posts'
-	PostForUser     *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/posts/{post_id:[A-Za-z0-9]+}'
+	Posts         *mux.Router // 'api/v4/posts'
+	Post          *mux.Router // 'api/v4/posts/{post_id:[A-Za-z0-9]+}'
+	PostsForClass *mux.Router // 'api/v4/classes/{class_id:[A-Za-z0-9]+}/posts'
+	PostsForUser  *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/posts'
+	PostForUser   *mux.Router // 'api/v4/users/{user_id:[A-Za-z0-9]+}/posts/{post_id:[A-Za-z0-9]+}'
 
 	Files *mux.Router // 'api/v4/files'
 	File  *mux.Router // 'api/v4/files/{file_id:[A-Za-z0-9]+}'
@@ -139,29 +139,29 @@ func Init(configservice configservice.ConfigService, globalOptionsFunc app.AppOp
 	api.BaseRoutes.Bots = api.BaseRoutes.ApiRoot.PathPrefix("/bots").Subrouter()
 	api.BaseRoutes.Bot = api.BaseRoutes.ApiRoot.PathPrefix("/bots/{bot_user_id:[A-Za-z0-9]+}").Subrouter()
 
-	api.BaseRoutes.Teams = api.BaseRoutes.ApiRoot.PathPrefix("/teams").Subrouter()
-	api.BaseRoutes.TeamsForUser = api.BaseRoutes.User.PathPrefix("/teams").Subrouter()
-	api.BaseRoutes.Team = api.BaseRoutes.Teams.PathPrefix("/{team_id:[A-Za-z0-9]+}").Subrouter()
-	api.BaseRoutes.TeamForUser = api.BaseRoutes.TeamsForUser.PathPrefix("/{team_id:[A-Za-z0-9]+}").Subrouter()
-	api.BaseRoutes.TeamByName = api.BaseRoutes.Teams.PathPrefix("/name/{team_name:[A-Za-z0-9_-]+}").Subrouter()
-	api.BaseRoutes.TeamMembers = api.BaseRoutes.Team.PathPrefix("/members").Subrouter()
-	api.BaseRoutes.TeamMember = api.BaseRoutes.TeamMembers.PathPrefix("/{user_id:[A-Za-z0-9]+}").Subrouter()
-	api.BaseRoutes.TeamMembersForUser = api.BaseRoutes.User.PathPrefix("/teams/members").Subrouter()
+	api.BaseRoutes.Branches = api.BaseRoutes.ApiRoot.PathPrefix("/branches").Subrouter()
+	api.BaseRoutes.BranchesForUser = api.BaseRoutes.User.PathPrefix("/branches").Subrouter()
+	api.BaseRoutes.Branch = api.BaseRoutes.Branches.PathPrefix("/{branch_id:[A-Za-z0-9]+}").Subrouter()
+	api.BaseRoutes.BranchForUser = api.BaseRoutes.BranchesForUser.PathPrefix("/{branch_id:[A-Za-z0-9]+}").Subrouter()
+	api.BaseRoutes.BranchByName = api.BaseRoutes.Branches.PathPrefix("/name/{branch_name:[A-Za-z0-9_-]+}").Subrouter()
+	api.BaseRoutes.BranchMembers = api.BaseRoutes.Branch.PathPrefix("/members").Subrouter()
+	api.BaseRoutes.BranchMember = api.BaseRoutes.BranchMembers.PathPrefix("/{user_id:[A-Za-z0-9]+}").Subrouter()
+	api.BaseRoutes.BranchMembersForUser = api.BaseRoutes.User.PathPrefix("/branches/members").Subrouter()
 
-	api.BaseRoutes.Channels = api.BaseRoutes.ApiRoot.PathPrefix("/channels").Subrouter()
-	api.BaseRoutes.Channel = api.BaseRoutes.Channels.PathPrefix("/{channel_id:[A-Za-z0-9]+}").Subrouter()
-	api.BaseRoutes.ChannelForUser = api.BaseRoutes.User.PathPrefix("/channels/{channel_id:[A-Za-z0-9]+}").Subrouter()
-	api.BaseRoutes.ChannelByName = api.BaseRoutes.Team.PathPrefix("/channels/name/{channel_name:[A-Za-z0-9_-]+}").Subrouter()
-	api.BaseRoutes.ChannelByNameForTeamName = api.BaseRoutes.TeamByName.PathPrefix("/channels/name/{channel_name:[A-Za-z0-9_-]+}").Subrouter()
-	api.BaseRoutes.ChannelsForTeam = api.BaseRoutes.Team.PathPrefix("/channels").Subrouter()
-	api.BaseRoutes.ChannelMembers = api.BaseRoutes.Channel.PathPrefix("/members").Subrouter()
-	api.BaseRoutes.ChannelMember = api.BaseRoutes.ChannelMembers.PathPrefix("/{user_id:[A-Za-z0-9]+}").Subrouter()
-	api.BaseRoutes.ChannelMembersForUser = api.BaseRoutes.User.PathPrefix("/teams/{team_id:[A-Za-z0-9]+}/channels/members").Subrouter()
-	api.BaseRoutes.ChannelModerations = api.BaseRoutes.Channel.PathPrefix("/moderations").Subrouter()
+	api.BaseRoutes.Classes = api.BaseRoutes.ApiRoot.PathPrefix("/classes").Subrouter()
+	api.BaseRoutes.Class = api.BaseRoutes.Classes.PathPrefix("/{class_id:[A-Za-z0-9]+}").Subrouter()
+	api.BaseRoutes.ClassForUser = api.BaseRoutes.User.PathPrefix("/classes/{class_id:[A-Za-z0-9]+}").Subrouter()
+	api.BaseRoutes.ClassByName = api.BaseRoutes.Branch.PathPrefix("/classes/name/{class_name:[A-Za-z0-9_-]+}").Subrouter()
+	api.BaseRoutes.ClassByNameForBranchName = api.BaseRoutes.BranchByName.PathPrefix("/classes/name/{class_name:[A-Za-z0-9_-]+}").Subrouter()
+	api.BaseRoutes.ClassesForBranch = api.BaseRoutes.Branch.PathPrefix("/classes").Subrouter()
+	api.BaseRoutes.ClassMembers = api.BaseRoutes.Class.PathPrefix("/members").Subrouter()
+	api.BaseRoutes.ClassMember = api.BaseRoutes.ClassMembers.PathPrefix("/{user_id:[A-Za-z0-9]+}").Subrouter()
+	api.BaseRoutes.ClassMembersForUser = api.BaseRoutes.User.PathPrefix("/branches/{branch_id:[A-Za-z0-9]+}/classes/members").Subrouter()
+	api.BaseRoutes.ClassModerations = api.BaseRoutes.Class.PathPrefix("/moderations").Subrouter()
 
 	api.BaseRoutes.Posts = api.BaseRoutes.ApiRoot.PathPrefix("/posts").Subrouter()
 	api.BaseRoutes.Post = api.BaseRoutes.Posts.PathPrefix("/{post_id:[A-Za-z0-9]+}").Subrouter()
-	api.BaseRoutes.PostsForChannel = api.BaseRoutes.Channel.PathPrefix("/posts").Subrouter()
+	api.BaseRoutes.PostsForClass = api.BaseRoutes.Class.PathPrefix("/posts").Subrouter()
 	api.BaseRoutes.PostsForUser = api.BaseRoutes.User.PathPrefix("/posts").Subrouter()
 	api.BaseRoutes.PostForUser = api.BaseRoutes.PostsForUser.PathPrefix("/{post_id:[A-Za-z0-9]+}").Subrouter()
 
@@ -217,15 +217,13 @@ func Init(configservice configservice.ConfigService, globalOptionsFunc app.AppOp
 	api.BaseRoutes.Groups = api.BaseRoutes.ApiRoot.PathPrefix("/groups").Subrouter()
 
 	api.InitUser()
-	api.InitBot()
-	api.InitTeam()
-	api.InitChannel()
-	api.InitPost()
+	api.InitBranch()
+	api.InitClass()
 	api.InitFile()
 	api.InitSystem()
 	api.InitLicense()
 	api.InitConfig()
-	api.InitWebhook()
+	//api.InitWebhook()
 	api.InitPreference()
 	api.InitSaml()
 	api.InitCompliance()
@@ -242,13 +240,10 @@ func Init(configservice configservice.ConfigService, globalOptionsFunc app.AppOp
 	api.InitOAuth()
 	api.InitReaction()
 	api.InitOpenGraph()
-	api.InitPlugin()
 	api.InitRole()
 	api.InitScheme()
 	api.InitImage()
 	api.InitTermsOfService()
-	api.InitGroup()
-	api.InitAction()
 
 	root.Handle("/api/v4/{anything:.*}", http.HandlerFunc(api.Handle404))
 

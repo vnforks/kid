@@ -163,56 +163,56 @@ func (c *Client4) GetBotRoute(botUserId string) string {
 	return fmt.Sprintf("%s/%s", c.GetBotsRoute(), botUserId)
 }
 
-func (c *Client4) GetTeamsRoute() string {
-	return "/teams"
+func (c *Client4) GetBranchesRoute() string {
+	return "/branches"
 }
 
-func (c *Client4) GetTeamRoute(teamId string) string {
-	return fmt.Sprintf(c.GetTeamsRoute()+"/%v", teamId)
+func (c *Client4) GetBranchRoute(branchId string) string {
+	return fmt.Sprintf(c.GetBranchesRoute()+"/%v", branchId)
 }
 
-func (c *Client4) GetTeamAutoCompleteCommandsRoute(teamId string) string {
-	return fmt.Sprintf(c.GetTeamsRoute()+"/%v/commands/autocomplete", teamId)
+func (c *Client4) GetBranchAutoCompleteCommandsRoute(branchId string) string {
+	return fmt.Sprintf(c.GetBranchesRoute()+"/%v/commands/autocomplete", branchId)
 }
 
-func (c *Client4) GetTeamByNameRoute(teamName string) string {
-	return fmt.Sprintf(c.GetTeamsRoute()+"/name/%v", teamName)
+func (c *Client4) GetBranchByNameRoute(branchName string) string {
+	return fmt.Sprintf(c.GetBranchesRoute()+"/name/%v", branchName)
 }
 
-func (c *Client4) GetTeamMemberRoute(teamId, userId string) string {
-	return fmt.Sprintf(c.GetTeamRoute(teamId)+"/members/%v", userId)
+func (c *Client4) GetBranchMemberRoute(branchId, userId string) string {
+	return fmt.Sprintf(c.GetBranchRoute(branchId)+"/members/%v", userId)
 }
 
-func (c *Client4) GetTeamMembersRoute(teamId string) string {
-	return fmt.Sprintf(c.GetTeamRoute(teamId) + "/members")
+func (c *Client4) GetBranchMembersRoute(branchId string) string {
+	return fmt.Sprintf(c.GetBranchRoute(branchId) + "/members")
 }
 
-func (c *Client4) GetTeamStatsRoute(teamId string) string {
-	return fmt.Sprintf(c.GetTeamRoute(teamId) + "/stats")
+func (c *Client4) GetBranchStatsRoute(branchId string) string {
+	return fmt.Sprintf(c.GetBranchRoute(branchId) + "/stats")
 }
 
-func (c *Client4) GetTeamImportRoute(teamId string) string {
-	return fmt.Sprintf(c.GetTeamRoute(teamId) + "/import")
+func (c *Client4) GetBranchImportRoute(branchId string) string {
+	return fmt.Sprintf(c.GetBranchRoute(branchId) + "/import")
 }
 
-func (c *Client4) GetChannelsRoute() string {
-	return "/channels"
+func (c *Client4) GetClassesRoute() string {
+	return "/classes"
 }
 
-func (c *Client4) GetChannelsForTeamRoute(teamId string) string {
-	return fmt.Sprintf(c.GetTeamRoute(teamId) + "/channels")
+func (c *Client4) GetClassesForBranchRoute(branchId string) string {
+	return fmt.Sprintf(c.GetBranchRoute(branchId) + "/classes")
 }
 
-func (c *Client4) GetChannelRoute(channelId string) string {
-	return fmt.Sprintf(c.GetChannelsRoute()+"/%v", channelId)
+func (c *Client4) GetClassRoute(classId string) string {
+	return fmt.Sprintf(c.GetClassesRoute()+"/%v", classId)
 }
 
-func (c *Client4) GetChannelByNameRoute(channelName, teamId string) string {
-	return fmt.Sprintf(c.GetTeamRoute(teamId)+"/channels/name/%v", channelName)
+func (c *Client4) GetClassByNameRoute(className, branchId string) string {
+	return fmt.Sprintf(c.GetBranchRoute(branchId)+"/classes/name/%v", className)
 }
 
-func (c *Client4) GetChannelsForTeamForUserRoute(teamId, userId string, includeDeleted bool) string {
-	route := fmt.Sprintf(c.GetUserRoute(userId) + c.GetTeamRoute(teamId) + "/channels")
+func (c *Client4) GetClassesForBranchForUserRoute(branchId, userId string, includeDeleted bool) string {
+	route := fmt.Sprintf(c.GetUserRoute(userId) + c.GetBranchRoute(branchId) + "/classes")
 	if includeDeleted {
 		query := fmt.Sprintf("?include_deleted=%v", includeDeleted)
 		return route + query
@@ -220,16 +220,16 @@ func (c *Client4) GetChannelsForTeamForUserRoute(teamId, userId string, includeD
 	return route
 }
 
-func (c *Client4) GetChannelByNameForTeamNameRoute(channelName, teamName string) string {
-	return fmt.Sprintf(c.GetTeamByNameRoute(teamName)+"/channels/name/%v", channelName)
+func (c *Client4) GetClassByNameForBranchNameRoute(className, branchName string) string {
+	return fmt.Sprintf(c.GetBranchByNameRoute(branchName)+"/classes/name/%v", className)
 }
 
-func (c *Client4) GetChannelMembersRoute(channelId string) string {
-	return fmt.Sprintf(c.GetChannelRoute(channelId) + "/members")
+func (c *Client4) GetClassMembersRoute(classId string) string {
+	return fmt.Sprintf(c.GetClassRoute(classId) + "/members")
 }
 
-func (c *Client4) GetChannelMemberRoute(channelId, userId string) string {
-	return fmt.Sprintf(c.GetChannelMembersRoute(channelId)+"/%v", userId)
+func (c *Client4) GetClassMemberRoute(classId, userId string) string {
+	return fmt.Sprintf(c.GetClassMembersRoute(classId)+"/%v", userId)
 }
 
 func (c *Client4) GetPostsRoute() string {
@@ -416,12 +416,12 @@ func (c *Client4) GetTimezonesRoute() string {
 	return fmt.Sprintf(c.GetSystemRoute() + "/timezones")
 }
 
-func (c *Client4) GetChannelSchemeRoute(channelId string) string {
-	return fmt.Sprintf(c.GetChannelsRoute()+"/%v/scheme", channelId)
+func (c *Client4) GetClassSchemeRoute(classId string) string {
+	return fmt.Sprintf(c.GetClassesRoute()+"/%v/scheme", classId)
 }
 
-func (c *Client4) GetTeamSchemeRoute(teamId string) string {
-	return fmt.Sprintf(c.GetTeamsRoute()+"/%v/scheme", teamId)
+func (c *Client4) GetBranchSchemeRoute(branchId string) string {
+	return fmt.Sprintf(c.GetBranchesRoute()+"/%v/scheme", branchId)
 }
 
 func (c *Client4) GetTotalUsersStatsRoute() string {
@@ -568,7 +568,7 @@ func (c *Client4) DoEmojiUploadFile(url string, data []byte, contentType string)
 	return EmojiFromJson(rp.Body), BuildResponse(rp)
 }
 
-func (c *Client4) DoUploadImportTeam(url string, data []byte, contentType string) (map[string]string, *Response) {
+func (c *Client4) DoUploadImportBranch(url string, data []byte, contentType string) (map[string]string, *Response) {
 	rq, err := http.NewRequest("POST", c.ApiUrl+url, bytes.NewReader(data))
 	if err != nil {
 		return nil, &Response{Error: NewAppError(url, "model.client.connecting.app_error", nil, err.Error(), http.StatusBadRequest)}
@@ -772,9 +772,9 @@ func (c *Client4) GetUserByEmail(email, etag string) (*User, *Response) {
 	return UserFromJson(r.Body), BuildResponse(r)
 }
 
-// AutocompleteUsersInTeam returns the users on a team based on search term.
-func (c *Client4) AutocompleteUsersInTeam(teamId string, username string, limit int, etag string) (*UserAutocomplete, *Response) {
-	query := fmt.Sprintf("?in_team=%v&name=%v&limit=%d", teamId, username, limit)
+// AutocompleteUsersInBranch returns the users on a branch based on search term.
+func (c *Client4) AutocompleteUsersInBranch(branchId string, username string, limit int, etag string) (*UserAutocomplete, *Response) {
+	query := fmt.Sprintf("?in_branch=%v&name=%v&limit=%d", branchId, username, limit)
 	r, err := c.DoApiGet(c.GetUsersRoute()+"/autocomplete"+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -783,9 +783,9 @@ func (c *Client4) AutocompleteUsersInTeam(teamId string, username string, limit 
 	return UserAutocompleteFromJson(r.Body), BuildResponse(r)
 }
 
-// AutocompleteUsersInChannel returns the users in a channel based on search term.
-func (c *Client4) AutocompleteUsersInChannel(teamId string, channelId string, username string, limit int, etag string) (*UserAutocomplete, *Response) {
-	query := fmt.Sprintf("?in_team=%v&in_channel=%v&name=%v&limit=%d", teamId, channelId, username, limit)
+// AutocompleteUsersInClass returns the users in a class based on search term.
+func (c *Client4) AutocompleteUsersInClass(branchId string, classId string, username string, limit int, etag string) (*UserAutocomplete, *Response) {
+	query := fmt.Sprintf("?in_branch=%v&in_class=%v&name=%v&limit=%d", branchId, classId, username, limit)
 	r, err := c.DoApiGet(c.GetUsersRoute()+"/autocomplete"+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -847,9 +847,9 @@ func (c *Client4) GetUsers(page int, perPage int, etag string) ([]*User, *Respon
 	return UserListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetUsersInTeam returns a page of users on a team. Page counting starts at 0.
-func (c *Client4) GetUsersInTeam(teamId string, page int, perPage int, etag string) ([]*User, *Response) {
-	query := fmt.Sprintf("?in_team=%v&page=%v&per_page=%v", teamId, page, perPage)
+// GetUsersInBranch returns a page of users on a branch. Page counting starts at 0.
+func (c *Client4) GetUsersInBranch(branchId string, page int, perPage int, etag string) ([]*User, *Response) {
+	query := fmt.Sprintf("?in_branch=%v&page=%v&per_page=%v", branchId, page, perPage)
 	r, err := c.DoApiGet(c.GetUsersRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -858,9 +858,9 @@ func (c *Client4) GetUsersInTeam(teamId string, page int, perPage int, etag stri
 	return UserListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetNewUsersInTeam returns a page of users on a team. Page counting starts at 0.
-func (c *Client4) GetNewUsersInTeam(teamId string, page int, perPage int, etag string) ([]*User, *Response) {
-	query := fmt.Sprintf("?sort=create_at&in_team=%v&page=%v&per_page=%v", teamId, page, perPage)
+// GetNewUsersInBranch returns a page of users on a branch. Page counting starts at 0.
+func (c *Client4) GetNewUsersInBranch(branchId string, page int, perPage int, etag string) ([]*User, *Response) {
+	query := fmt.Sprintf("?sort=create_at&in_branch=%v&page=%v&per_page=%v", branchId, page, perPage)
 	r, err := c.DoApiGet(c.GetUsersRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -869,9 +869,9 @@ func (c *Client4) GetNewUsersInTeam(teamId string, page int, perPage int, etag s
 	return UserListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetRecentlyActiveUsersInTeam returns a page of users on a team. Page counting starts at 0.
-func (c *Client4) GetRecentlyActiveUsersInTeam(teamId string, page int, perPage int, etag string) ([]*User, *Response) {
-	query := fmt.Sprintf("?sort=last_activity_at&in_team=%v&page=%v&per_page=%v", teamId, page, perPage)
+// GetRecentlyActiveUsersInBranch returns a page of users on a branch. Page counting starts at 0.
+func (c *Client4) GetRecentlyActiveUsersInBranch(branchId string, page int, perPage int, etag string) ([]*User, *Response) {
+	query := fmt.Sprintf("?sort=last_activity_at&in_branch=%v&page=%v&per_page=%v", branchId, page, perPage)
 	r, err := c.DoApiGet(c.GetUsersRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -880,9 +880,9 @@ func (c *Client4) GetRecentlyActiveUsersInTeam(teamId string, page int, perPage 
 	return UserListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetUsersNotInTeam returns a page of users who are not in a team. Page counting starts at 0.
-func (c *Client4) GetUsersNotInTeam(teamId string, page int, perPage int, etag string) ([]*User, *Response) {
-	query := fmt.Sprintf("?not_in_team=%v&page=%v&per_page=%v", teamId, page, perPage)
+// GetUsersNotInBranch returns a page of users who are not in a branch. Page counting starts at 0.
+func (c *Client4) GetUsersNotInBranch(branchId string, page int, perPage int, etag string) ([]*User, *Response) {
+	query := fmt.Sprintf("?not_in_branch=%v&page=%v&per_page=%v", branchId, page, perPage)
 	r, err := c.DoApiGet(c.GetUsersRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -891,9 +891,9 @@ func (c *Client4) GetUsersNotInTeam(teamId string, page int, perPage int, etag s
 	return UserListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetUsersInChannel returns a page of users in a channel. Page counting starts at 0.
-func (c *Client4) GetUsersInChannel(channelId string, page int, perPage int, etag string) ([]*User, *Response) {
-	query := fmt.Sprintf("?in_channel=%v&page=%v&per_page=%v", channelId, page, perPage)
+// GetUsersInClass returns a page of users in a class. Page counting starts at 0.
+func (c *Client4) GetUsersInClass(classId string, page int, perPage int, etag string) ([]*User, *Response) {
+	query := fmt.Sprintf("?in_class=%v&page=%v&per_page=%v", classId, page, perPage)
 	r, err := c.DoApiGet(c.GetUsersRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -902,9 +902,9 @@ func (c *Client4) GetUsersInChannel(channelId string, page int, perPage int, eta
 	return UserListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetUsersInChannelByStatus returns a page of users in a channel. Page counting starts at 0. Sorted by Status
-func (c *Client4) GetUsersInChannelByStatus(channelId string, page int, perPage int, etag string) ([]*User, *Response) {
-	query := fmt.Sprintf("?in_channel=%v&page=%v&per_page=%v&sort=status", channelId, page, perPage)
+// GetUsersInClassByStatus returns a page of users in a class. Page counting starts at 0. Sorted by Status
+func (c *Client4) GetUsersInClassByStatus(classId string, page int, perPage int, etag string) ([]*User, *Response) {
+	query := fmt.Sprintf("?in_class=%v&page=%v&per_page=%v&sort=status", classId, page, perPage)
 	r, err := c.DoApiGet(c.GetUsersRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -913,9 +913,9 @@ func (c *Client4) GetUsersInChannelByStatus(channelId string, page int, perPage 
 	return UserListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetUsersNotInChannel returns a page of users not in a channel. Page counting starts at 0.
-func (c *Client4) GetUsersNotInChannel(teamId, channelId string, page int, perPage int, etag string) ([]*User, *Response) {
-	query := fmt.Sprintf("?in_team=%v&not_in_channel=%v&page=%v&per_page=%v", teamId, channelId, page, perPage)
+// GetUsersNotInClass returns a page of users not in a class. Page counting starts at 0.
+func (c *Client4) GetUsersNotInClass(branchId, classId string, page int, perPage int, etag string) ([]*User, *Response) {
+	query := fmt.Sprintf("?in_branch=%v&not_in_class=%v&page=%v&per_page=%v", branchId, classId, page, perPage)
 	r, err := c.DoApiGet(c.GetUsersRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -924,9 +924,9 @@ func (c *Client4) GetUsersNotInChannel(teamId, channelId string, page int, perPa
 	return UserListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetUsersWithoutTeam returns a page of users on the system that aren't on any teams. Page counting starts at 0.
-func (c *Client4) GetUsersWithoutTeam(page int, perPage int, etag string) ([]*User, *Response) {
-	query := fmt.Sprintf("?without_team=1&page=%v&per_page=%v", page, perPage)
+// GetUsersWithoutBranch returns a page of users on the system that aren't on any branches. Page counting starts at 0.
+func (c *Client4) GetUsersWithoutBranch(page int, perPage int, etag string) ([]*User, *Response) {
+	query := fmt.Sprintf("?without_branch=1&page=%v&per_page=%v", page, perPage)
 	r, err := c.DoApiGet(c.GetUsersRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -1390,20 +1390,20 @@ func (c *Client4) EnableUserAccessToken(tokenId string) (bool, *Response) {
 	return CheckStatusOK(r), BuildResponse(r)
 }
 
-// UploadFile will upload a file to a channel using a multipart request, to be later attached to a post.
+// UploadFile will upload a file to a class using a multipart request, to be later attached to a post.
 // This method is functionally equivalent to Client4.UploadFileAsRequestBody.
-func (c *Client4) UploadFile(data []byte, channelId string, filename string) (*FileUploadResponse, *Response) {
+func (c *Client4) UploadFile(data []byte, classId string, filename string) (*FileUploadResponse, *Response) {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 
-	part, err := writer.CreateFormField("channel_id")
+	part, err := writer.CreateFormField("class_id")
 	if err != nil {
-		return nil, &Response{Error: NewAppError("UploadPostAttachment", "model.client.upload_post_attachment.channel_id.app_error", nil, err.Error(), http.StatusBadRequest)}
+		return nil, &Response{Error: NewAppError("UploadPostAttachment", "model.client.upload_post_attachment.class_id.app_error", nil, err.Error(), http.StatusBadRequest)}
 	}
 
-	_, err = io.Copy(part, strings.NewReader(channelId))
+	_, err = io.Copy(part, strings.NewReader(classId))
 	if err != nil {
-		return nil, &Response{Error: NewAppError("UploadPostAttachment", "model.client.upload_post_attachment.channel_id.app_error", nil, err.Error(), http.StatusBadRequest)}
+		return nil, &Response{Error: NewAppError("UploadPostAttachment", "model.client.upload_post_attachment.class_id.app_error", nil, err.Error(), http.StatusBadRequest)}
 	}
 
 	part, err = writer.CreateFormFile("files", filename)
@@ -1423,10 +1423,10 @@ func (c *Client4) UploadFile(data []byte, channelId string, filename string) (*F
 	return c.DoUploadFile(c.GetFilesRoute(), body.Bytes(), writer.FormDataContentType())
 }
 
-// UploadFileAsRequestBody will upload a file to a channel as the body of a request, to be later attached
+// UploadFileAsRequestBody will upload a file to a class as the body of a request, to be later attached
 // to a post. This method is functionally equivalent to Client4.UploadFile.
-func (c *Client4) UploadFileAsRequestBody(data []byte, channelId string, filename string) (*FileUploadResponse, *Response) {
-	return c.DoUploadFile(c.GetFilesRoute()+fmt.Sprintf("?channel_id=%v&filename=%v", url.QueryEscape(channelId), url.QueryEscape(filename)), data, http.DetectContentType(data))
+func (c *Client4) UploadFileAsRequestBody(data []byte, classId string, filename string) (*FileUploadResponse, *Response) {
+	return c.DoUploadFile(c.GetFilesRoute()+fmt.Sprintf("?class_id=%v&filename=%v", url.QueryEscape(classId), url.QueryEscape(filename)), data, http.DetectContentType(data))
 }
 
 // GetFile gets the bytes for a file by id.
@@ -1750,10 +1750,10 @@ func (c *Client4) RemoveLicenseFile() (bool, *Response) {
 
 // GetAnalyticsOld will retrieve analytics using the old format. New format is not
 // available but the "/analytics" endpoint is reserved for it. The "name" argument is optional
-// and defaults to "standard". The "teamId" argument is optional and will limit results
-// to a specific team.
-func (c *Client4) GetAnalyticsOld(name, teamId string) (AnalyticsRows, *Response) {
-	query := fmt.Sprintf("?name=%v&team_id=%v", name, teamId)
+// and defaults to "standard". The "branchId" argument is optional and will limit results
+// to a specific branch.
+func (c *Client4) GetAnalyticsOld(name, branchId string) (AnalyticsRows, *Response) {
+	query := fmt.Sprintf("?name=%v&branch_id=%v", name, branchId)
 	r, err := c.DoApiGet(c.GetAnalyticsRoute()+"/old"+query, "")
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -1764,7 +1764,7 @@ func (c *Client4) GetAnalyticsOld(name, teamId string) (AnalyticsRows, *Response
 
 // Webhooks Section
 
-// CreateIncomingWebhook creates an incoming webhook for a channel.
+// CreateIncomingWebhook creates an incoming webhook for a class.
 func (c *Client4) CreateIncomingWebhook(hook *IncomingWebhook) (*IncomingWebhook, *Response) {
 	r, err := c.DoApiPost(c.GetIncomingWebhooksRoute(), hook.ToJson())
 	if err != nil {
@@ -1774,7 +1774,7 @@ func (c *Client4) CreateIncomingWebhook(hook *IncomingWebhook) (*IncomingWebhook
 	return IncomingWebhookFromJson(r.Body), BuildResponse(r)
 }
 
-// UpdateIncomingWebhook updates an incoming webhook for a channel.
+// UpdateIncomingWebhook updates an incoming webhook for a class.
 func (c *Client4) UpdateIncomingWebhook(hook *IncomingWebhook) (*IncomingWebhook, *Response) {
 	r, err := c.DoApiPut(c.GetIncomingWebhookRoute(hook.Id), hook.ToJson())
 	if err != nil {
@@ -1795,9 +1795,9 @@ func (c *Client4) GetIncomingWebhooks(page int, perPage int, etag string) ([]*In
 	return IncomingWebhookListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetIncomingWebhooksForTeam returns a page of incoming webhooks for a team. Page counting starts at 0.
-func (c *Client4) GetIncomingWebhooksForTeam(teamId string, page int, perPage int, etag string) ([]*IncomingWebhook, *Response) {
-	query := fmt.Sprintf("?page=%v&per_page=%v&team_id=%v", page, perPage, teamId)
+// GetIncomingWebhooksForBranch returns a page of incoming webhooks for a branch. Page counting starts at 0.
+func (c *Client4) GetIncomingWebhooksForBranch(branchId string, page int, perPage int, etag string) ([]*IncomingWebhook, *Response) {
+	query := fmt.Sprintf("?page=%v&per_page=%v&branch_id=%v", page, perPage, branchId)
 	r, err := c.DoApiGet(c.GetIncomingWebhooksRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -1826,7 +1826,7 @@ func (c *Client4) DeleteIncomingWebhook(hookID string) (bool, *Response) {
 	return CheckStatusOK(r), BuildResponse(r)
 }
 
-// CreateOutgoingWebhook creates an outgoing webhook for a team or channel.
+// CreateOutgoingWebhook creates an outgoing webhook for a branch or class.
 func (c *Client4) CreateOutgoingWebhook(hook *OutgoingWebhook) (*OutgoingWebhook, *Response) {
 	r, err := c.DoApiPost(c.GetOutgoingWebhooksRoute(), hook.ToJson())
 	if err != nil {
@@ -1836,7 +1836,7 @@ func (c *Client4) CreateOutgoingWebhook(hook *OutgoingWebhook) (*OutgoingWebhook
 	return OutgoingWebhookFromJson(r.Body), BuildResponse(r)
 }
 
-// UpdateOutgoingWebhook creates an outgoing webhook for a team or channel.
+// UpdateOutgoingWebhook creates an outgoing webhook for a branch or class.
 func (c *Client4) UpdateOutgoingWebhook(hook *OutgoingWebhook) (*OutgoingWebhook, *Response) {
 	r, err := c.DoApiPut(c.GetOutgoingWebhookRoute(hook.Id), hook.ToJson())
 	if err != nil {
@@ -1867,9 +1867,9 @@ func (c *Client4) GetOutgoingWebhook(hookId string) (*OutgoingWebhook, *Response
 	return OutgoingWebhookFromJson(r.Body), BuildResponse(r)
 }
 
-// GetOutgoingWebhooksForChannel returns a page of outgoing webhooks for a channel. Page counting starts at 0.
-func (c *Client4) GetOutgoingWebhooksForChannel(channelId string, page int, perPage int, etag string) ([]*OutgoingWebhook, *Response) {
-	query := fmt.Sprintf("?page=%v&per_page=%v&channel_id=%v", page, perPage, channelId)
+// GetOutgoingWebhooksForClass returns a page of outgoing webhooks for a class. Page counting starts at 0.
+func (c *Client4) GetOutgoingWebhooksForClass(classId string, page int, perPage int, etag string) ([]*OutgoingWebhook, *Response) {
+	query := fmt.Sprintf("?page=%v&per_page=%v&class_id=%v", page, perPage, classId)
 	r, err := c.DoApiGet(c.GetOutgoingWebhooksRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -1878,9 +1878,9 @@ func (c *Client4) GetOutgoingWebhooksForChannel(channelId string, page int, perP
 	return OutgoingWebhookListFromJson(r.Body), BuildResponse(r)
 }
 
-// GetOutgoingWebhooksForTeam returns a page of outgoing webhooks for a team. Page counting starts at 0.
-func (c *Client4) GetOutgoingWebhooksForTeam(teamId string, page int, perPage int, etag string) ([]*OutgoingWebhook, *Response) {
-	query := fmt.Sprintf("?page=%v&per_page=%v&team_id=%v", page, perPage, teamId)
+// GetOutgoingWebhooksForBranch returns a page of outgoing webhooks for a branch. Page counting starts at 0.
+func (c *Client4) GetOutgoingWebhooksForBranch(branchId string, page int, perPage int, etag string) ([]*OutgoingWebhook, *Response) {
+	query := fmt.Sprintf("?page=%v&per_page=%v&branch_id=%v", page, perPage, branchId)
 	r, err := c.DoApiGet(c.GetOutgoingWebhooksRoute()+query, etag)
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -2089,7 +2089,7 @@ func (c *Client4) GetSamlMetadataFromIdp(samlMetadataURL string) (*SamlMetadataR
 
 // Compliance Section
 
-// CreateComplianceReport creates an incoming webhook for a channel.
+// CreateComplianceReport creates an incoming webhook for a class.
 func (c *Client4) CreateComplianceReport(report *Compliance) (*Compliance, *Response) {
 	r, err := c.DoApiPost(c.GetComplianceReportsRoute(), report.ToJson())
 	if err != nil {
@@ -2481,9 +2481,9 @@ func (c *Client4) UpdateCommand(cmd *Command) (*Command, *Response) {
 	return CommandFromJson(r.Body), BuildResponse(r)
 }
 
-// MoveCommand moves a command to a different team.
-func (c *Client4) MoveCommand(teamId string, commandId string) (bool, *Response) {
-	cmr := CommandMoveRequest{TeamId: teamId}
+// MoveCommand moves a command to a different branch.
+func (c *Client4) MoveCommand(branchId string, commandId string) (bool, *Response) {
+	cmr := CommandMoveRequest{BranchId: branchId}
 	r, err := c.DoApiPut(c.GetCommandMoveRoute(commandId), cmr.ToJson())
 	if err != nil {
 		return false, BuildErrorResponse(r, err)
@@ -2502,9 +2502,9 @@ func (c *Client4) DeleteCommand(commandId string) (bool, *Response) {
 	return CheckStatusOK(r), BuildResponse(r)
 }
 
-// ListCommands will retrieve a list of commands available in the team.
-func (c *Client4) ListCommands(teamId string, customOnly bool) ([]*Command, *Response) {
-	query := fmt.Sprintf("?team_id=%v&custom_only=%v", teamId, customOnly)
+// ListCommands will retrieve a list of commands available in the branch.
+func (c *Client4) ListCommands(branchId string, customOnly bool) ([]*Command, *Response) {
+	query := fmt.Sprintf("?branch_id=%v&custom_only=%v", branchId, customOnly)
 	r, err := c.DoApiGet(c.GetCommandsRoute()+query, "")
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
@@ -2524,9 +2524,9 @@ func (c *Client4) GetCommandById(cmdId string) (*Command, *Response) {
 	return CommandFromJson(r.Body), BuildResponse(r)
 }
 
-// ListAutocompleteCommands will retrieve a list of commands available in the team.
-func (c *Client4) ListAutocompleteCommands(teamId string) ([]*Command, *Response) {
-	r, err := c.DoApiGet(c.GetTeamAutoCompleteCommandsRoute(teamId), "")
+// ListAutocompleteCommands will retrieve a list of commands available in the branch.
+func (c *Client4) ListAutocompleteCommands(branchId string) ([]*Command, *Response) {
+	r, err := c.DoApiGet(c.GetBranchAutoCompleteCommandsRoute(branchId), "")
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)
 	}

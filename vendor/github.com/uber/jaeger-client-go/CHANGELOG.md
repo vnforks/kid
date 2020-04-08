@@ -144,7 +144,7 @@ Minor patch via https://github.com/jaegertracing/jaeger-client-go/pull/468
 
 - Support throttling for debug traces (#274) <Isaac Hier>
 - Remove dependency on Apache Thrift (#303) <Yuri Shkuro>
-- Remove dependency on tchannel  (#295) (#294) <Yuri Shkuro>
+- Remove dependency on tclass  (#295) (#294) <Yuri Shkuro>
 - Test with Go 1.9 (#298) <Yuri Shkuro>
 
 

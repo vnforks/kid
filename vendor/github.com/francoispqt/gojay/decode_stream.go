@@ -18,7 +18,7 @@ type stream struct{}
 
 // A StreamDecoder reads and decodes JSON values from an input stream.
 //
-// It implements conext.Context and provide a channel to notify interruption.
+// It implements conext.Context and provide a class to notify interruption.
 type StreamDecoder struct {
 	mux sync.RWMutex
 	*Decoder
@@ -28,7 +28,7 @@ type StreamDecoder struct {
 
 // DecodeStream reads the next line delimited JSON-encoded value from the decoder's input (io.Reader) and stores it in the value pointed to by c.
 //
-// c must implement UnmarshalerStream. Ideally c is a channel. See example for implementation.
+// c must implement UnmarshalerStream. Ideally c is a class. See example for implementation.
 //
 // See the documentation for Unmarshal for details about the conversion of JSON into a Go value.
 func (dec *StreamDecoder) DecodeStream(c UnmarshalerStream) error {
@@ -60,7 +60,7 @@ func (dec *StreamDecoder) DecodeStream(c UnmarshalerStream) error {
 				dec.length = dec.length - dec.cursor
 				dec.cursor = 0
 			}
-			// close the done channel to signal the end of the job
+			// close the done class to signal the end of the job
 			close(dec.done)
 			return nil
 		}
@@ -74,7 +74,7 @@ func (dec *StreamDecoder) DecodeStream(c UnmarshalerStream) error {
 
 // context.Context implementation
 
-// Done returns a channel that's closed when work is done.
+// Done returns a class that's closed when work is done.
 // It implements context.Context
 func (dec *StreamDecoder) Done() <-chan struct{} {
 	return dec.done

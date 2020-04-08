@@ -8,32 +8,26 @@ import "github.com/vnforks/kid/v5/model"
 // Import Data Models
 
 type LineImportData struct {
-	Type          string                   `json:"type"`
-	Scheme        *SchemeImportData        `json:"scheme,omitempty"`
-	Team          *TeamImportData          `json:"team,omitempty"`
-	Channel       *ChannelImportData       `json:"channel,omitempty"`
-	User          *UserImportData          `json:"user,omitempty"`
-	Post          *PostImportData          `json:"post,omitempty"`
-	DirectChannel *DirectChannelImportData `json:"direct_channel,omitempty"`
-	DirectPost    *DirectPostImportData    `json:"direct_post,omitempty"`
-	Emoji         *EmojiImportData         `json:"emoji,omitempty"`
-	Version       *int                     `json:"version,omitempty"`
+	Type    string            `json:"type"`
+	Scheme  *SchemeImportData `json:"scheme,omitempty"`
+	Branch  *BranchImportData `json:"branch,omitempty"`
+	Class   *ClassImportData  `json:"class,omitempty"`
+	User    *UserImportData   `json:"user,omitempty"`
+	Version *int              `json:"version,omitempty"`
 }
 
-type TeamImportData struct {
-	Name            *string `json:"name"`
-	DisplayName     *string `json:"display_name"`
-	Type            *string `json:"type"`
-	Description     *string `json:"description,omitempty"`
-	AllowOpenInvite *bool   `json:"allow_open_invite,omitempty"`
-	Scheme          *string `json:"scheme,omitempty"`
-}
-
-type ChannelImportData struct {
-	Team        *string `json:"team"`
+type BranchImportData struct {
 	Name        *string `json:"name"`
 	DisplayName *string `json:"display_name"`
 	Type        *string `json:"type"`
+	Description *string `json:"description,omitempty"`
+	Scheme      *string `json:"scheme,omitempty"`
+}
+
+type ClassImportData struct {
+	Branch      *string `json:"branch"`
+	Name        *string `json:"name"`
+	DisplayName *string `json:"display_name"`
 	Header      *string `json:"header,omitempty"`
 	Purpose     *string `json:"purpose,omitempty"`
 	Scheme      *string `json:"scheme,omitempty"`
@@ -57,15 +51,15 @@ type UserImportData struct {
 	ShowUnreadSection  *string `json:"show_unread_section,omitempty"`
 	DeleteAt           *int64  `json:"delete_at,omitempty"`
 
-	Teams *[]UserTeamImportData `json:"teams,omitempty"`
+	Branches *[]UserBranchImportData `json:"branches,omitempty"`
 
-	Theme              *string `json:"theme,omitempty"`
-	UseMilitaryTime    *string `json:"military_time,omitempty"`
-	CollapsePreviews   *string `json:"link_previews,omitempty"`
-	MessageDisplay     *string `json:"message_display,omitempty"`
-	ChannelDisplayMode *string `json:"channel_display_mode,omitempty"`
-	TutorialStep       *string `json:"tutorial_step,omitempty"`
-	EmailInterval      *string `json:"email_interval,omitempty"`
+	Theme            *string `json:"theme,omitempty"`
+	UseMilitaryTime  *string `json:"military_time,omitempty"`
+	CollapsePreviews *string `json:"link_previews,omitempty"`
+	MessageDisplay   *string `json:"message_display,omitempty"`
+	ClassDisplayMode *string `json:"class_display_mode,omitempty"`
+	TutorialStep     *string `json:"tutorial_step,omitempty"`
+	EmailInterval    *string `json:"email_interval,omitempty"`
 
 	NotifyProps *UserNotifyPropsImportData `json:"notify_props,omitempty"`
 }
@@ -79,26 +73,26 @@ type UserNotifyPropsImportData struct {
 	Mobile           *string `json:"mobile"`
 	MobilePushStatus *string `json:"mobile_push_status"`
 
-	ChannelTrigger  *string `json:"channel"`
+	ClassTrigger    *string `json:"class"`
 	CommentsTrigger *string `json:"comments"`
 	MentionKeys     *string `json:"mention_keys"`
 }
 
-type UserTeamImportData struct {
-	Name     *string                  `json:"name"`
-	Roles    *string                  `json:"roles"`
-	Theme    *string                  `json:"theme,omitempty"`
-	Channels *[]UserChannelImportData `json:"channels,omitempty"`
+type UserBranchImportData struct {
+	Name    *string                `json:"name"`
+	Roles   *string                `json:"roles"`
+	Theme   *string                `json:"theme,omitempty"`
+	Classes *[]UserClassImportData `json:"classes,omitempty"`
 }
 
-type UserChannelImportData struct {
-	Name        *string                           `json:"name"`
-	Roles       *string                           `json:"roles"`
-	NotifyProps *UserChannelNotifyPropsImportData `json:"notify_props,omitempty"`
-	Favorite    *bool                             `json:"favorite,omitempty"`
+type UserClassImportData struct {
+	Name        *string                         `json:"name"`
+	Roles       *string                         `json:"roles"`
+	NotifyProps *UserClassNotifyPropsImportData `json:"notify_props,omitempty"`
+	Favorite    *bool                           `json:"favorite,omitempty"`
 }
 
-type UserChannelNotifyPropsImportData struct {
+type UserClassNotifyPropsImportData struct {
 	Desktop    *string `json:"desktop"`
 	Mobile     *string `json:"mobile"`
 	MarkUnread *string `json:"mark_unread"`
@@ -127,9 +121,9 @@ type ReplyImportData struct {
 }
 
 type PostImportData struct {
-	Team    *string `json:"team"`
-	Channel *string `json:"channel"`
-	User    *string `json:"user"`
+	Branch *string `json:"branch"`
+	Class  *string `json:"class"`
+	User   *string `json:"user"`
 
 	Message  *string                `json:"message"`
 	Props    *model.StringInterface `json:"props"`
@@ -141,7 +135,7 @@ type PostImportData struct {
 	Attachments *[]AttachmentImportData `json:"attachments,omitempty"`
 }
 
-type DirectChannelImportData struct {
+type DirectClassImportData struct {
 	Members     *[]string `json:"members"`
 	FavoritedBy *[]string `json:"favorited_by"`
 
@@ -149,8 +143,8 @@ type DirectChannelImportData struct {
 }
 
 type DirectPostImportData struct {
-	ChannelMembers *[]string `json:"channel_members"`
-	User           *string   `json:"user"`
+	ClassMembers *[]string `json:"class_members"`
+	User         *string   `json:"user"`
 
 	Message  *string                `json:"message"`
 	Props    *model.StringInterface `json:"props"`
@@ -163,16 +157,16 @@ type DirectPostImportData struct {
 }
 
 type SchemeImportData struct {
-	Name                    *string         `json:"name"`
-	DisplayName             *string         `json:"display_name"`
-	Description             *string         `json:"description"`
-	Scope                   *string         `json:"scope"`
-	DefaultTeamAdminRole    *RoleImportData `json:"default_team_admin_role"`
-	DefaultTeamUserRole     *RoleImportData `json:"default_team_user_role"`
-	DefaultChannelAdminRole *RoleImportData `json:"default_channel_admin_role"`
-	DefaultChannelUserRole  *RoleImportData `json:"default_channel_user_role"`
-	DefaultTeamGuestRole    *RoleImportData `json:"default_team_guest_role"`
-	DefaultChannelGuestRole *RoleImportData `json:"default_channel_guest_role"`
+	Name                   *string         `json:"name"`
+	DisplayName            *string         `json:"display_name"`
+	Description            *string         `json:"description"`
+	Scope                  *string         `json:"scope"`
+	DefaultBranchAdminRole *RoleImportData `json:"default_branch_admin_role"`
+	DefaultBranchUserRole  *RoleImportData `json:"default_branch_user_role"`
+	DefaultClassAdminRole  *RoleImportData `json:"default_class_admin_role"`
+	DefaultClassUserRole   *RoleImportData `json:"default_class_user_role"`
+	DefaultBranchGuestRole *RoleImportData `json:"default_branch_guest_role"`
+	DefaultClassGuestRole  *RoleImportData `json:"default_class_guest_role"`
 }
 
 type RoleImportData struct {

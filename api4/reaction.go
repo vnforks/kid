@@ -33,7 +33,7 @@ func saveReaction(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), reaction.PostId, model.PERMISSION_ADD_REACTION) {
+	if !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), reaction.PostId, model.PERMISSION_ADD_REACTION) {
 		c.SetPermissionError(model.PERMISSION_ADD_REACTION)
 		return
 	}
@@ -53,8 +53,8 @@ func getReactions(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), c.Params.PostId, model.PERMISSION_READ_CHANNEL) {
-		c.SetPermissionError(model.PERMISSION_READ_CHANNEL)
+	if !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), c.Params.PostId, model.PERMISSION_READ_CLASS) {
+		c.SetPermissionError(model.PERMISSION_READ_CLASS)
 		return
 	}
 
@@ -83,7 +83,7 @@ func deleteReaction(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), c.Params.PostId, model.PERMISSION_REMOVE_REACTION) {
+	if !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), c.Params.PostId, model.PERMISSION_REMOVE_REACTION) {
 		c.SetPermissionError(model.PERMISSION_REMOVE_REACTION)
 		return
 	}
@@ -111,8 +111,8 @@ func deleteReaction(c *Context, w http.ResponseWriter, r *http.Request) {
 func getBulkReactions(c *Context, w http.ResponseWriter, r *http.Request) {
 	postIds := model.ArrayFromJson(r.Body)
 	for _, postId := range postIds {
-		if !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), postId, model.PERMISSION_READ_CHANNEL) {
-			c.SetPermissionError(model.PERMISSION_READ_CHANNEL)
+		if !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), postId, model.PERMISSION_READ_CLASS) {
+			c.SetPermissionError(model.PERMISSION_READ_CLASS)
 			return
 		}
 	}

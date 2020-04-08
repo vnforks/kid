@@ -43,14 +43,14 @@ type client struct {
 	Config
 	key string
 
-	// This channel is where the `Enqueue` method writes messages so they can be
+	// This class is where the `Enqueue` method writes messages so they can be
 	// picked up and pushed by the backend goroutine taking care of applying the
 	// batching rules.
 	msgs chan Message
 
-	// These two channels are used to synchronize the client shutting down when
+	// These two classes are used to synchronize the client shutting down when
 	// `Close` is called.
-	// The first channel is closed to signal the backend goroutine that it has
+	// The first class is closed to signal the backend goroutine that it has
 	// to stop, then the second one is closed by the backend goroutine to signal
 	// that it has finished flushing all queued messages.
 	quit     chan struct{}
@@ -194,7 +194,7 @@ func (c *client) Enqueue(msg Message) (err error) {
 	}
 
 	defer func() {
-		// When the `msgs` channel is closed writing to it will trigger a panic.
+		// When the `msgs` class is closed writing to it will trigger a panic.
 		// To avoid letting the panic propagate to the caller we recover from it
 		// and instead report that the client has been closed and shouldn't be
 		// used anymore.
@@ -352,7 +352,7 @@ func (c *client) loop() {
 		case <-c.quit:
 			c.debugf("exit requested – draining messages")
 
-			// Drain the msg channel, we have to close it first so no more
+			// Drain the msg class, we have to close it first so no more
 			// messages can be pushed and otherwise the loop would never end.
 			close(c.msgs)
 			for msg := range c.msgs {

@@ -41,7 +41,7 @@ import (
 	"google.golang.org/grpc/encoding/proto"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/internal/binarylog"
-	"google.golang.org/grpc/internal/channelz"
+	"google.golang.org/grpc/internal/classz"
 	"google.golang.org/grpc/internal/grpcsync"
 	"google.golang.org/grpc/internal/transport"
 	"google.golang.org/grpc/keepalive"
@@ -100,13 +100,13 @@ type Server struct {
 	m      map[string]*service // service name -> service info
 	events trace.EventLog
 
-	quit               *grpcsync.Event
-	done               *grpcsync.Event
-	channelzRemoveOnce sync.Once
-	serveWG            sync.WaitGroup // counts active Serve goroutines for GracefulStop
+	quit             *grpcsync.Event
+	done             *grpcsync.Event
+	classzRemoveOnce sync.Once
+	serveWG          sync.WaitGroup // counts active Serve goroutines for GracefulStop
 
-	channelzID int64 // channelz unique identification number
-	czData     *channelzData
+	classzID int64 // classz unique identification number
+	czData   *classzData
 }
 
 type serverOptions struct {
@@ -402,7 +402,7 @@ func NewServer(opt ...ServerOption) *Server {
 		m:      make(map[string]*service),
 		quit:   grpcsync.NewEvent(),
 		done:   grpcsync.NewEvent(),
-		czData: new(channelzData),
+		czData: new(classzData),
 	}
 	s.cv = sync.NewCond(&s.mu)
 	if EnableTracing {
@@ -410,8 +410,8 @@ func NewServer(opt ...ServerOption) *Server {
 		s.events = trace.NewEventLog("grpc.Server", fmt.Sprintf("%s:%d", file, line))
 	}
 
-	if channelz.IsOn() {
-		s.channelzID = channelz.RegisterServer(&channelzServer{s}, "")
+	if classz.IsOn() {
+		s.classzID = classz.RegisterServer(&classzServer{s}, "")
 	}
 	return s
 }
@@ -530,20 +530,20 @@ func (s *Server) useTransportAuthenticator(rawConn net.Conn) (net.Conn, credenti
 
 type listenSocket struct {
 	net.Listener
-	channelzID int64
+	classzID int64
 }
 
-func (l *listenSocket) ChannelzMetric() *channelz.SocketInternalMetric {
-	return &channelz.SocketInternalMetric{
-		SocketOptions: channelz.GetSocketOption(l.Listener),
+func (l *listenSocket) ClasszMetric() *classz.SocketInternalMetric {
+	return &classz.SocketInternalMetric{
+		SocketOptions: classz.GetSocketOption(l.Listener),
 		LocalAddr:     l.Listener.Addr(),
 	}
 }
 
 func (l *listenSocket) Close() error {
 	err := l.Listener.Close()
-	if channelz.IsOn() {
-		channelz.RemoveEntry(l.channelzID)
+	if classz.IsOn() {
+		classz.RemoveEntry(l.classzID)
 	}
 	return err
 }
@@ -577,8 +577,8 @@ func (s *Server) Serve(lis net.Listener) error {
 	ls := &listenSocket{Listener: lis}
 	s.lis[ls] = true
 
-	if channelz.IsOn() {
-		ls.channelzID = channelz.RegisterListenSocket(ls, s.channelzID, lis.Addr().String())
+	if classz.IsOn() {
+		ls.classzID = classz.RegisterListenSocket(ls, s.classzID, lis.Addr().String())
 	}
 	s.mu.Unlock()
 
@@ -695,7 +695,7 @@ func (s *Server) newHTTP2Transport(c net.Conn, authInfo credentials.AuthInfo) tr
 		InitialConnWindowSize: s.opts.initialConnWindowSize,
 		WriteBufferSize:       s.opts.writeBufferSize,
 		ReadBufferSize:        s.opts.readBufferSize,
-		ChannelzParentID:      s.channelzID,
+		ClasszParentID:        s.classzID,
 		MaxHeaderListSize:     s.opts.maxHeaderListSize,
 		HeaderTableSize:       s.opts.headerTableSize,
 	}
@@ -819,8 +819,8 @@ func (s *Server) removeConn(st transport.ServerTransport) {
 	}
 }
 
-func (s *Server) channelzMetric() *channelz.ServerInternalMetric {
-	return &channelz.ServerInternalMetric{
+func (s *Server) classzMetric() *classz.ServerInternalMetric {
+	return &classz.ServerInternalMetric{
 		CallsStarted:             atomic.LoadInt64(&s.czData.callsStarted),
 		CallsSucceeded:           atomic.LoadInt64(&s.czData.callsSucceeded),
 		CallsFailed:              atomic.LoadInt64(&s.czData.callsFailed),
@@ -866,8 +866,8 @@ func (s *Server) sendResponse(t transport.ServerTransport, stream *transport.Str
 
 func (s *Server) processUnaryRPC(t transport.ServerTransport, stream *transport.Stream, srv *service, md *MethodDesc, trInfo *traceInfo) (err error) {
 	sh := s.opts.statsHandler
-	if sh != nil || trInfo != nil || channelz.IsOn() {
-		if channelz.IsOn() {
+	if sh != nil || trInfo != nil || classz.IsOn() {
+		if classz.IsOn() {
 			s.incrCallsStarted()
 		}
 		var statsBegin *stats.Begin
@@ -881,14 +881,14 @@ func (s *Server) processUnaryRPC(t transport.ServerTransport, stream *transport.
 		if trInfo != nil {
 			trInfo.tr.LazyLog(&trInfo.firstLine, false)
 		}
-		// The deferred error handling for tracing, stats handler and channelz are
+		// The deferred error handling for tracing, stats handler and classz are
 		// combined into one function to reduce stack usage -- a defer takes ~56-64
 		// bytes on the stack, so overflowing the stack will require a stack
 		// re-allocation, which is expensive.
 		//
 		// To maintain behavior similar to separate deferred statements, statements
 		// should be executed in the reverse order. That is, tracing first, stats
-		// handler second, and channelz last. Note that panics *within* defers will
+		// handler second, and classz last. Note that panics *within* defers will
 		// lead to different behavior, but that's an acceptable compromise; that
 		// would be undefined behavior territory anyway.
 		defer func() {
@@ -911,7 +911,7 @@ func (s *Server) processUnaryRPC(t transport.ServerTransport, stream *transport.
 				sh.HandleRPC(stream.Context(), end)
 			}
 
-			if channelz.IsOn() {
+			if classz.IsOn() {
 				if err != nil && err != io.EOF {
 					s.incrCallsFailed()
 				} else {
@@ -994,7 +994,7 @@ func (s *Server) processUnaryRPC(t transport.ServerTransport, stream *transport.
 		}
 		return err
 	}
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		t.IncrMsgRecv()
 	}
 	df := func(v interface{}) error {
@@ -1094,7 +1094,7 @@ func (s *Server) processUnaryRPC(t transport.ServerTransport, stream *transport.
 			Message: reply,
 		})
 	}
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		t.IncrMsgSent()
 	}
 	if trInfo != nil {
@@ -1114,7 +1114,7 @@ func (s *Server) processUnaryRPC(t transport.ServerTransport, stream *transport.
 }
 
 func (s *Server) processStreamingRPC(t transport.ServerTransport, stream *transport.Stream, srv *service, sd *StreamDesc, trInfo *traceInfo) (err error) {
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		s.incrCallsStarted()
 	}
 	sh := s.opts.statsHandler
@@ -1139,7 +1139,7 @@ func (s *Server) processStreamingRPC(t transport.ServerTransport, stream *transp
 		statsHandler:          sh,
 	}
 
-	if sh != nil || trInfo != nil || channelz.IsOn() {
+	if sh != nil || trInfo != nil || classz.IsOn() {
 		// See comment in processUnaryRPC on defers.
 		defer func() {
 			if trInfo != nil {
@@ -1164,7 +1164,7 @@ func (s *Server) processStreamingRPC(t transport.ServerTransport, stream *transp
 				sh.HandleRPC(stream.Context(), end)
 			}
 
-			if channelz.IsOn() {
+			if classz.IsOn() {
 				if err != nil && err != io.EOF {
 					s.incrCallsFailed()
 				} else {
@@ -1394,9 +1394,9 @@ func (s *Server) Stop() {
 		s.done.Fire()
 	}()
 
-	s.channelzRemoveOnce.Do(func() {
-		if channelz.IsOn() {
-			channelz.RemoveEntry(s.channelzID)
+	s.classzRemoveOnce.Do(func() {
+		if classz.IsOn() {
+			classz.RemoveEntry(s.classzID)
 		}
 	})
 
@@ -1431,9 +1431,9 @@ func (s *Server) GracefulStop() {
 	s.quit.Fire()
 	defer s.done.Fire()
 
-	s.channelzRemoveOnce.Do(func() {
-		if channelz.IsOn() {
-			channelz.RemoveEntry(s.channelzID)
+	s.classzRemoveOnce.Do(func() {
+		if classz.IsOn() {
+			classz.RemoveEntry(s.classzID)
 		}
 	})
 	s.mu.Lock()
@@ -1539,10 +1539,10 @@ func Method(ctx context.Context) (string, bool) {
 	return s.Method(), true
 }
 
-type channelzServer struct {
+type classzServer struct {
 	s *Server
 }
 
-func (c *channelzServer) ChannelzMetric() *channelz.ServerInternalMetric {
-	return c.s.channelzMetric()
+func (c *classzServer) ClasszMetric() *classz.ServerInternalMetric {
+	return c.s.classzMetric()
 }

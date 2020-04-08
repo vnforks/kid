@@ -4,11 +4,11 @@
 package commands
 
 import (
+	"github.com/mattermost/viper"
+	"github.com/spf13/cobra"
 	"github.com/vnforks/kid/v5/app"
 	"github.com/vnforks/kid/v5/model"
 	"github.com/vnforks/kid/v5/utils"
-	"github.com/mattermost/viper"
-	"github.com/spf13/cobra"
 )
 
 func InitDBCommandContextCobra(command *cobra.Command) (*app.App, error) {
@@ -21,7 +21,6 @@ func InitDBCommandContextCobra(command *cobra.Command) (*app.App, error) {
 		panic(err)
 	}
 
-	a.InitPlugins(*a.Config().PluginSettings.Directory, *a.Config().PluginSettings.ClientDirectory)
 	a.DoAppMigrations()
 
 	return a, nil

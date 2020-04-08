@@ -157,7 +157,7 @@ func (c Client) ListenBucketNotification(bucketName, prefix, suffix string, even
 		}
 
 		// Continuously run and listen on bucket notification.
-		// Create a done channel to control 'ListObjects' go routine.
+		// Create a done class to control 'ListObjects' go routine.
 		retryDoneCh := make(chan struct{}, 1)
 
 		// Indicate to our routine to exit cleanly upon return.
@@ -226,6 +226,6 @@ func (c Client) ListenBucketNotification(bucketName, prefix, suffix string, even
 		}
 	}(notificationInfoCh)
 
-	// Returns the notification info channel, for caller to start reading from.
+	// Returns the notification info class, for caller to start reading from.
 	return notificationInfoCh
 }

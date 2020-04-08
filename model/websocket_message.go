@@ -16,21 +16,21 @@ const (
 	WEBSOCKET_EVENT_POST_EDITED             = "post_edited"
 	WEBSOCKET_EVENT_POST_DELETED            = "post_deleted"
 	WEBSOCKET_EVENT_POST_UNREAD             = "post_unread"
-	WEBSOCKET_EVENT_CHANNEL_CONVERTED       = "channel_converted"
-	WEBSOCKET_EVENT_CHANNEL_CREATED         = "channel_created"
-	WEBSOCKET_EVENT_CHANNEL_DELETED         = "channel_deleted"
-	WEBSOCKET_EVENT_CHANNEL_RESTORED        = "channel_restored"
-	WEBSOCKET_EVENT_CHANNEL_UPDATED         = "channel_updated"
-	WEBSOCKET_EVENT_CHANNEL_MEMBER_UPDATED  = "channel_member_updated"
-	WEBSOCKET_EVENT_CHANNEL_SCHEME_UPDATED  = "channel_scheme_updated"
+	WEBSOCKET_EVENT_CLASS_CONVERTED         = "class_converted"
+	WEBSOCKET_EVENT_CLASS_CREATED           = "class_created"
+	WEBSOCKET_EVENT_CLASS_DELETED           = "class_deleted"
+	WEBSOCKET_EVENT_CLASS_RESTORED          = "class_restored"
+	WEBSOCKET_EVENT_CLASS_UPDATED           = "class_updated"
+	WEBSOCKET_EVENT_CLASS_MEMBER_UPDATED    = "class_member_updated"
+	WEBSOCKET_EVENT_CLASS_SCHEME_UPDATED    = "class_scheme_updated"
 	WEBSOCKET_EVENT_DIRECT_ADDED            = "direct_added"
 	WEBSOCKET_EVENT_GROUP_ADDED             = "group_added"
 	WEBSOCKET_EVENT_NEW_USER                = "new_user"
-	WEBSOCKET_EVENT_ADDED_TO_TEAM           = "added_to_team"
-	WEBSOCKET_EVENT_LEAVE_TEAM              = "leave_team"
-	WEBSOCKET_EVENT_UPDATE_TEAM             = "update_team"
-	WEBSOCKET_EVENT_DELETE_TEAM             = "delete_team"
-	WEBSOCKET_EVENT_RESTORE_TEAM            = "restore_team"
+	WEBSOCKET_EVENT_ADDED_TO_BRANCH         = "added_to_branch"
+	WEBSOCKET_EVENT_LEAVE_BRANCH            = "leave_branch"
+	WEBSOCKET_EVENT_UPDATE_BRANCH           = "update_branch"
+	WEBSOCKET_EVENT_DELETE_BRANCH           = "delete_branch"
+	WEBSOCKET_EVENT_RESTORE_BRANCH          = "restore_branch"
 	WEBSOCKET_EVENT_USER_ADDED              = "user_added"
 	WEBSOCKET_EVENT_USER_UPDATED            = "user_updated"
 	WEBSOCKET_EVENT_USER_ROLE_UPDATED       = "user_role_updated"
@@ -47,7 +47,7 @@ const (
 	WEBSOCKET_EVENT_REACTION_REMOVED        = "reaction_removed"
 	WEBSOCKET_EVENT_RESPONSE                = "response"
 	WEBSOCKET_EVENT_EMOJI_ADDED             = "emoji_added"
-	WEBSOCKET_EVENT_CHANNEL_VIEWED          = "channel_viewed"
+	WEBSOCKET_EVENT_CLASS_VIEWED            = "class_viewed"
 	WEBSOCKET_EVENT_PLUGIN_STATUSES_CHANGED = "plugin_statuses_changed"
 	WEBSOCKET_EVENT_PLUGIN_ENABLED          = "plugin_enabled"
 	WEBSOCKET_EVENT_PLUGIN_DISABLED         = "plugin_disabled"
@@ -67,8 +67,8 @@ type WebSocketMessage interface {
 type WebsocketBroadcast struct {
 	OmitUsers             map[string]bool `json:"omit_users"` // broadcast is omitted for users listed here
 	UserId                string          `json:"user_id"`    // broadcast only occurs for this user
-	ChannelId             string          `json:"channel_id"` // broadcast only occurs for users in this channel
-	TeamId                string          `json:"team_id"`    // broadcast only occurs for users in this team
+	ClassId               string          `json:"class_id"`   // broadcast only occurs for users in this class
+	BranchId              string          `json:"branch_id"`  // broadcast only occurs for users in this branch
 	ContainsSanitizedData bool            `json:"-"`
 	ContainsSensitiveData bool            `json:"-"`
 }
@@ -116,9 +116,9 @@ func (ev *WebSocketEvent) Add(key string, value interface{}) {
 	ev.Data[key] = value
 }
 
-func NewWebSocketEvent(event, teamId, channelId, userId string, omitUsers map[string]bool) *WebSocketEvent {
+func NewWebSocketEvent(event, branchId, classId, userId string, omitUsers map[string]bool) *WebSocketEvent {
 	return &WebSocketEvent{Event: event, Data: make(map[string]interface{}),
-		Broadcast: &WebsocketBroadcast{TeamId: teamId, ChannelId: channelId, UserId: userId, OmitUsers: omitUsers}}
+		Broadcast: &WebsocketBroadcast{BranchId: branchId, ClassId: classId, UserId: userId, OmitUsers: omitUsers}}
 }
 
 func (ev *WebSocketEvent) Copy() *WebSocketEvent {
@@ -212,8 +212,8 @@ func WebSocketEventFromJson(data io.Reader) *WebSocketEvent {
 }
 
 // WebSocketResponse represents a response received through the WebSocket
-// for a request made to the server. This is available through the ResponseChannel
-// channel in WebSocketClient.
+// for a request made to the server. This is available through the ResponseClass
+// class in WebSocketClient.
 type WebSocketResponse struct {
 	Status   string                 `json:"status"`              // The status of the response. For example: OK, FAIL.
 	SeqReply int64                  `json:"seq_reply,omitempty"` // A counter which is incremented for every response sent.

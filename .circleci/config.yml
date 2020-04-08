@@ -131,11 +131,11 @@ jobs:
             make build BUILD_NUMBER='${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}'
             make package BUILD_NUMBER='${CIRCLE_BRANCH}-${CIRCLE_BUILD_NUM}'
       - store_artifacts:
-          path: ~/mattermost/mattermost-server/dist/mattermost-team-linux-amd64.tar.gz
+          path: ~/mattermost/mattermost-server/dist/mattermost-branch-linux-amd64.tar.gz
       - store_artifacts:
-          path: ~/mattermost/mattermost-server/dist/mattermost-team-osx-amd64.tar.gz
+          path: ~/mattermost/mattermost-server/dist/mattermost-branch-osx-amd64.tar.gz
       - store_artifacts:
-          path: ~/mattermost/mattermost-server/dist/mattermost-team-windows-amd64.zip
+          path: ~/mattermost/mattermost-server/dist/mattermost-branch-windows-amd64.zip
       - persist_to_workspace:
           root: ~/mattermost
           paths:
@@ -166,16 +166,16 @@ jobs:
           name: Wait for docker compose
           command: |
             sleep 5
-            docker run --net circleci_mm-test appropriate/curl:latest sh -c "until curl --max-time 5 --output - http://mysql:3306; do echo waiting for mysql; sleep 5; done;"
-            docker run --net circleci_mm-test appropriate/curl:latest sh -c "until curl --max-time 5 --output - http://elasticsearch:9200; do echo waiting for elasticsearch; sleep 5; done;"
+            docker run --net circleci_k-test appropriate/curl:latest sh -c "until curl --max-time 5 --output - http://mysql:3306; do echo waiting for mysql; sleep 5; done;"
+            docker run --net circleci_k-test appropriate/curl:latest sh -c "until curl --max-time 5 --output - http://elasticsearch:9200; do echo waiting for elasticsearch; sleep 5; done;"
       - run:
           name: Run Tests
           command: |
             ulimit -n 8096
             mkdir -p mattermost-server/client/plugins
-            docker run -it --net circleci_mm-test \
-              --env TEST_DATABASE_MYSQL_DSN="mmuser:mostest@tcp(mysql:3306)/mattermost_test?charset=utf8mb4,utf8\u0026readTimeout=30s\u0026writeTimeout=30s" \
-              --env TEST_DATABASE_POSTGRESQL_DSN="postgres://mmuser:mostest@postgres:5432/mattermost_test?sslmode=disable&connect_timeout=10" \
+            docker run -it --net circleci_k-test \
+              --env TEST_DATABASE_MYSQL_DSN="kuser:mostest@tcp(mysql:3306)/mattermost_test?charset=utf8mb4,utf8\u0026readTimeout=30s\u0026writeTimeout=30s" \
+              --env TEST_DATABASE_POSTGRESQL_DSN="postgres://kuser:mostest@postgres:5432/mattermost_test?sslmode=disable&connect_timeout=10" \
               --env TEST_DATABASE_MYSQL_ROOT_PASSWD=mostest \
               --env CI_INBUCKET_HOST=inbucket \
               --env CI_MINIO_HOST=minio \
@@ -238,8 +238,8 @@ jobs:
           name: Wait for docker compose
           command: |
             sleep 5
-            docker run --net circleci_mm-test appropriate/curl:latest sh -c "until curl --max-time 5 --output - http://mysql:3306; do echo waiting for mysql; sleep 5; done;"
-            docker run --net circleci_mm-test appropriate/curl:latest sh -c "until curl --max-time 5 --output - http://elasticsearch:9200; do echo waiting for elasticsearch; sleep 5; done;"
+            docker run --net circleci_k-test appropriate/curl:latest sh -c "until curl --max-time 5 --output - http://mysql:3306; do echo waiting for mysql; sleep 5; done;"
+            docker run --net circleci_k-test appropriate/curl:latest sh -c "until curl --max-time 5 --output - http://elasticsearch:9200; do echo waiting for elasticsearch; sleep 5; done;"
       - run:
           name: Postgres schema migration validation
           command: |
@@ -247,10 +247,10 @@ jobs:
             mkdir -p mattermost-server/client/plugins
             cd mattermost-server/build
             echo "Creating databases"
-            docker-compose --no-ansi exec -T postgres sh -c 'exec echo "CREATE DATABASE migrated; CREATE DATABASE latest;" | exec psql -U mmuser mattermost_test'
+            docker-compose --no-ansi exec -T postgres sh -c 'exec echo "CREATE DATABASE migrated; CREATE DATABASE latest;" | exec psql -U kuser mattermost_test'
             echo "Importing postgres dump from version 5.0"
-            docker-compose --no-ansi exec -T postgres psql -U mmuser -d migrated < ../scripts/mattermost-postgresql-5.0.sql
-            docker run -it --net circleci_mm-test \
+            docker-compose --no-ansi exec -T postgres psql -U kuser -d migrated < ../scripts/mattermost-postgresql-5.0.sql
+            docker run -it --net circleci_k-test \
               --env CI_INBUCKET_HOST=inbucket \
               --env CI_MINIO_HOST=minio \
               --env CI_INBUCKET_PORT=10080 \
@@ -258,7 +258,7 @@ jobs:
               --env CI_INBUCKET_SMTP_PORT=10025 \
               --env CI_LDAP_HOST=openldap \
               --env IS_CI="true" \
-              --env MM_SQLSETTINGS_DATASOURCE="postgres://mmuser:mostest@postgres:5432/migrated?sslmode=disable&connect_timeout=10" \
+              --env MM_SQLSETTINGS_DATASOURCE="postgres://kuser:mostest@postgres:5432/migrated?sslmode=disable&connect_timeout=10" \
               --env MM_EMAILSETTINGS_SMTPSERVER=inbucket \
               --env MM_SQLSETTINGS_DRIVERNAME=postgres \
               --env MM_EMAILSETTINGS_SMTPPORT=10025 \
@@ -266,12 +266,12 @@ jobs:
               -v ~/mattermost:/mattermost \
               -w /mattermost/mattermost-server \
               mattermost/mattermost-build-server:20200322_golang-1.14.1 \
-              bash -c 'ulimit -n 8096; make ARGS="version" run-cli && make MM_SQLSETTINGS_DATASOURCE="postgres://mmuser:mostest@postgres:5432/latest?sslmode=disable&connect_timeout=10" ARGS="version" run-cli'
+              bash -c 'ulimit -n 8096; make ARGS="version" run-cli && make MM_SQLSETTINGS_DATASOURCE="postgres://kuser:mostest@postgres:5432/latest?sslmode=disable&connect_timeout=10" ARGS="version" run-cli'
             echo "Generating dump"
-            docker-compose --no-ansi exec -T postgres pg_dump --schema-only -d migrated -U mmuser > migrated.sql
-            docker-compose --no-ansi exec -T postgres pg_dump --schema-only -d latest -U mmuser > latest.sql
+            docker-compose --no-ansi exec -T postgres pg_dump --schema-only -d migrated -U kuser > migrated.sql
+            docker-compose --no-ansi exec -T postgres pg_dump --schema-only -d latest -U kuser > latest.sql
             echo "Removing databases created for db comparison"
-            docker-compose --no-ansi exec -T postgres sh -c 'exec echo "DROP DATABASE migrated; DROP DATABASE latest;" | exec psql -U mmuser mattermost_test'
+            docker-compose --no-ansi exec -T postgres sh -c 'exec echo "DROP DATABASE migrated; DROP DATABASE latest;" | exec psql -U kuser mattermost_test'
 
             echo "Generating diff"
             diff migrated.sql latest.sql > diff.txt && echo "Both schemas are same" || (echo "Schema mismatch" && cat diff.txt && exit 1)
@@ -283,10 +283,10 @@ jobs:
             mkdir -p mattermost-server/client/plugins
             cd mattermost-server/build
             echo "Creating databases"
-            docker-compose --no-ansi exec -T mysql mysql -uroot -pmostest -e "CREATE DATABASE migrated; CREATE DATABASE latest; GRANT ALL PRIVILEGES ON migrated.* TO mmuser; GRANT ALL PRIVILEGES ON latest.* TO mmuser"
+            docker-compose --no-ansi exec -T mysql mysql -uroot -pmostest -e "CREATE DATABASE migrated; CREATE DATABASE latest; GRANT ALL PRIVILEGES ON migrated.* TO kuser; GRANT ALL PRIVILEGES ON latest.* TO kuser"
             echo "Importing mysql dump from version 5.0"
             docker-compose --no-ansi exec -T mysql mysql -D migrated -uroot -pmostest < ../scripts/mattermost-mysql-5.0.sql
-            docker run -it --net circleci_mm-test \
+            docker run -it --net circleci_k-test \
               --env CI_INBUCKET_HOST=inbucket \
               --env CI_MINIO_HOST=minio \
               --env CI_INBUCKET_PORT=10080 \
@@ -294,7 +294,7 @@ jobs:
               --env CI_INBUCKET_SMTP_PORT=10025 \
               --env CI_LDAP_HOST=openldap \
               --env IS_CI="true" \
-              --env MM_SQLSETTINGS_DATASOURCE="mmuser:mostest@tcp(mysql:3306)/migrated?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s" \
+              --env MM_SQLSETTINGS_DATASOURCE="kuser:mostest@tcp(mysql:3306)/migrated?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s" \
               --env MM_EMAILSETTINGS_SMTPSERVER=inbucket \
               --env MM_SQLSETTINGS_DRIVERNAME=mysql \
               --env MM_EMAILSETTINGS_SMTPPORT=10025 \
@@ -302,11 +302,11 @@ jobs:
               -v ~/mattermost:/mattermost \
               -w /mattermost/mattermost-server \
               mattermost/mattermost-build-server:20200322_golang-1.14.1 \
-              bash -c 'ulimit -n 8096; make ARGS="version" run-cli && make MM_SQLSETTINGS_DATASOURCE="mmuser:mostest@tcp(mysql:3306)/latest?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s" ARGS="version" run-cli'
+              bash -c 'ulimit -n 8096; make ARGS="version" run-cli && make MM_SQLSETTINGS_DATASOURCE="kuser:mostest@tcp(mysql:3306)/latest?charset=utf8mb4,utf8&readTimeout=30s&writeTimeout=30s" ARGS="version" run-cli'
 
-            echo "Ignoring known MySQL mismatch: ChannelMembers.SchemeGuest"
-            docker-compose --no-ansi exec -T mysql mysql -D migrated -uroot -pmostest -e "ALTER TABLE ChannelMembers DROP COLUMN SchemeGuest;"
-            docker-compose --no-ansi exec -T mysql mysql -D latest -uroot -pmostest -e "ALTER TABLE ChannelMembers DROP COLUMN SchemeGuest;"
+            echo "Ignoring known MySQL mismatch: ClassMembers.SchemeGuest"
+            docker-compose --no-ansi exec -T mysql mysql -D migrated -uroot -pmostest -e "ALTER TABLE ClassMembers DROP COLUMN SchemeGuest;"
+            docker-compose --no-ansi exec -T mysql mysql -D latest -uroot -pmostest -e "ALTER TABLE ClassMembers DROP COLUMN SchemeGuest;"
 
             echo "Generating dump"
             docker-compose --no-ansi exec -T mysql mysqldump --skip-opt --no-data --compact -u root -pmostest migrated > migrated.sql
@@ -364,10 +364,10 @@ jobs:
           command: |
             export TAG="${CIRCLE_SHA1:0:7}"
             cd mattermost-server
-            export MM_PACKAGE=https://pr-builds.mattermost.com/mattermost-server/commit/${CIRCLE_SHA1}/mattermost-team-linux-amd64.tar.gz
-            docker build --build-arg MM_PACKAGE=$MM_PACKAGE -t mattermost/mattermost-team-edition:${TAG} build
+            export MM_PACKAGE=https://pr-builds.mattermost.com/mattermost-server/commit/${CIRCLE_SHA1}/mattermost-branch-linux-amd64.tar.gz
+            docker build --build-arg MM_PACKAGE=$MM_PACKAGE -t mattermost/mattermost-branch-edition:${TAG} build
             echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin
-            docker push mattermost/mattermost-team-edition:${TAG}
+            docker push mattermost/mattermost-branch-edition:${TAG}
 
   trigger-ee-tests:
     machine: true
@@ -420,13 +420,13 @@ workflows:
       - test:
           name: test-mysql
           dbdriver: mysql
-          dbsource: "mmuser:mostest@tcp(mysql:3306)/mattermost_test?charset=utf8mb4,utf8"
+          dbsource: "kuser:mostest@tcp(mysql:3306)/mattermost_test?charset=utf8mb4,utf8"
           requires:
             - check-app-layers
       - test:
           name: test-postgres
           dbdriver: postgres
-          dbsource: "postgres://mmuser:mostest@postgres:5432/mattermost_test?sslmode=disable&connect_timeout=10"
+          dbsource: "postgres://kuser:mostest@postgres:5432/mattermost_test?sslmode=disable&connect_timeout=10"
           requires:
             - check-app-layers
       - test-schema:

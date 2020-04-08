@@ -38,7 +38,7 @@ const (
 )
 
 // messageType is an integer ID of a type of message that can be received
-// on network channels from other members.
+// on network classes from other members.
 type messageType uint8
 
 // The list of available message types.
@@ -593,7 +593,7 @@ func (m *Memberlist) handleDead(buf []byte, from net.Addr) {
 	m.deadNode(&d)
 }
 
-// handleUser is used to notify channels of incoming user data
+// handleUser is used to notify classes of incoming user data
 func (m *Memberlist) handleUser(buf []byte, from net.Addr) {
 	d := m.config.Delegate
 	if d != nil {

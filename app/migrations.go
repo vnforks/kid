@@ -4,7 +4,6 @@
 package app
 
 import (
-	"fmt"
 	"reflect"
 
 	"github.com/vnforks/kid/v5/mlog"
@@ -108,7 +107,7 @@ func (a *App) DoEmojisPermissionsMigration() {
 			return
 		}
 	case model.RESTRICT_EMOJI_CREATION_ADMIN:
-		role, err = a.GetRoleByName(model.TEAM_ADMIN_ROLE_ID)
+		role, err = a.GetRoleByName(model.BRANCH_ADMIN_ROLE_ID)
 		if err != nil {
 			mlog.Critical("Failed to migrate emojis creation permissions from mattermost config.", mlog.Err(err))
 			return
@@ -151,97 +150,9 @@ func (a *App) DoEmojisPermissionsMigration() {
 	}
 }
 
-func (a *App) DoGuestRolesCreationMigration() {
-	// If the migration is already marked as completed, don't do it again.
-	if _, err := a.Srv().Store.System().GetByName(GUEST_ROLES_CREATION_MIGRATION_KEY); err == nil {
-		return
-	}
-
-	roles := model.MakeDefaultRoles()
-
-	allSucceeded := true
-	if _, err := a.Srv().Store.Role().GetByName(model.CHANNEL_GUEST_ROLE_ID); err != nil {
-		if _, err := a.Srv().Store.Role().Save(roles[model.CHANNEL_GUEST_ROLE_ID]); err != nil {
-			mlog.Critical("Failed to create new guest role to database.", mlog.Err(err))
-			allSucceeded = false
-		}
-	}
-	if _, err := a.Srv().Store.Role().GetByName(model.TEAM_GUEST_ROLE_ID); err != nil {
-		if _, err := a.Srv().Store.Role().Save(roles[model.TEAM_GUEST_ROLE_ID]); err != nil {
-			mlog.Critical("Failed to create new guest role to database.", mlog.Err(err))
-			allSucceeded = false
-		}
-	}
-	if _, err := a.Srv().Store.Role().GetByName(model.SYSTEM_GUEST_ROLE_ID); err != nil {
-		if _, err := a.Srv().Store.Role().Save(roles[model.SYSTEM_GUEST_ROLE_ID]); err != nil {
-			mlog.Critical("Failed to create new guest role to database.", mlog.Err(err))
-			allSucceeded = false
-		}
-	}
-
-	schemes, err := a.Srv().Store.Scheme().GetAllPage("", 0, 1000000)
-	if err != nil {
-		mlog.Critical("Failed to get all schemes.", mlog.Err(err))
-		allSucceeded = false
-	}
-	for _, scheme := range schemes {
-		if scheme.DefaultTeamGuestRole == "" || scheme.DefaultChannelGuestRole == "" {
-			// Team Guest Role
-			teamGuestRole := &model.Role{
-				Name:          model.NewId(),
-				DisplayName:   fmt.Sprintf("Team Guest Role for Scheme %s", scheme.Name),
-				Permissions:   roles[model.TEAM_GUEST_ROLE_ID].Permissions,
-				SchemeManaged: true,
-			}
-
-			if savedRole, err := a.Srv().Store.Role().Save(teamGuestRole); err != nil {
-				mlog.Critical("Failed to create new guest role for custom scheme.", mlog.Err(err))
-				allSucceeded = false
-			} else {
-				scheme.DefaultTeamGuestRole = savedRole.Name
-			}
-
-			// Channel Guest Role
-			channelGuestRole := &model.Role{
-				Name:          model.NewId(),
-				DisplayName:   fmt.Sprintf("Channel Guest Role for Scheme %s", scheme.Name),
-				Permissions:   roles[model.CHANNEL_GUEST_ROLE_ID].Permissions,
-				SchemeManaged: true,
-			}
-
-			if savedRole, err := a.Srv().Store.Role().Save(channelGuestRole); err != nil {
-				mlog.Critical("Failed to create new guest role for custom scheme.", mlog.Err(err))
-				allSucceeded = false
-			} else {
-				scheme.DefaultChannelGuestRole = savedRole.Name
-			}
-
-			_, err := a.Srv().Store.Scheme().Save(scheme)
-			if err != nil {
-				mlog.Critical("Failed to update custom scheme.", mlog.Err(err))
-				allSucceeded = false
-			}
-		}
-	}
-
-	if !allSucceeded {
-		return
-	}
-
-	system := model.System{
-		Name:  GUEST_ROLES_CREATION_MIGRATION_KEY,
-		Value: "true",
-	}
-
-	if err := a.Srv().Store.System().Save(&system); err != nil {
-		mlog.Critical("Failed to mark guest roles creation migration as completed.", mlog.Err(err))
-	}
-}
-
 func (a *App) DoAppMigrations() {
 	a.DoAdvancedPermissionsMigration()
 	a.DoEmojisPermissionsMigration()
-	a.DoGuestRolesCreationMigration()
 	// This migration always must be the last, because can be based on previous
 	// migrations. For example, it needs the guest roles migration.
 	a.DoPermissionsMigrations()

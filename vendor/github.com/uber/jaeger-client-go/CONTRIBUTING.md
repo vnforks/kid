@@ -71,7 +71,7 @@ pull request is most likely to be accepted if it:
 
 * Includes tests for new functionality.
 * Follows the guidelines in [Effective
-  Go](https://golang.org/doc/effective_go.html) and the [Go team's common code
+  Go](https://golang.org/doc/effective_go.html) and the [Go branch's common code
   review comments](https://github.com/golang/go/wiki/CodeReviewComments).
 * Has a [good commit message](https://chris.beams.io/posts/git-commit/):
    * Separate subject from body with a blank line

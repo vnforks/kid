@@ -3,7 +3,7 @@
 // in the documentation for the Marshal and Unmarshal functions.
 //
 // It aims at performance and usability by relying on simple interfaces
-// to decode and encode structures, slices, arrays and even channels.
+// to decode and encode structures, slices, arrays and even classes.
 //
 // On top of the simple interfaces to implement, gojay provides lots of helpers to decode and encode
 // multiple of different types natively such as bit.Int, sql.NullString or time.Time

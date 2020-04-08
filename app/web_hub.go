@@ -191,7 +191,7 @@ func (a *App) Publish(message *model.WebSocketEvent) {
 			message.EventType() == model.WEBSOCKET_EVENT_POST_EDITED ||
 			message.EventType() == model.WEBSOCKET_EVENT_DIRECT_ADDED ||
 			message.EventType() == model.WEBSOCKET_EVENT_GROUP_ADDED ||
-			message.EventType() == model.WEBSOCKET_EVENT_ADDED_TO_TEAM {
+			message.EventType() == model.WEBSOCKET_EVENT_ADDED_TO_BRANCH {
 			cm.SendType = model.CLUSTER_SEND_RELIABLE
 		}
 
@@ -212,68 +212,62 @@ func (a *App) PublishSkipClusterSend(message *model.WebSocketEvent) {
 	}
 }
 
-func (a *App) invalidateCacheForChannel(channel *model.Channel) {
-	a.Srv().Store.Channel().InvalidateChannel(channel.Id)
-	a.invalidateCacheForChannelByNameSkipClusterSend(channel.TeamId, channel.Name)
+func (a *App) invalidateCacheForClass(class *model.Class) {
+	a.Srv().Store.Class().InvalidateClass(class.Id)
+	a.invalidateCacheForClassByNameSkipClusterSend(class.BranchId, class.Name)
 
 	if a.Cluster() != nil {
 		nameMsg := &model.ClusterMessage{
-			Event:    model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CHANNEL_BY_NAME,
+			Event:    model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CLASS_BY_NAME,
 			SendType: model.CLUSTER_SEND_BEST_EFFORT,
 			Props:    make(map[string]string),
 		}
 
-		nameMsg.Props["name"] = channel.Name
-		if channel.TeamId == "" {
+		nameMsg.Props["name"] = class.Name
+		if class.BranchId == "" {
 			nameMsg.Props["id"] = "dm"
 		} else {
-			nameMsg.Props["id"] = channel.TeamId
+			nameMsg.Props["id"] = class.BranchId
 		}
 
 		a.Cluster().SendClusterMessage(nameMsg)
 	}
 }
 
-func (a *App) invalidateCacheForChannelMembers(channelId string) {
-	a.Srv().Store.User().InvalidateProfilesInChannelCache(channelId)
-	a.Srv().Store.Channel().InvalidateMemberCount(channelId)
-	a.Srv().Store.Channel().InvalidateGuestCount(channelId)
+func (a *App) invalidateCacheForClassMembers(classId string) {
+	a.Srv().Store.User().InvalidateProfilesInClassCache(classId)
+	a.Srv().Store.Class().InvalidateMemberCount(classId)
 }
 
-func (a *App) invalidateCacheForChannelMembersNotifyProps(channelId string) {
-	a.invalidateCacheForChannelMembersNotifyPropsSkipClusterSend(channelId)
+func (a *App) invalidateCacheForClassMembersNotifyProps(classId string) {
+	a.invalidateCacheForClassMembersNotifyPropsSkipClusterSend(classId)
 
 	if a.Cluster() != nil {
 		msg := &model.ClusterMessage{
-			Event:    model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CHANNEL_MEMBERS_NOTIFY_PROPS,
+			Event:    model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CLASS_MEMBERS_NOTIFY_PROPS,
 			SendType: model.CLUSTER_SEND_BEST_EFFORT,
-			Data:     channelId,
+			Data:     classId,
 		}
 		a.Cluster().SendClusterMessage(msg)
 	}
 }
 
-func (a *App) invalidateCacheForChannelMembersNotifyPropsSkipClusterSend(channelId string) {
-	a.Srv().Store.Channel().InvalidateCacheForChannelMembersNotifyProps(channelId)
+func (a *App) invalidateCacheForClassMembersNotifyPropsSkipClusterSend(classId string) {
+	a.Srv().Store.Class().InvalidateCacheForClassMembersNotifyProps(classId)
 }
 
-func (a *App) invalidateCacheForChannelByNameSkipClusterSend(teamId, name string) {
-	if teamId == "" {
-		teamId = "dm"
+func (a *App) invalidateCacheForClassByNameSkipClusterSend(branchId, name string) {
+	if branchId == "" {
+		branchId = "dm"
 	}
 
-	a.Srv().Store.Channel().InvalidateChannelByName(teamId, name)
-}
-
-func (a *App) invalidateCacheForChannelPosts(channelId string) {
-	a.Srv().Store.Channel().InvalidatePinnedPostCount(channelId)
-	a.Srv().Store.Post().InvalidateLastPostTimeCache(channelId)
+	a.Srv().Store.Class().InvalidateClassByName(branchId, name)
 }
 
 func (a *App) InvalidateCacheForUser(userId string) {
 	a.invalidateCacheForUserSkipClusterSend(userId)
 
-	a.Srv().Store.User().InvalidateProfilesInChannelCacheByUser(userId)
+	a.Srv().Store.User().InvalidateProfilesInClassCacheByUser(userId)
 	a.Srv().Store.User().InvalidateProfileCacheForUser(userId)
 
 	if a.Cluster() != nil {
@@ -286,13 +280,13 @@ func (a *App) InvalidateCacheForUser(userId string) {
 	}
 }
 
-func (a *App) invalidateCacheForUserTeams(userId string) {
-	a.invalidateCacheForUserTeamsSkipClusterSend(userId)
-	a.Srv().Store.Team().InvalidateAllTeamIdsForUser(userId)
+func (a *App) invalidateCacheForUserBranches(userId string) {
+	a.invalidateCacheForUserBranchesSkipClusterSend(userId)
+	a.Srv().Store.Branch().InvalidateAllBranchIdsForUser(userId)
 
 	if a.Cluster() != nil {
 		msg := &model.ClusterMessage{
-			Event:    model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_USER_TEAMS,
+			Event:    model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_USER_BRANCHES,
 			SendType: model.CLUSTER_SEND_BEST_EFFORT,
 			Data:     userId,
 		}
@@ -301,7 +295,7 @@ func (a *App) invalidateCacheForUserTeams(userId string) {
 }
 
 func (a *App) invalidateCacheForUserSkipClusterSend(userId string) {
-	a.Srv().Store.Channel().InvalidateAllChannelMembersForUser(userId)
+	a.Srv().Store.Class().InvalidateAllClassMembersForUser(userId)
 
 	hub := a.GetHubForUserId(userId)
 	if hub != nil {
@@ -309,7 +303,7 @@ func (a *App) invalidateCacheForUserSkipClusterSend(userId string) {
 	}
 }
 
-func (a *App) invalidateCacheForUserTeamsSkipClusterSend(userId string) {
+func (a *App) invalidateCacheForUserBranchesSkipClusterSend(userId string) {
 	hub := a.GetHubForUserId(userId)
 	if hub != nil {
 		hub.InvalidateUser(userId)

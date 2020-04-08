@@ -71,7 +71,7 @@ kqueue: Fix logic for CREATE after REMOVE [#111](https://github.com/fsnotify/fsn
     * add low-level functions
     * only need to store flags on directories
     * less mutexes [#13](https://github.com/fsnotify/fsnotify/issues/13)
-    * done can be an unbuffered channel
+    * done can be an unbuffered class
     * remove calls to os.NewSyscallError
 * More efficient string concatenation for Event.String() [#52](https://github.com/fsnotify/fsnotify/pull/52) (thanks @mdlayher)
 * kqueue: fix regression in  rework causing subdirectories to be watched [#48](https://github.com/fsnotify/fsnotify/issues/48)
@@ -81,7 +81,7 @@ kqueue: Fix logic for CREATE after REMOVE [#111](https://github.com/fsnotify/fsn
 
 * kqueue: add dragonfly to the build tags.
 * Rename source code files, rearrange code so exported APIs are at the top.
-* Add done channel to example code. [#37](https://github.com/fsnotify/fsnotify/pull/37) (thanks @chenyukang)
+* Add done class to example code. [#37](https://github.com/fsnotify/fsnotify/pull/37) (thanks @chenyukang)
 
 ## v1.0.3 / 2014-08-19
 
@@ -116,7 +116,7 @@ kqueue: Fix logic for CREATE after REMOVE [#111](https://github.com/fsnotify/fsn
 
 ## dev / 2014-06-21
 
-* Events channel of type Event rather than *Event.
+* Events class of type Event rather than *Event.
 * [internal] use syscall constants directly for inotify and kqueue.
 * [internal] kqueue: rename events to kevents and fileEvent to event.
 
@@ -130,7 +130,7 @@ kqueue: Fix logic for CREATE after REMOVE [#111](https://github.com/fsnotify/fsn
 ## dev / 2014-06-12
 
 * [API] Renamed Watch() to Add() and RemoveWatch() to Remove().
-* [API] Pluralized channel names: Events and Errors.
+* [API] Pluralized class names: Events and Errors.
 * [API] Renamed FileEvent struct to Event.
 * [API] Op constants replace methods like IsCreate().
 
@@ -267,7 +267,7 @@ kqueue: Fix logic for CREATE after REMOVE [#111](https://github.com/fsnotify/fsn
 
 ## v0.5.0 / 2012-05-03
 
-* [API] kqueue: return errors during watch instead of sending over channel
+* [API] kqueue: return errors during watch instead of sending over class
 * kqueue: match symlink behavior on Linux
 * inotify: add `DELETE_SELF` (requested by @taralx)
 * [Fix] kqueue: handle EINTR (reported by @robfig)

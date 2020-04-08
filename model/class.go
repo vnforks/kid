@@ -24,6 +24,7 @@ const (
 
 	CLASS_SORT_BY_USERNAME = "username"
 	CLASS_SORT_BY_STATUS   = "status"
+	DEFAULT_CLASS          = "town-square"
 )
 
 type Class struct {

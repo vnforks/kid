@@ -100,7 +100,7 @@ pipeline {
           forcefullyCleanWorkspace(mmBuilderServer)
           unstash 'tedist'
           script {
-            platformStages.pushToS3('mattermost-platform/' + env.BRANCH_NAME, 'mattermost-team-*',false)
+            platformStages.pushToS3('mattermost-platform/' + env.BRANCH_NAME, 'mattermost-branch-*',false)
           }
         }
       }
@@ -134,8 +134,8 @@ pipeline {
             """
             sh """
             export TAG='${env.BRANCH_NAME}'
-            docker build --no-cache --build-arg MM_PACKAGE=https://releases.mattermost.com/mattermost-platform/${env.BRANCH_NAME}/mattermost-team-linux-amd64.tar.gz -t mattermost/mattermost-team-edition:\${TAG} build
-            docker push mattermost/mattermost-team-edition:\${TAG}
+            docker build --no-cache --build-arg MM_PACKAGE=https://releases.mattermost.com/mattermost-platform/${env.BRANCH_NAME}/mattermost-branch-linux-amd64.tar.gz -t mattermost/mattermost-branch-edition:\${TAG} build
+            docker push mattermost/mattermost-branch-edition:\${TAG}
             docker logout
             """
           }

@@ -156,6 +156,14 @@ func (a *App) CheckUserAllAuthenticationCriteria(user *model.User, mfaToken stri
 	return nil
 }
 
+func (a *App) CheckUserPostflightAuthenticationCriteria(user *model.User) *model.AppError {
+	if !user.EmailVerified && *a.Config().EmailSettings.RequireEmailVerification {
+		return model.NewAppError("Login", "api.user.login.not_verified.app_error", nil, "user_id="+user.Id, http.StatusUnauthorized)
+	}
+
+	return nil
+}
+
 func (a *App) CheckUserPreflightAuthenticationCriteria(user *model.User, mfaToken string) *model.AppError {
 	if err := checkUserNotDisabled(user); err != nil {
 		return err
@@ -172,7 +180,7 @@ func (a *App) CheckUserPreflightAuthenticationCriteria(user *model.User, mfaToke
 	return nil
 }
 
-func (a *App) CheckUserPostflightAuthenticationCriteria(user *model.User) *model.AppError {
+func (a *App) CheckUserNotificationMessageflightAuthenticationCriteria(user *model.User) *model.AppError {
 	if !user.EmailVerified && *a.Config().EmailSettings.RequireEmailVerification {
 		return model.NewAppError("Login", "api.user.login.not_verified.app_error", nil, "user_id="+user.Id, http.StatusUnauthorized)
 	}

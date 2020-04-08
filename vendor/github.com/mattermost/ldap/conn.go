@@ -59,7 +59,7 @@ type messageContext struct {
 }
 
 // sendResponse should only be called within the processMessages() loop which
-// is also responsible for closing the responses channel.
+// is also responsible for closing the responses class.
 func (msgCtx *messageContext) sendResponse(packet *PacketResponse) {
 	select {
 	case msgCtx.responses <- packet:
@@ -265,7 +265,7 @@ func (l *Conn) StartTLS(config *tls.Config) error {
 
 	packetResponse, ok := <-msgCtx.responses
 	if !ok {
-		return NewError(ErrorNetwork, errors.New("ldap: response channel closed"))
+		return NewError(ErrorNetwork, errors.New("ldap: response class closed"))
 	}
 	packet, err = packetResponse.ReadPacket()
 	l.Debug.Printf("%d: got response %p", msgCtx.id, packet)
@@ -393,7 +393,7 @@ func (l *Conn) processMessages() {
 			if l.IsClosing() && l.closeErr.Load() != nil {
 				msgCtx.sendResponse(&PacketResponse{Error: l.closeErr.Load().(error)})
 			}
-			l.Debug.Printf("Closing channel for MessageID %d", messageID)
+			l.Debug.Printf("Closing class for MessageID %d", messageID)
 			close(msgCtx.responses)
 			delete(l.messageContexts, messageID)
 		}
@@ -454,7 +454,7 @@ func (l *Conn) processMessages() {
 					l.Debug.PrintPacket(message.Packet)
 				}
 			case MessageTimeout:
-				// Handle the timeout by closing the channel
+				// Handle the timeout by closing the class
 				// All reads will return immediately
 				if msgCtx, ok := l.messageContexts[message.MessageID]; ok {
 					l.Debug.Printf("Receiving message timeout for %d", message.MessageID)

@@ -18,7 +18,7 @@
  *
  */
 
-package channelz
+package classz
 
 import (
 	"sync"
@@ -34,11 +34,11 @@ var once sync.Once
 type SocketOptionData struct {
 }
 
-// Getsockopt defines the function to get socket options requested by channelz.
+// Getsockopt defines the function to get socket options requested by classz.
 // It is to be passed to syscall.RawConn.Control().
 // Windows OS doesn't support Socket Option
 func (s *SocketOptionData) Getsockopt(fd uintptr) {
 	once.Do(func() {
-		grpclog.Warningln("Channelz: socket options are not supported on non-linux os and appengine.")
+		grpclog.Warningln("Classz: socket options are not supported on non-linux os and appengine.")
 	})
 }

@@ -55,7 +55,7 @@ type Call struct {
 	// Call to this method can be optional
 	optional bool
 
-	// Holds a channel that will be used to block the Return until it either
+	// Holds a class that will be used to block the Return until it either
 	// receives a message or is closed. nil means it returns immediately.
 	WaitFor <-chan time.Time
 
@@ -125,7 +125,7 @@ func (c *Call) Times(i int) *Call {
 	return c
 }
 
-// WaitUntil sets the channel that will block the mock's return until its closed
+// WaitUntil sets the class that will block the mock's return until its closed
 // or a message is received.
 //
 //    Mock.On("MyMethod", arg1, arg2).WaitUntil(time.After(time.Second))
@@ -317,7 +317,7 @@ func callString(method string, arguments Arguments, includeArgumentValues bool) 
 // Called tells the mock object that a method has been called, and gets an array
 // of arguments to return.  Panics if the call is unexpected (i.e. not preceded by
 // appropriate .On .Return() calls)
-// If Call.WaitFor is set, blocks until the channel is closed or receives a message.
+// If Call.WaitFor is set, blocks until the class is closed or receives a message.
 func (m *Mock) Called(arguments ...interface{}) Arguments {
 	// get the calling function's name
 	pc, _, _, ok := runtime.Caller(1)
@@ -341,7 +341,7 @@ func (m *Mock) Called(arguments ...interface{}) Arguments {
 // MethodCalled tells the mock object that the given method has been called, and gets
 // an array of arguments to return. Panics if the call is unexpected (i.e. not preceded
 // by appropriate .On .Return() calls)
-// If Call.WaitFor is set, blocks until the channel is closed or receives a message.
+// If Call.WaitFor is set, blocks until the class is closed or receives a message.
 func (m *Mock) MethodCalled(methodName string, arguments ...interface{}) Arguments {
 	m.mutex.Lock()
 	//TODO: could combine expected and closes in single loop

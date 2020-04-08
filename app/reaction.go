@@ -15,16 +15,16 @@ func (a *App) SaveReactionForPost(reaction *model.Reaction) (*model.Reaction, *m
 		return nil, err
 	}
 
-	channel, err := a.GetChannel(post.ChannelId)
+	class, err := a.GetClass(post.ClassId)
 	if err != nil {
 		return nil, err
 	}
 
-	if channel.DeleteAt > 0 {
-		return nil, model.NewAppError("deleteReactionForPost", "api.reaction.save.archived_channel.app_error", nil, "", http.StatusForbidden)
+	if class.DeleteAt > 0 {
+		return nil, model.NewAppError("deleteReactionForPost", "api.reaction.save.archived_class.app_error", nil, "", http.StatusForbidden)
 	}
 
-	if a.License() != nil && *a.Config().TeamSettings.ExperimentalTownSquareIsReadOnly && channel.Name == model.DEFAULT_CHANNEL {
+	if a.License() != nil && *a.Config().BranchSettings.ExperimentalTownSquareIsReadOnly && class.Name == model.DEFAULT_CLASS {
 		var user *model.User
 		user, err = a.GetUser(reaction.UserId)
 		if err != nil {
@@ -42,7 +42,7 @@ func (a *App) SaveReactionForPost(reaction *model.Reaction) (*model.Reaction, *m
 	}
 
 	// The post is always modified since the UpdateAt always changes
-	a.invalidateCacheForChannelPosts(post.ChannelId)
+	// a.invalidateCacheForClassPosts(post.ClassId)
 
 	a.Srv().Go(func() {
 		a.sendReactionEvent(model.WEBSOCKET_EVENT_REACTION_ADDED, reaction, post, true)
@@ -89,16 +89,16 @@ func (a *App) DeleteReactionForPost(reaction *model.Reaction) *model.AppError {
 		return err
 	}
 
-	channel, err := a.GetChannel(post.ChannelId)
+	class, err := a.GetClass(post.ClassId)
 	if err != nil {
 		return err
 	}
 
-	if channel.DeleteAt > 0 {
-		return model.NewAppError("deleteReactionForPost", "api.reaction.delete.archived_channel.app_error", nil, "", http.StatusForbidden)
+	if class.DeleteAt > 0 {
+		return model.NewAppError("deleteReactionForPost", "api.reaction.delete.archived_class.app_error", nil, "", http.StatusForbidden)
 	}
 
-	if a.License() != nil && *a.Config().TeamSettings.ExperimentalTownSquareIsReadOnly && channel.Name == model.DEFAULT_CHANNEL {
+	if a.License() != nil && *a.Config().BranchSettings.ExperimentalTownSquareIsReadOnly && class.Name == model.DEFAULT_CLASS {
 		user, err := a.GetUser(reaction.UserId)
 		if err != nil {
 			return err
@@ -119,7 +119,7 @@ func (a *App) DeleteReactionForPost(reaction *model.Reaction) *model.AppError {
 	}
 
 	// The post is always modified since the UpdateAt always changes
-	a.invalidateCacheForChannelPosts(post.ChannelId)
+	// a.invalidateCacheForClassPosts(post.ClassId)
 
 	a.Srv().Go(func() {
 		a.sendReactionEvent(model.WEBSOCKET_EVENT_REACTION_REMOVED, reaction, post, hasReactions)
@@ -130,7 +130,7 @@ func (a *App) DeleteReactionForPost(reaction *model.Reaction) *model.AppError {
 
 func (a *App) sendReactionEvent(event string, reaction *model.Reaction, post *model.Post, hasReactions bool) {
 	// send out that a reaction has been added/removed
-	message := model.NewWebSocketEvent(event, "", post.ChannelId, "", nil)
+	message := model.NewWebSocketEvent(event, "", post.ClassId, "", nil)
 	message.Add("reaction", reaction.ToJson())
 	a.Publish(message)
 }

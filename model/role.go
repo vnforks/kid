@@ -23,7 +23,6 @@ func init() {
 		BRANCH_USER_ROLE_ID,
 		BRANCH_ADMIN_ROLE_ID,
 		BRANCH_POST_ALL_ROLE_ID,
-		BRANCH_POST_ALL_PUBLIC_ROLE_ID,
 
 		CLASS_USER_ROLE_ID,
 		CLASS_ADMIN_ROLE_ID,
@@ -41,11 +40,9 @@ const (
 	SYSTEM_POST_ALL_PUBLIC_ROLE_ID   = "system_post_all_public"
 	SYSTEM_USER_ACCESS_TOKEN_ROLE_ID = "system_user_access_token"
 
-	BRANCH_POST_ALL_ROLE_ID        = "branch_post_all"
-	BRANCH_POST_ALL_PUBLIC_ROLE_ID = "branch_post_all_public"
-
-	BRANCH_USER_ROLE_ID  = "branch_user"
-	BRANCH_ADMIN_ROLE_ID = "branch_admin"
+	BRANCH_USER_ROLE_ID     = "branch_user"
+	BRANCH_ADMIN_ROLE_ID    = "branch_admin"
+	BRANCH_POST_ALL_ROLE_ID = "branch_post_all"
 
 	CLASS_USER_ROLE_ID  = "class_user"
 	CLASS_ADMIN_ROLE_ID = "class_admin"
@@ -58,6 +55,7 @@ const (
 	RoleScopeBranch RoleScope = "Branch"
 	RoleScopeClass  RoleScope = "Class"
 
+	RoleTypeGuest RoleType = "Guest"
 	RoleTypeUser  RoleType = "User"
 	RoleTypeAdmin RoleType = "Admin"
 )
@@ -197,6 +195,118 @@ func PermissionsChangedByPatch(role *Role, patch *RolePatch) []string {
 	return result
 }
 
+func ClassModeratedPermissionsChangedByPatch(role *Role, patch *RolePatch) []string {
+	var result []string
+
+	if patch.Permissions == nil {
+		return result
+	}
+
+	roleMap := make(map[string]bool)
+	patchMap := make(map[string]bool)
+
+	for _, permission := range role.Permissions {
+		if classModeratedPermissionName, found := CLASS_MODERATED_PERMISSIONS_MAP[permission]; found {
+			roleMap[classModeratedPermissionName] = true
+		}
+	}
+
+	for _, permission := range *patch.Permissions {
+		if classModeratedPermissionName, found := CLASS_MODERATED_PERMISSIONS_MAP[permission]; found {
+			patchMap[classModeratedPermissionName] = true
+		}
+	}
+
+	for permissionKey := range roleMap {
+		if !patchMap[permissionKey] {
+			result = append(result, permissionKey)
+		}
+	}
+
+	for permissionKey := range patchMap {
+		if !roleMap[permissionKey] {
+			result = append(result, permissionKey)
+		}
+	}
+
+	return result
+}
+
+// GetClassModeratedPermissions returns a map of class moderated permissions that the role has access to
+func (r *Role) GetClassModeratedPermissions() map[string]bool {
+	moderatedPermissions := make(map[string]bool)
+	for _, permission := range r.Permissions {
+		if _, found := CLASS_MODERATED_PERMISSIONS_MAP[permission]; !found {
+			continue
+		}
+
+		for moderated, moderatedPermissionValue := range CLASS_MODERATED_PERMISSIONS_MAP {
+			// the moderated permission has already been found to be true so skip this iteration
+			if moderatedPermissions[moderatedPermissionValue] {
+				continue
+			}
+
+			if moderated == permission {
+				// Special case where the class moderated permission for `manage_members` is different depending on whether the class is private or public
+				if moderated == PERMISSION_MANAGE_CLASS_MEMBERS.Id {
+					moderatedPermissions[moderatedPermissionValue] = false
+				} else {
+					moderatedPermissions[moderatedPermissionValue] = true
+				}
+			}
+		}
+	}
+
+	return moderatedPermissions
+}
+
+// RolePatchFromClassModerationsPatch Creates and returns a RolePatch based on a slice of ClassModerationPatchs, roleName is expected to be either "members" or "guests".
+func (r *Role) RolePatchFromClassModerationsPatch(classModerationsPatch []*ClassModerationPatch, roleName string) *RolePatch {
+	permissionsToAddToPatch := make(map[string]bool)
+
+	// Iterate through the list of existing permissions on the role and append permissions that we want to keep.
+	for _, permission := range r.Permissions {
+		// Permission is not moderated so dont add it to the patch and skip the classModerationsPatch
+		if _, isModerated := CLASS_MODERATED_PERMISSIONS_MAP[permission]; !isModerated {
+			continue
+		}
+
+		permissionEnabled := true
+		// Check if permission has a matching moderated permission name inside the class moderation patch
+		for _, classModerationPatch := range classModerationsPatch {
+			if *classModerationPatch.Name == CLASS_MODERATED_PERMISSIONS_MAP[permission] {
+				// Permission key exists in patch with a value of false so skip over it
+				if roleName == "members" {
+					if classModerationPatch.Roles.Members != nil && !*classModerationPatch.Roles.Members {
+						permissionEnabled = false
+					}
+				}
+			}
+		}
+
+		if permissionEnabled {
+			permissionsToAddToPatch[permission] = true
+		}
+	}
+
+	// Iterate through the patch and add any permissions that dont already exist on the role
+	for _, classModerationPatch := range classModerationsPatch {
+		for permission, moderatedPermissionName := range CLASS_MODERATED_PERMISSIONS_MAP {
+			if roleName == "members" && classModerationPatch.Roles.Members != nil && *classModerationPatch.Roles.Members && *classModerationPatch.Name == moderatedPermissionName {
+				permissionsToAddToPatch[permission] = true
+			}
+
+		}
+	}
+
+	patchPermissions := make([]string, 0, len(permissionsToAddToPatch))
+	for permission := range permissionsToAddToPatch {
+		patchPermissions = append(patchPermissions, permission)
+	}
+
+	return &RolePatch{Permissions: &patchPermissions}
+}
+
 func (r *Role) IsValid() bool {
 	if len(r.Id) != 26 {
 		return false
@@ -258,9 +368,8 @@ func MakeDefaultRoles() map[string]*Role {
 			PERMISSION_READ_CLASS.Id,
 			PERMISSION_ADD_REACTION.Id,
 			PERMISSION_REMOVE_REACTION.Id,
-			PERMISSION_MANAGE_PUBLIC_CLASS_MEMBERS.Id,
+			PERMISSION_MANAGE_CLASS_MEMBERS.Id,
 			PERMISSION_UPLOAD_FILE.Id,
-			PERMISSION_GET_PUBLIC_LINK.Id,
 			PERMISSION_CREATE_POST.Id,
 			PERMISSION_USE_CLASS_MENTIONS.Id,
 			PERMISSION_USE_SLASH_COMMANDS.Id,
@@ -286,8 +395,7 @@ func MakeDefaultRoles() map[string]*Role {
 		Description: "authentication.roles.branch_user.description",
 		Permissions: []string{
 			PERMISSION_LIST_BRANCH_CLASSES.Id,
-			PERMISSION_JOIN_PUBLIC_CLASSES.Id,
-			PERMISSION_READ_PUBLIC_CLASS.Id,
+			PERMISSION_READ_CLASS.Id,
 			PERMISSION_VIEW_BRANCH.Id,
 		},
 		SchemeManaged: true,
@@ -306,18 +414,6 @@ func MakeDefaultRoles() map[string]*Role {
 		BuiltIn:       true,
 	}
 
-	roles[BRANCH_POST_ALL_PUBLIC_ROLE_ID] = &Role{
-		Name:        "branch_post_all_public",
-		DisplayName: "authentication.roles.branch_post_all_public.name",
-		Description: "authentication.roles.branch_post_all_public.description",
-		Permissions: []string{
-			PERMISSION_CREATE_POST_PUBLIC.Id,
-			PERMISSION_USE_CLASS_MENTIONS.Id,
-		},
-		SchemeManaged: false,
-		BuiltIn:       true,
-	}
-
 	roles[BRANCH_ADMIN_ROLE_ID] = &Role{
 		Name:        "branch_admin",
 		DisplayName: "authentication.roles.branch_admin.name",
@@ -325,7 +421,6 @@ func MakeDefaultRoles() map[string]*Role {
 		Permissions: []string{
 			PERMISSION_REMOVE_USER_FROM_BRANCH.Id,
 			PERMISSION_MANAGE_BRANCH.Id,
-			PERMISSION_IMPORT_BRANCH.Id,
 			PERMISSION_MANAGE_BRANCH_ROLES.Id,
 			PERMISSION_MANAGE_CLASS_ROLES.Id,
 			PERMISSION_MANAGE_OTHERS_INCOMING_WEBHOOKS.Id,
@@ -339,27 +434,13 @@ func MakeDefaultRoles() map[string]*Role {
 		BuiltIn:       true,
 	}
 
-	roles[SYSTEM_GUEST_ROLE_ID] = &Role{
-		Name:        "system_guest",
-		DisplayName: "authentication.roles.global_guest.name",
-		Description: "authentication.roles.global_guest.description",
-		Permissions: []string{
-			PERMISSION_CREATE_DIRECT_CLASS.Id,
-			PERMISSION_CREATE_GROUP_CLASS.Id,
-		},
-		SchemeManaged: true,
-		BuiltIn:       true,
-	}
-
 	roles[SYSTEM_USER_ROLE_ID] = &Role{
 		Name:        "system_user",
 		DisplayName: "authentication.roles.global_user.name",
 		Description: "authentication.roles.global_user.description",
 		Permissions: []string{
-			PERMISSION_LIST_PUBLIC_BRANCHES.Id,
-			PERMISSION_JOIN_PUBLIC_BRANCHES.Id,
-			PERMISSION_CREATE_DIRECT_CLASS.Id,
-			PERMISSION_CREATE_GROUP_CLASS.Id,
+			PERMISSION_LIST_BRANCHES.Id,
+			PERMISSION_CREATE_CLASS.Id,
 			PERMISSION_VIEW_MEMBERS.Id,
 		},
 		SchemeManaged: true,
@@ -378,12 +459,12 @@ func MakeDefaultRoles() map[string]*Role {
 		BuiltIn:       true,
 	}
 
-	roles[SYSTEM_POST_ALL_PUBLIC_ROLE_ID] = &Role{
+	roles[SYSTEM_POST_ALL_ROLE_ID] = &Role{
 		Name:        "system_post_all_public",
 		DisplayName: "authentication.roles.system_post_all_public.name",
 		Description: "authentication.roles.system_post_all_public.description",
 		Permissions: []string{
-			PERMISSION_CREATE_POST_PUBLIC.Id,
+			PERMISSION_CREATE_POST.Id,
 			PERMISSION_USE_CLASS_MENTIONS.Id,
 		},
 		SchemeManaged: false,
@@ -418,43 +499,26 @@ func MakeDefaultRoles() map[string]*Role {
 							PERMISSION_ASSIGN_SYSTEM_ADMIN_ROLE.Id,
 							PERMISSION_MANAGE_SYSTEM.Id,
 							PERMISSION_MANAGE_ROLES.Id,
-							PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES.Id,
-							PERMISSION_MANAGE_PUBLIC_CLASS_MEMBERS.Id,
-							PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS.Id,
-							PERMISSION_DELETE_PUBLIC_CLASS.Id,
-							PERMISSION_CREATE_PUBLIC_CLASS.Id,
-							PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES.Id,
-							PERMISSION_DELETE_PRIVATE_CLASS.Id,
-							PERMISSION_CREATE_PRIVATE_CLASS.Id,
+							PERMISSION_MANAGE_CLASS_MEMBERS.Id,
+							PERMISSION_DELETE_CLASS.Id,
+							PERMISSION_CREATE_CLASS.Id,
 							PERMISSION_MANAGE_SYSTEM_WIDE_OAUTH.Id,
 							PERMISSION_MANAGE_OTHERS_INCOMING_WEBHOOKS.Id,
 							PERMISSION_MANAGE_OTHERS_OUTGOING_WEBHOOKS.Id,
 							PERMISSION_EDIT_OTHER_USERS.Id,
 							PERMISSION_EDIT_OTHERS_POSTS.Id,
 							PERMISSION_MANAGE_OAUTH.Id,
-							PERMISSION_INVITE_USER.Id,
-							PERMISSION_INVITE_GUEST.Id,
-							PERMISSION_PROMOTE_GUEST.Id,
-							PERMISSION_DEMOTE_TO_GUEST.Id,
-							PERMISSION_DELETE_POST.Id,
 							PERMISSION_DELETE_OTHERS_POSTS.Id,
 							PERMISSION_CREATE_BRANCH.Id,
 							PERMISSION_ADD_USER_TO_BRANCH.Id,
 							PERMISSION_LIST_USERS_WITHOUT_BRANCH.Id,
 							PERMISSION_MANAGE_JOBS.Id,
-							PERMISSION_CREATE_POST_PUBLIC.Id,
+							PERMISSION_CREATE_POST.Id,
 							PERMISSION_CREATE_POST_EPHEMERAL.Id,
 							PERMISSION_CREATE_USER_ACCESS_TOKEN.Id,
 							PERMISSION_READ_USER_ACCESS_TOKEN.Id,
 							PERMISSION_REVOKE_USER_ACCESS_TOKEN.Id,
-							PERMISSION_CREATE_BOT.Id,
-							PERMISSION_READ_BOTS.Id,
-							PERMISSION_READ_OTHERS_BOTS.Id,
-							PERMISSION_MANAGE_BOTS.Id,
-							PERMISSION_MANAGE_OTHERS_BOTS.Id,
-							PERMISSION_REMOVE_OTHERS_REACTIONS.Id,
-							PERMISSION_LIST_PRIVATE_BRANCHES.Id,
-							PERMISSION_JOIN_PRIVATE_BRANCHES.Id,
+							PERMISSION_LIST_BRANCHES.Id,
 							PERMISSION_VIEW_MEMBERS.Id,
 						},
 						roles[BRANCH_USER_ROLE_ID].Permissions...,

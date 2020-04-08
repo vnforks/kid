@@ -114,10 +114,6 @@ func (s *Server) RunOldAppInitialization() error {
 		return errors.Wrap(err, "failed to parse SiteURL subpath")
 	}
 	s.Router = s.RootRouter.PathPrefix(subpath).Subrouter()
-	pluginsRoute := s.Router.PathPrefix("/plugins/{plugin_id:[A-Za-z0-9\\_\\-\\.]+}").Subrouter()
-	pluginsRoute.HandleFunc("", s.FakeApp().ServePluginRequest)
-	pluginsRoute.HandleFunc("/public/{public_file:.*}", s.FakeApp().ServePluginPublicRequest)
-	pluginsRoute.HandleFunc("/{anything:.*}", s.FakeApp().ServePluginRequest)
 
 	// If configured with a subpath, redirect 404s at the root back into the subpath.
 	if subpath != "/" {
@@ -155,24 +151,12 @@ func (s *Server) RunOldAppInitialization() error {
 
 	s.FakeApp().DoAppMigrations()
 
-	s.FakeApp().InitPostMetadata()
-
-	s.FakeApp().InitPlugins(*s.Config().PluginSettings.Directory, *s.Config().PluginSettings.ClientDirectory)
-	s.FakeApp().AddConfigListener(func(prevCfg, cfg *model.Config) {
-		if *cfg.PluginSettings.Enable {
-			s.FakeApp().InitPlugins(*cfg.PluginSettings.Directory, *s.Config().PluginSettings.ClientDirectory)
-		} else {
-			s.FakeApp().ShutDownPlugins()
-		}
-	})
-
 	return nil
 }
 
 func (s *Server) RunOldAppShutdown() {
 	s.FakeApp().HubStop()
 	s.FakeApp().StopPushNotificationsHubWorkers()
-	s.FakeApp().ShutDownPlugins()
 	s.FakeApp().RemoveLicenseListener(s.licenseListenerId)
 	s.RemoveClusterLeaderChangedListener(s.clusterLeaderListenerId)
 }

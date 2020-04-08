@@ -440,7 +440,7 @@ go func(){
 	        continue
 	    }
 
-	    // unmarshal new config into our runtime config struct. you can also use channel
+	    // unmarshal new config into our runtime config struct. you can also use class
 	    // to implement a signal to notify the system of the changes
 	    runtime_viper.Unmarshal(&runtime_conf)
 	}

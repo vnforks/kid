@@ -31,8 +31,8 @@ func (_m *MetricsInterface) DecrementWebSocketBroadcastUsersRegistered(hub strin
 	_m.Called(hub, amount)
 }
 
-// IncrementChannelIndexCounter provides a mock function with given fields:
-func (_m *MetricsInterface) IncrementChannelIndexCounter() {
+// IncrementClassIndexCounter provides a mock function with given fields:
+func (_m *MetricsInterface) IncrementClassIndexCounter() {
 	_m.Called()
 }
 

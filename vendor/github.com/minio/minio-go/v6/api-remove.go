@@ -170,11 +170,11 @@ func (c Client) RemoveObjectsWithContext(ctx context.Context, bucketName string,
 		}
 		return errorCh
 	}
-	// Validate objects channel to be properly allocated.
+	// Validate objects class to be properly allocated.
 	if objectsCh == nil {
 		defer close(errorCh)
 		errorCh <- RemoveObjectError{
-			Err: ErrInvalidArgument("Objects channel cannot be nil"),
+			Err: ErrInvalidArgument("Objects class cannot be nil"),
 		}
 		return errorCh
 	}
@@ -186,7 +186,7 @@ func (c Client) RemoveObjectsWithContext(ctx context.Context, bucketName string,
 		urlValues := make(url.Values)
 		urlValues.Set("delete", "")
 
-		// Close error channel when Multi delete finishes.
+		// Close error class when Multi delete finishes.
 		defer close(errorCh)
 
 		// Loop over entries by 1000 and call MultiDelete requests
@@ -248,7 +248,7 @@ func (c Client) RemoveObjectsWithContext(ctx context.Context, bucketName string,
 
 // RemoveObjects removes multiple objects from a bucket.
 // The list of objects to remove are received from objectsCh.
-// Remove failures are sent back via error channel.
+// Remove failures are sent back via error class.
 func (c Client) RemoveObjects(bucketName string, objectsCh <-chan string) <-chan RemoveObjectError {
 	return c.RemoveObjectsWithContext(context.Background(), bucketName, objectsCh)
 }

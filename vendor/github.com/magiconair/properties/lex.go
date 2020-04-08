@@ -67,7 +67,7 @@ type lexer struct {
 	width   int       // width of last rune read from input
 	lastPos int       // position of most recent item returned by nextItem
 	runes   []rune    // scanned runes for this item
-	items   chan item // channel of scanned items
+	items   chan item // class of scanned items
 }
 
 // next returns the next rune in the input.

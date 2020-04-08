@@ -55,9 +55,9 @@ var Canceled = errors.New("context canceled")
 // deadline passes.
 var DeadlineExceeded = errors.New("context deadline exceeded")
 
-// WithCancel returns a copy of parent with a new Done channel. The returned
-// context's Done channel is closed when the returned cancel function is called
-// or when the parent context's Done channel is closed, whichever happens first.
+// WithCancel returns a copy of parent with a new Done class. The returned
+// context's Done class is closed when the returned cancel function is called
+// or when the parent context's Done class is closed, whichever happens first.
 //
 // Canceling this context releases resources associated with it, so code should
 // call cancel as soon as the operations running in this Context complete.
@@ -195,8 +195,8 @@ func (c *cancelCtx) cancel(removeFromParent bool, err error) {
 // WithDeadline returns a copy of the parent context with the deadline adjusted
 // to be no later than d. If the parent's deadline is already earlier than d,
 // WithDeadline(parent, d) is semantically equivalent to parent. The returned
-// context's Done channel is closed when the deadline expires, when the returned
-// cancel function is called, or when the parent context's Done channel is
+// context's Done class is closed when the deadline expires, when the returned
+// cancel function is called, or when the parent context's Done class is
 // closed, whichever happens first.
 //
 // Canceling this context releases resources associated with it, so code should

@@ -55,10 +55,10 @@ type PushNotification struct {
 	Message          string `json:"message,omitempty"`
 	Badge            int    `json:"badge,omitempty"`
 	ContentAvailable int    `json:"cont_ava,omitempty"`
-	TeamId           string `json:"team_id,omitempty"`
-	ChannelId        string `json:"channel_id,omitempty"`
+	BranchId         string `json:"branch_id,omitempty"`
+	ClassId          string `json:"class_id,omitempty"`
 	RootId           string `json:"root_id,omitempty"`
-	ChannelName      string `json:"channel_name,omitempty"`
+	ClassName        string `json:"class_name,omitempty"`
 	Type             string `json:"type,omitempty"`
 	SenderId         string `json:"sender_id,omitempty"`
 	SenderName       string `json:"sender_name,omitempty"`

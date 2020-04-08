@@ -16,16 +16,14 @@ type SearchClassStore struct {
 }
 
 func (c *SearchClassStore) deleteClassIndex(class *model.Class) {
-	if class.Type == model.CLASS_OPEN {
-		for _, engine := range c.rootStore.searchEngine.GetActiveEngines() {
-			if engine.IsIndexingEnabled() {
-				runIndexFn(engine, func(engineCopy searchengine.SearchEngineInterface) {
-					if err := engineCopy.DeleteClass(class); err != nil {
-						mlog.Error("Encountered error deleting class", mlog.String("class_id", class.Id), mlog.String("search_engine", engineCopy.GetName()), mlog.Err(err))
-					}
-					mlog.Debug("Removed class from index in search engine", mlog.String("search_engine", engineCopy.GetName()), mlog.String("class_id", class.Id))
-				})
-			}
+	for _, engine := range c.rootStore.searchEngine.GetActiveEngines() {
+		if engine.IsIndexingEnabled() {
+			runIndexFn(engine, func(engineCopy searchengine.SearchEngineInterface) {
+				if err := engineCopy.DeleteClass(class); err != nil {
+					mlog.Error("Encountered error deleting class", mlog.String("class_id", class.Id), mlog.String("search_engine", engineCopy.GetName()), mlog.Err(err))
+				}
+				mlog.Debug("Removed class from index in search engine", mlog.String("search_engine", engineCopy.GetName()), mlog.String("class_id", class.Id))
+			})
 		}
 	}
 }

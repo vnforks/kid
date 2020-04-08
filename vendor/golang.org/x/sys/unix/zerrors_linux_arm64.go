@@ -3045,7 +3045,7 @@ var errorList = [...]struct {
 	{40, "ELOOP", "too many levels of symbolic links"},
 	{42, "ENOMSG", "no message of desired type"},
 	{43, "EIDRM", "identifier removed"},
-	{44, "ECHRNG", "channel number out of range"},
+	{44, "ECHRNG", "class number out of range"},
 	{45, "EL2NSYNC", "level 2 not synchronized"},
 	{46, "EL3HLT", "level 3 halted"},
 	{47, "EL3RST", "level 3 reset"},

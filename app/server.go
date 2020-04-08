@@ -42,7 +42,7 @@ import (
 	"github.com/vnforks/kid/v5/utils"
 )
 
-var MaxNotificationsPerChannelDefault int64 = 1000000
+var MaxNotificationsPerClassDefault int64 = 1000000
 
 type Server struct {
 	Store           store.Store
@@ -243,7 +243,7 @@ func NewServer(options ...Option) (*Server, error) {
 	if model.BuildEnterpriseReady == "true" {
 		mlog.Info("Enterprise Build", mlog.Bool("enterprise_build", true))
 	} else {
-		mlog.Info("Team Edition Build", mlog.Bool("enterprise_build", false))
+		mlog.Info("Branch Edition Build", mlog.Bool("enterprise_build", false))
 	}
 
 	pwd, _ := os.Getwd()
@@ -263,7 +263,7 @@ func NewServer(options ...Option) (*Server, error) {
 
 	if license == nil {
 		s.UpdateConfig(func(cfg *model.Config) {
-			cfg.TeamSettings.MaxNotificationsPerChannel = &MaxNotificationsPerChannelDefault
+			cfg.BranchSettings.MaxNotificationsPerClass = &MaxNotificationsPerClassDefault
 		})
 	}
 
@@ -291,21 +291,6 @@ func NewServer(options ...Option) (*Server, error) {
 
 	if s.startMetrics && s.Metrics != nil {
 		s.Metrics.StartServer()
-	}
-
-	s.AddConfigListener(func(oldConfig *model.Config, newConfig *model.Config) {
-		if *oldConfig.GuestAccountsSettings.Enable && !*newConfig.GuestAccountsSettings.Enable {
-			if appErr := s.FakeApp().DeactivateGuests(); appErr != nil {
-				mlog.Error("Unable to deactivate guest accounts", mlog.Err(appErr))
-			}
-		}
-	})
-
-	// Disable active guest accounts on first run if guest accounts are disabled
-	if !*s.Config().GuestAccountsSettings.Enable {
-		if appErr := s.FakeApp().DeactivateGuests(); appErr != nil {
-			mlog.Error("Unable to deactivate guest accounts", mlog.Err(appErr))
-		}
 	}
 
 	s.initJobs()

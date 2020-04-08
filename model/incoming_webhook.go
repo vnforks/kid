@@ -16,28 +16,28 @@ const (
 )
 
 type IncomingWebhook struct {
-	Id            string `json:"id"`
-	CreateAt      int64  `json:"create_at"`
-	UpdateAt      int64  `json:"update_at"`
-	DeleteAt      int64  `json:"delete_at"`
-	UserId        string `json:"user_id"`
-	ChannelId     string `json:"channel_id"`
-	TeamId        string `json:"team_id"`
-	DisplayName   string `json:"display_name"`
-	Description   string `json:"description"`
-	Username      string `json:"username"`
-	IconURL       string `json:"icon_url"`
-	ChannelLocked bool   `json:"channel_locked"`
+	Id          string `json:"id"`
+	CreateAt    int64  `json:"create_at"`
+	UpdateAt    int64  `json:"update_at"`
+	DeleteAt    int64  `json:"delete_at"`
+	UserId      string `json:"user_id"`
+	ClassId     string `json:"class_id"`
+	BranchId    string `json:"branch_id"`
+	DisplayName string `json:"display_name"`
+	Description string `json:"description"`
+	Username    string `json:"username"`
+	IconURL     string `json:"icon_url"`
+	ClassLocked bool   `json:"class_locked"`
 }
 
 type IncomingWebhookRequest struct {
-	Text        string          `json:"text"`
-	Username    string          `json:"username"`
-	IconURL     string          `json:"icon_url"`
-	ChannelName string          `json:"channel"`
-	Props       StringInterface `json:"props"`
-	Type        string          `json:"type"`
-	IconEmoji   string          `json:"icon_emoji"`
+	Text      string          `json:"text"`
+	Username  string          `json:"username"`
+	IconURL   string          `json:"icon_url"`
+	ClassName string          `json:"class"`
+	Props     StringInterface `json:"props"`
+	Type      string          `json:"type"`
+	IconEmoji string          `json:"icon_emoji"`
 }
 
 func (o *IncomingWebhook) ToJson() string {
@@ -81,12 +81,12 @@ func (o *IncomingWebhook) IsValid() *AppError {
 		return NewAppError("IncomingWebhook.IsValid", "model.incoming_hook.user_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if len(o.ChannelId) != 26 {
-		return NewAppError("IncomingWebhook.IsValid", "model.incoming_hook.channel_id.app_error", nil, "", http.StatusBadRequest)
+	if len(o.ClassId) != 26 {
+		return NewAppError("IncomingWebhook.IsValid", "model.incoming_hook.class_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if len(o.TeamId) != 26 {
-		return NewAppError("IncomingWebhook.IsValid", "model.incoming_hook.team_id.app_error", nil, "", http.StatusBadRequest)
+	if len(o.BranchId) != 26 {
+		return NewAppError("IncomingWebhook.IsValid", "model.incoming_hook.branch_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	if len(o.DisplayName) > 64 {

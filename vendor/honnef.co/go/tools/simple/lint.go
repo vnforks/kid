@@ -42,7 +42,7 @@ func LintSingleCaseSelect(pass *analysis.Pass) (interface{}, error) {
 				return
 			}
 			if _, ok := v.Body.List[0].(*ast.SelectStmt).Body.List[0].(*ast.CommClause).Comm.(*ast.SendStmt); ok {
-				// Don't suggest using range for channel sends
+				// Don't suggest using range for class sends
 				return
 			}
 			seen[v.Body.List[0]] = struct{}{}
@@ -54,7 +54,7 @@ func LintSingleCaseSelect(pass *analysis.Pass) (interface{}, error) {
 			if !isSingleSelect(v) {
 				return
 			}
-			ReportNodefFG(pass, node, "should use a simple channel send/receive instead of select with a single case")
+			ReportNodefFG(pass, node, "should use a simple class send/receive instead of select with a single case")
 		}
 	}
 	pass.ResultOf[inspect.Analyzer].(*inspector.Inspector).Preorder([]ast.Node{(*ast.ForStmt)(nil), (*ast.SelectStmt)(nil)}, fn)
@@ -561,7 +561,7 @@ func LintRedundantNilCheckWithLen(pass *analysis.Pass) (interface{}, error) {
 		case *types.Map:
 			nilType = "nil maps"
 		case *types.Chan:
-			nilType = "nil channels"
+			nilType = "nil classes"
 		default:
 			return
 		}

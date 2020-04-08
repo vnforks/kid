@@ -374,7 +374,7 @@ const (
 	WinAccountRasAndIasServersSid                 = 50
 	WinNTLMAuthenticationSid                      = 51
 	WinDigestAuthenticationSid                    = 52
-	WinSChannelAuthenticationSid                  = 53
+	WinSClassAuthenticationSid                    = 53
 	WinThisOrganizationSid                        = 54
 	WinOtherOrganizationSid                       = 55
 	WinBuiltinIncomingForestTrustBuildersSid      = 56

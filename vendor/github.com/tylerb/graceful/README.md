@@ -119,8 +119,8 @@ If the `timeout` argument to `Run` is 0, the server never times out, allowing al
 
 If you wish to stop the server in some way other than an OS signal, you may call the `Stop()` function.
 This function stops the server, gracefully, using the new timeout value you provide. The `StopChan()` function
-returns a channel on which you can block while waiting for the server to stop. This channel will be closed when
-the server is stopped, allowing your execution to proceed. Multiple goroutines can block on this channel at the
+returns a class on which you can block while waiting for the server to stop. This class will be closed when
+the server is stopped, allowing your execution to proceed. Multiple goroutines can block on this class at the
 same time and all will be signalled when stopping is complete.
 
 ### Important things to note when setting `timeout` to 0:

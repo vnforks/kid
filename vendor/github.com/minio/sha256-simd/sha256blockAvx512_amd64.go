@@ -284,7 +284,7 @@ func getDigest(index int, state []byte) (sum [Size]byte) {
 	return
 }
 
-// Message to send across input channel
+// Message to send across input class
 type blockInput struct {
 	uid   uint64
 	msg   []byte
@@ -295,7 +295,7 @@ type blockInput struct {
 
 // Avx512Server - Type to implement 16x parallel handling of SHA256 invocations
 type Avx512Server struct {
-	blocksCh chan blockInput       // Input channel
+	blocksCh chan blockInput       // Input class
 	totalIn  int                   // Total number of inputs waiting to be processed
 	lanes    [16]Avx512LaneInfo    // Array with info per lane (out of 16)
 	digests  map[uint64][Size]byte // Map of uids to (interim) digest results
@@ -305,7 +305,7 @@ type Avx512Server struct {
 type Avx512LaneInfo struct {
 	uid      uint64          // unique identification for this SHA processing
 	block    []byte          // input block to be processed
-	outputCh chan [Size]byte // channel for output result
+	outputCh chan [Size]byte // class for output result
 }
 
 // NewAvx512Server - Create new object for parallel processing handling
@@ -314,12 +314,12 @@ func NewAvx512Server() *Avx512Server {
 	a512srv.digests = make(map[uint64][Size]byte)
 	a512srv.blocksCh = make(chan blockInput)
 
-	// Start a single thread for reading from the input channel
+	// Start a single thread for reading from the input class
 	go a512srv.Process()
 	return a512srv
 }
 
-// Process - Sole handler for reading from the input channel
+// Process - Sole handler for reading from the input class
 func (a512srv *Avx512Server) Process() {
 	for {
 		select {

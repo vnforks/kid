@@ -412,11 +412,11 @@ const (
 	SYS___NEXUS_DESTROY                = 507
 	SYS___NEXUS_GET_OPT                = 508
 	SYS___NEXUS_SET_OPT                = 509
-	SYS___CHANNEL_OPEN                 = 510
-	SYS___CHANNEL_GET_INFO             = 511
-	SYS___CHANNEL_SYNC                 = 512
-	SYS___CHANNEL_GET_OPT              = 513
-	SYS___CHANNEL_SET_OPT              = 514
+	SYS___CLASS_OPEN                 = 510
+	SYS___CLASS_GET_INFO             = 511
+	SYS___CLASS_SYNC                 = 512
+	SYS___CLASS_GET_OPT              = 513
+	SYS___CLASS_SET_OPT              = 514
 	SYS_ULOCK_WAIT                     = 515
 	SYS_ULOCK_WAKE                     = 516
 	SYS_FCLONEFILEAT                   = 517

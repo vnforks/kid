@@ -14,13 +14,13 @@ const USER_SEARCH_DEFAULT_LIMIT = 100
 // UserSearch captures the parameters provided by a client for initiating a user search.
 type UserSearch struct {
 	Term             string `json:"term"`
-	TeamId           string `json:"team_id"`
-	NotInTeamId      string `json:"not_in_team_id"`
-	InChannelId      string `json:"in_channel_id"`
-	NotInChannelId   string `json:"not_in_channel_id"`
+	BranchId         string `json:"branch_id"`
+	NotInBranchId    string `json:"not_in_branch_id"`
+	InClassId        string `json:"in_class_id"`
+	NotInClassId     string `json:"not_in_class_id"`
 	GroupConstrained bool   `json:"group_constrained"`
 	AllowInactive    bool   `json:"allow_inactive"`
-	WithoutTeam      bool   `json:"without_team"`
+	WithoutBranch    bool   `json:"without_branch"`
 	Limit            int    `json:"limit"`
 	Role             string `json:"role"`
 }
@@ -60,8 +60,8 @@ type UserSearchOptions struct {
 	Limit int
 	// Filters for the given role
 	Role string
-	// Restrict to search in a list of teams and channels
+	// Restrict to search in a list of branches and classes
 	ViewRestrictions *ViewUsersRestrictions
-	// List of allowed channels
-	ListOfAllowedChannels []string
+	// List of allowed classes
+	ListOfAllowedClasses []string
 }

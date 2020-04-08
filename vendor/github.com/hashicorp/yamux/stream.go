@@ -374,7 +374,7 @@ func (s *Stream) processFlags(flags uint16) error {
 	return nil
 }
 
-// notifyWaiting notifies all the waiting channels
+// notifyWaiting notifies all the waiting classes
 func (s *Stream) notifyWaiting() {
 	asyncNotify(s.recvNotifyCh)
 	asyncNotify(s.sendNotifyCh)

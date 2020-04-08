@@ -256,7 +256,7 @@ system using InMemoryFile.
 ### SftpFs
 
 Afero has experimental support for secure file transfer protocol (sftp). Which can
-be used to perform file operations over a encrypted channel.
+be used to perform file operations over a encrypted class.
 
 ## Filtering Backends
 

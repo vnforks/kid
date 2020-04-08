@@ -11,18 +11,18 @@ import (
 )
 
 type CommandArgs struct {
-	UserId          string               `json:"user_id"`
-	ChannelId       string               `json:"channel_id"`
-	TeamId          string               `json:"team_id"`
-	RootId          string               `json:"root_id"`
-	ParentId        string               `json:"parent_id"`
-	TriggerId       string               `json:"trigger_id,omitempty"`
-	Command         string               `json:"command"`
-	SiteURL         string               `json:"-"`
-	T               goi18n.TranslateFunc `json:"-"`
-	Session         Session              `json:"-"`
-	UserMentions    UserMentionMap       `json:"-"`
-	ChannelMentions ChannelMentionMap    `json:"-"`
+	UserId        string               `json:"user_id"`
+	ClassId       string               `json:"class_id"`
+	BranchId      string               `json:"branch_id"`
+	RootId        string               `json:"root_id"`
+	ParentId      string               `json:"parent_id"`
+	TriggerId     string               `json:"trigger_id,omitempty"`
+	Command       string               `json:"command"`
+	SiteURL       string               `json:"-"`
+	T             goi18n.TranslateFunc `json:"-"`
+	Session       Session              `json:"-"`
+	UserMentions  UserMentionMap       `json:"-"`
+	ClassMentions ClassMentionMap      `json:"-"`
 }
 
 func (o *CommandArgs) ToJson() string {
@@ -46,12 +46,12 @@ func (o *CommandArgs) AddUserMention(username, userId string) {
 	o.UserMentions[username] = userId
 }
 
-// AddChannelMention adds or overrides an entry in ChannelMentions with name
-// channelName and identifier channelId
-func (o *CommandArgs) AddChannelMention(channelName, channelId string) {
-	if o.ChannelMentions == nil {
-		o.ChannelMentions = make(ChannelMentionMap)
+// AddClassMention adds or overrides an entry in ClassMentions with name
+// className and identifier classId
+func (o *CommandArgs) AddClassMention(className, classId string) {
+	if o.ClassMentions == nil {
+		o.ClassMentions = make(ClassMentionMap)
 	}
 
-	o.ChannelMentions[channelName] = channelId
+	o.ClassMentions[className] = classId
 }

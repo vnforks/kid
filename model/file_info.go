@@ -24,8 +24,8 @@ const (
 type GetFileInfosOptions struct {
 	// UserIds optionally limits the FileInfos to those created by the given users.
 	UserIds []string `json:"user_ids"`
-	// ChannelIds optionally limits the FileInfos to those created in the given channels.
-	ChannelIds []string `json:"channel_ids"`
+	// ClassIds optionally limits the FileInfos to those created in the given classes.
+	ClassIds []string `json:"class_ids"`
 	// Since optionally limits FileInfos to those created at or after the given time, specified as Unix time in milliseconds.
 	Since int64 `json:"since"`
 	// IncludeDeleted if set includes deleted FileInfos.

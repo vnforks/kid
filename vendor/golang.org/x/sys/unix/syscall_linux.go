@@ -472,15 +472,15 @@ func (sa *SockaddrNetlink) sockaddr() (unsafe.Pointer, _Socklen, error) {
 // SockaddrHCI implements the Sockaddr interface for AF_BLUETOOTH type sockets
 // using the HCI protocol.
 type SockaddrHCI struct {
-	Dev     uint16
-	Channel uint16
-	raw     RawSockaddrHCI
+	Dev   uint16
+	Class uint16
+	raw   RawSockaddrHCI
 }
 
 func (sa *SockaddrHCI) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	sa.raw.Family = AF_BLUETOOTH
 	sa.raw.Dev = sa.Dev
-	sa.raw.Channel = sa.Channel
+	sa.raw.Class = sa.Class
 	return unsafe.Pointer(&sa.raw), SizeofSockaddrHCI, nil
 }
 
@@ -516,7 +516,7 @@ func (sa *SockaddrL2) sockaddr() (unsafe.Pointer, _Socklen, error) {
 //
 //      fd, _ := Socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM)
 //      _ = unix.Bind(fd, &unix.SockaddrRFCOMM{
-//      	Channel: 1,
+//      	Class: 1,
 //      	Addr:    [6]uint8{0, 0, 0, 0, 0, 0}, // BDADDR_ANY or 00:00:00:00:00:00
 //      })
 //      _ = Listen(fd, 1)
@@ -528,7 +528,7 @@ func (sa *SockaddrL2) sockaddr() (unsafe.Pointer, _Socklen, error) {
 //
 //      fd, _ := Socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM)
 //      _ = Connect(fd, &SockaddrRFCOMM{
-//      	Channel: 1,
+//      	Class: 1,
 //      	Addr:    [6]byte{0x11, 0x22, 0x33, 0xaa, 0xbb, 0xcc}, // CC:BB:AA:33:22:11
 //      })
 //      Write(fd, []byte(`hello`))
@@ -536,16 +536,16 @@ type SockaddrRFCOMM struct {
 	// Addr represents a bluetooth address, byte ordering is little-endian.
 	Addr [6]uint8
 
-	// Channel is a designated bluetooth channel, only 1-30 are available for use.
-	// Since Linux 2.6.7 and further zero value is the first available channel.
-	Channel uint8
+	// Class is a designated bluetooth class, only 1-30 are available for use.
+	// Since Linux 2.6.7 and further zero value is the first available class.
+	Class uint8
 
 	raw RawSockaddrRFCOMM
 }
 
 func (sa *SockaddrRFCOMM) sockaddr() (unsafe.Pointer, _Socklen, error) {
 	sa.raw.Family = AF_BLUETOOTH
-	sa.raw.Channel = sa.Channel
+	sa.raw.Class = sa.Class
 	sa.raw.Bdaddr = sa.Addr
 	return unsafe.Pointer(&sa.raw), SizeofSockaddrRFCOMM, nil
 }
@@ -935,8 +935,8 @@ func anyToSockaddr(fd int, rsa *RawSockaddrAny) (Sockaddr, error) {
 		case BTPROTO_RFCOMM:
 			pp := (*RawSockaddrRFCOMM)(unsafe.Pointer(rsa))
 			sa := &SockaddrRFCOMM{
-				Channel: pp.Channel,
-				Addr:    pp.Bdaddr,
+				Class: pp.Class,
+				Addr:  pp.Bdaddr,
 			}
 			return sa, nil
 		}

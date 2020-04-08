@@ -69,29 +69,15 @@ func incomingWebhook(c *Context, w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	err = c.App.HandleIncomingWebhook(id, incomingWebhookPayload)
-	if err != nil {
-		c.Err = err
-		return
-	}
-
 	w.Header().Set("Content-Type", "text/plain")
 	w.Write([]byte("ok"))
 }
 
 func commandWebhook(c *Context, w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
-	id := params["id"]
 
-	response, err := model.CommandResponseFromHTTPBody(r.Header.Get("Content-Type"), r.Body)
+	_, err := model.CommandResponseFromHTTPBody(r.Header.Get("Content-Type"), r.Body)
 	if err != nil {
 		c.Err = model.NewAppError("commandWebhook", "web.command_webhook.parse.app_error", nil, err.Error(), http.StatusBadRequest)
-		return
-	}
-
-	appErr := c.App.HandleCommandWebhook(id, response)
-	if appErr != nil {
-		c.Err = appErr
 		return
 	}
 

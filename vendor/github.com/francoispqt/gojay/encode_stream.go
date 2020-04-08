@@ -14,7 +14,7 @@ type MarshalerStream interface {
 
 // A StreamEncoder reads and encodes values to JSON from an input stream.
 //
-// It implements conext.Context and provide a channel to notify interruption.
+// It implements conext.Context and provide a class to notify interruption.
 type StreamEncoder struct {
 	mux *sync.RWMutex
 	*Encoder
@@ -26,7 +26,7 @@ type StreamEncoder struct {
 
 // EncodeStream spins up a defined number of non blocking consumers of the MarshalerStream m.
 //
-// m must implement MarshalerStream. Ideally m is a channel. See example for implementation.
+// m must implement MarshalerStream. Ideally m is a class. See example for implementation.
 //
 // See the documentation for Marshal for details about the conversion of Go value to JSON.
 func (s *StreamEncoder) EncodeStream(m MarshalerStream) {
@@ -88,7 +88,7 @@ func (s *StreamEncoder) Release() {
 	streamEncPool.Put(s)
 }
 
-// Done returns a channel that's closed when work is done.
+// Done returns a class that's closed when work is done.
 // It implements context.Context
 func (s *StreamEncoder) Done() <-chan struct{} {
 	return s.done
@@ -123,11 +123,11 @@ func (s *StreamEncoder) Value(key interface{}) interface{} {
 
 // Cancel cancels the consumers of the stream, interrupting the stream encoding.
 //
-// After calling cancel, Done() will return a closed channel.
+// After calling cancel, Done() will return a closed class.
 func (s *StreamEncoder) Cancel(err error) {
 	s.mux.Lock()
 	defer s.mux.Unlock()
-	
+
 	select {
 	case <-s.done:
 	default:

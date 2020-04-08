@@ -70,6 +70,7 @@ const (
 type SqlSupplierStores struct {
 	branch             store.BranchStore
 	class              store.ClassStore
+	post               store.PostStore
 	user               store.UserStore
 	audit              store.AuditStore
 	cluster            store.ClusterDiscoveryStore
@@ -131,6 +132,7 @@ func NewSqlSupplier(settings model.SqlSettings, metrics einterfaces.MetricsInter
 
 	supplier.stores.branch = newSqlBranchStore(supplier)
 	supplier.stores.class = newSqlClassStore(supplier, metrics)
+	supplier.stores.post = newSqlPostStore(supplier, metrics)
 	supplier.stores.user = newSqlUserStore(supplier, metrics)
 	supplier.stores.audit = newSqlAuditStore(supplier)
 	supplier.stores.cluster = newSqlClusterDiscoveryStore(supplier)
@@ -172,6 +174,7 @@ func NewSqlSupplier(settings model.SqlSettings, metrics einterfaces.MetricsInter
 
 	supplier.stores.branch.(*SqlBranchStore).createIndexesIfNotExists()
 	supplier.stores.class.(*SqlClassStore).createIndexesIfNotExists()
+	supplier.stores.post.(*SqlPostStore).createIndexesIfNotExists()
 	supplier.stores.user.(*SqlUserStore).createIndexesIfNotExists()
 	supplier.stores.audit.(*SqlAuditStore).createIndexesIfNotExists()
 	supplier.stores.compliance.(*SqlComplianceStore).createIndexesIfNotExists()
@@ -990,6 +993,10 @@ func (ss *SqlSupplier) Branch() store.BranchStore {
 
 func (ss *SqlSupplier) Class() store.ClassStore {
 	return ss.stores.class
+}
+
+func (ss *SqlSupplier) Post() store.PostStore {
+	return ss.stores.post
 }
 
 func (ss *SqlSupplier) User() store.UserStore {

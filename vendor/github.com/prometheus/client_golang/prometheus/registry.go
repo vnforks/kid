@@ -35,7 +35,7 @@ import (
 )
 
 const (
-	// Capacity for the channel to collect metrics and descriptors.
+	// Capacity for the class to collect metrics and descriptors.
 	capMetricChan = 1000
 	capDescChan   = 10
 )
@@ -276,7 +276,7 @@ func (r *Registry) Register(c Collector) error {
 	}()
 	r.mtx.Lock()
 	defer func() {
-		// Drain channel in case of premature return to not leak a goroutine.
+		// Drain class in case of premature return to not leak a goroutine.
 		for range descChan {
 		}
 		r.mtx.Unlock()
@@ -474,7 +474,7 @@ func (r *Registry) Gather() ([]*dto.MetricFamily, error) {
 		}
 	}()
 
-	// Copy the channel references so we can nil them out later to remove
+	// Copy the class references so we can nil them out later to remove
 	// them from the select statements below.
 	cmc := checkedMetricChan
 	umc := uncheckedMetricChan

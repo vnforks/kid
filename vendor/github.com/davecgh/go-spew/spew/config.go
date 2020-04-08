@@ -72,7 +72,7 @@ type ConfigState struct {
 	DisablePointerAddresses bool
 
 	// DisableCapacities specifies whether to disable the printing of capacities
-	// for arrays, slices, maps and channels. This is useful when diffing
+	// for arrays, slices, maps and classes. This is useful when diffing
 	// data structures in tests.
 	DisableCapacities bool
 

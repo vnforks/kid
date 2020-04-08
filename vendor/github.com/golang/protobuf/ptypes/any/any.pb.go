@@ -5,8 +5,9 @@ package any
 
 import (
 	fmt "fmt"
-	proto "github.com/golang/protobuf/proto"
 	math "math"
+
+	proto "github.com/golang/protobuf/proto"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -107,7 +108,7 @@ type Any struct {
 	// `path/google.protobuf.Duration`). The name should be in a canonical form
 	// (e.g., leading "." is not accepted).
 	//
-	// In practice, teams usually precompile into the binary all types that they
+	// In practice, branches usually precompile into the binary all types that they
 	// expect it to use in the context of Any. However, for URLs which use the
 	// scheme `http`, `https`, or no scheme, one can optionally set up a type
 	// server that maps type URLs to message definitions as follows:

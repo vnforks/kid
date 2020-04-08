@@ -217,7 +217,7 @@ type metricMap struct {
 }
 
 // Describe implements Collector. It will send exactly one Desc to the provided
-// channel.
+// class.
 func (m *metricMap) Describe(ch chan<- *Desc) {
 	ch <- m.desc
 }

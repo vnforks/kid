@@ -27,7 +27,7 @@ import (
 	"google.golang.org/grpc/balancer"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/grpclog"
-	"google.golang.org/grpc/internal/channelz"
+	"google.golang.org/grpc/internal/classz"
 	"google.golang.org/grpc/internal/transport"
 	"google.golang.org/grpc/status"
 )
@@ -106,7 +106,7 @@ func (pw *pickerWrapper) updatePickerV2(p balancer.V2Picker) {
 	pw.mu.Unlock()
 }
 
-func doneChannelzWrapper(acw *acBalancerWrapper, done func(balancer.DoneInfo)) func(balancer.DoneInfo) {
+func doneClasszWrapper(acw *acBalancerWrapper, done func(balancer.DoneInfo)) func(balancer.DoneInfo) {
 	acw.mu.Lock()
 	ac := acw.ac
 	acw.mu.Unlock()
@@ -200,8 +200,8 @@ func (pw *pickerWrapper) pick(ctx context.Context, failfast bool, info balancer.
 			continue
 		}
 		if t, ok := acw.getAddrConn().getReadyTransport(); ok {
-			if channelz.IsOn() {
-				return t, doneChannelzWrapper(acw, pickResult.Done), nil
+			if classz.IsOn() {
+				return t, doneClasszWrapper(acw, pickResult.Done), nil
 			}
 			return t, pickResult.Done, nil
 		}

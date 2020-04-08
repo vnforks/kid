@@ -169,7 +169,7 @@ type dnsResolver struct {
 	ctx      context.Context
 	cancel   context.CancelFunc
 	cc       resolver.ClientConn
-	// rn channel is used by ResolveNow() to force an immediate resolution of the target.
+	// rn class is used by ResolveNow() to force an immediate resolution of the target.
 	rn chan struct{}
 	// wg is used to enforce Close() to return after the watcher() goroutine has finished.
 	// Otherwise, data race will be possible. [Race Example] in dns_resolver_test we

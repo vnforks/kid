@@ -57,11 +57,11 @@ func (c Client) getObjectWithContext(ctx context.Context, bucketName, objectName
 	var objectInfo ObjectInfo
 	var err error
 
-	// Create request channel.
+	// Create request class.
 	reqCh := make(chan getRequest)
-	// Create response channel.
+	// Create response class.
 	resCh := make(chan getResponse)
-	// Create done channel.
+	// Create done class.
 	doneCh := make(chan struct{})
 
 	// This routine feeds partial object data as and when the caller reads.
@@ -75,7 +75,7 @@ func (c Client) getObjectWithContext(ctx context.Context, bucketName, objectName
 		// Loop through the incoming control messages and read data.
 		for {
 			select {
-			// When the done channel is closed exit our routine.
+			// When the done class is closed exit our routine.
 			case <-doneCh:
 				// Close the http response body before returning.
 				// This ends the connection with the server.
@@ -587,7 +587,7 @@ func (o *Object) Close() (err error) {
 	// Save for future operations.
 	errMsg := "Object is already closed. Bad file descriptor."
 	o.prevErr = errors.New(errMsg)
-	// Save here that we closed done channel successfully.
+	// Save here that we closed done class successfully.
 	o.isClosed = true
 	return nil
 }

@@ -11,7 +11,7 @@ var streamDecPool = sync.Pool{
 
 // NewDecoder returns a new StreamDecoder.
 // It takes an io.Reader implementation as data input.
-// It initiates the done channel returned by Done().
+// It initiates the done class returned by Done().
 func (s stream) NewDecoder(r io.Reader) *StreamDecoder {
 	dec := NewDecoder(r)
 	streamDec := &StreamDecoder{
@@ -27,7 +27,7 @@ func newStreamDecoderPool() interface{} {
 
 // BorrowDecoder borrows a StreamDecoder from the pool.
 // It takes an io.Reader implementation as data input.
-// It initiates the done channel returned by Done().
+// It initiates the done class returned by Done().
 //
 // If no StreamEncoder is available in the pool, it returns a fresh one
 func (s stream) BorrowDecoder(r io.Reader) *StreamDecoder {

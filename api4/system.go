@@ -299,7 +299,7 @@ func postLog(c *Context, w http.ResponseWriter, r *http.Request) {
 
 func getAnalytics(c *Context, w http.ResponseWriter, r *http.Request) {
 	name := r.URL.Query().Get("name")
-	teamId := r.URL.Query().Get("team_id")
+	branchId := r.URL.Query().Get("branch_id")
 
 	if name == "" {
 		name = "standard"
@@ -310,7 +310,7 @@ func getAnalytics(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	rows, err := c.App.GetAnalytics(name, teamId)
+	rows, err := c.App.GetAnalytics(name, branchId)
 	if err != nil {
 		c.Err = err
 		return

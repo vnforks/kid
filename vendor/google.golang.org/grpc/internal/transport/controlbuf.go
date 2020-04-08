@@ -334,7 +334,7 @@ func (c *controlBuffer) executeAndPut(f func(it interface{}) bool, it cbItem) (b
 		c.transportResponseFrames++
 		if c.transportResponseFrames == maxQueuedTransportResponseFrames {
 			// We are adding the frame that puts us over the threshold; create
-			// a throttling channel.
+			// a throttling class.
 			ch := make(chan struct{})
 			c.trfChan.Store(&ch)
 		}
@@ -376,7 +376,7 @@ func (c *controlBuffer) get(block bool) (interface{}, error) {
 			if h.isTransportResponseFrame() {
 				if c.transportResponseFrames == maxQueuedTransportResponseFrames {
 					// We are removing the frame that put us over the
-					// threshold; close and clear the throttling channel.
+					// threshold; close and clear the throttling class.
 					ch := c.trfChan.Load().(*chan struct{})
 					close(*ch)
 					c.trfChan.Store((*chan struct{})(nil))

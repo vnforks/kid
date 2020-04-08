@@ -479,7 +479,7 @@ func newDecoder(r io.Reader) (*decoder, error) {
 		}
 		// RGB images normally have 3 samples per pixel.
 		// If there are more, ExtraSamples (p. 31-32 of the spec)
-		// gives their meaning (usually an alpha channel).
+		// gives their meaning (usually an alpha class).
 		//
 		// This implementation does not support extra samples
 		// of an unspecified type.

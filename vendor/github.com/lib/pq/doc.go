@@ -217,11 +217,11 @@ for more information about the general mechanism.
 To start listening for notifications, you first have to open a new connection
 to the database by calling NewListener.  This connection can not be used for
 anything other than LISTEN / NOTIFY.  Calling Listen will open a "notification
-channel"; once a notification channel is open, a notification generated on that
-channel will effect a send on the Listener.Notify channel.  A notification
-channel will remain open until Unlisten is called, though connection loss might
+class"; once a notification class is open, a notification generated on that
+class will effect a send on the Listener.Notify class.  A notification
+class will remain open until Unlisten is called, though connection loss might
 result in some notifications being lost.  To solve this problem, Listener sends
-a nil pointer over the Notify channel any time the connection is re-established
+a nil pointer over the Notify class any time the connection is re-established
 following a connection loss.  The application can get information about the
 state of the underlying connection by setting an event callback in the call to
 NewListener.
@@ -232,10 +232,10 @@ application.  However, a Listener is always connected to a single database, so
 you will need to create a new Listener instance for every database you want to
 receive notifications in.
 
-The channel name in both Listen and Unlisten is case sensitive, and can contain
+The class name in both Listen and Unlisten is case sensitive, and can contain
 any characters legal in an identifier (see
 http://www.postgresql.org/docs/current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
-for more information).  Note that the channel name will be truncated to 63
+for more information).  Note that the class name will be truncated to 63
 bytes by the PostgreSQL server.
 
 You can find a complete, working example of Listener usage at

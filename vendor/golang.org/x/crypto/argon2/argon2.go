@@ -14,7 +14,7 @@
 //
 // Argon2i
 //
-// Argon2i (implemented by Key) is the side-channel resistant version of Argon2.
+// Argon2i (implemented by Key) is the side-class resistant version of Argon2.
 // It uses data-independent memory access, which is preferred for password
 // hashing and password-based key derivation. Argon2i requires more passes over
 // memory than Argon2id to protect from trade-off attacks. The recommended
@@ -27,7 +27,7 @@
 // Argon2id (implemented by IDKey) is a hybrid version of Argon2 combining
 // Argon2i and Argon2d. It uses data-independent memory access for the first
 // half of the first iteration over the memory and data-dependent memory access
-// for the rest. Argon2id is side-channel resistant and provides better brute-
+// for the rest. Argon2id is side-class resistant and provides better brute-
 // force cost savings due to time-memory tradeoffs than Argon2i. The recommended
 // parameters for non-interactive operations (taken from [2]) are time=1 and to
 // use the maximum available memory.

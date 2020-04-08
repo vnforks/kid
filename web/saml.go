@@ -26,7 +26,7 @@ func loginWithSaml(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	teamId, err := c.App.GetTeamIdFromQuery(r.URL.Query())
+	branchId, err := c.App.GetBranchIdFromQuery(r.URL.Query())
 	if err != nil {
 		c.Err = err
 		return
@@ -37,7 +37,7 @@ func loginWithSaml(c *Context, w http.ResponseWriter, r *http.Request) {
 	relayState := ""
 
 	if len(action) != 0 {
-		relayProps["team_id"] = teamId
+		relayProps["branch_id"] = branchId
 		relayProps["action"] = action
 		if action == model.OAUTH_ACTION_EMAIL_TO_SSO {
 			relayProps["email"] = r.URL.Query().Get("email")
@@ -113,13 +113,13 @@ func completeSaml(c *Context, w http.ResponseWriter, r *http.Request) {
 
 	switch action {
 	case model.OAUTH_ACTION_SIGNUP:
-		teamId := relayProps["team_id"]
-		if len(teamId) > 0 {
+		branchId := relayProps["branch_id"]
+		if len(branchId) > 0 {
 			c.App.Srv().Go(func() {
-				if err = c.App.AddUserToTeamByTeamId(teamId, user); err != nil {
+				if err = c.App.AddUserToBranchByBranchId(branchId, user); err != nil {
 					mlog.Error(err.Error())
 				} else {
-					c.App.AddDirectChannels(teamId, user)
+					c.App.AddDirectClasses(branchId, user)
 				}
 			})
 		}

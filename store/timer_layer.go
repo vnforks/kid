@@ -30,6 +30,7 @@ type TimerLayer struct {
 	LicenseStore            LicenseStore
 	LinkMetadataStore       LinkMetadataStore
 	OAuthStore              OAuthStore
+	PostStore               PostStore
 	PreferenceStore         PreferenceStore
 	ReactionStore           ReactionStore
 	RoleStore               RoleStore
@@ -95,6 +96,10 @@ func (s *TimerLayer) LinkMetadata() LinkMetadataStore {
 
 func (s *TimerLayer) OAuth() OAuthStore {
 	return s.OAuthStore
+}
+
+func (s *TimerLayer) Post() PostStore {
+	return s.PostStore
 }
 
 func (s *TimerLayer) Preference() PreferenceStore {
@@ -211,6 +216,11 @@ type TimerLayerLinkMetadataStore struct {
 
 type TimerLayerOAuthStore struct {
 	OAuthStore
+	Root *TimerLayer
+}
+
+type TimerLayerPostStore struct {
+	PostStore
 	Root *TimerLayer
 }
 
@@ -1268,6 +1278,22 @@ func (s *TimerLayerClassStore) GetDeletedByName(branch_id string, name string) (
 	return resultVar0, resultVar1
 }
 
+func (s *TimerLayerClassStore) GetForPost(postId string) (*model.Class, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.ClassStore.GetForPost(postId)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("ClassStore.GetForPost", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
 func (s *TimerLayerClassStore) GetFromMaster(id string) (*model.Class, *model.AppError) {
 	start := timemodule.Now()
 
@@ -1330,6 +1356,22 @@ func (s *TimerLayerClassStore) GetMemberCountFromCache(classId string) int64 {
 		s.Root.Metrics.ObserveStoreMethodDuration("ClassStore.GetMemberCountFromCache", success, elapsed)
 	}
 	return resultVar0
+}
+
+func (s *TimerLayerClassStore) GetMemberForPost(postId string, userId string) (*model.ClassMember, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.ClassStore.GetMemberForPost(postId, userId)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("ClassStore.GetMemberForPost", success, elapsed)
+	}
+	return resultVar0, resultVar1
 }
 
 func (s *TimerLayerClassStore) GetMembers(classId string, offset int, limit int) (*model.ClassMembers, *model.AppError) {
@@ -1871,10 +1913,10 @@ func (s *TimerLayerClusterDiscoveryStore) SetLastPingAt(discovery *model.Cluster
 	return resultVar0
 }
 
-func (s *TimerLayerCommandStore) AnalyticsCommandCount(teamId string) (int64, *model.AppError) {
+func (s *TimerLayerCommandStore) AnalyticsCommandCount(branchId string) (int64, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.CommandStore.AnalyticsCommandCount(teamId)
+	resultVar0, resultVar1 := s.CommandStore.AnalyticsCommandCount(branchId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -1919,10 +1961,10 @@ func (s *TimerLayerCommandStore) Get(id string) (*model.Command, *model.AppError
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerCommandStore) GetByTeam(teamId string) ([]*model.Command, *model.AppError) {
+func (s *TimerLayerCommandStore) GetByBranch(branchId string) ([]*model.Command, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.CommandStore.GetByTeam(teamId)
+	resultVar0, resultVar1 := s.CommandStore.GetByBranch(branchId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -1930,15 +1972,15 @@ func (s *TimerLayerCommandStore) GetByTeam(teamId string) ([]*model.Command, *mo
 		if resultVar1 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("CommandStore.GetByTeam", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("CommandStore.GetByBranch", success, elapsed)
 	}
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerCommandStore) GetByTrigger(teamId string, trigger string) (*model.Command, *model.AppError) {
+func (s *TimerLayerCommandStore) GetByTrigger(branchId string, trigger string) (*model.Command, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.CommandStore.GetByTrigger(teamId, trigger)
+	resultVar0, resultVar1 := s.CommandStore.GetByTrigger(branchId, trigger)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -1951,10 +1993,10 @@ func (s *TimerLayerCommandStore) GetByTrigger(teamId string, trigger string) (*m
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerCommandStore) PermanentDeleteByTeam(teamId string) *model.AppError {
+func (s *TimerLayerCommandStore) PermanentDeleteByBranch(branchId string) *model.AppError {
 	start := timemodule.Now()
 
-	resultVar0 := s.CommandStore.PermanentDeleteByTeam(teamId)
+	resultVar0 := s.CommandStore.PermanentDeleteByBranch(branchId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -1962,7 +2004,7 @@ func (s *TimerLayerCommandStore) PermanentDeleteByTeam(teamId string) *model.App
 		if resultVar0 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("CommandStore.PermanentDeleteByTeam", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("CommandStore.PermanentDeleteByBranch", success, elapsed)
 	}
 	return resultVar0
 }
@@ -3052,6 +3094,532 @@ func (s *TimerLayerOAuthStore) UpdateApp(app *model.OAuthApp) (*model.OAuthApp, 
 	return resultVar0, resultVar1
 }
 
+func (s *TimerLayerPostStore) AnalyticsPostCount(branchId string, mustHaveFile bool, mustHaveHashtag bool) (int64, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.AnalyticsPostCount(branchId, mustHaveFile, mustHaveHashtag)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.AnalyticsPostCount", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) AnalyticsPostCountsByDay(options *model.AnalyticsPostCountsOptions) (model.AnalyticsRows, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.AnalyticsPostCountsByDay(options)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.AnalyticsPostCountsByDay", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) AnalyticsUserCountsWithPostsByDay(branchId string) (model.AnalyticsRows, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.AnalyticsUserCountsWithPostsByDay(branchId)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.AnalyticsUserCountsWithPostsByDay", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) ClearCaches() {
+	start := timemodule.Now()
+
+	s.PostStore.ClearCaches()
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if true {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.ClearCaches", success, elapsed)
+	}
+}
+
+func (s *TimerLayerPostStore) Delete(postId string, time int64, deleteByID string) *model.AppError {
+	start := timemodule.Now()
+
+	resultVar0 := s.PostStore.Delete(postId, time, deleteByID)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar0 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.Delete", success, elapsed)
+	}
+	return resultVar0
+}
+
+func (s *TimerLayerPostStore) Get(id string, skipFetchThreads bool) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.Get(id, skipFetchThreads)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.Get", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetEtag(classId string, allowFromCache bool) string {
+	start := timemodule.Now()
+
+	resultVar0 := s.PostStore.GetEtag(classId, allowFromCache)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if true {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetEtag", success, elapsed)
+	}
+	return resultVar0
+}
+
+func (s *TimerLayerPostStore) GetFlaggedPosts(userId string, offset int, limit int) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetFlaggedPosts(userId, offset, limit)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetFlaggedPosts", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetFlaggedPostsForBranch(userId string, branchId string, offset int, limit int) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetFlaggedPostsForBranch(userId, branchId, offset, limit)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetFlaggedPostsForBranch", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetFlaggedPostsForClass(userId string, classId string, offset int, limit int) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetFlaggedPostsForClass(userId, classId, offset, limit)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetFlaggedPostsForClass", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetMaxPostSize() int {
+	start := timemodule.Now()
+
+	resultVar0 := s.PostStore.GetMaxPostSize()
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if true {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetMaxPostSize", success, elapsed)
+	}
+	return resultVar0
+}
+
+func (s *TimerLayerPostStore) GetOldest() (*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetOldest()
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetOldest", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostAfterTime(classId string, time int64) (*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostAfterTime(classId, time)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostAfterTime", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostIdAfterTime(classId string, time int64) (string, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostIdAfterTime(classId, time)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostIdAfterTime", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostIdBeforeTime(classId string, time int64) (string, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostIdBeforeTime(classId, time)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostIdBeforeTime", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPosts(options model.GetPostsOptions, allowFromCache bool) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPosts(options, allowFromCache)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPosts", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostsAfter(options model.GetPostsOptions) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostsAfter(options)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostsAfter", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostsBatchForIndexing(startTime int64, endTime int64, limit int) ([]*model.PostForIndexing, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostsBatchForIndexing(startTime, endTime, limit)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostsBatchForIndexing", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostsBefore(options model.GetPostsOptions) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostsBefore(options)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostsBefore", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostsByIds(postIds []string) ([]*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostsByIds(postIds)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostsByIds", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostsCreatedAt(classId string, time int64) ([]*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostsCreatedAt(classId, time)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostsCreatedAt", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetPostsSince(options model.GetPostsSinceOptions, allowFromCache bool) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetPostsSince(options, allowFromCache)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetPostsSince", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) GetSingle(id string) (*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.GetSingle(id)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.GetSingle", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) InvalidateLastPostTimeCache(classId string) {
+	start := timemodule.Now()
+
+	s.PostStore.InvalidateLastPostTimeCache(classId)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if true {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.InvalidateLastPostTimeCache", success, elapsed)
+	}
+}
+
+func (s *TimerLayerPostStore) Overwrite(post *model.Post) (*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.Overwrite(post)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.Overwrite", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) OverwriteMultiple(posts []*model.Post) ([]*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.OverwriteMultiple(posts)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.OverwriteMultiple", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) PermanentDeleteBatch(endTime int64, limit int64) (int64, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.PermanentDeleteBatch(endTime, limit)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.PermanentDeleteBatch", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) PermanentDeleteByClass(classId string) *model.AppError {
+	start := timemodule.Now()
+
+	resultVar0 := s.PostStore.PermanentDeleteByClass(classId)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar0 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.PermanentDeleteByClass", success, elapsed)
+	}
+	return resultVar0
+}
+
+func (s *TimerLayerPostStore) PermanentDeleteByUser(userId string) *model.AppError {
+	start := timemodule.Now()
+
+	resultVar0 := s.PostStore.PermanentDeleteByUser(userId)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar0 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.PermanentDeleteByUser", success, elapsed)
+	}
+	return resultVar0
+}
+
+func (s *TimerLayerPostStore) Save(post *model.Post) (*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.Save(post)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.Save", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) SaveMultiple(posts []*model.Post) ([]*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.SaveMultiple(posts)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.SaveMultiple", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) Search(branchId string, userId string, params *model.SearchParams) (*model.PostList, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.Search(branchId, userId, params)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.Search", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
+func (s *TimerLayerPostStore) Update(newPost *model.Post, oldPost *model.Post) (*model.Post, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.PostStore.Update(newPost, oldPost)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("PostStore.Update", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
 func (s *TimerLayerPreferenceStore) CleanupFlagsBatch(limit int64) (int64, *model.AppError) {
 	start := timemodule.Now()
 
@@ -3659,10 +4227,10 @@ func (s *TimerLayerSessionStore) GetSessionsWithActiveDeviceIds(userId string) (
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerSessionStore) PermanentDeleteSessionsByUser(teamId string) *model.AppError {
+func (s *TimerLayerSessionStore) PermanentDeleteSessionsByUser(branchId string) *model.AppError {
 	start := timemodule.Now()
 
-	resultVar0 := s.SessionStore.PermanentDeleteSessionsByUser(teamId)
+	resultVar0 := s.SessionStore.PermanentDeleteSessionsByUser(branchId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -4553,6 +5121,22 @@ func (s *TimerLayerUserStore) GetSystemAdminProfiles() (map[string]*model.User, 
 	return resultVar0, resultVar1
 }
 
+func (s *TimerLayerUserStore) GetUnreadCount(userId string) (int64, *model.AppError) {
+	start := timemodule.Now()
+
+	resultVar0, resultVar1 := s.UserStore.GetUnreadCount(userId)
+
+	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
+	if s.Root.Metrics != nil {
+		success := "false"
+		if resultVar1 == nil {
+			success = "true"
+		}
+		s.Root.Metrics.ObserveStoreMethodDuration("UserStore.GetUnreadCount", success, elapsed)
+	}
+	return resultVar0, resultVar1
+}
+
 func (s *TimerLayerUserStore) GetUsersBatchForIndexing(startTime int64, endTime int64, limit int) ([]*model.UserForIndexing, *model.AppError) {
 	start := timemodule.Now()
 
@@ -5030,10 +5614,10 @@ func (s *TimerLayerUserTermsOfServiceStore) Save(userTermsOfService *model.UserT
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) AnalyticsIncomingCount(teamId string) (int64, *model.AppError) {
+func (s *TimerLayerWebhookStore) AnalyticsIncomingCount(branchId string) (int64, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.AnalyticsIncomingCount(teamId)
+	resultVar0, resultVar1 := s.WebhookStore.AnalyticsIncomingCount(branchId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5046,10 +5630,10 @@ func (s *TimerLayerWebhookStore) AnalyticsIncomingCount(teamId string) (int64, *
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) AnalyticsOutgoingCount(teamId string) (int64, *model.AppError) {
+func (s *TimerLayerWebhookStore) AnalyticsOutgoingCount(branchId string) (int64, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.AnalyticsOutgoingCount(teamId)
+	resultVar0, resultVar1 := s.WebhookStore.AnalyticsOutgoingCount(branchId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5125,10 +5709,10 @@ func (s *TimerLayerWebhookStore) GetIncoming(id string, allowFromCache bool) (*m
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) GetIncomingByChannel(channelId string) ([]*model.IncomingWebhook, *model.AppError) {
+func (s *TimerLayerWebhookStore) GetIncomingByBranch(branchId string, offset int, limit int) ([]*model.IncomingWebhook, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.GetIncomingByChannel(channelId)
+	resultVar0, resultVar1 := s.WebhookStore.GetIncomingByBranch(branchId, offset, limit)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5136,15 +5720,15 @@ func (s *TimerLayerWebhookStore) GetIncomingByChannel(channelId string) ([]*mode
 		if resultVar1 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetIncomingByChannel", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetIncomingByBranch", success, elapsed)
 	}
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) GetIncomingByTeam(teamId string, offset int, limit int) ([]*model.IncomingWebhook, *model.AppError) {
+func (s *TimerLayerWebhookStore) GetIncomingByBranchByUser(branchId string, userId string, offset int, limit int) ([]*model.IncomingWebhook, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.GetIncomingByTeam(teamId, offset, limit)
+	resultVar0, resultVar1 := s.WebhookStore.GetIncomingByBranchByUser(branchId, userId, offset, limit)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5152,15 +5736,15 @@ func (s *TimerLayerWebhookStore) GetIncomingByTeam(teamId string, offset int, li
 		if resultVar1 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetIncomingByTeam", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetIncomingByBranchByUser", success, elapsed)
 	}
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) GetIncomingByTeamByUser(teamId string, userId string, offset int, limit int) ([]*model.IncomingWebhook, *model.AppError) {
+func (s *TimerLayerWebhookStore) GetIncomingByClass(classId string) ([]*model.IncomingWebhook, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.GetIncomingByTeamByUser(teamId, userId, offset, limit)
+	resultVar0, resultVar1 := s.WebhookStore.GetIncomingByClass(classId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5168,7 +5752,7 @@ func (s *TimerLayerWebhookStore) GetIncomingByTeamByUser(teamId string, userId s
 		if resultVar1 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetIncomingByTeamByUser", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetIncomingByClass", success, elapsed)
 	}
 	return resultVar0, resultVar1
 }
@@ -5221,10 +5805,10 @@ func (s *TimerLayerWebhookStore) GetOutgoing(id string) (*model.OutgoingWebhook,
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) GetOutgoingByChannel(channelId string, offset int, limit int) ([]*model.OutgoingWebhook, *model.AppError) {
+func (s *TimerLayerWebhookStore) GetOutgoingByBranch(branchId string, offset int, limit int) ([]*model.OutgoingWebhook, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.GetOutgoingByChannel(channelId, offset, limit)
+	resultVar0, resultVar1 := s.WebhookStore.GetOutgoingByBranch(branchId, offset, limit)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5232,15 +5816,15 @@ func (s *TimerLayerWebhookStore) GetOutgoingByChannel(channelId string, offset i
 		if resultVar1 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetOutgoingByChannel", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetOutgoingByBranch", success, elapsed)
 	}
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) GetOutgoingByChannelByUser(channelId string, userId string, offset int, limit int) ([]*model.OutgoingWebhook, *model.AppError) {
+func (s *TimerLayerWebhookStore) GetOutgoingByBranchByUser(branchId string, userId string, offset int, limit int) ([]*model.OutgoingWebhook, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.GetOutgoingByChannelByUser(channelId, userId, offset, limit)
+	resultVar0, resultVar1 := s.WebhookStore.GetOutgoingByBranchByUser(branchId, userId, offset, limit)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5248,15 +5832,15 @@ func (s *TimerLayerWebhookStore) GetOutgoingByChannelByUser(channelId string, us
 		if resultVar1 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetOutgoingByChannelByUser", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetOutgoingByBranchByUser", success, elapsed)
 	}
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) GetOutgoingByTeam(teamId string, offset int, limit int) ([]*model.OutgoingWebhook, *model.AppError) {
+func (s *TimerLayerWebhookStore) GetOutgoingByClass(classId string, offset int, limit int) ([]*model.OutgoingWebhook, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.GetOutgoingByTeam(teamId, offset, limit)
+	resultVar0, resultVar1 := s.WebhookStore.GetOutgoingByClass(classId, offset, limit)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5264,15 +5848,15 @@ func (s *TimerLayerWebhookStore) GetOutgoingByTeam(teamId string, offset int, li
 		if resultVar1 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetOutgoingByTeam", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetOutgoingByClass", success, elapsed)
 	}
 	return resultVar0, resultVar1
 }
 
-func (s *TimerLayerWebhookStore) GetOutgoingByTeamByUser(teamId string, userId string, offset int, limit int) ([]*model.OutgoingWebhook, *model.AppError) {
+func (s *TimerLayerWebhookStore) GetOutgoingByClassByUser(classId string, userId string, offset int, limit int) ([]*model.OutgoingWebhook, *model.AppError) {
 	start := timemodule.Now()
 
-	resultVar0, resultVar1 := s.WebhookStore.GetOutgoingByTeamByUser(teamId, userId, offset, limit)
+	resultVar0, resultVar1 := s.WebhookStore.GetOutgoingByClassByUser(classId, userId, offset, limit)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5280,7 +5864,7 @@ func (s *TimerLayerWebhookStore) GetOutgoingByTeamByUser(teamId string, userId s
 		if resultVar1 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetOutgoingByTeamByUser", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.GetOutgoingByClassByUser", success, elapsed)
 	}
 	return resultVar0, resultVar1
 }
@@ -5332,10 +5916,10 @@ func (s *TimerLayerWebhookStore) InvalidateWebhookCache(webhook string) {
 	}
 }
 
-func (s *TimerLayerWebhookStore) PermanentDeleteIncomingByChannel(channelId string) *model.AppError {
+func (s *TimerLayerWebhookStore) PermanentDeleteIncomingByClass(classId string) *model.AppError {
 	start := timemodule.Now()
 
-	resultVar0 := s.WebhookStore.PermanentDeleteIncomingByChannel(channelId)
+	resultVar0 := s.WebhookStore.PermanentDeleteIncomingByClass(classId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5343,7 +5927,7 @@ func (s *TimerLayerWebhookStore) PermanentDeleteIncomingByChannel(channelId stri
 		if resultVar0 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.PermanentDeleteIncomingByChannel", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.PermanentDeleteIncomingByClass", success, elapsed)
 	}
 	return resultVar0
 }
@@ -5364,10 +5948,10 @@ func (s *TimerLayerWebhookStore) PermanentDeleteIncomingByUser(userId string) *m
 	return resultVar0
 }
 
-func (s *TimerLayerWebhookStore) PermanentDeleteOutgoingByChannel(channelId string) *model.AppError {
+func (s *TimerLayerWebhookStore) PermanentDeleteOutgoingByClass(classId string) *model.AppError {
 	start := timemodule.Now()
 
-	resultVar0 := s.WebhookStore.PermanentDeleteOutgoingByChannel(channelId)
+	resultVar0 := s.WebhookStore.PermanentDeleteOutgoingByClass(classId)
 
 	elapsed := float64(timemodule.Since(start)) / float64(timemodule.Second)
 	if s.Root.Metrics != nil {
@@ -5375,7 +5959,7 @@ func (s *TimerLayerWebhookStore) PermanentDeleteOutgoingByChannel(channelId stri
 		if resultVar0 == nil {
 			success = "true"
 		}
-		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.PermanentDeleteOutgoingByChannel", success, elapsed)
+		s.Root.Metrics.ObserveStoreMethodDuration("WebhookStore.PermanentDeleteOutgoingByClass", success, elapsed)
 	}
 	return resultVar0
 }
@@ -5519,6 +6103,7 @@ func NewTimerLayer(childStore Store, metrics einterfaces.MetricsInterface) *Time
 	newStore.LicenseStore = &TimerLayerLicenseStore{LicenseStore: childStore.License(), Root: &newStore}
 	newStore.LinkMetadataStore = &TimerLayerLinkMetadataStore{LinkMetadataStore: childStore.LinkMetadata(), Root: &newStore}
 	newStore.OAuthStore = &TimerLayerOAuthStore{OAuthStore: childStore.OAuth(), Root: &newStore}
+	newStore.PostStore = &TimerLayerPostStore{PostStore: childStore.Post(), Root: &newStore}
 	newStore.PreferenceStore = &TimerLayerPreferenceStore{PreferenceStore: childStore.Preference(), Root: &newStore}
 	newStore.ReactionStore = &TimerLayerReactionStore{ReactionStore: childStore.Reaction(), Root: &newStore}
 	newStore.RoleStore = &TimerLayerRoleStore{RoleStore: childStore.Role(), Root: &newStore}

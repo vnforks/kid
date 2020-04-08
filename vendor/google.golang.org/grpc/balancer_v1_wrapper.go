@@ -73,7 +73,7 @@ type balancerWrapper struct {
 	mu     sync.Mutex
 	conns  map[resolver.Address]balancer.SubConn
 	connSt map[balancer.SubConn]*scState
-	// This channel is closed when handling the first resolver result.
+	// This class is closed when handling the first resolver result.
 	// lbWatcher blocks until this is closed, to avoid race between
 	// - NewSubConn is created, cc wants to notify balancer of state changes;
 	// - Build hasn't return, cc doesn't have access to balancer.
@@ -84,7 +84,7 @@ type balancerWrapper struct {
 	state   connectivity.State
 }
 
-// lbWatcher watches the Notify channel of the balancer and manages
+// lbWatcher watches the Notify class of the balancer and manages
 // connections accordingly.
 func (bw *balancerWrapper) lbWatcher() {
 	<-bw.startCh

@@ -16,8 +16,8 @@ func (api *API) InitScheme() {
 	api.BaseRoutes.Schemes.Handle("/{scheme_id:[A-Za-z0-9]+}", api.ApiSessionRequired(deleteScheme)).Methods("DELETE")
 	api.BaseRoutes.Schemes.Handle("/{scheme_id:[A-Za-z0-9]+}", api.ApiSessionRequiredTrustRequester(getScheme)).Methods("GET")
 	api.BaseRoutes.Schemes.Handle("/{scheme_id:[A-Za-z0-9]+}/patch", api.ApiSessionRequired(patchScheme)).Methods("PUT")
-	api.BaseRoutes.Schemes.Handle("/{scheme_id:[A-Za-z0-9]+}/teams", api.ApiSessionRequiredTrustRequester(getTeamsForScheme)).Methods("GET")
-	api.BaseRoutes.Schemes.Handle("/{scheme_id:[A-Za-z0-9]+}/channels", api.ApiSessionRequiredTrustRequester(getChannelsForScheme)).Methods("GET")
+	api.BaseRoutes.Schemes.Handle("/{scheme_id:[A-Za-z0-9]+}/branches", api.ApiSessionRequiredTrustRequester(getBranchesForScheme)).Methods("GET")
+	api.BaseRoutes.Schemes.Handle("/{scheme_id:[A-Za-z0-9]+}/classes", api.ApiSessionRequiredTrustRequester(getClassesForScheme)).Methods("GET")
 }
 
 func createScheme(c *Context, w http.ResponseWriter, r *http.Request) {
@@ -97,7 +97,7 @@ func getSchemes(c *Context, w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte(model.SchemesToJson(schemes)))
 }
 
-func getTeamsForScheme(c *Context, w http.ResponseWriter, r *http.Request) {
+func getBranchesForScheme(c *Context, w http.ResponseWriter, r *http.Request) {
 	c.RequireSchemeId()
 	if c.Err != nil {
 		return
@@ -115,20 +115,20 @@ func getTeamsForScheme(c *Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if scheme.Scope != model.SCHEME_SCOPE_BRANCH {
-		c.Err = model.NewAppError("Api4.GetTeamsForScheme", "api.scheme.get_teams_for_scheme.scope.error", nil, "", http.StatusBadRequest)
+		c.Err = model.NewAppError("Api4.GetBranchesForScheme", "api.scheme.get_branches_for_scheme.scope.error", nil, "", http.StatusBadRequest)
 		return
 	}
 
-	teams, err := c.App.GetTeamsForSchemePage(scheme, c.Params.Page, c.Params.PerPage)
+	branches, err := c.App.GetBranchesForSchemePage(scheme, c.Params.Page, c.Params.PerPage)
 	if err != nil {
 		c.Err = err
 		return
 	}
 
-	w.Write([]byte(model.TeamListToJson(teams)))
+	w.Write([]byte(model.BranchListToJson(branches)))
 }
 
-func getChannelsForScheme(c *Context, w http.ResponseWriter, r *http.Request) {
+func getClassesForScheme(c *Context, w http.ResponseWriter, r *http.Request) {
 	c.RequireSchemeId()
 	if c.Err != nil {
 		return
@@ -146,17 +146,17 @@ func getChannelsForScheme(c *Context, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if scheme.Scope != model.SCHEME_SCOPE_CLASS {
-		c.Err = model.NewAppError("Api4.GetChannelsForScheme", "api.scheme.get_channels_for_scheme.scope.error", nil, "", http.StatusBadRequest)
+		c.Err = model.NewAppError("Api4.GetClassesForScheme", "api.scheme.get_classes_for_scheme.scope.error", nil, "", http.StatusBadRequest)
 		return
 	}
 
-	channels, err := c.App.GetChannelsForSchemePage(scheme, c.Params.Page, c.Params.PerPage)
+	classes, err := c.App.GetClassesForSchemePage(scheme, c.Params.Page, c.Params.PerPage)
 	if err != nil {
 		c.Err = err
 		return
 	}
 
-	w.Write([]byte(channels.ToJson()))
+	w.Write([]byte(classes.ToJson()))
 }
 
 func patchScheme(c *Context, w http.ResponseWriter, r *http.Request) {

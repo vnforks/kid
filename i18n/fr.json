@@ -128,195 +128,195 @@
     "translation": "Impossible d'envoyer le fichier. Le fichier est trop volumineux."
   },
   {
-    "id": "api.channel.add_member.added",
+    "id": "api.class.add_member.added",
     "translation": "%v a été ajouté au canal par %v."
   },
   {
-    "id": "api.channel.add_user.to.channel.failed.app_error",
+    "id": "api.class.add_user.to.class.failed.app_error",
     "translation": "Impossible d'ajouter l'utilisateur au canal"
   },
   {
-    "id": "api.channel.add_user.to.channel.failed.deleted.app_error",
+    "id": "api.class.add_user.to.class.failed.deleted.app_error",
     "translation": "Impossible d'ajouter l'utilisateur au canal car il a été exclu de l'équipe."
   },
   {
-    "id": "api.channel.add_user_to_channel.type.app_error",
+    "id": "api.class.add_user_to_class.type.app_error",
     "translation": "Impossible d'ajouter l'utilisateur à ce type de canal"
   },
   {
-    "id": "api.channel.change_channel_privacy.private_to_public",
+    "id": "api.class.change_class_privacy.private_to_public",
     "translation": "Ce canal a été converti en canal public et peut être rejoint par tout membre de l'équipe."
   },
   {
-    "id": "api.channel.change_channel_privacy.public_to_private",
+    "id": "api.class.change_class_privacy.public_to_private",
     "translation": "Ce canal a été converti en canal privé."
   },
   {
-    "id": "api.channel.convert_channel_to_private.default_channel_error",
+    "id": "api.class.convert_class_to_private.default_class_error",
     "translation": "Le canal par défaut ne peut pas être converti en un canal privé."
   },
   {
-    "id": "api.channel.convert_channel_to_private.private_channel_error",
+    "id": "api.class.convert_class_to_private.private_class_error",
     "translation": "Le canal que vous essayez de convertir est déjà un canal privé."
   },
   {
-    "id": "api.channel.create_channel.direct_channel.app_error",
-    "translation": "Vous devez utiliser le service d'API createDirectChannel pour la création d'un canal de messages personnels"
+    "id": "api.class.create_class.direct_class.app_error",
+    "translation": "Vous devez utiliser le service d'API createDirectClass pour la création d'un canal de messages personnels"
   },
   {
-    "id": "api.channel.create_channel.invalid_character.app_error",
+    "id": "api.class.create_class.invalid_character.app_error",
     "translation": "Caractère '__' invalide dans le nom du canal pour un canal de messages non personnels (groupe de messages privés ou groupe public)."
   },
   {
-    "id": "api.channel.create_channel.max_channel_limit.app_error",
-    "translation": "Impossible de créer plus de {{.MaxChannelsPerTeam}} canaux pour l'équipe actuelle"
+    "id": "api.class.create_class.max_class_limit.app_error",
+    "translation": "Impossible de créer plus de {{.MaxClassesPerBranch}} canaux pour l'équipe actuelle"
   },
   {
-    "id": "api.channel.create_default_channels.off_topic",
+    "id": "api.class.create_default_classes.off_topic",
     "translation": "Hors-sujet"
   },
   {
-    "id": "api.channel.create_default_channels.town_square",
+    "id": "api.class.create_default_classes.town_square",
     "translation": "Centre-ville"
   },
   {
-    "id": "api.channel.create_direct_channel.invalid_user.app_error",
+    "id": "api.class.create_direct_class.invalid_user.app_error",
     "translation": "ID utilisateur invalide pour la création du canal de messages personnels"
   },
   {
-    "id": "api.channel.create_group.bad_size.app_error",
+    "id": "api.class.create_group.bad_size.app_error",
     "translation": "Les canaux dédiés aux messages de groupe doivent contenir au moins 3 et pas plus de 8 utilisateurs"
   },
   {
-    "id": "api.channel.create_group.bad_user.app_error",
+    "id": "api.class.create_group.bad_user.app_error",
     "translation": "Un des utilisateurs spécifié n'existe pas"
   },
   {
-    "id": "api.channel.delete_channel.archived",
+    "id": "api.class.delete_class.archived",
     "translation": "%v a archivé le canal."
   },
   {
-    "id": "api.channel.delete_channel.cannot.app_error",
-    "translation": "Impossible d'effacer le canal par défaut {{.Channel}}"
+    "id": "api.class.delete_class.cannot.app_error",
+    "translation": "Impossible d'effacer le canal par défaut {{.Class}}"
   },
   {
-    "id": "api.channel.delete_channel.deleted.app_error",
+    "id": "api.class.delete_class.deleted.app_error",
     "translation": "Le canal a été archivé ou effacé"
   },
   {
-    "id": "api.channel.delete_channel.type.invalid",
+    "id": "api.class.delete_class.type.invalid",
     "translation": "Impossible de supprimer des canaux de groupe ou de messages personnels"
   },
   {
-    "id": "api.channel.join_channel.permissions.app_error",
+    "id": "api.class.join_class.permissions.app_error",
     "translation": "Vous n'avez pas les permissions requises"
   },
   {
-    "id": "api.channel.join_channel.post_and_forget",
+    "id": "api.class.join_class.post_and_forget",
     "translation": "%v a rejoint le canal."
   },
   {
-    "id": "api.channel.leave.default.app_error",
-    "translation": "Impossible de quitter le canal par défaut {{.Channel}}"
+    "id": "api.class.leave.default.app_error",
+    "translation": "Impossible de quitter le canal par défaut {{.Class}}"
   },
   {
-    "id": "api.channel.leave.direct.app_error",
+    "id": "api.class.leave.direct.app_error",
     "translation": "Impossible de quitter un canal de messages personnels"
   },
   {
-    "id": "api.channel.leave.last_member.app_error",
+    "id": "api.class.leave.last_member.app_error",
     "translation": "Vous êtes le seul membre restant, essayez de supprimer le groupe privé plutôt que d'essayer de le quitter."
   },
   {
-    "id": "api.channel.leave.left",
+    "id": "api.class.leave.left",
     "translation": "%v a quitté le canal."
   },
   {
-    "id": "api.channel.patch_update_channel.forbidden.app_error",
+    "id": "api.class.patch_update_class.forbidden.app_error",
     "translation": "Impossible de modifier le canal"
   },
   {
-    "id": "api.channel.post_channel_privacy_message.error",
+    "id": "api.class.post_class_privacy_message.error",
     "translation": "Impossible de modifier le message de politique de vie privée du canal."
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.create_post.error",
+    "id": "api.class.post_update_class_displayname_message_and_forget.create_post.error",
     "translation": "Impossible de publier le message indiquant le changement du nom d'affichage"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.retrieve_user.error",
+    "id": "api.class.post_update_class_displayname_message_and_forget.retrieve_user.error",
     "translation": "Impossible de récupérer l'utilisateur lors de la modification du champ du nom d'affichage du canal"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.updated_from",
+    "id": "api.class.post_update_class_displayname_message_and_forget.updated_from",
     "translation": "%s a mis à jour l'entête du canal de : %s en : %s"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.post.error",
+    "id": "api.class.post_update_class_header_message_and_forget.post.error",
     "translation": "Impossible de publier le message indiquant le changement de l'entête du canal"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.removed",
+    "id": "api.class.post_update_class_header_message_and_forget.removed",
     "translation": "%s a supprimé le titre du canal (était : %s)"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.retrieve_user.error",
+    "id": "api.class.post_update_class_header_message_and_forget.retrieve_user.error",
     "translation": "Impossible de récupérer l'utilisateur lors de la modification de l'entête du canal"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.updated_from",
+    "id": "api.class.post_update_class_header_message_and_forget.updated_from",
     "translation": "%s a mis à jour l'entête du canal de : %s en : %s"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.updated_to",
+    "id": "api.class.post_update_class_header_message_and_forget.updated_to",
     "translation": "%s a mis à jour l'entête du canal en : %s"
   },
   {
-    "id": "api.channel.post_user_add_remove_message_and_forget.error",
+    "id": "api.class.post_user_add_remove_message_and_forget.error",
     "translation": "Impossible de publier le message indiquant l'entrée ou la sortie de l'utilisateur du canal"
   },
   {
-    "id": "api.channel.remove.default.app_error",
-    "translation": "Impossible de supprimer l'utilisateur du canal par défaut {{.Channel}}"
+    "id": "api.class.remove.default.app_error",
+    "translation": "Impossible de supprimer l'utilisateur du canal par défaut {{.Class}}"
   },
   {
-    "id": "api.channel.remove_channel_member.type.app_error",
+    "id": "api.class.remove_class_member.type.app_error",
     "translation": "Impossible de retirer l'utilisateur du canal."
   },
   {
-    "id": "api.channel.remove_member.removed",
+    "id": "api.class.remove_member.removed",
     "translation": "%v a été retiré du canal."
   },
   {
-    "id": "api.channel.rename_channel.cant_rename_direct_messages.app_error",
+    "id": "api.class.rename_class.cant_rename_direct_messages.app_error",
     "translation": "Vous ne pouvez pas renommer un canal de messages personnels"
   },
   {
-    "id": "api.channel.rename_channel.cant_rename_group_messages.app_error",
+    "id": "api.class.rename_class.cant_rename_group_messages.app_error",
     "translation": "Vous ne pouvez pas renommer un canal de messages de groupe"
   },
   {
-    "id": "api.channel.update_channel.deleted.app_error",
+    "id": "api.class.update_class.deleted.app_error",
     "translation": "Le canal a été archivé ou supprimé"
   },
   {
-    "id": "api.channel.update_channel.tried.app_error",
-    "translation": "Échec de la tentative de modification du canal par défaut {{.Channel}}"
+    "id": "api.class.update_class.tried.app_error",
+    "translation": "Échec de la tentative de modification du canal par défaut {{.Class}}"
   },
   {
-    "id": "api.channel.update_channel_member_roles.scheme_role.app_error",
+    "id": "api.class.update_class_member_roles.scheme_role.app_error",
     "translation": "Le rôle spécifié est géré par un schéma de permissions et ne peut donc pas être appliqué directement à un membre d'un canal"
   },
   {
-    "id": "api.channel.update_channel_scheme.license.error",
+    "id": "api.class.update_class_scheme.license.error",
     "translation": "La licence actuelle ne supporte pas la modification d'un schéma de permissions de canal"
   },
   {
-    "id": "api.channel.update_channel_scheme.scheme_scope.error",
+    "id": "api.class.update_class_scheme.scheme_scope.error",
     "translation": "Impossible d'appliquer le schéma de permissions au canal, car le schéma de permissions fourni n'est pas un schéma de permissions de canal."
   },
   {
-    "id": "api.channel.update_team_member_roles.scheme_role.app_error",
+    "id": "api.class.update_branch_member_roles.scheme_role.app_error",
     "translation": "Le rôle spécifié est géré par un schéma de permissions et ne peut donc pas être appliqué directement à un membre d'équipe"
   },
   {
@@ -400,7 +400,7 @@
     "translation": "E-mail(s) d'invitation envoyé(s)"
   },
   {
-    "id": "api.command.team_mismatch.app_error",
+    "id": "api.command.branch_mismatch.app_error",
     "translation": "Impossible de modifier les commandes entre équipes"
   },
   {
@@ -416,107 +416,107 @@
     "translation": "Vous êtes maintenant absent(e)"
   },
   {
-    "id": "api.command_channel_header.channel.app_error",
+    "id": "api.command_class_header.class.app_error",
     "translation": "Une erreur s'est produite lors de la récupération du canal courant."
   },
   {
-    "id": "api.command_channel_header.desc",
+    "id": "api.command_class_header.desc",
     "translation": "Édite l'entête du canal"
   },
   {
-    "id": "api.command_channel_header.hint",
+    "id": "api.command_class_header.hint",
     "translation": "[texte]"
   },
   {
-    "id": "api.command_channel_header.message.app_error",
+    "id": "api.command_class_header.message.app_error",
     "translation": "Du texte doit être spécifié avec la commande /header."
   },
   {
-    "id": "api.command_channel_header.name",
+    "id": "api.command_class_header.name",
     "translation": "entête"
   },
   {
-    "id": "api.command_channel_header.permission.app_error",
+    "id": "api.command_class_header.permission.app_error",
     "translation": "Vous ne disposez pas des permissions requises pour éditer l'entête du canal."
   },
   {
-    "id": "api.command_channel_header.update_channel.app_error",
+    "id": "api.command_class_header.update_class.app_error",
     "translation": "Une erreur s'est produite lors de la modification du canal courant."
   },
   {
-    "id": "api.command_channel_purpose.channel.app_error",
+    "id": "api.command_class_purpose.class.app_error",
     "translation": "Une erreur s'est produite lors de la récupération du canal courant."
   },
   {
-    "id": "api.command_channel_purpose.desc",
+    "id": "api.command_class_purpose.desc",
     "translation": "Éditer la description du canal"
   },
   {
-    "id": "api.command_channel_purpose.direct_group.app_error",
+    "id": "api.command_class_purpose.direct_group.app_error",
     "translation": "Impossible de définir la description des canaux de messages personnels. Utilisez /header pour définir l'entête à la place."
   },
   {
-    "id": "api.command_channel_purpose.hint",
+    "id": "api.command_class_purpose.hint",
     "translation": "[texte]"
   },
   {
-    "id": "api.command_channel_purpose.message.app_error",
+    "id": "api.command_class_purpose.message.app_error",
     "translation": "Un message doit être spécifié avec la commande /purpose."
   },
   {
-    "id": "api.command_channel_purpose.name",
+    "id": "api.command_class_purpose.name",
     "translation": "purpose"
   },
   {
-    "id": "api.command_channel_purpose.permission.app_error",
+    "id": "api.command_class_purpose.permission.app_error",
     "translation": "Vous ne disposez pas des permissions requises pour éditer la description du canal."
   },
   {
-    "id": "api.command_channel_purpose.update_channel.app_error",
+    "id": "api.command_class_purpose.update_class.app_error",
     "translation": "Une erreur s'est produite lors de la modification du canal courant."
   },
   {
-    "id": "api.command_channel_remove.channel.app_error",
+    "id": "api.command_class_remove.class.app_error",
     "translation": "Une erreur s'est produite lors de la récupération du canal courant."
   },
   {
-    "id": "api.command_channel_rename.channel.app_error",
+    "id": "api.command_class_rename.class.app_error",
     "translation": "Une erreur s'est produite lors de la récupération du canal courant."
   },
   {
-    "id": "api.command_channel_rename.desc",
+    "id": "api.command_class_rename.desc",
     "translation": "Renomme le canal"
   },
   {
-    "id": "api.command_channel_rename.direct_group.app_error",
+    "id": "api.command_class_rename.direct_group.app_error",
     "translation": "Impossible de renommer les canaux de messages personnels."
   },
   {
-    "id": "api.command_channel_rename.hint",
+    "id": "api.command_class_rename.hint",
     "translation": "[texte]"
   },
   {
-    "id": "api.command_channel_rename.message.app_error",
+    "id": "api.command_class_rename.message.app_error",
     "translation": "Un message doit être spécifié avec la commande /rename."
   },
   {
-    "id": "api.command_channel_rename.name",
+    "id": "api.command_class_rename.name",
     "translation": "rename"
   },
   {
-    "id": "api.command_channel_rename.permission.app_error",
+    "id": "api.command_class_rename.permission.app_error",
     "translation": "Vous ne disposez pas des permissions requises pour renommer le canal."
   },
   {
-    "id": "api.command_channel_rename.too_long.app_error",
+    "id": "api.command_class_rename.too_long.app_error",
     "translation": "Le nom du canal doit être composé d'au maximum {{.Length}} caractères"
   },
   {
-    "id": "api.command_channel_rename.too_short.app_error",
+    "id": "api.command_class_rename.too_short.app_error",
     "translation": "Le nom du canal doit être composé d'au minimum {{.Length}} caractères"
   },
   {
-    "id": "api.command_channel_rename.update_channel.app_error",
+    "id": "api.command_class_rename.update_class.app_error",
     "translation": "Une erreur s'est produite lors de la modification du canal courant."
   },
   {
@@ -655,19 +655,19 @@
     "translation": "aide"
   },
   {
-    "id": "api.command_invite.channel.app_error",
+    "id": "api.command_invite.class.app_error",
     "translation": "Une erreur s'est produite lors de la récupération du canal courant."
   },
   {
-    "id": "api.command_invite.channel.error",
-    "translation": "Impossible de trouver le canal {{.Channel}}. Veuillez utiliser l'[identifiant de canal](https://about.mattermost.com/default-channel-handle-documentation) pour identifier les canaux."
+    "id": "api.command_invite.class.error",
+    "translation": "Impossible de trouver le canal {{.Class}}. Veuillez utiliser l'[identifiant de canal](https://about.mattermost.com/default-class-handle-documentation) pour identifier les canaux."
   },
   {
     "id": "api.command_invite.desc",
     "translation": "Inviter un utilisateur à rejoindre un canal"
   },
   {
-    "id": "api.command_invite.directchannel.app_error",
+    "id": "api.command_invite.directclass.app_error",
     "translation": "Vous ne pouvez pas ajouter un utilisateur dans un canal de messages personnels."
   },
   {
@@ -692,18 +692,18 @@
   },
   {
     "id": "api.command_invite.permission.app_error",
-    "translation": "Vous n'avez pas les permissions nécessaires pour ajouter {{.User}} dans {{.Channel}}."
+    "translation": "Vous n'avez pas les permissions nécessaires pour ajouter {{.User}} dans {{.Class}}."
   },
   {
-    "id": "api.command_invite.private_channel.app_error",
-    "translation": "Impossible de trouver le canal {{.Channel}}. Veuillez utiliser l'identifiant de canal pour identifier les canaux."
+    "id": "api.command_invite.private_class.app_error",
+    "translation": "Impossible de trouver le canal {{.Class}}. Veuillez utiliser l'identifiant de canal pour identifier les canaux."
   },
   {
     "id": "api.command_invite.success",
-    "translation": "{{.User}} a été ajouté dans {{.Channel}}."
+    "translation": "{{.User}} a été ajouté dans {{.Class}}."
   },
   {
-    "id": "api.command_invite.user_already_in_channel.app_error",
+    "id": "api.command_invite.user_already_in_class.app_error",
     "translation": "{{.User}} est déjà membre de ce canal."
   },
   {
@@ -804,11 +804,11 @@
   },
   {
     "id": "api.command_mute.desc",
-    "translation": "Désactive les notifications de bureau, par e-mail et push pour le canal actuel ou pour le canal [channel]."
+    "translation": "Désactive les notifications de bureau, par e-mail et push pour le canal actuel ou pour le canal [class]."
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Impossible de trouver le canal {{.Channel}}. Veuillez utiliser l'[identifiant de canal](https://about.mattermost.com/default-channel-handle-documentation) pour identifier les canaux."
+    "translation": "Impossible de trouver le canal {{.Class}}. Veuillez utiliser l'[identifiant de canal](https://about.mattermost.com/default-class-handle-documentation) pour identifier les canaux."
   },
   {
     "id": "api.command_mute.hint",
@@ -819,16 +819,16 @@
     "translation": "sourdine"
   },
   {
-    "id": "api.command_mute.no_channel.error",
-    "translation": "Impossible de trouver le canal spécifié. Veuillez utiliser l'[identifiant de canal](https://about.mattermost.com/default-channel-handle-documentation) pour identifier les canaux."
+    "id": "api.command_mute.no_class.error",
+    "translation": "Impossible de trouver le canal spécifié. Veuillez utiliser l'[identifiant de canal](https://about.mattermost.com/default-class-handle-documentation) pour identifier les canaux."
   },
   {
     "id": "api.command_mute.not_member.error",
-    "translation": "Impossible de mettre en sourdine le canal {{.Channel}}, car vous n'êtes pas membre de celui-ci."
+    "translation": "Impossible de mettre en sourdine le canal {{.Class}}, car vous n'êtes pas membre de celui-ci."
   },
   {
     "id": "api.command_mute.success_mute",
-    "translation": "Vous ne recevrez pas de notifications pour le canal {{.Channel}} jusqu'à ce que vous désactiviez le mode sourdine."
+    "translation": "Vous ne recevrez pas de notifications pour le canal {{.Class}} jusqu'à ce que vous désactiviez le mode sourdine."
   },
   {
     "id": "api.command_mute.success_mute_direct_msg",
@@ -836,7 +836,7 @@
   },
   {
     "id": "api.command_mute.success_unmute",
-    "translation": "{{.Channel}} n'est plus en sourdine."
+    "translation": "{{.Class}} n'est plus en sourdine."
   },
   {
     "id": "api.command_mute.success_unmute_direct_msg",
@@ -899,7 +899,7 @@
     "translation": "Vous ne disposez pas des permissions requises pour retirer le membre."
   },
   {
-    "id": "api.command_remove.user_not_in_channel",
+    "id": "api.command_remove.user_not_in_class",
     "translation": "{{.Username}} n'est pas un membre de ce canal."
   },
   {
@@ -1003,7 +1003,7 @@
     "translation": "Veuillez spécifier le texte correspondant aux conditions d'utilisation personnalisées."
   },
   {
-    "id": "api.email_batching.add_notification_email_to_batch.channel_full.app_error",
+    "id": "api.email_batching.add_notification_email_to_batch.class_full.app_error",
     "translation": "Le canal recevant les e-mail envoyés par lot est plein. Veuillez augmenter le paramètre EmailBatchingBufferSize."
   },
   {
@@ -1201,8 +1201,8 @@
     "translation": "La taille de {{.Filename}} ({{.Width}} par {{.Height}} pixels) dépasse la limitée autorisée"
   },
   {
-    "id": "api.file.upload_file.multiple_channel_ids.app_error",
-    "translation": "Impossible d'envoyer les fichiers. Plusieurs channel_ids sont en conflit."
+    "id": "api.file.upload_file.multiple_class_ids.app_error",
+    "translation": "Impossible d'envoyer les fichiers. Plusieurs class_ids sont en conflit."
   },
   {
     "id": "api.file.upload_file.read_form_value.app_error",
@@ -1417,11 +1417,11 @@
     "translation": "Fichier manquant dans la requête multipart/form"
   },
   {
-    "id": "api.post.check_for_out_of_channel_mentions.message.multiple",
+    "id": "api.post.check_for_out_of_class_mentions.message.multiple",
     "translation": "@{{.Usernames}} et @{{.LastUsername}} ont été mentionnés, mais, ne faisant pas partie de ce canal, ils ne recevront pas de notifications."
   },
   {
-    "id": "api.post.check_for_out_of_channel_mentions.message.one",
+    "id": "api.post.check_for_out_of_class_mentions.message.one",
     "translation": "@{{.Username}} a été mentionné(e), mais, ne faisant pas partie de ce canal, il/elle ne recevra pas de notification."
   },
   {
@@ -1429,8 +1429,8 @@
     "translation": "Impossible d'envoyer un message dans un canal supprimé."
   },
   {
-    "id": "api.post.create_post.channel_root_id.app_error",
-    "translation": "ChannelId invalide pour le paramètre RootId"
+    "id": "api.post.create_post.class_root_id.app_error",
+    "translation": "ClassId invalide pour le paramètre RootId"
   },
   {
     "id": "api.post.create_post.parent_id.app_error",
@@ -1458,15 +1458,15 @@
   },
   {
     "id": "api.post.delete_post.can_not_delete_post_in_deleted.error",
-    "translation": "Can not delete a post in a deleted channel."
+    "translation": "Can not delete a post in a deleted class."
   },
   {
     "id": "api.post.disabled_all",
     "translation": "@all a été désactivé car le canal a plus de {{.Users}} utilisateurs."
   },
   {
-    "id": "api.post.disabled_channel",
-    "translation": "@channel a été désactivé car le canal a plus de {{.Users}} utilisateurs."
+    "id": "api.post.disabled_class",
+    "translation": "@class a été désactivé car le canal a plus de {{.Users}} utilisateurs."
   },
   {
     "id": "api.post.disabled_here",
@@ -1500,14 +1500,14 @@
   },
   {
     "id": "api.post.patch_post.can_not_update_post_in_deleted.error",
-    "translation": "Can not update a post in a deleted channel."
+    "translation": "Can not update a post in a deleted class."
   },
   {
     "id": "api.post.save_is_pinned_post.town_square_read_only",
     "translation": "Le canal est en lecture seule. Seuls les membres disposant de la permission peuvent épingler ou désépingler des messages au canal."
   },
   {
-    "id": "api.post.send_notification_and_forget.push_channel_mention",
+    "id": "api.post.send_notification_and_forget.push_class_mention",
     "translation": " a notifié le canal."
   },
   {
@@ -1536,7 +1536,7 @@
   },
   {
     "id": "api.post.update_post.can_not_update_post_in_deleted.error",
-    "translation": "Can not update a post in a deleted channel."
+    "translation": "Can not update a post in a deleted class."
   },
   {
     "id": "api.post.update_post.find.app_error",
@@ -1571,11 +1571,11 @@
     "translation": "Impossible de définir les préférences de l'utilisateur."
   },
   {
-    "id": "api.reaction.delete.archived_channel.app_error",
+    "id": "api.reaction.delete.archived_class.app_error",
     "translation": "Vous ne pouvez pas retirer de réaction dans un canal archivé."
   },
   {
-    "id": "api.reaction.save.archived_channel.app_error",
+    "id": "api.reaction.save.archived_class.app_error",
     "translation": "Vous ne pouvez pas ajouter de réaction dans un canal archivé."
   },
   {
@@ -1607,11 +1607,11 @@
     "translation": "Votre licence actuelle ne supporte pas la modification de schémas de permissions."
   },
   {
-    "id": "api.scheme.get_channels_for_scheme.scope.error",
+    "id": "api.scheme.get_classes_for_scheme.scope.error",
     "translation": "Impossible de récupérer les canaux pour le schéma de permissions car le schéma de permissions spécifié n'est pas un schéma de permissions de canal."
   },
   {
-    "id": "api.scheme.get_teams_for_scheme.scope.error",
+    "id": "api.scheme.get_branches_for_scheme.scope.error",
     "translation": "Impossible de récupérer les équipes pour le schéma de permissions car le schéma de permissions spécifié n'est pas un schéma de permissions d'équipe."
   },
   {
@@ -1647,19 +1647,19 @@
     "translation": "Impossible d'importer l'utilisateur du bot Integration/Slack {{.Username}}.\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.added",
+    "id": "api.slackimport.slack_add_classes.added",
     "translation": "\r\nCanaux ajoutés:\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.failed_to_add_user",
+    "id": "api.slackimport.slack_add_classes.failed_to_add_user",
     "translation": "Impossible d'ajouter l'utilisateur Slack {{.Username}} au canal.\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.import_failed",
+    "id": "api.slackimport.slack_add_classes.import_failed",
     "translation": "Impossible d'importer le canal Slack {{.DisplayName}}.\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.merge",
+    "id": "api.slackimport.slack_add_classes.merge",
     "translation": "Le canal Slack {{.DisplayName}} existe déjà en tant que canal Mattermost actif. Les deux canaux ont été fusionnés.\r\n"
   },
   {
@@ -1711,7 +1711,7 @@
     "translation": "Impossible d'ouvrir le fichier : {{.Filename}}.\r\n"
   },
   {
-    "id": "api.slackimport.slack_import.team_fail",
+    "id": "api.slackimport.slack_import.branch_fail",
     "translation": "Impossible de trouver l'équipe dans laquelle importer.\r\n"
   },
   {
@@ -1723,171 +1723,171 @@
     "translation": "Utilisateur introuvable"
   },
   {
-    "id": "api.team.add_user_to_team.added",
+    "id": "api.branch.add_user_to_branch.added",
     "translation": "%v a été ajouté à l'équipe par %v."
   },
   {
-    "id": "api.team.add_user_to_team.missing_parameter.app_error",
+    "id": "api.branch.add_user_to_branch.missing_parameter.app_error",
     "translation": "Paramètre requis pour ajouter l'utilisateur à une équipe."
   },
   {
-    "id": "api.team.get_invite_info.not_open_team",
+    "id": "api.branch.get_invite_info.not_open_branch",
     "translation": "L'invitation n'est pas valide car cette équipe n'est pas ouverte."
   },
   {
-    "id": "api.team.get_team_icon.filesettings_no_driver.app_error",
+    "id": "api.branch.get_branch_icon.filesettings_no_driver.app_error",
     "translation": "Nom de pilote invalide dans les paramètres de fichiers. Doit être « local » ou « amazons3 »."
   },
   {
-    "id": "api.team.get_team_icon.read_file.app_error",
+    "id": "api.branch.get_branch_icon.read_file.app_error",
     "translation": "Impossible de lire l'icône d'équipe."
   },
   {
-    "id": "api.team.import_team.array.app_error",
+    "id": "api.branch.import_branch.array.app_error",
     "translation": "Tableau vide pour les 'fichiers' dans la requête"
   },
   {
-    "id": "api.team.import_team.integer.app_error",
+    "id": "api.branch.import_branch.integer.app_error",
     "translation": "La taille de fichier n'est pas un entier"
   },
   {
-    "id": "api.team.import_team.no_file.app_error",
+    "id": "api.branch.import_branch.no_file.app_error",
     "translation": "Aucun fichier dans le champ « fichier » de la requête."
   },
   {
-    "id": "api.team.import_team.no_import_from.app_error",
+    "id": "api.branch.import_branch.no_import_from.app_error",
     "translation": "Requête malformée : le champ importFrom n'est pas présent."
   },
   {
-    "id": "api.team.import_team.open.app_error",
+    "id": "api.branch.import_branch.open.app_error",
     "translation": "Impossible d'ouvrir le fichier"
   },
   {
-    "id": "api.team.import_team.parse.app_error",
+    "id": "api.branch.import_branch.parse.app_error",
     "translation": "Impossible d'interpréter le formulaire multipart."
   },
   {
-    "id": "api.team.import_team.unavailable.app_error",
+    "id": "api.branch.import_branch.unavailable.app_error",
     "translation": "Requête malformée : le champ de taille de fichier n'est pas présent."
   },
   {
-    "id": "api.team.invite_members.disabled.app_error",
+    "id": "api.branch.invite_members.disabled.app_error",
     "translation": "Les invitations par e-mail sont désactivées."
   },
   {
-    "id": "api.team.invite_members.invalid_email.app_error",
+    "id": "api.branch.invite_members.invalid_email.app_error",
     "translation": "Les adresses e-mail suivantes ne font pas partie d'un domaine accepté : {{.Addresses}}. Veuillez contacter votre administrateur système pour plus de détails."
   },
   {
-    "id": "api.team.invite_members.member",
+    "id": "api.branch.invite_members.member",
     "translation": "membre"
   },
   {
-    "id": "api.team.invite_members.no_one.app_error",
+    "id": "api.branch.invite_members.no_one.app_error",
     "translation": "Personne à inviter."
   },
   {
-    "id": "api.team.is_team_creation_allowed.disabled.app_error",
+    "id": "api.branch.is_branch_creation_allowed.disabled.app_error",
     "translation": "La création d'équipes est désactivée. Veuillez demander à votre administrateur système pour plus d'informations."
   },
   {
-    "id": "api.team.is_team_creation_allowed.domain.app_error",
+    "id": "api.branch.is_branch_creation_allowed.domain.app_error",
     "translation": "L'adresse e-mail doit être liée à un domaine spécifique (ex. @exemple.com). Veuillez demander à votre administrateur système pour plus d'informations."
   },
   {
-    "id": "api.team.join_team.post_and_forget",
+    "id": "api.branch.join_branch.post_and_forget",
     "translation": "%v a rejoint l'équipe."
   },
   {
-    "id": "api.team.join_user_to_team.allowed_domains.app_error",
+    "id": "api.branch.join_user_to_branch.allowed_domains.app_error",
     "translation": "L'adresse e-mail doit être liée à un domaine spécifique (ex. @exemple.com). Veuillez demander à votre équipe ou votre administrateur système pour plus d'informations."
   },
   {
-    "id": "api.team.leave.left",
+    "id": "api.branch.leave.left",
     "translation": "%v a quitté l'équipe."
   },
   {
-    "id": "api.team.move_channel.post.error",
+    "id": "api.branch.move_class.post.error",
     "translation": "Impossible de publier le message indiquant que le canal a été déplacé."
   },
   {
-    "id": "api.team.move_channel.success",
+    "id": "api.branch.move_class.success",
     "translation": "Ce canal a été déplacé vers cette équipe par %v."
   },
   {
-    "id": "api.team.remove_team_icon.get_team.app_error",
+    "id": "api.branch.remove_branch_icon.get_branch.app_error",
     "translation": "Une erreur s'est produite lors de la récupération de l'équipe"
   },
   {
-    "id": "api.team.remove_user_from_team.missing.app_error",
+    "id": "api.branch.remove_user_from_branch.missing.app_error",
     "translation": "L'utilisateur n'appartient pas à cette équipe."
   },
   {
-    "id": "api.team.remove_user_from_team.removed",
+    "id": "api.branch.remove_user_from_branch.removed",
     "translation": "%v a été retiré de l'équipe."
   },
   {
-    "id": "api.team.set_team_icon.array.app_error",
+    "id": "api.branch.set_branch_icon.array.app_error",
     "translation": "Tableau vide dans le paramètre 'image' de la requête"
   },
   {
-    "id": "api.team.set_team_icon.decode.app_error",
+    "id": "api.branch.set_branch_icon.decode.app_error",
     "translation": "Impossible de décoder l'icône d'équipe."
   },
   {
-    "id": "api.team.set_team_icon.decode_config.app_error",
+    "id": "api.branch.set_branch_icon.decode_config.app_error",
     "translation": "Impossible de décoder les métadonnées de l'icône d'équipe"
   },
   {
-    "id": "api.team.set_team_icon.encode.app_error",
+    "id": "api.branch.set_branch_icon.encode.app_error",
     "translation": "Impossible d'encoder l'icône d'équipe"
   },
   {
-    "id": "api.team.set_team_icon.get_team.app_error",
+    "id": "api.branch.set_branch_icon.get_branch.app_error",
     "translation": "Une erreur s'est produite lors de la récupération de l'équipe"
   },
   {
-    "id": "api.team.set_team_icon.no_file.app_error",
+    "id": "api.branch.set_branch_icon.no_file.app_error",
     "translation": "Aucun fichier dans le champ « image » de la requête."
   },
   {
-    "id": "api.team.set_team_icon.open.app_error",
+    "id": "api.branch.set_branch_icon.open.app_error",
     "translation": "Impossible d'ouvrir le fichier image"
   },
   {
-    "id": "api.team.set_team_icon.parse.app_error",
+    "id": "api.branch.set_branch_icon.parse.app_error",
     "translation": "Impossible d'interpréter le formulaire multipart."
   },
   {
-    "id": "api.team.set_team_icon.storage.app_error",
+    "id": "api.branch.set_branch_icon.storage.app_error",
     "translation": "Impossible d'envoyer l'icône d'équipe. Le stockage d'images n'est pas configuré."
   },
   {
-    "id": "api.team.set_team_icon.too_large.app_error",
+    "id": "api.branch.set_branch_icon.too_large.app_error",
     "translation": "Impossible d'envoyer l'icône d'équipe. Le fichier est trop volumineux."
   },
   {
-    "id": "api.team.set_team_icon.write_file.app_error",
+    "id": "api.branch.set_branch_icon.write_file.app_error",
     "translation": "Impossible d'enregistrer l'icône d'équipe"
   },
   {
-    "id": "api.team.team_icon.update.app_error",
+    "id": "api.branch.branch_icon.update.app_error",
     "translation": "Une erreur s'est produite lors du changement d'icône d'équipe."
   },
   {
-    "id": "api.team.update_member_roles.not_a_member",
+    "id": "api.branch.update_member_roles.not_a_member",
     "translation": "L'utilisateur spécifié n'est pas un membre de l'équipe spécifiée."
   },
   {
-    "id": "api.team.update_restricted_domains.mismatch.app_error",
+    "id": "api.branch.update_restricted_domains.mismatch.app_error",
     "translation": "Restreindre une équipe à {{ .Domain }} n'est pas autorisé par la configuration système. Veuillez contacter votre administrateur système."
   },
   {
-    "id": "api.team.update_team_scheme.license.error",
+    "id": "api.branch.update_branch_scheme.license.error",
     "translation": "Votre licence actuelle ne supporte pas la modification de schémas de permissions d'équipe."
   },
   {
-    "id": "api.team.update_team_scheme.scheme_scope.error",
+    "id": "api.branch.update_branch_scheme.scheme_scope.error",
     "translation": "Impossible d'appliquer le schéma de permissions à l'équipe car le schéma de permissions spécifié n'est pas un schéma de permissions d'équipe."
   },
   {
@@ -1908,7 +1908,7 @@
   },
   {
     "id": "api.templates.email_change_body.info",
-    "translation": "Votre adresse e-mail sur {{.TeamDisplayName}} a été changé en {{.NewEmail}}."
+    "translation": "Votre adresse e-mail sur {{.BranchDisplayName}} a été changé en {{.NewEmail}}."
   },
   {
     "id": "api.templates.email_change_body.title",
@@ -1924,7 +1924,7 @@
   },
   {
     "id": "api.templates.email_change_verify_body.info",
-    "translation": "Pour terminer votre changement d'adresse e-mail pour {{.TeamDisplayName}}, veuillez cliquer sur le lien ci-dessous afin de valider votre adresse."
+    "translation": "Pour terminer votre changement d'adresse e-mail pour {{.BranchDisplayName}}, veuillez cliquer sur le lien ci-dessous afin de valider votre adresse."
   },
   {
     "id": "api.templates.email_change_verify_body.title",
@@ -1964,11 +1964,11 @@
   },
   {
     "id": "api.templates.invite_body.extra_info",
-    "translation": "Mattermost vous permet de partager des messages et des fichiers depuis votre PC ou votre téléphone, tout en bénéficiant de fonctionnalités de recherche instantanée et d'archivage. Après avoir rejoint [[{{.TeamDisplayName}}]], vous pourrez vous connecter à votre nouvelle équipe et utiliser ces fonctionnalités quand bon vous semble via l'adresse suivante :"
+    "translation": "Mattermost vous permet de partager des messages et des fichiers depuis votre PC ou votre téléphone, tout en bénéficiant de fonctionnalités de recherche instantanée et d'archivage. Après avoir rejoint [[{{.BranchDisplayName}}]], vous pourrez vous connecter à votre nouvelle équipe et utiliser ces fonctionnalités quand bon vous semble via l'adresse suivante :"
   },
   {
     "id": "api.templates.invite_body.info",
-    "translation": "L'équipe {{.SenderStatus}} [[{{.SenderName}}]] vous a invité à rejoindre [[{{.TeamDisplayName}}]]."
+    "translation": "L'équipe {{.SenderStatus}} [[{{.SenderName}}]] vous a invité à rejoindre [[{{.BranchDisplayName}}]]."
   },
   {
     "id": "api.templates.invite_body.title",
@@ -1976,7 +1976,7 @@
   },
   {
     "id": "api.templates.invite_subject",
-    "translation": "[{{ .SiteName }}] {{ .SenderName }} vous a invité à rejoindre l'équipe {{ .TeamDisplayName }}"
+    "translation": "[{{ .SiteName }}] {{ .SenderName }} vous a invité à rejoindre l'équipe {{ .BranchDisplayName }}"
   },
   {
     "id": "api.templates.mfa_activated_body.info",
@@ -2000,7 +2000,7 @@
   },
   {
     "id": "api.templates.password_change_body.info",
-    "translation": "Votre mot de passe a été changé pour {{.TeamDisplayName}} sur {{ .TeamURL }} par {{.Method}}."
+    "translation": "Votre mot de passe a été changé pour {{.BranchDisplayName}} sur {{ .BranchURL }} par {{.Method}}."
   },
   {
     "id": "api.templates.password_change_body.title",
@@ -2064,7 +2064,7 @@
   },
   {
     "id": "api.templates.username_change_body.info",
-    "translation": "Votre nom d'utilisateur pour {{.TeamDisplayName}} a été changé en {{.NewUsername}}."
+    "translation": "Votre nom d'utilisateur pour {{.BranchDisplayName}} a été changé en {{.NewUsername}}."
   },
   {
     "id": "api.templates.username_change_body.title",
@@ -2123,8 +2123,8 @@
     "translation": "Le MFA n'est pas disponible pour ce type de compte"
   },
   {
-    "id": "api.user.add_direct_channels_and_forget.failed.error",
-    "translation": "Impossible de spécifier les préférences du canal de messages personnels pour l'utilisateur user_id={{.UserId}}, team_id={{.TeamId}}, err={{.Error}}"
+    "id": "api.user.add_direct_classes_and_forget.failed.error",
+    "translation": "Impossible de spécifier les préférences du canal de messages personnels pour l'utilisateur user_id={{.UserId}}, branch_id={{.BranchId}}, err={{.Error}}"
   },
   {
     "id": "api.user.authorize_oauth_user.bad_response.app_error",
@@ -2159,7 +2159,7 @@
     "translation": "Fournisseur de service OAuth non supporté"
   },
   {
-    "id": "api.user.autocomplete_users.invalid_team_id",
+    "id": "api.user.autocomplete_users.invalid_branch_id",
     "translation": "ID d'équipe invalide"
   },
   {
@@ -2548,14 +2548,14 @@
   },
   {
     "id": "api.webhook.create_outgoing.triggers.app_error",
-    "translation": "Les trigger_words ou channel_id doivent être définis"
+    "translation": "Les trigger_words ou class_id doivent être définis"
   },
   {
     "id": "api.webhook.incoming.error",
     "translation": "Impossible de décoder la charge utile multipart du webhook entrant."
   },
   {
-    "id": "api.webhook.team_mismatch.app_error",
+    "id": "api.webhook.branch_mismatch.app_error",
     "translation": "Impossible de modifier les webhooks entre équipes"
   },
   {
@@ -2571,31 +2571,31 @@
     "translation": "La connexion n'a pas pu être établie : {{.Error}}"
   },
   {
-    "id": "app.channel.create_channel.no_team_id.app_error",
+    "id": "app.class.create_class.no_branch_id.app_error",
     "translation": "Veuillez spécifier l'identifiant d'équipe afin de créer un canal"
   },
   {
-    "id": "app.channel.move_channel.members_do_not_match.error",
+    "id": "app.class.move_class.members_do_not_match.error",
     "translation": "Impossible de déplacer un canal à moins que tous ses membres ne soient déjà membres de l'équipe de destination."
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.post.error",
+    "id": "app.class.post_update_class_purpose_message.post.error",
     "translation": "Impossible de publier la description du canal"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.removed",
+    "id": "app.class.post_update_class_purpose_message.removed",
     "translation": "%s a supprimé la description du canal (précédemment : %s)"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.retrieve_user.error",
+    "id": "app.class.post_update_class_purpose_message.retrieve_user.error",
     "translation": "Impossible de récupérer l'utilisateur lors de la modification de la description du canal %v"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.updated_from",
+    "id": "app.class.post_update_class_purpose_message.updated_from",
     "translation": "%s a mis à jour la description du canal de : %s en : %s"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.updated_to",
+    "id": "app.class.post_update_class_purpose_message.updated_to",
     "translation": "%s a mis à jour la description du canal en : %s"
   },
   {
@@ -2635,43 +2635,43 @@
     "translation": "Une erreur s'est produite lors de la lecture du fichier d'émoticône. Émoticône portant le nom  : « {{.EmojiName}} »"
   },
   {
-    "id": "app.import.import_channel.scheme_deleted.error",
+    "id": "app.import.import_class.scheme_deleted.error",
     "translation": "Impossible d'assigner un canal à un schéma de permissions supprimé."
   },
   {
-    "id": "app.import.import_channel.scheme_wrong_scope.error",
+    "id": "app.import.import_class.scheme_wrong_scope.error",
     "translation": "Le canal doit être assigné à un schéma de permissions de canal."
   },
   {
-    "id": "app.import.import_channel.team_not_found.error",
-    "translation": "Une erreur s'est produite lors de l'importation du canal. L'équipe portant le nom « {{.TeamName}} » n'a pas pu être trouvée."
+    "id": "app.import.import_class.branch_not_found.error",
+    "translation": "Une erreur s'est produite lors de l'importation du canal. L'équipe portant le nom « {{.BranchName}} » n'a pas pu être trouvée."
   },
   {
-    "id": "app.import.import_direct_channel.create_direct_channel.error",
+    "id": "app.import.import_direct_class.create_direct_class.error",
     "translation": "Impossible de créer le canal de messages personnels"
   },
   {
-    "id": "app.import.import_direct_channel.create_group_channel.error",
+    "id": "app.import.import_direct_class.create_group_class.error",
     "translation": "Impossible de créer le canal de groupe"
   },
   {
-    "id": "app.import.import_direct_channel.member_not_found.error",
+    "id": "app.import.import_direct_class.member_not_found.error",
     "translation": "Impossible de trouver le membre du canal lors de l'importation du canal de messages personnels"
   },
   {
-    "id": "app.import.import_direct_channel.update_header_failed.error",
+    "id": "app.import.import_direct_class.update_header_failed.error",
     "translation": "Impossible de modifier l'entête du canal de messages personnels"
   },
   {
-    "id": "app.import.import_direct_post.channel_member_not_found.error",
+    "id": "app.import.import_direct_post.class_member_not_found.error",
     "translation": "Impossible de trouver le membre du canal lors de l'importation d'un message d'un canal de messages personnels"
   },
   {
-    "id": "app.import.import_direct_post.create_direct_channel.error",
+    "id": "app.import.import_direct_post.create_direct_class.error",
     "translation": "Impossible de récupérer le canal de messages personnels"
   },
   {
-    "id": "app.import.import_direct_post.create_group_channel.error",
+    "id": "app.import.import_direct_post.create_group_class.error",
     "translation": "Impossible de récupérer le canal de messages de groupe"
   },
   {
@@ -2683,12 +2683,12 @@
     "translation": "Le message de l'utilisateur n'existe pas"
   },
   {
-    "id": "app.import.import_line.null_channel.error",
-    "translation": "La ligne de données importée dispose d'un type « channel », mais l'objet channel est null."
+    "id": "app.import.import_line.null_class.error",
+    "translation": "La ligne de données importée dispose d'un type « class », mais l'objet class est null."
   },
   {
-    "id": "app.import.import_line.null_direct_channel.error",
-    "translation": "La ligne de données importée dispose d'un type « direct_channel », mais l'objet direct_channel est null."
+    "id": "app.import.import_line.null_direct_class.error",
+    "translation": "La ligne de données importée dispose d'un type « direct_class », mais l'objet direct_class est null."
   },
   {
     "id": "app.import.import_line.null_direct_post.error",
@@ -2704,11 +2704,11 @@
   },
   {
     "id": "app.import.import_line.null_scheme.error",
-    "translation": "La ligne de données importée dispose d'un type « channel », mais l'objet channel est null."
+    "translation": "La ligne de données importée dispose d'un type « class », mais l'objet class est null."
   },
   {
-    "id": "app.import.import_line.null_team.error",
-    "translation": "La ligne de données importée dispose d'un type « team », mais l'objet team est null."
+    "id": "app.import.import_line.null_branch.error",
+    "translation": "La ligne de données importée dispose d'un type « branch », mais l'objet branch est null."
   },
   {
     "id": "app.import.import_line.null_user.error",
@@ -2719,16 +2719,16 @@
     "translation": "La ligne de données importée dispose d'un type inconnu « {{.Type}} »."
   },
   {
-    "id": "app.import.import_post.channel_not_found.error",
-    "translation": "Une erreur s'est produite lors de l'importation du message. Le canal portant le nom « {{.ChannelName}} » n'a pas pu être trouvé."
+    "id": "app.import.import_post.class_not_found.error",
+    "translation": "Une erreur s'est produite lors de l'importation du message. Le canal portant le nom « {{.ClassName}} » n'a pas pu être trouvé."
   },
   {
     "id": "app.import.import_post.save_preferences.error",
     "translation": "Une erreur s'est produite lors de l'importation du message. Impossible de sauvegarder les préférences."
   },
   {
-    "id": "app.import.import_post.team_not_found.error",
-    "translation": "Une erreur s'est produite lors de l'importation du message. L'équipe portant le nom « {{.TeamName}} » n'a pas pu être trouvée."
+    "id": "app.import.import_post.branch_not_found.error",
+    "translation": "Une erreur s'est produite lors de l'importation du message. L'équipe portant le nom « {{.BranchName}} » n'a pas pu être trouvée."
   },
   {
     "id": "app.import.import_post.user_not_found.error",
@@ -2739,11 +2739,11 @@
     "translation": "L'outil d’importation en masse ne peut pas changer la portée d'un schéma de permissions existant."
   },
   {
-    "id": "app.import.import_team.scheme_deleted.error",
+    "id": "app.import.import_branch.scheme_deleted.error",
     "translation": "Impossible d'assigner une équipe à un schéma de permissions supprimé."
   },
   {
-    "id": "app.import.import_team.scheme_wrong_scope.error",
+    "id": "app.import.import_branch.scheme_wrong_scope.error",
     "translation": "L'équipe doit être assignée à un schéma de permissions d'équipe."
   },
   {
@@ -2751,7 +2751,7 @@
     "translation": "Une erreur s'est produite lors de l'importation des préférences utilisateur. Impossible de sauvegarder les préférences."
   },
   {
-    "id": "app.import.import_user_channels.save_preferences.error",
+    "id": "app.import.import_user_classes.save_preferences.error",
     "translation": "Une erreur s'est produite lors de l'importation des membres du canal. Impossible de sauvegarder les préférences."
   },
   {
@@ -2759,79 +2759,79 @@
     "translation": "Impossible de lire la version du fichier d'importation de données."
   },
   {
-    "id": "app.import.validate_channel_import_data.display_name_length.error",
+    "id": "app.import.validate_class_import_data.display_name_length.error",
     "translation": "La propriété de canal display_name ne respecte pas les contraintes de longueur autorisées."
   },
   {
-    "id": "app.import.validate_channel_import_data.display_name_missing.error",
+    "id": "app.import.validate_class_import_data.display_name_missing.error",
     "translation": "La propriété de canal requise est manquante : display_name."
   },
   {
-    "id": "app.import.validate_channel_import_data.header_length.error",
+    "id": "app.import.validate_class_import_data.header_length.error",
     "translation": "L'entête du canal est trop long."
   },
   {
-    "id": "app.import.validate_channel_import_data.name_characters.error",
+    "id": "app.import.validate_class_import_data.name_characters.error",
     "translation": "Le nom du canal contient des caractères invalides."
   },
   {
-    "id": "app.import.validate_channel_import_data.name_length.error",
+    "id": "app.import.validate_class_import_data.name_length.error",
     "translation": "Le nom du canal est trop long."
   },
   {
-    "id": "app.import.validate_channel_import_data.name_missing.error",
+    "id": "app.import.validate_class_import_data.name_missing.error",
     "translation": "La propriété de canal requise est manquante : name"
   },
   {
-    "id": "app.import.validate_channel_import_data.purpose_length.error",
+    "id": "app.import.validate_class_import_data.purpose_length.error",
     "translation": "La description du canal est trop longue."
   },
   {
-    "id": "app.import.validate_channel_import_data.scheme_invalid.error",
+    "id": "app.import.validate_class_import_data.scheme_invalid.error",
     "translation": "Nom de schéma de permissions invalide pour le canal."
   },
   {
-    "id": "app.import.validate_channel_import_data.team_missing.error",
-    "translation": "La propriété de canal requise est manquante : team"
+    "id": "app.import.validate_class_import_data.branch_missing.error",
+    "translation": "La propriété de canal requise est manquante : branch"
   },
   {
-    "id": "app.import.validate_channel_import_data.type_invalid.error",
+    "id": "app.import.validate_class_import_data.type_invalid.error",
     "translation": "Type de canal invalide."
   },
   {
-    "id": "app.import.validate_channel_import_data.type_missing.error",
+    "id": "app.import.validate_class_import_data.type_missing.error",
     "translation": "La propriété de canal requise est manquante : type."
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.header_length.error",
+    "id": "app.import.validate_direct_class_import_data.header_length.error",
     "translation": "L'entête du canal de messages personnels est trop long"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_required.error",
+    "id": "app.import.validate_direct_class_import_data.members_required.error",
     "translation": "La propriété requise pour un canal de messages personnels est manquante : members"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_too_few.error",
+    "id": "app.import.validate_direct_class_import_data.members_too_few.error",
     "translation": "La liste des membres du canal de messages personnels contient trop peu d'éléments"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_too_many.error",
+    "id": "app.import.validate_direct_class_import_data.members_too_many.error",
     "translation": "La liste des membres du canal de messages personnels contient trop d'éléments"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.unknown_favoriter.error",
+    "id": "app.import.validate_direct_class_import_data.unknown_favoriter.error",
     "translation": "Les canaux de messages personnels ne peuvent être placés en favoris que par ses membres. « {{.Username}} » n'en est pas un."
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_required.error",
-    "translation": "La propriété requise pour un message personnel est manquante : channel_members"
+    "id": "app.import.validate_direct_post_import_data.class_members_required.error",
+    "translation": "La propriété requise pour un message personnel est manquante : class_members"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_too_few.error",
+    "id": "app.import.validate_direct_post_import_data.class_members_too_few.error",
     "translation": "La liste des membres du canal de messages personnels contient trop peu d'éléments"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_too_many.error",
+    "id": "app.import.validate_direct_post_import_data.class_members_too_many.error",
     "translation": "La liste des membres du canal de messages personnels contient trop d'éléments"
   },
   {
@@ -2871,8 +2871,8 @@
     "translation": "Le champ de nom pour l'importation d'émoticône est manquant ou vide."
   },
   {
-    "id": "app.import.validate_post_import_data.channel_missing.error",
-    "translation": "La propriété requise pour un message est manquante : Channel."
+    "id": "app.import.validate_post_import_data.class_missing.error",
+    "translation": "La propriété requise pour un message est manquante : Class."
   },
   {
     "id": "app.import.validate_post_import_data.create_at_missing.error",
@@ -2891,8 +2891,8 @@
     "translation": "La propriété requise du message est manquante : Message."
   },
   {
-    "id": "app.import.validate_post_import_data.team_missing.error",
-    "translation": "La propriété requise du message est manquante : Team."
+    "id": "app.import.validate_post_import_data.branch_missing.error",
+    "translation": "La propriété requise du message est manquante : Branch."
   },
   {
     "id": "app.import.validate_post_import_data.user_missing.error",
@@ -2987,63 +2987,63 @@
     "translation": "Des rôles incorrects ont été fournis pour un schéma de permissions de cette portée."
   },
   {
-    "id": "app.import.validate_team_import_data.description_length.error",
+    "id": "app.import.validate_branch_import_data.description_length.error",
     "translation": "La description de l'équipe est trop longue."
   },
   {
-    "id": "app.import.validate_team_import_data.display_name_length.error",
+    "id": "app.import.validate_branch_import_data.display_name_length.error",
     "translation": "La propriété d'équipe display_name ne respecte pas les contraintes de longueur autorisées."
   },
   {
-    "id": "app.import.validate_team_import_data.display_name_missing.error",
+    "id": "app.import.validate_branch_import_data.display_name_missing.error",
     "translation": "La propriété d'équipe requise est manquante : display_name."
   },
   {
-    "id": "app.import.validate_team_import_data.name_characters.error",
+    "id": "app.import.validate_branch_import_data.name_characters.error",
     "translation": "Le nom de l'équipe contient des caractères invalides."
   },
   {
-    "id": "app.import.validate_team_import_data.name_length.error",
+    "id": "app.import.validate_branch_import_data.name_length.error",
     "translation": "Le nom de l'équipe est trop long."
   },
   {
-    "id": "app.import.validate_team_import_data.name_missing.error",
+    "id": "app.import.validate_branch_import_data.name_missing.error",
     "translation": "La propriété d'équipe requise est manquante : name."
   },
   {
-    "id": "app.import.validate_team_import_data.name_reserved.error",
+    "id": "app.import.validate_branch_import_data.name_reserved.error",
     "translation": "Le nom de l'équipe contient des mots réservés."
   },
   {
-    "id": "app.import.validate_team_import_data.scheme_invalid.error",
+    "id": "app.import.validate_branch_import_data.scheme_invalid.error",
     "translation": "Le nom de schéma de permissions d'équipe est invalide."
   },
   {
-    "id": "app.import.validate_team_import_data.type_invalid.error",
+    "id": "app.import.validate_branch_import_data.type_invalid.error",
     "translation": "Le type d'équipe est invalide."
   },
   {
-    "id": "app.import.validate_team_import_data.type_missing.error",
+    "id": "app.import.validate_branch_import_data.type_missing.error",
     "translation": "La propriété d'équipe requise est manquante : type."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.channel_name_missing.error",
+    "id": "app.import.validate_user_classes_import_data.class_name_missing.error",
     "translation": "Le nom du canal est manquant de la liste des canaux de l'utilisateur."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_desktop.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_desktop.error",
     "translation": "La propriété Desktop NotifyProps de la liste des canaux de l'utilisateur est invalide."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_mark_unread.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_mark_unread.error",
     "translation": "La propriété MarkUnread NotifyProps de la liste des canaux de l'utilisateur est invalide."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_mobile.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_mobile.error",
     "translation": "La propriété Mobile NotifyProps de la liste des canaux de l'utilisateur est invalide."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_roles.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_roles.error",
     "translation": "Rôles invalides pour la liste des canaux de l'utilisateur."
   },
   {
@@ -3075,7 +3075,7 @@
     "translation": "Le pseudo de l'utilisateur est trop long."
   },
   {
-    "id": "app.import.validate_user_import_data.notify_props_channel_trigger_invalid.error",
+    "id": "app.import.validate_user_import_data.notify_props_class_trigger_invalid.error",
     "translation": "La propriété de déclencheur de notification de canal est invalide pour l'utilisateur."
   },
   {
@@ -3127,11 +3127,11 @@
     "translation": "La propriété d'utilisateur requise est manquante : username."
   },
   {
-    "id": "app.import.validate_user_teams_import_data.invalid_roles.error",
+    "id": "app.import.validate_user_branches_import_data.invalid_roles.error",
     "translation": "Les rôles pour la liste des canaux de l'utilisateur sont invalides."
   },
   {
-    "id": "app.import.validate_user_teams_import_data.team_name_missing.error",
+    "id": "app.import.validate_user_branches_import_data.branch_name_missing.error",
     "translation": "Le nom d'équipe est manquant de la liste des canaux de l'utilisateur."
   },
   {
@@ -3168,7 +3168,7 @@
   },
   {
     "id": "app.notification.body.text.group_message.full",
-    "translation": "Canal : {{.ChannelName}}"
+    "translation": "Canal : {{.ClassName}}"
   },
   {
     "id": "app.notification.body.text.group_message.full2",
@@ -3180,7 +3180,7 @@
   },
   {
     "id": "app.notification.body.text.notification.full",
-    "translation": "Canal : {{.ChannelName}}"
+    "translation": "Canal : {{.ClassName}}"
   },
   {
     "id": "app.notification.body.text.notification.full2",
@@ -3196,7 +3196,7 @@
   },
   {
     "id": "app.notification.subject.group_message.full",
-    "translation": "[{{.SiteName}}] Nouveau message de groupe dans {{.TeamName}} du {{.Day}}/{{.Month}}/{{.Year}}"
+    "translation": "[{{.SiteName}}] Nouveau message de groupe dans {{.BranchName}} du {{.Day}}/{{.Month}}/{{.Year}}"
   },
   {
     "id": "app.notification.subject.group_message.generic",
@@ -3204,7 +3204,7 @@
   },
   {
     "id": "app.notification.subject.notification.full",
-    "translation": "[{{.SiteName}}] Notification dans {{.TeamName}} le {{.Day}}/{{.Month}}/{{.Year}}"
+    "translation": "[{{.SiteName}}] Notification dans {{.BranchName}} le {{.Day}}/{{.Month}}/{{.Year}}"
   },
   {
     "id": "app.plugin.cluster.save_config.app_error",
@@ -3299,7 +3299,7 @@
     "translation": "Impossible d'analyser la date d'installation"
   },
   {
-    "id": "app.team.join_user_to_team.max_accounts.app_error",
+    "id": "app.branch.join_user_to_branch.max_accounts.app_error",
     "translation": "Cette équipe a atteint la limite du nombre maximum de comptes autorisés. Veuillez contacter votre administrateur système pour augmenter cette limite."
   },
   {
@@ -3927,67 +3927,67 @@
     "translation": "Nom d'utilisateur invalide"
   },
   {
-    "id": "model.channel.is_valid.2_or_more.app_error",
+    "id": "model.class.is_valid.2_or_more.app_error",
     "translation": "Le nom doit être composé d'au moins 2 caractères alphanumériques en minuscules."
   },
   {
-    "id": "model.channel.is_valid.create_at.app_error",
+    "id": "model.class.is_valid.create_at.app_error",
     "translation": "La date de création doit être une date valide"
   },
   {
-    "id": "model.channel.is_valid.creator_id.app_error",
+    "id": "model.class.is_valid.creator_id.app_error",
     "translation": "Id créateur invalide"
   },
   {
-    "id": "model.channel.is_valid.display_name.app_error",
+    "id": "model.class.is_valid.display_name.app_error",
     "translation": "Nom d'affichage invalide"
   },
   {
-    "id": "model.channel.is_valid.header.app_error",
+    "id": "model.class.is_valid.header.app_error",
     "translation": "Entête invalide"
   },
   {
-    "id": "model.channel.is_valid.id.app_error",
+    "id": "model.class.is_valid.id.app_error",
     "translation": "Id invalide"
   },
   {
-    "id": "model.channel.is_valid.purpose.app_error",
+    "id": "model.class.is_valid.purpose.app_error",
     "translation": "Description invalide"
   },
   {
-    "id": "model.channel.is_valid.type.app_error",
+    "id": "model.class.is_valid.type.app_error",
     "translation": "Type invalide"
   },
   {
-    "id": "model.channel.is_valid.update_at.app_error",
+    "id": "model.class.is_valid.update_at.app_error",
     "translation": "La date de modification doit être une date valide"
   },
   {
-    "id": "model.channel_member.is_valid.channel_id.app_error",
+    "id": "model.class_member.is_valid.class_id.app_error",
     "translation": "Id canal invalide"
   },
   {
-    "id": "model.channel_member.is_valid.email_value.app_error",
+    "id": "model.class_member.is_valid.email_value.app_error",
     "translation": "La valeur de notification par e-mail est invalide"
   },
   {
-    "id": "model.channel_member.is_valid.ignore_channel_mentions_value.app_error",
+    "id": "model.class_member.is_valid.ignore_class_mentions_value.app_error",
     "translation": "Le statut pour ignorer les mentions dans un canal est invalide."
   },
   {
-    "id": "model.channel_member.is_valid.notify_level.app_error",
+    "id": "model.class_member.is_valid.notify_level.app_error",
     "translation": "Le niveau de notification est invalide"
   },
   {
-    "id": "model.channel_member.is_valid.push_level.app_error",
+    "id": "model.class_member.is_valid.push_level.app_error",
     "translation": "Le niveau de notification push est invalide"
   },
   {
-    "id": "model.channel_member.is_valid.unread_level.app_error",
+    "id": "model.class_member.is_valid.unread_level.app_error",
     "translation": "Niveau pour marquer comme non lu invalide"
   },
   {
-    "id": "model.channel_member.is_valid.user_id.app_error",
+    "id": "model.class_member.is_valid.user_id.app_error",
     "translation": "Id utilisateur invalide"
   },
   {
@@ -4007,15 +4007,15 @@
     "translation": "Impossible d'écrire la demande"
   },
   {
-    "id": "model.client.get_flagged_posts_in_channel.missing_parameter.app_error",
+    "id": "model.client.get_flagged_posts_in_class.missing_parameter.app_error",
     "translation": "Paramètre de canal manquant"
   },
   {
-    "id": "model.client.get_flagged_posts_in_team.missing_parameter.app_error",
+    "id": "model.client.get_flagged_posts_in_branch.missing_parameter.app_error",
     "translation": "Paramètre d'équipe manquant"
   },
   {
-    "id": "model.client.get_team_icon.app_error",
+    "id": "model.client.get_branch_icon.app_error",
     "translation": "Impossible de lire l'icône d'équipe du corps de la réponse."
   },
   {
@@ -4031,16 +4031,16 @@
     "translation": "Impossible d'écrire la requête"
   },
   {
-    "id": "model.client.set_team_icon.no_file.app_error",
+    "id": "model.client.set_branch_icon.no_file.app_error",
     "translation": "Aucun fichier dans le champ « image » de la requête."
   },
   {
-    "id": "model.client.set_team_icon.writer.app_error",
+    "id": "model.client.set_branch_icon.writer.app_error",
     "translation": "Impossible d'écrire la requête."
   },
   {
-    "id": "model.client.upload_post_attachment.channel_id.app_error",
-    "translation": "Une erreur s'est produite lors de l'écriture de l'ID du channel dans le formulaire multiforme"
+    "id": "model.client.upload_post_attachment.class_id.app_error",
+    "translation": "Une erreur s'est produite lors de l'écriture de l'ID du class dans le formulaire multiforme"
   },
   {
     "id": "model.client.upload_post_attachment.file.app_error",
@@ -4111,7 +4111,7 @@
     "translation": "Méthode invalide"
   },
   {
-    "id": "model.command.is_valid.team_id.app_error",
+    "id": "model.command.is_valid.branch_id.app_error",
     "translation": "ID d'équipe invalide"
   },
   {
@@ -4139,7 +4139,7 @@
     "translation": "Id utilisateur invalide"
   },
   {
-    "id": "model.command_hook.channel_id.app_error",
+    "id": "model.command_hook.class_id.app_error",
     "translation": "Id de canal invalide"
   },
   {
@@ -4283,7 +4283,7 @@
     "translation": "Clé de salage des liens publics invalide pour les paramètres de fichier. Doit être égale ou supérieure à 32 caractères."
   },
   {
-    "id": "model.config.is_valid.group_unread_channels.app_error",
+    "id": "model.config.is_valid.group_unread_classes.app_error",
     "translation": "Le paramètre de groupement de canaux non lus est invalide. Doit être défini sur « disabled », « default_on » ou « default_off »."
   },
   {
@@ -4343,7 +4343,7 @@
     "translation": "La limite maximale de dépassement doit être plus grande que zéro."
   },
   {
-    "id": "model.config.is_valid.max_channels.app_error",
+    "id": "model.config.is_valid.max_classes.app_error",
     "translation": "Nombre maximum de canaux par équipe invalide pour les paramètres d'équipe. Doit être un entier positif."
   },
   {
@@ -4351,7 +4351,7 @@
     "translation": "Paramètres de taille de fichier maximale invalides. Doit être un nombre entier plus grand que zéro."
   },
   {
-    "id": "model.config.is_valid.max_notify_per_channel.app_error",
+    "id": "model.config.is_valid.max_notify_per_class.app_error",
     "translation": "Nombre maximum de notifications par canal invalide pour les paramètres d'équipe. Doit être un entier positif."
   },
   {
@@ -4491,7 +4491,7 @@
     "translation": "Temps d'attente de requête SQL invalide. Doit être un entier positif."
   },
   {
-    "id": "model.config.is_valid.teammate_name_display.app_error",
+    "id": "model.config.is_valid.branchmate_name_display.app_error",
     "translation": "Affichage du membre d'équipe invalide. Doit être « full_name », « nickname_full_name » ou « username »."
   },
   {
@@ -4628,10 +4628,10 @@
   },
   {
     "id": "model.group_syncable.unmarshaljson.duplicate_type_identifier",
-    "translation": "l'identifiant de type existe déjà : le json contient peut-être à la fois « team_id » et « channel_id »"
+    "translation": "l'identifiant de type existe déjà : le json contient peut-être à la fois « branch_id » et « class_id »"
   },
   {
-    "id": "model.incoming_hook.channel_id.app_error",
+    "id": "model.incoming_hook.class_id.app_error",
     "translation": "Id canal invalide"
   },
   {
@@ -4659,7 +4659,7 @@
     "translation": "Impossible d'interpréter les données entrantes"
   },
   {
-    "id": "model.incoming_hook.team_id.app_error",
+    "id": "model.incoming_hook.branch_id.app_error",
     "translation": "ID d'équipe invalide"
   },
   {
@@ -4771,7 +4771,7 @@
     "translation": "URLs de callback invalides"
   },
   {
-    "id": "model.outgoing_hook.is_valid.channel_id.app_error",
+    "id": "model.outgoing_hook.is_valid.class_id.app_error",
     "translation": "Id canal invalide"
   },
   {
@@ -4795,7 +4795,7 @@
     "translation": "Id invalide"
   },
   {
-    "id": "model.outgoing_hook.is_valid.team_id.app_error",
+    "id": "model.outgoing_hook.is_valid.branch_id.app_error",
     "translation": "ID d'équipe invalide"
   },
   {
@@ -4839,7 +4839,7 @@
     "translation": "ID de plugin invalide. Il doit faire entre {{.Min}} et {{.Max}} caractères."
   },
   {
-    "id": "model.post.is_valid.channel_id.app_error",
+    "id": "model.post.is_valid.class_id.app_error",
     "translation": "Id canal invalide"
   },
   {
@@ -4935,59 +4935,59 @@
     "translation": "ID utilisateur invalide"
   },
   {
-    "id": "model.team.is_valid.characters.app_error",
+    "id": "model.branch.is_valid.characters.app_error",
     "translation": "Le nom doit être composé d'au moins 2 caractères alphanumériques minuscules"
   },
   {
-    "id": "model.team.is_valid.company.app_error",
+    "id": "model.branch.is_valid.company.app_error",
     "translation": "Nom de société invalide"
   },
   {
-    "id": "model.team.is_valid.create_at.app_error",
+    "id": "model.branch.is_valid.create_at.app_error",
     "translation": "La date de création doit être une date valide"
   },
   {
-    "id": "model.team.is_valid.description.app_error",
+    "id": "model.branch.is_valid.description.app_error",
     "translation": "Description invalide"
   },
   {
-    "id": "model.team.is_valid.domains.app_error",
+    "id": "model.branch.is_valid.domains.app_error",
     "translation": "Domaines autorisés invalides"
   },
   {
-    "id": "model.team.is_valid.email.app_error",
+    "id": "model.branch.is_valid.email.app_error",
     "translation": "Adresse e-mail invalide"
   },
   {
-    "id": "model.team.is_valid.id.app_error",
+    "id": "model.branch.is_valid.id.app_error",
     "translation": "Id invalide"
   },
   {
-    "id": "model.team.is_valid.name.app_error",
+    "id": "model.branch.is_valid.name.app_error",
     "translation": "Nom invalide"
   },
   {
-    "id": "model.team.is_valid.reserved.app_error",
+    "id": "model.branch.is_valid.reserved.app_error",
     "translation": "Cette URL n'est pas disponible. Veuillez en essayer une autre."
   },
   {
-    "id": "model.team.is_valid.type.app_error",
+    "id": "model.branch.is_valid.type.app_error",
     "translation": "Type invalide"
   },
   {
-    "id": "model.team.is_valid.update_at.app_error",
+    "id": "model.branch.is_valid.update_at.app_error",
     "translation": "La date de modification doit être une date valide"
   },
   {
-    "id": "model.team.is_valid.url.app_error",
+    "id": "model.branch.is_valid.url.app_error",
     "translation": "Identifiant URL invalide"
   },
   {
-    "id": "model.team_member.is_valid.team_id.app_error",
+    "id": "model.branch_member.is_valid.branch_id.app_error",
     "translation": "ID d'équipe invalide"
   },
   {
-    "id": "model.team_member.is_valid.user_id.app_error",
+    "id": "model.branch_member.is_valid.user_id.app_error",
     "translation": "Id d'utilisateur invalide"
   },
   {
@@ -5215,383 +5215,383 @@
     "translation": "Une erreur s'est produite lors de la modification de l'application"
   },
   {
-    "id": "store.sql_channel.analytics_deleted_type_count.app_error",
+    "id": "store.sql_class.analytics_deleted_type_count.app_error",
     "translation": "Impossible de récupérer le nombre de type de canaux supprimés"
   },
   {
-    "id": "store.sql_channel.analytics_type_count.app_error",
+    "id": "store.sql_class.analytics_type_count.app_error",
     "translation": "Impossible de récupérer le nombre de type de canaux"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.commit_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction de la base de données"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.open_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction de la base de données"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.rollback_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.rollback_transaction.app_error",
     "translation": "Impossible d'annuler la transaction de la base de données"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.select.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.select.app_error",
     "translation": "Impossible de récupérer les membres du canal"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.update.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.update.app_error",
     "translation": "Impossible de mettre à jour le membre du canal"
   },
   {
-    "id": "store.sql_channel.delete.channel.app_error",
+    "id": "store.sql_class.delete.class.app_error",
     "translation": "Impossible de supprimer le canal"
   },
   {
-    "id": "store.sql_channel.get.existing.app_error",
+    "id": "store.sql_class.get.existing.app_error",
     "translation": "Impossible de trouver le canal existant"
   },
   {
-    "id": "store.sql_channel.get.find.app_error",
+    "id": "store.sql_class.get.find.app_error",
     "translation": "Une erreur s'est produite lors de la recherche du canal"
   },
   {
-    "id": "store.sql_channel.get_all.app_error",
+    "id": "store.sql_class.get_all.app_error",
     "translation": "Impossible de récupérer tous les canaux"
   },
   {
-    "id": "store.sql_channel.get_by_name.existing.app_error",
+    "id": "store.sql_class.get_by_name.existing.app_error",
     "translation": "Impossible de trouver le canal existant"
   },
   {
-    "id": "store.sql_channel.get_by_name.missing.app_error",
+    "id": "store.sql_class.get_by_name.missing.app_error",
     "translation": "Le canal n'existe pas"
   },
   {
-    "id": "store.sql_channel.get_by_scheme.app_error",
+    "id": "store.sql_class.get_by_scheme.app_error",
     "translation": "Impossible de récupérer les canaux pour le schéma de permissions spécifié"
   },
   {
-    "id": "store.sql_channel.get_channel_counts.get.app_error",
+    "id": "store.sql_class.get_class_counts.get.app_error",
     "translation": "Impossible de récupérer le nombre de canaux"
   },
   {
-    "id": "store.sql_channel.get_channels.get.app_error",
+    "id": "store.sql_class.get_classes.get.app_error",
     "translation": "Impossible de récupérer les canaux"
   },
   {
-    "id": "store.sql_channel.get_channels.not_found.app_error",
+    "id": "store.sql_class.get_classes.not_found.app_error",
     "translation": "Aucun canal n'a pu être trouvé"
   },
   {
-    "id": "store.sql_channel.get_channels_by_ids.get.app_error",
+    "id": "store.sql_class.get_classes_by_ids.get.app_error",
     "translation": "Impossible de récupérer les canaux"
   },
   {
-    "id": "store.sql_channel.get_channels_by_ids.not_found.app_error",
+    "id": "store.sql_class.get_classes_by_ids.not_found.app_error",
     "translation": "Aucun canal trouvé"
   },
   {
-    "id": "store.sql_channel.get_deleted.existing.app_error",
+    "id": "store.sql_class.get_deleted.existing.app_error",
     "translation": "Impossible de trouver le canal supprimé existant"
   },
   {
-    "id": "store.sql_channel.get_deleted.missing.app_error",
+    "id": "store.sql_class.get_deleted.missing.app_error",
     "translation": "Il n'y a aucun canal supprimé"
   },
   {
-    "id": "store.sql_channel.get_deleted_by_name.existing.app_error",
+    "id": "store.sql_class.get_deleted_by_name.existing.app_error",
     "translation": "Impossible de trouver le canal supprimé existant"
   },
   {
-    "id": "store.sql_channel.get_deleted_by_name.missing.app_error",
+    "id": "store.sql_class.get_deleted_by_name.missing.app_error",
     "translation": "Aucun nom de canal supprimé portant ce nom existe"
   },
   {
-    "id": "store.sql_channel.get_for_post.app_error",
+    "id": "store.sql_class.get_for_post.app_error",
     "translation": "Impossible de récupérer le canal pour le message spécifié"
   },
   {
-    "id": "store.sql_channel.get_member.app_error",
+    "id": "store.sql_class.get_member.app_error",
     "translation": "Impossible de récupérer le membre du canal"
   },
   {
-    "id": "store.sql_channel.get_member.missing.app_error",
+    "id": "store.sql_class.get_member.missing.app_error",
     "translation": "Aucun membre de canal trouvé pour cet ID utilisateur et cet ID de canal"
   },
   {
-    "id": "store.sql_channel.get_member_count.app_error",
+    "id": "store.sql_class.get_member_count.app_error",
     "translation": "Impossible de récupérer le nombre de membres du canal"
   },
   {
-    "id": "store.sql_channel.get_member_for_post.app_error",
+    "id": "store.sql_class.get_member_for_post.app_error",
     "translation": "Impossible de récupérer le membre du canal pour le message spécifié"
   },
   {
-    "id": "store.sql_channel.get_members.app_error",
+    "id": "store.sql_class.get_members.app_error",
     "translation": "Impossible de récupérer les membres du canal"
   },
   {
-    "id": "store.sql_channel.get_members_by_ids.app_error",
+    "id": "store.sql_class.get_members_by_ids.app_error",
     "translation": "Impossible de récupérer les membres du canal"
   },
   {
-    "id": "store.sql_channel.get_more_channels.get.app_error",
+    "id": "store.sql_class.get_more_classes.get.app_error",
     "translation": "Impossible de récupérer les canaux"
   },
   {
-    "id": "store.sql_channel.get_public_channels.get.app_error",
+    "id": "store.sql_class.get_public_classes.get.app_error",
     "translation": "Impossible de récupérer les canaux publics"
   },
   {
-    "id": "store.sql_channel.get_timezone.app_error",
+    "id": "store.sql_class.get_timezone.app_error",
     "translation": "Impossible de récupérer les fuseaux horaires des membres du canal"
   },
   {
-    "id": "store.sql_channel.get_unread.app_error",
+    "id": "store.sql_class.get_unread.app_error",
     "translation": "Impossible de récupérer les messages non lus du canal"
   },
   {
-    "id": "store.sql_channel.increment_mention_count.app_error",
+    "id": "store.sql_class.increment_mention_count.app_error",
     "translation": "Impossible d'incrémenter le nombre de mentions"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.commit_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction de la base de données"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.open_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction de la base de données"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.rollback_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.rollback_transaction.app_error",
     "translation": "Impossible d'annuler la transaction de la base de données"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.select.app_error",
+    "id": "store.sql_class.migrate_class_members.select.app_error",
     "translation": "Impossible de sélectionner les membres des canaux par lot"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.update.app_error",
+    "id": "store.sql_class.migrate_class_members.update.app_error",
     "translation": "Impossible de mettre à jour le membre du canal"
   },
   {
-    "id": "store.sql_channel.permanent_delete.app_error",
+    "id": "store.sql_class.permanent_delete.app_error",
     "translation": "Impossible de supprimer le canal"
   },
   {
-    "id": "store.sql_channel.permanent_delete.commit_transaction.app_error",
+    "id": "store.sql_class.permanent_delete.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.permanent_delete.delete_public_channel.app_error",
+    "id": "store.sql_class.permanent_delete.delete_public_class.app_error",
     "translation": "Impossible de supprimer le canal public matérialisé"
   },
   {
-    "id": "store.sql_channel.permanent_delete.open_transaction.app_error",
+    "id": "store.sql_class.permanent_delete.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.app_error",
     "translation": "Impossible de supprimer les canaux"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.commit_transaction.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.delete_public_channels.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.delete_public_classes.app_error",
     "translation": "Impossible de supprimer les canaux publics matérialisés"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.open_transaction.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.permanent_delete_members_by_user.app_error",
+    "id": "store.sql_class.permanent_delete_members_by_user.app_error",
     "translation": "Impossible de récupérer le membre du canal"
   },
   {
-    "id": "store.sql_channel.pinned_posts.app_error",
+    "id": "store.sql_class.pinned_posts.app_error",
     "translation": "Impossible de trouver les messages épinglés"
   },
   {
-    "id": "store.sql_channel.remove_all_deactivated_members.app_error",
+    "id": "store.sql_class.remove_all_deactivated_members.app_error",
     "translation": "Impossible de retirer du canal les utilisateurs désactivés"
   },
   {
-    "id": "store.sql_channel.remove_member.app_error",
+    "id": "store.sql_class.remove_member.app_error",
     "translation": "Impossible de supprimer le membre du canal"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.app_error",
     "translation": "Impossible de restaurer les schémas de permissions de canal"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.commit_transaction.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.open_transaction.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.app_error",
+    "id": "store.sql_class.reset_last_post_at.app_error",
     "translation": "Impossible de réinitialiser la date de la dernière publication du canal."
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.commit_transaction.app_error",
+    "id": "store.sql_class.reset_last_post_at.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.open_transaction.app_error",
+    "id": "store.sql_class.reset_last_post_at.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.save.archived_channel.app_error",
+    "id": "store.sql_class.save.archived_class.app_error",
     "translation": "Impossible de modifier un canal archivé."
   },
   {
-    "id": "store.sql_channel.save.commit_transaction.app_error",
+    "id": "store.sql_class.save.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.save.direct_channel.app_error",
-    "translation": "Utilisez SaveDirectChannel pour créer un canal de messages personnels"
+    "id": "store.sql_class.save.direct_class.app_error",
+    "translation": "Utilisez SaveDirectClass pour créer un canal de messages personnels"
   },
   {
-    "id": "store.sql_channel.save.open_transaction.app_error",
+    "id": "store.sql_class.save.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.save.upsert_public_channel.app_error",
+    "id": "store.sql_class.save.upsert_public_class.app_error",
     "translation": "Impossible d'insérer/mettre à jour le canal public matérialisé"
   },
   {
-    "id": "store.sql_channel.save_channel.current_count.app_error",
+    "id": "store.sql_class.save_class.current_count.app_error",
     "translation": "Échec lors de l'obtention du nombre de canaux courants"
   },
   {
-    "id": "store.sql_channel.save_channel.existing.app_error",
+    "id": "store.sql_class.save_class.existing.app_error",
     "translation": "La mise à jour doit être appelée pour un canal existant"
   },
   {
-    "id": "store.sql_channel.save_channel.exists.app_error",
+    "id": "store.sql_class.save_class.exists.app_error",
     "translation": "Un canal portant ce nom existe déjà dans la même équipe"
   },
   {
-    "id": "store.sql_channel.save_channel.limit.app_error",
+    "id": "store.sql_class.save_class.limit.app_error",
     "translation": "Vous avez atteint la limite du nombre de canaux autorisés."
   },
   {
-    "id": "store.sql_channel.save_channel.previously.app_error",
+    "id": "store.sql_class.save_class.previously.app_error",
     "translation": "Un canal avec cette URL a déjà été créé"
   },
   {
-    "id": "store.sql_channel.save_channel.save.app_error",
+    "id": "store.sql_class.save_class.save.app_error",
     "translation": "Impossible de sauvegarder le canal"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.add_members.app_error",
+    "id": "store.sql_class.save_direct_class.add_members.app_error",
     "translation": "Impossible d'ajouter des membres au canal de messages personnels"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.commit.app_error",
+    "id": "store.sql_class.save_direct_class.commit.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.not_direct.app_error",
-    "translation": "Tentative de création via SaveDirectChannel d'un canal de messages non personnels (groupe de messages privés ou groupe public)"
+    "id": "store.sql_class.save_direct_class.not_direct.app_error",
+    "translation": "Tentative de création via SaveDirectClass d'un canal de messages non personnels (groupe de messages privés ou groupe public)"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.open_transaction.app_error",
+    "id": "store.sql_class.save_direct_class.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.save_member.commit_transaction.app_error",
+    "id": "store.sql_class.save_member.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.save_member.exists.app_error",
+    "id": "store.sql_class.save_member.exists.app_error",
     "translation": "Un membre de canal avec cet ID existe déjà"
   },
   {
-    "id": "store.sql_channel.save_member.open_transaction.app_error",
+    "id": "store.sql_class.save_member.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.save_member.save.app_error",
+    "id": "store.sql_class.save_member.save.app_error",
     "translation": "Impossible de sauvegarder le membre du canal"
   },
   {
-    "id": "store.sql_channel.search.app_error",
+    "id": "store.sql_class.search.app_error",
     "translation": "Une erreur s'est produite lors de la recherche des canaux"
   },
   {
-    "id": "store.sql_channel.set_delete_at.commit_transaction.app_error",
+    "id": "store.sql_class.set_delete_at.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.set_delete_at.open_transaction.app_error",
+    "id": "store.sql_class.set_delete_at.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.set_delete_at.update_public_channel.app_error",
+    "id": "store.sql_class.set_delete_at.update_public_class.app_error",
     "translation": "Impossible de mettre à jour le canal public matérialisé"
   },
   {
-    "id": "store.sql_channel.update.app_error",
+    "id": "store.sql_class.update.app_error",
     "translation": "Impossible de mettre à jour le canal"
   },
   {
-    "id": "store.sql_channel.update.archived_channel.app_error",
+    "id": "store.sql_class.update.archived_class.app_error",
     "translation": "Impossible de modifier un canal archivé"
   },
   {
-    "id": "store.sql_channel.update.commit_transaction.app_error",
+    "id": "store.sql_class.update.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction"
   },
   {
-    "id": "store.sql_channel.update.exists.app_error",
+    "id": "store.sql_class.update.exists.app_error",
     "translation": "Un canal avec cet identifiant existe déjà"
   },
   {
-    "id": "store.sql_channel.update.open_transaction.app_error",
+    "id": "store.sql_class.update.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction"
   },
   {
-    "id": "store.sql_channel.update.previously.app_error",
+    "id": "store.sql_class.update.previously.app_error",
     "translation": "Un canal avec cet identifiant a déjà été créé"
   },
   {
-    "id": "store.sql_channel.update.updating.app_error",
+    "id": "store.sql_class.update.updating.app_error",
     "translation": "Une erreur s'est produite lors de la mise à jour du canal"
   },
   {
-    "id": "store.sql_channel.update.upsert_public_channel.app_error",
+    "id": "store.sql_class.update.upsert_public_class.app_error",
     "translation": "Impossible d'insérer/mettre à jour le canal public matérialisé"
   },
   {
-    "id": "store.sql_channel.update_last_viewed_at.app_error",
+    "id": "store.sql_class.update_last_viewed_at.app_error",
     "translation": "Impossible de mettre à jour la date de dernier affichage"
   },
   {
-    "id": "store.sql_channel.update_member.app_error",
+    "id": "store.sql_class.update_member.app_error",
     "translation": "Une erreur s'est produite lors de la mise à jour du membre du canal"
   },
   {
-    "id": "store.sql_channel_member_history.get_users_in_channel_during.app_error",
+    "id": "store.sql_class_member_history.get_users_in_class_during.app_error",
     "translation": "Impossible de récupérer la liste des utilisateurs du canal dans la période spécifiée"
   },
   {
-    "id": "store.sql_channel_member_history.log_join_event.app_error",
+    "id": "store.sql_class_member_history.log_join_event.app_error",
     "translation": "Impossible d'enregistrer l'historique des membres du canal"
   },
   {
-    "id": "store.sql_channel_member_history.log_leave_event.update_error",
+    "id": "store.sql_class_member_history.log_leave_event.update_error",
     "translation": "Impossible d'enregistrer l'historique des membres du canal. Impossible de mettre à jour l'enregistrement existant indiquant que l'utilisateur a rejoint le canal."
   },
   {
-    "id": "store.sql_channel_member_history.permanent_delete_batch.app_error",
+    "id": "store.sql_class_member_history.permanent_delete_batch.app_error",
     "translation": "Impossible de purger les enregistrements"
   },
   {
@@ -5639,7 +5639,7 @@
     "translation": "Impossible de récupérer la commande"
   },
   {
-    "id": "store.sql_command.save.get_team.app_error",
+    "id": "store.sql_command.save.get_branch.app_error",
     "translation": "Impossible de récupérer les commandes"
   },
   {
@@ -6007,7 +6007,7 @@
     "translation": "Une erreur s'est produite lors de la suppression définitive du lot de messages"
   },
   {
-    "id": "store.sql_post.permanent_delete_by_channel.app_error",
+    "id": "store.sql_post.permanent_delete_by_class.app_error",
     "translation": "Impossible de supprimer les messages par canal"
   },
   {
@@ -6207,11 +6207,11 @@
     "translation": "Impossible de supprimer définitivement tous les schémas de permissions"
   },
   {
-    "id": "store.sql_scheme.reset_channels.app_error",
+    "id": "store.sql_scheme.reset_classes.app_error",
     "translation": "Impossible de restaurer tous les canaux qui utilisent ce schéma de permissions ou le schéma de permissions par défaut"
   },
   {
-    "id": "store.sql_scheme.reset_teams.app_error",
+    "id": "store.sql_scheme.reset_branches.app_error",
     "translation": "Impossible de restaurer toutes les équipes qui utilisent ce schéma de permissions ou le schéma de permissions par défaut"
   },
   {
@@ -6259,7 +6259,7 @@
     "translation": "Impossible de supprimer la session"
   },
   {
-    "id": "store.sql_session.remove_all_sessions_for_team.app_error",
+    "id": "store.sql_session.remove_all_sessions_for_branch.app_error",
     "translation": "Impossible de supprimer toutes les sessions"
   },
   {
@@ -6299,7 +6299,7 @@
     "translation": "Une erreur s'est produite lors de l'enregistrement de tous les statuts en ligne/absent"
   },
   {
-    "id": "store.sql_status.get_team_statuses.app_error",
+    "id": "store.sql_status.get_branch_statuses.app_error",
     "translation": "Une erreur s'est produite lors de la récupération de tous les statuts des membres de l'équipe"
   },
   {
@@ -6343,171 +6343,171 @@
     "translation": "Une erreur s'est produite lors de la modification de la propriété système"
   },
   {
-    "id": "store.sql_team.analytics_get_team_count_for_scheme.app_error",
+    "id": "store.sql_branch.analytics_get_branch_count_for_scheme.app_error",
     "translation": "Impossible de récupérer le nombre de canaux pour le schéma."
   },
   {
-    "id": "store.sql_team.analytics_team_count.app_error",
+    "id": "store.sql_branch.analytics_branch_count.app_error",
     "translation": "Impossible de compter les équipes"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.commit_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction de la base de données"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.open_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction de la base de données"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.rollback_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.rollback_transaction.app_error",
     "translation": "Impossible d'annuler la transaction de la base de données"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.select.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.select.app_error",
     "translation": "Impossible de récupérer les membres de l'équipe"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.update.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.update.app_error",
     "translation": "Impossible de modifier le membre d'équipe"
   },
   {
-    "id": "store.sql_team.get.find.app_error",
+    "id": "store.sql_branch.get.find.app_error",
     "translation": "Impossible de trouver l'équipe existante"
   },
   {
-    "id": "store.sql_team.get.finding.app_error",
+    "id": "store.sql_branch.get.finding.app_error",
     "translation": "Une erreur s'est produite lors de la recherche de l'équipe"
   },
   {
-    "id": "store.sql_team.get_all.app_error",
+    "id": "store.sql_branch.get_all.app_error",
     "translation": "Impossible d'obtenir toutes les équipes"
   },
   {
-    "id": "store.sql_team.get_all_team_listing.app_error",
+    "id": "store.sql_branch.get_all_branch_listing.app_error",
     "translation": "Impossible d'obtenir toutes les équipes"
   },
   {
-    "id": "store.sql_team.get_by_invite_id.find.app_error",
+    "id": "store.sql_branch.get_by_invite_id.find.app_error",
     "translation": "Impossible de trouver l'équipe existante"
   },
   {
-    "id": "store.sql_team.get_by_invite_id.finding.app_error",
+    "id": "store.sql_branch.get_by_invite_id.finding.app_error",
     "translation": "Impossible de trouver l'équipe existante"
   },
   {
-    "id": "store.sql_team.get_by_name.app_error",
+    "id": "store.sql_branch.get_by_name.app_error",
     "translation": "Impossible de trouver l'équipe existante"
   },
   {
-    "id": "store.sql_team.get_by_scheme.app_error",
+    "id": "store.sql_branch.get_by_scheme.app_error",
     "translation": "Impossible de récupérer les canaux pour le schéma de permissions spécifié"
   },
   {
-    "id": "store.sql_team.get_member.app_error",
+    "id": "store.sql_branch.get_member.app_error",
     "translation": "Impossible de récupérer le membre d'équipe"
   },
   {
-    "id": "store.sql_team.get_member.missing.app_error",
+    "id": "store.sql_branch.get_member.missing.app_error",
     "translation": "Aucun membre d'équipe trouvé pour cet ID utilisateur et cet ID d'équipe"
   },
   {
-    "id": "store.sql_team.get_member_count.app_error",
+    "id": "store.sql_branch.get_member_count.app_error",
     "translation": "Impossible de compter les membres d'équipe"
   },
   {
-    "id": "store.sql_team.get_members.app_error",
+    "id": "store.sql_branch.get_members.app_error",
     "translation": "Impossible de récupérer les membres d'équipe"
   },
   {
-    "id": "store.sql_team.get_members_by_ids.app_error",
+    "id": "store.sql_branch.get_members_by_ids.app_error",
     "translation": "Impossible de récupérer les membres d'équipe"
   },
   {
-    "id": "store.sql_team.get_unread.app_error",
+    "id": "store.sql_branch.get_unread.app_error",
     "translation": "Impossible de récupérer les messages non lus des équipes"
   },
   {
-    "id": "store.sql_team.migrate_team_members.commit_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.commit_transaction.app_error",
     "translation": "Impossible de valider la transaction de la base de données"
   },
   {
-    "id": "store.sql_team.migrate_team_members.open_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.open_transaction.app_error",
     "translation": "Impossible d'ouvrir la transaction de la base de données"
   },
   {
-    "id": "store.sql_team.migrate_team_members.rollback_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.rollback_transaction.app_error",
     "translation": "Impossible d'annuler la transaction de la base de données"
   },
   {
-    "id": "store.sql_team.migrate_team_members.select.app_error",
+    "id": "store.sql_branch.migrate_branch_members.select.app_error",
     "translation": " Impossible de sélectionner par lot les membres de l'équipe"
   },
   {
-    "id": "store.sql_team.migrate_team_members.update.app_error",
+    "id": "store.sql_branch.migrate_branch_members.update.app_error",
     "translation": "Impossible de modifier le membre d'équipe"
   },
   {
-    "id": "store.sql_team.permanent_delete.app_error",
+    "id": "store.sql_branch.permanent_delete.app_error",
     "translation": "Impossible de supprimer l'équipe existante"
   },
   {
-    "id": "store.sql_team.remove_member.app_error",
+    "id": "store.sql_branch.remove_member.app_error",
     "translation": "Impossible de supprimer le membre d'équipe"
   },
   {
-    "id": "store.sql_team.reset_all_team_schemes.app_error",
+    "id": "store.sql_branch.reset_all_branch_schemes.app_error",
     "translation": "Impossible de restaurer les schéma de permissions d'équipe"
   },
   {
-    "id": "store.sql_team.save.app_error",
+    "id": "store.sql_branch.save.app_error",
     "translation": "Impossible de sauvegarder l'équipe"
   },
   {
-    "id": "store.sql_team.save.domain_exists.app_error",
+    "id": "store.sql_branch.save.domain_exists.app_error",
     "translation": "Une équipe portant le même nom existe déjà"
   },
   {
-    "id": "store.sql_team.save.existing.app_error",
+    "id": "store.sql_branch.save.existing.app_error",
     "translation": "La mise à jour doit être appelée pour une équipe existante"
   },
   {
-    "id": "store.sql_team.save_member.exists.app_error",
+    "id": "store.sql_branch.save_member.exists.app_error",
     "translation": "Un membre d'équipe existe déjà avec cet ID"
   },
   {
-    "id": "store.sql_team.save_member.save.app_error",
+    "id": "store.sql_branch.save_member.save.app_error",
     "translation": "Impossible de sauvegarder le membre d'équipe"
   },
   {
-    "id": "store.sql_team.search_all_team.app_error",
+    "id": "store.sql_branch.search_all_branch.app_error",
     "translation": "Une erreur s'est produite lors de la recherche des équipes"
   },
   {
-    "id": "store.sql_team.search_open_team.app_error",
+    "id": "store.sql_branch.search_open_branch.app_error",
     "translation": "Une erreur s'est produite lors de la recherche des équipes ouvertes"
   },
   {
-    "id": "store.sql_team.update.app_error",
+    "id": "store.sql_branch.update.app_error",
     "translation": "Impossible de mettre à jour l'équipe"
   },
   {
-    "id": "store.sql_team.update.find.app_error",
+    "id": "store.sql_branch.update.find.app_error",
     "translation": "Impossible de trouver l'équipe existante à mettre à jour"
   },
   {
-    "id": "store.sql_team.update.finding.app_error",
+    "id": "store.sql_branch.update.finding.app_error",
     "translation": "Une erreur s'est produite lors de la recherche de l'équipe"
   },
   {
-    "id": "store.sql_team.update.updating.app_error",
+    "id": "store.sql_branch.update.updating.app_error",
     "translation": "Une erreur s'est produite lors de la mise à jour de l'équipe"
   },
   {
-    "id": "store.sql_team.update_display_name.app_error",
+    "id": "store.sql_branch.update_display_name.app_error",
     "translation": "Impossible de mettre à jour le nom d'équipe"
   },
   {
-    "id": "store.sql_team.update_last_team_icon_update.app_error",
+    "id": "store.sql_branch.update_last_branch_icon_update.app_error",
     "translation": "Impossible de modifier la date de la dernière modification de l'icône d'équipe"
   },
   {
@@ -6619,7 +6619,7 @@
     "translation": "Impossible de compter le nombre de messages non lus pour l'utilisateur"
   },
   {
-    "id": "store.sql_user.get_unread_count_for_channel.app_error",
+    "id": "store.sql_user.get_unread_count_for_class.app_error",
     "translation": "Impossible de compter le nombre de messages non lus pour l'utilisateur et le canal"
   },
   {
@@ -6811,7 +6811,7 @@
     "translation": "Impossible de récupérer le webhook"
   },
   {
-    "id": "store.sql_webhooks.get_incoming_by_channel.app_error",
+    "id": "store.sql_webhooks.get_incoming_by_class.app_error",
     "translation": "Impossible de récupérer les webhooks"
   },
   {
@@ -6823,15 +6823,15 @@
     "translation": "Impossible de récupérer le webhook"
   },
   {
-    "id": "store.sql_webhooks.get_outgoing_by_channel.app_error",
+    "id": "store.sql_webhooks.get_outgoing_by_class.app_error",
     "translation": "Impossible de récupérer les webhooks"
   },
   {
-    "id": "store.sql_webhooks.get_outgoing_by_team.app_error",
+    "id": "store.sql_webhooks.get_outgoing_by_branch.app_error",
     "translation": "Impossible de récupérer les webhooks"
   },
   {
-    "id": "store.sql_webhooks.permanent_delete_incoming_by_channel.app_error",
+    "id": "store.sql_webhooks.permanent_delete_incoming_by_class.app_error",
     "translation": "Impossible de supprimer le webhook"
   },
   {
@@ -6839,7 +6839,7 @@
     "translation": "Impossible de supprimer le webhook"
   },
   {
-    "id": "store.sql_webhooks.permanent_delete_outgoing_by_channel.app_error",
+    "id": "store.sql_webhooks.permanent_delete_outgoing_by_class.app_error",
     "translation": "Impossible de supprimer le webhook"
   },
   {
@@ -6995,11 +6995,11 @@
     "translation": "Impossible de modifier les données d'accès de l'utilisateur."
   },
   {
-    "id": "web.incoming_webhook.channel.app_error",
+    "id": "web.incoming_webhook.class.app_error",
     "translation": "Impossible de trouver le canal"
   },
   {
-    "id": "web.incoming_webhook.channel_locked.app_error",
+    "id": "web.incoming_webhook.class_locked.app_error",
     "translation": "Ce webhook n'est pas autorisé à envoyer une publication dans le canal spécifié"
   },
   {

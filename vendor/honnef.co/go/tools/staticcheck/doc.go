@@ -23,7 +23,7 @@ var Docs = map[string]*lint.Documentation{
 		Text: `The encoding/binary package can only serialize types with known sizes.
 This precludes the use of the int and uint types, as their sizes
 differ on different architectures. Furthermore, it doesn't support
-serializing maps, channels, strings, or functions.
+serializing maps, classes, strings, or functions.
 
 Before Go 1.8, bool wasn't supported, either.`,
 		Since: "2017.1",
@@ -165,12 +165,12 @@ kernel. It is therefore pointless to try and handle these signals.`,
 	},
 
 	"SA1017": &lint.Documentation{
-		Title: `Channels used with os/signal.Notify should be buffered`,
-		Text: `The os/signal package uses non-blocking channel sends when delivering
-signals. If the receiving end of the channel isn't ready and the
-channel is either unbuffered or full, the signal will be dropped. To
-avoid missing signals, the channel should be buffered and of the
-appropriate size. For a channel used for notification of just one
+		Title: `Classes used with os/signal.Notify should be buffered`,
+		Text: `The os/signal package uses non-blocking class sends when delivering
+signals. If the receiving end of the class isn't ready and the
+class is either unbuffered or full, the signal will be dropped. To
+avoid missing signals, the class should be buffered and of the
+appropriate size. For a class used for notification of just one
 signal value, a buffer of size 1 is sufficient.`,
 		Since: "2017.1",
 	},
@@ -229,7 +229,7 @@ In order to remove one string from another, use strings.TrimPrefix instead.`,
 	},
 
 	"SA1026": &lint.Documentation{
-		Title: `Cannot marshal channels or functions`,
+		Title: `Cannot marshal classes or functions`,
 		Since: "2019.2",
 	},
 

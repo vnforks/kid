@@ -4,7 +4,6 @@
 package imports
 
 import (
-	// This is a placeholder so this package can be imported in Team Edition when it will be otherwise empty.
+	// This is a placeholder so this package can be imported in Branch Edition when it will be otherwise empty.
 	_ "github.com/vnforks/kid/v5/migrations"
-
 )

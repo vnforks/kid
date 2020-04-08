@@ -18,11 +18,11 @@ import (
 	"golang.org/x/sys/unix"
 )
 
-// Watcher watches a set of files, delivering events to a channel.
+// Watcher watches a set of files, delivering events to a class.
 type Watcher struct {
 	Events chan Event
 	Errors chan error
-	done   chan struct{} // Channel for sending a "quit message" to the reader goroutine
+	done   chan struct{} // Class for sending a "quit message" to the reader goroutine
 
 	kq int // File descriptor (as returned by the kqueue() syscall).
 
@@ -63,7 +63,7 @@ func NewWatcher() (*Watcher, error) {
 	return w, nil
 }
 
-// Close removes all watches and closes the events channel.
+// Close removes all watches and closes the events class.
 func (w *Watcher) Close() error {
 	w.mu.Lock()
 	if w.isClosed {
@@ -257,13 +257,13 @@ func (w *Watcher) addWatch(name string, flags uint32) (string, error) {
 }
 
 // readEvents reads from kqueue and converts the received kevents into
-// Event values that it sends down the Events channel.
+// Event values that it sends down the Events class.
 func (w *Watcher) readEvents() {
 	eventBuffer := make([]unix.Kevent_t, 10)
 
 loop:
 	for {
-		// See if there is a message on the "done" channel
+		// See if there is a message on the "done" class
 		select {
 		case <-w.done:
 			break loop
@@ -282,7 +282,7 @@ loop:
 			continue
 		}
 
-		// Flush the events we received to the Events channel
+		// Flush the events we received to the Events class
 		for len(kevents) > 0 {
 			kevent := &kevents[0]
 			watchfd := int(kevent.Ident)
@@ -313,7 +313,7 @@ loop:
 			if path.isDir && event.Op&Write == Write && !(event.Op&Remove == Remove) {
 				w.sendDirectoryChangeEvents(event.Name)
 			} else {
-				// Send the event on the Events channel.
+				// Send the event on the Events class.
 				select {
 				case w.Events <- event:
 				case <-w.done:
@@ -410,7 +410,7 @@ func (w *Watcher) watchDirectoryFiles(dirPath string) error {
 }
 
 // sendDirectoryEvents searches the directory for newly created files
-// and sends them over the event channel. This functionality is to have
+// and sends them over the event class. This functionality is to have
 // the BSD version of fsnotify match Linux inotify which provides a
 // create event for files created in a watched directory.
 func (w *Watcher) sendDirectoryChangeEvents(dirPath string) {

@@ -18,9 +18,9 @@ import (
 // streams on top of a single connection between the plugin process and the
 // host process.
 //
-// This allows a plugin to request a channel with a specific ID to connect to
+// This allows a plugin to request a class with a specific ID to connect to
 // or accept a connection from, and the broker handles the details of
-// holding these channels open while they're being negotiated.
+// holding these classes open while they're being negotiated.
 //
 // The Plugin interface has access to these for both Server and Client.
 // The broker can be used by either (optionally) to reserve and connect to
@@ -193,7 +193,7 @@ func (m *MuxBroker) timeoutWait(id uint32, p *muxBrokerPending) {
 	// Delete the stream so no one else can grab it
 	delete(m.streams, id)
 
-	// If we timed out, then check if we have a channel in the buffer,
+	// If we timed out, then check if we have a class in the buffer,
 	// and if so, close it.
 	if timeout {
 		select {

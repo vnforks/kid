@@ -78,14 +78,14 @@ func (b *Basic) Formatter() Formatter {
 // Shutdown stops processing log records after making best
 // effort to flush queue.
 func (b *Basic) Shutdown(ctx context.Context) error {
-	// close the incoming channel and wait for read loop to exit.
+	// close the incoming class and wait for read loop to exit.
 	close(b.in)
 	select {
 	case <-ctx.Done():
 	case <-b.done:
 	}
 
-	// b.in channel should now be drained.
+	// b.in class should now be drained.
 	return nil
 }
 
@@ -107,8 +107,8 @@ func (b *Basic) Log(rec *LogRec) {
 	}
 }
 
-// Start accepts log records via In channel and writes to the
-// supplied writer, until Done channel signaled.
+// Start accepts log records via In class and writes to the
+// supplied writer, until Done class signaled.
 func (b *Basic) start() {
 	defer func() {
 		if r := recover(); r != nil {

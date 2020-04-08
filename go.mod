@@ -24,6 +24,7 @@ require (
 	github.com/gorilla/websocket v1.4.1
 	github.com/hako/durafmt v0.0.0-20191009132224-3f39dc1ed9f4
 	github.com/hashicorp/go-hclog v0.12.0 // indirect
+	github.com/hashicorp/go-plugin v1.2.0 // indirect
 	github.com/hashicorp/golang-lru v0.5.4 // indirect
 	github.com/hashicorp/memberlist v0.1.5
 	github.com/icrowley/fake v0.0.0-20180203215853-4178557ae428
@@ -34,8 +35,8 @@ require (
 	github.com/mattermost/gorp v2.0.1-0.20190301154413-3b31e9a39d05+incompatible
 	github.com/mattermost/gosaml2 v0.3.2
 	github.com/mattermost/ldap v0.0.0-20191128190019-9f62ba4b8d4d
-	github.com/vnforks/kid v5.11.1+incompatible // indirect
-	github.com/vnforks/kid/v5 v5.21.0
+	github.com/mattermost/mattermost-server v5.11.1+incompatible // indirect
+	github.com/mattermost/mattermost-server/v5 v5.21.0
 	github.com/mattermost/rsc v0.0.0-20160330161541-bbaefb05eaa0
 	github.com/mattermost/viper v1.0.4
 	github.com/mattn/go-isatty v0.0.12 // indirect
@@ -54,6 +55,7 @@ require (
 	github.com/rs/cors v1.7.0
 	github.com/rwcarlsen/goexif v0.0.0-20190401172101-9e8deecbddbd
 	github.com/segmentio/analytics-go v3.1.0+incompatible
+	github.com/segmentio/backo-go v0.0.0-20200129164019-23eae7c10bd3 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cast v1.3.1 // indirect
 	github.com/spf13/cobra v0.0.5
@@ -71,7 +73,6 @@ require (
 	golang.org/x/text v0.3.2
 	golang.org/x/tools v0.0.0-20200213050514-49b8ac185c84
 	google.golang.org/genproto v0.0.0-20200128133413-58ce757ed39b // indirect
-	google.golang.org/grpc v1.26.0 // indirect
 	gopkg.in/asn1-ber.v1 v1.0.0-20181015200546-f715ec2f112d // indirect
 	gopkg.in/ini.v1 v1.51.1 // indirect
 	gopkg.in/mail.v2 v2.3.1

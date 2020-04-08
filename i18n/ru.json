@@ -128,195 +128,195 @@
     "translation": "Невозможно загрузить файл. Он слишком большой."
   },
   {
-    "id": "api.channel.add_member.added",
+    "id": "api.class.add_member.added",
     "translation": "%v добавлен(а) в канал пользователем %v"
   },
   {
-    "id": "api.channel.add_user.to.channel.failed.app_error",
+    "id": "api.class.add_user.to.class.failed.app_error",
     "translation": "Не удалось добавить пользователя в канал"
   },
   {
-    "id": "api.channel.add_user.to.channel.failed.deleted.app_error",
+    "id": "api.class.add_user.to.class.failed.deleted.app_error",
     "translation": "Невозможно добавить пользователя к каналу, так как он был удален из команды."
   },
   {
-    "id": "api.channel.add_user_to_channel.type.app_error",
+    "id": "api.class.add_user_to_class.type.app_error",
     "translation": "Не могу добавить пользователя в канал этого типа"
   },
   {
-    "id": "api.channel.change_channel_privacy.private_to_public",
+    "id": "api.class.change_class_privacy.private_to_public",
     "translation": "Канал преобразован в публичный и к нему может присоединиться любой участник."
   },
   {
-    "id": "api.channel.change_channel_privacy.public_to_private",
+    "id": "api.class.change_class_privacy.public_to_private",
     "translation": "Канал преобразован в приватный."
   },
   {
-    "id": "api.channel.convert_channel_to_private.default_channel_error",
+    "id": "api.class.convert_class_to_private.default_class_error",
     "translation": "Канал по умолчанию не может быть преобразован в частный."
   },
   {
-    "id": "api.channel.convert_channel_to_private.private_channel_error",
+    "id": "api.class.convert_class_to_private.private_class_error",
     "translation": "Канал, запрошенный для преобразования, уже является частным каналом."
   },
   {
-    "id": "api.channel.create_channel.direct_channel.app_error",
-    "translation": "Нужно использовать createDirectChannel из API для создания канала личных сообщений"
+    "id": "api.class.create_class.direct_class.app_error",
+    "translation": "Нужно использовать createDirectClass из API для создания канала личных сообщений"
   },
   {
-    "id": "api.channel.create_channel.invalid_character.app_error",
+    "id": "api.class.create_class.invalid_character.app_error",
     "translation": "Недопустимый символ '__' в имени канала не для личных сообщений"
   },
   {
-    "id": "api.channel.create_channel.max_channel_limit.app_error",
-    "translation": "Нельзя создать больше чем {{.MaxChannelsPerTeam}} каналов для этой команды"
+    "id": "api.class.create_class.max_class_limit.app_error",
+    "translation": "Нельзя создать больше чем {{.MaxClassesPerBranch}} каналов для этой команды"
   },
   {
-    "id": "api.channel.create_default_channels.off_topic",
+    "id": "api.class.create_default_classes.off_topic",
     "translation": "Флуд"
   },
   {
-    "id": "api.channel.create_default_channels.town_square",
+    "id": "api.class.create_default_classes.town_square",
     "translation": "Общий канал"
   },
   {
-    "id": "api.channel.create_direct_channel.invalid_user.app_error",
+    "id": "api.class.create_direct_class.invalid_user.app_error",
     "translation": "Неверный ID пользователя при создании приватного канала"
   },
   {
-    "id": "api.channel.create_group.bad_size.app_error",
+    "id": "api.class.create_group.bad_size.app_error",
     "translation": "Канал группы должен содержать не менее 3 и не более 8 пользователей"
   },
   {
-    "id": "api.channel.create_group.bad_user.app_error",
+    "id": "api.class.create_group.bad_user.app_error",
     "translation": "Один из предложенных пользователей не существует"
   },
   {
-    "id": "api.channel.delete_channel.archived",
+    "id": "api.class.delete_class.archived",
     "translation": "%v архивация канала."
   },
   {
-    "id": "api.channel.delete_channel.cannot.app_error",
-    "translation": "Невозможно удалить канал по умолчанию {{.Channel}}"
+    "id": "api.class.delete_class.cannot.app_error",
+    "translation": "Невозможно удалить канал по умолчанию {{.Class}}"
   },
   {
-    "id": "api.channel.delete_channel.deleted.app_error",
+    "id": "api.class.delete_class.deleted.app_error",
     "translation": "Данный канал был перемещён в архив, либо удалён"
   },
   {
-    "id": "api.channel.delete_channel.type.invalid",
+    "id": "api.class.delete_class.type.invalid",
     "translation": "Невозможно удалить прямые или групповые каналы сообщений"
   },
   {
-    "id": "api.channel.join_channel.permissions.app_error",
+    "id": "api.class.join_class.permissions.app_error",
     "translation": "У вас нет соответствующих прав"
   },
   {
-    "id": "api.channel.join_channel.post_and_forget",
+    "id": "api.class.join_class.post_and_forget",
     "translation": "%v - выполнен вход на канал"
   },
   {
-    "id": "api.channel.leave.default.app_error",
-    "translation": "Невозможно выйти из канала по умолчанию {{.Channel}}"
+    "id": "api.class.leave.default.app_error",
+    "translation": "Невозможно выйти из канала по умолчанию {{.Class}}"
   },
   {
-    "id": "api.channel.leave.direct.app_error",
+    "id": "api.class.leave.direct.app_error",
     "translation": "Невозможно покинуть канал личных сообщений"
   },
   {
-    "id": "api.channel.leave.last_member.app_error",
+    "id": "api.class.leave.last_member.app_error",
     "translation": "Вы единственный оставшийся участник, попробуйте удалить Приватный Канал вместо того, чтобы выйти."
   },
   {
-    "id": "api.channel.leave.left",
+    "id": "api.class.leave.left",
     "translation": "%v покинул канал."
   },
   {
-    "id": "api.channel.patch_update_channel.forbidden.app_error",
+    "id": "api.class.patch_update_class.forbidden.app_error",
     "translation": "Не удалось обновить канал"
   },
   {
-    "id": "api.channel.post_channel_privacy_message.error",
+    "id": "api.class.post_class_privacy_message.error",
     "translation": "Невозможно отправить сообщение обновления приватности канала."
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.create_post.error",
+    "id": "api.class.post_update_class_displayname_message_and_forget.create_post.error",
     "translation": "Ну удалось отправить сообщение об обновлении отображаемого имени канала"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.retrieve_user.error",
+    "id": "api.class.post_update_class_displayname_message_and_forget.retrieve_user.error",
     "translation": "Не удалось получить пользователя при попытке обновления сообщения заголовка канала"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.updated_from",
+    "id": "api.class.post_update_class_displayname_message_and_forget.updated_from",
     "translation": "%s обновил отображаемое имя канала с: %s на: %s"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.post.error",
+    "id": "api.class.post_update_class_header_message_and_forget.post.error",
     "translation": "Не удалось опубликовать сообщение обновления заголовка канала"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.removed",
+    "id": "api.class.post_update_class_header_message_and_forget.removed",
     "translation": "%s удалил заголовок канала (был: %s)"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.retrieve_user.error",
+    "id": "api.class.post_update_class_header_message_and_forget.retrieve_user.error",
     "translation": "Не удалось получить пользователя при попытке обновления сообщения заголовка канала"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.updated_from",
+    "id": "api.class.post_update_class_header_message_and_forget.updated_from",
     "translation": "%s обновил заголовок канала с: %s на: %s"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.updated_to",
+    "id": "api.class.post_update_class_header_message_and_forget.updated_to",
     "translation": "%s обновил заголовок канала на: %s"
   },
   {
-    "id": "api.channel.post_user_add_remove_message_and_forget.error",
+    "id": "api.class.post_user_add_remove_message_and_forget.error",
     "translation": "Не удалось отправить сообщение о присоединении/отсоединении"
   },
   {
-    "id": "api.channel.remove.default.app_error",
-    "translation": "Невозможно удалить пользователя с канала по умолчанию {{.Channel}}"
+    "id": "api.class.remove.default.app_error",
+    "translation": "Невозможно удалить пользователя с канала по умолчанию {{.Class}}"
   },
   {
-    "id": "api.channel.remove_channel_member.type.app_error",
+    "id": "api.class.remove_class_member.type.app_error",
     "translation": "Не удалось удалить пользователя из канала."
   },
   {
-    "id": "api.channel.remove_member.removed",
+    "id": "api.class.remove_member.removed",
     "translation": "%v удален из канала."
   },
   {
-    "id": "api.channel.rename_channel.cant_rename_direct_messages.app_error",
+    "id": "api.class.rename_class.cant_rename_direct_messages.app_error",
     "translation": "Вы не можете переименовать канал прямых сообщений"
   },
   {
-    "id": "api.channel.rename_channel.cant_rename_group_messages.app_error",
+    "id": "api.class.rename_class.cant_rename_group_messages.app_error",
     "translation": "Вы не можете переименовать канал групповых сообщений"
   },
   {
-    "id": "api.channel.update_channel.deleted.app_error",
+    "id": "api.class.update_class.deleted.app_error",
     "translation": "Канал был архивирован или удалён"
   },
   {
-    "id": "api.channel.update_channel.tried.app_error",
-    "translation": "Попытка выполнения недопустимого обновления канала по умолчанию {{.Channel}}"
+    "id": "api.class.update_class.tried.app_error",
+    "translation": "Попытка выполнения недопустимого обновления канала по умолчанию {{.Class}}"
   },
   {
-    "id": "api.channel.update_channel_member_roles.scheme_role.app_error",
+    "id": "api.class.update_class_member_roles.scheme_role.app_error",
     "translation": "Выбранная роль управляется схемой и не может быть применена напрямую к участнику канала"
   },
   {
-    "id": "api.channel.update_channel_scheme.license.error",
+    "id": "api.class.update_class_scheme.license.error",
     "translation": "Ваша лицензия не поддерживает изменение схемы канала"
   },
   {
-    "id": "api.channel.update_channel_scheme.scheme_scope.error",
+    "id": "api.class.update_class_scheme.scheme_scope.error",
     "translation": "Невозможно применить схему к каналу, так как данная схема не является схемой канала."
   },
   {
-    "id": "api.channel.update_team_member_roles.scheme_role.app_error",
+    "id": "api.class.update_branch_member_roles.scheme_role.app_error",
     "translation": "Выбранная роль управляется схемой и не может быть применена напрямую к участнику команды"
   },
   {
@@ -400,7 +400,7 @@
     "translation": "Приглашение(-я) отправлено"
   },
   {
-    "id": "api.command.team_mismatch.app_error",
+    "id": "api.command.branch_mismatch.app_error",
     "translation": "Невозможно обновить команды через термины"
   },
   {
@@ -416,107 +416,107 @@
     "translation": "Сейчас ваше состояние \"Нет на месте\""
   },
   {
-    "id": "api.command_channel_header.channel.app_error",
+    "id": "api.command_class_header.class.app_error",
     "translation": "Ошибка получения текущего канала."
   },
   {
-    "id": "api.command_channel_header.desc",
+    "id": "api.command_class_header.desc",
     "translation": "Редактировать заголовок канала"
   },
   {
-    "id": "api.command_channel_header.hint",
+    "id": "api.command_class_header.hint",
     "translation": "текст"
   },
   {
-    "id": "api.command_channel_header.message.app_error",
+    "id": "api.command_class_header.message.app_error",
     "translation": "Перед сообщение должна быть команда /header."
   },
   {
-    "id": "api.command_channel_header.name",
+    "id": "api.command_class_header.name",
     "translation": "заголовок"
   },
   {
-    "id": "api.command_channel_header.permission.app_error",
+    "id": "api.command_class_header.permission.app_error",
     "translation": "У вас нет прав для редактирования заголовка канала."
   },
   {
-    "id": "api.command_channel_header.update_channel.app_error",
+    "id": "api.command_class_header.update_class.app_error",
     "translation": "Ошибка обновления текущего канала."
   },
   {
-    "id": "api.command_channel_purpose.channel.app_error",
+    "id": "api.command_class_purpose.class.app_error",
     "translation": "Ошибка получения текущего канала."
   },
   {
-    "id": "api.command_channel_purpose.desc",
+    "id": "api.command_class_purpose.desc",
     "translation": "Редактировать цель канала"
   },
   {
-    "id": "api.command_channel_purpose.direct_group.app_error",
+    "id": "api.command_class_purpose.direct_group.app_error",
     "translation": "Невозможно установить назначение для каналов личных сообщений. Используйте /header, чтобы вместо этого установить заголовок."
   },
   {
-    "id": "api.command_channel_purpose.hint",
+    "id": "api.command_class_purpose.hint",
     "translation": "текст"
   },
   {
-    "id": "api.command_channel_purpose.message.app_error",
+    "id": "api.command_class_purpose.message.app_error",
     "translation": "Перед сообщение должна быть команда /purpose"
   },
   {
-    "id": "api.command_channel_purpose.name",
+    "id": "api.command_class_purpose.name",
     "translation": "Цель"
   },
   {
-    "id": "api.command_channel_purpose.permission.app_error",
+    "id": "api.command_class_purpose.permission.app_error",
     "translation": "У вас нет прав для редактирования цели канала."
   },
   {
-    "id": "api.command_channel_purpose.update_channel.app_error",
+    "id": "api.command_class_purpose.update_class.app_error",
     "translation": "Ошибка обновления текущего канала."
   },
   {
-    "id": "api.command_channel_remove.channel.app_error",
+    "id": "api.command_class_remove.class.app_error",
     "translation": "Ошибка получения текущего канала."
   },
   {
-    "id": "api.command_channel_rename.channel.app_error",
+    "id": "api.command_class_rename.class.app_error",
     "translation": "Ошибка получения текущего канала."
   },
   {
-    "id": "api.command_channel_rename.desc",
+    "id": "api.command_class_rename.desc",
     "translation": "Переименовать канал"
   },
   {
-    "id": "api.command_channel_rename.direct_group.app_error",
+    "id": "api.command_class_rename.direct_group.app_error",
     "translation": "Невозможно переименовать канал личных сообщений."
   },
   {
-    "id": "api.command_channel_rename.hint",
+    "id": "api.command_class_rename.hint",
     "translation": "[текст]"
   },
   {
-    "id": "api.command_channel_rename.message.app_error",
+    "id": "api.command_class_rename.message.app_error",
     "translation": "Перед сообщение должна быть команда /rename."
   },
   {
-    "id": "api.command_channel_rename.name",
+    "id": "api.command_class_rename.name",
     "translation": "переименовать"
   },
   {
-    "id": "api.command_channel_rename.permission.app_error",
+    "id": "api.command_class_rename.permission.app_error",
     "translation": "У вас нет прав на переименование канала."
   },
   {
-    "id": "api.command_channel_rename.too_long.app_error",
+    "id": "api.command_class_rename.too_long.app_error",
     "translation": "Название канала должно быть меньше чем или равно {{.Length}} символов"
   },
   {
-    "id": "api.command_channel_rename.too_short.app_error",
+    "id": "api.command_class_rename.too_short.app_error",
     "translation": "Название канала должно быть больше чем или равно {{.Length}} символов"
   },
   {
-    "id": "api.command_channel_rename.update_channel.app_error",
+    "id": "api.command_class_rename.update_class.app_error",
     "translation": "Ошибка обновления текущего канала."
   },
   {
@@ -655,19 +655,19 @@
     "translation": "помощь"
   },
   {
-    "id": "api.command_invite.channel.app_error",
+    "id": "api.command_invite.class.app_error",
     "translation": "Ошибка получения текущего канала."
   },
   {
-    "id": "api.command_invite.channel.error",
-    "translation": "Не удалось найти канал {{.Channel}}. Для идентификации каналов используйте [название канала] (https://about.mattermost.com/default-channel-handle-documentation)."
+    "id": "api.command_invite.class.error",
+    "translation": "Не удалось найти канал {{.Class}}. Для идентификации каналов используйте [название канала] (https://about.mattermost.com/default-class-handle-documentation)."
   },
   {
     "id": "api.command_invite.desc",
     "translation": "Пригласить пользователя в канал"
   },
   {
-    "id": "api.command_invite.directchannel.app_error",
+    "id": "api.command_invite.directclass.app_error",
     "translation": "Вы не можете добавить кого-то в канал прямого сообщения."
   },
   {
@@ -692,18 +692,18 @@
   },
   {
     "id": "api.command_invite.permission.app_error",
-    "translation": "У вас недостаточно прав для добавления {{.User}} в {{.Channel}}."
+    "translation": "У вас недостаточно прав для добавления {{.User}} в {{.Class}}."
   },
   {
-    "id": "api.command_invite.private_channel.app_error",
-    "translation": "Невозможно найти канал {{.Channel}}. Пожалуйста, используйте управление каналом для идентификации."
+    "id": "api.command_invite.private_class.app_error",
+    "translation": "Невозможно найти канал {{.Class}}. Пожалуйста, используйте управление каналом для идентификации."
   },
   {
     "id": "api.command_invite.success",
-    "translation": "{{.User}} добавлен в канал {{.Channel}}."
+    "translation": "{{.User}} добавлен в канал {{.Class}}."
   },
   {
-    "id": "api.command_invite.user_already_in_channel.app_error",
+    "id": "api.command_invite.user_already_in_class.app_error",
     "translation": "{{.User}} уже находится в канале."
   },
   {
@@ -808,7 +808,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "Не удалось найти канал {{.Channel}}. Пожалуйста, используйте [дескриптор канала] (https://about.mattermost.com/default-channel-handle-documentation) для идентификации каналов."
+    "translation": "Не удалось найти канал {{.Class}}. Пожалуйста, используйте [дескриптор канала] (https://about.mattermost.com/default-class-handle-documentation) для идентификации каналов."
   },
   {
     "id": "api.command_mute.hint",
@@ -819,16 +819,16 @@
     "translation": "выкл"
   },
   {
-    "id": "api.command_mute.no_channel.error",
-    "translation": "Не удалось найти указанный канал. Пожалуйста, используйте [дескриптор канала] (https://about.mattermost.com/default-channel-handle-documentation) для идентификации каналов."
+    "id": "api.command_mute.no_class.error",
+    "translation": "Не удалось найти указанный канал. Пожалуйста, используйте [дескриптор канала] (https://about.mattermost.com/default-class-handle-documentation) для идентификации каналов."
   },
   {
     "id": "api.command_mute.not_member.error",
-    "translation": "Не удалось отключить канал {{.Channel}}, поскольку вы не являетесь его членом."
+    "translation": "Не удалось отключить канал {{.Class}}, поскольку вы не являетесь его членом."
   },
   {
     "id": "api.command_mute.success_mute",
-    "translation": "Вы не будете получать уведомления для {{.Channel}} до тех пор, пока отключен звук."
+    "translation": "Вы не будете получать уведомления для {{.Class}} до тех пор, пока отключен звук."
   },
   {
     "id": "api.command_mute.success_mute_direct_msg",
@@ -836,7 +836,7 @@
   },
   {
     "id": "api.command_mute.success_unmute",
-    "translation": "{{.Channel}} больше не отключен."
+    "translation": "{{.Class}} больше не отключен."
   },
   {
     "id": "api.command_mute.success_unmute_direct_msg",
@@ -899,7 +899,7 @@
     "translation": "У Вас нет прав для удаления участника."
   },
   {
-    "id": "api.command_remove.user_not_in_channel",
+    "id": "api.command_remove.user_not_in_class",
     "translation": "{{.Username}} не является участником этого канала."
   },
   {
@@ -1003,7 +1003,7 @@
     "translation": "Введите текст для своих Пользовательских условий обслуживания."
   },
   {
-    "id": "api.email_batching.add_notification_email_to_batch.channel_full.app_error",
+    "id": "api.email_batching.add_notification_email_to_batch.class_full.app_error",
     "translation": "Канал-получатель почтового объединения был полон. Пожалуйста, увеличьте значение EmailBatchingBufferSize."
   },
   {
@@ -1201,8 +1201,8 @@
     "translation": "{{.Filename}} dimensions ({{.Width}} by {{.Height}} pixels) exceed the limits"
   },
   {
-    "id": "api.file.upload_file.multiple_channel_ids.app_error",
-    "translation": "Unable to upload file(s). Multiple conflicting channel_ids."
+    "id": "api.file.upload_file.multiple_class_ids.app_error",
+    "translation": "Unable to upload file(s). Multiple conflicting class_ids."
   },
   {
     "id": "api.file.upload_file.read_form_value.app_error",
@@ -1417,11 +1417,11 @@
     "translation": "Отсутствует файл в запросе типа multipart/form"
   },
   {
-    "id": "api.post.check_for_out_of_channel_mentions.message.multiple",
+    "id": "api.post.check_for_out_of_class_mentions.message.multiple",
     "translation": "{{.Usernames}} и {{.LastUsername}} были упомянуты, но они не получили уведомлений поскольку не состоят в этом канале."
   },
   {
-    "id": "api.post.check_for_out_of_channel_mentions.message.one",
+    "id": "api.post.check_for_out_of_class_mentions.message.one",
     "translation": "{{.Username}} упомянули, но уведомлений не будут получены поскольку пользователи не состоят в этом канале."
   },
   {
@@ -1429,8 +1429,8 @@
     "translation": "Невозможно создать пост в удаленном канале."
   },
   {
-    "id": "api.post.create_post.channel_root_id.app_error",
-    "translation": "Неверный ChannelId для параметра RootId"
+    "id": "api.post.create_post.class_root_id.app_error",
+    "translation": "Неверный ClassId для параметра RootId"
   },
   {
     "id": "api.post.create_post.parent_id.app_error",
@@ -1458,15 +1458,15 @@
   },
   {
     "id": "api.post.delete_post.can_not_delete_post_in_deleted.error",
-    "translation": "Can not delete a post in a deleted channel."
+    "translation": "Can not delete a post in a deleted class."
   },
   {
     "id": "api.post.disabled_all",
     "translation": "Упоминание @all было отключено, поскольку количество пользователей на канале превышает {{.Users}}."
   },
   {
-    "id": "api.post.disabled_channel",
-    "translation": "@channel был отключен, поскольку количество пользователей превышает {{.Users}}."
+    "id": "api.post.disabled_class",
+    "translation": "@class был отключен, поскольку количество пользователей превышает {{.Users}}."
   },
   {
     "id": "api.post.disabled_here",
@@ -1500,14 +1500,14 @@
   },
   {
     "id": "api.post.patch_post.can_not_update_post_in_deleted.error",
-    "translation": "Can not update a post in a deleted channel."
+    "translation": "Can not update a post in a deleted class."
   },
   {
     "id": "api.post.save_is_pinned_post.town_square_read_only",
     "translation": "Этот канал доступен только для чтения. Недостаточно прав для отправки сообщений здесь."
   },
   {
-    "id": "api.post.send_notification_and_forget.push_channel_mention",
+    "id": "api.post.send_notification_and_forget.push_class_mention",
     "translation": " уведоми канал."
   },
   {
@@ -1536,7 +1536,7 @@
   },
   {
     "id": "api.post.update_post.can_not_update_post_in_deleted.error",
-    "translation": "Can not update a post in a deleted channel."
+    "translation": "Can not update a post in a deleted class."
   },
   {
     "id": "api.post.update_post.find.app_error",
@@ -1571,11 +1571,11 @@
     "translation": "Невозможно установить настройки пользователя."
   },
   {
-    "id": "api.reaction.delete.archived_channel.app_error",
+    "id": "api.reaction.delete.archived_class.app_error",
     "translation": "Вы не можете удалить реакцию в архивном канале."
   },
   {
-    "id": "api.reaction.save.archived_channel.app_error",
+    "id": "api.reaction.save.archived_class.app_error",
     "translation": "Вы не можете реагировать на архивный канал."
   },
   {
@@ -1607,11 +1607,11 @@
     "translation": "Ваша лицензия не поддерживает удаление схем разрешения."
   },
   {
-    "id": "api.scheme.get_channels_for_scheme.scope.error",
+    "id": "api.scheme.get_classes_for_scheme.scope.error",
     "translation": "Невозможно получить каналы для схемы, потому что предоставленные схемы не являются схемами каналов."
   },
   {
-    "id": "api.scheme.get_teams_for_scheme.scope.error",
+    "id": "api.scheme.get_branches_for_scheme.scope.error",
     "translation": "Невозможно получить команды для схемы, потому что предоставленные схемы не являются схемами команд."
   },
   {
@@ -1647,19 +1647,19 @@
     "translation": "Не удалось импортировать пользователя Integration / Slack Bot {{.Username}}.\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.added",
+    "id": "api.slackimport.slack_add_classes.added",
     "translation": "\r\nКаналы добавлены:\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.failed_to_add_user",
+    "id": "api.slackimport.slack_add_classes.failed_to_add_user",
     "translation": "Не удалось добавить пользователя Slack {{.Username}} в канал.\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.import_failed",
+    "id": "api.slackimport.slack_add_classes.import_failed",
     "translation": "Не удалось импортировать Slack канал {{.DisplayName}}.\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.merge",
+    "id": "api.slackimport.slack_add_classes.merge",
     "translation": "Slack канал {{.DisplayName}} уже существует в виде канала Mattermost. Произведено слияние.\r\n"
   },
   {
@@ -1711,7 +1711,7 @@
     "translation": "Невозможно открыть файл: {{.Filename}}.\r\n"
   },
   {
-    "id": "api.slackimport.slack_import.team_fail",
+    "id": "api.slackimport.slack_import.branch_fail",
     "translation": "Не удалось получить команду, в которую необходимо импортировать.\r\n"
   },
   {
@@ -1723,171 +1723,171 @@
     "translation": "Пользователь не найден"
   },
   {
-    "id": "api.team.add_user_to_team.added",
+    "id": "api.branch.add_user_to_branch.added",
     "translation": "%v добавлен(а) в команду пользователем %v"
   },
   {
-    "id": "api.team.add_user_to_team.missing_parameter.app_error",
+    "id": "api.branch.add_user_to_branch.missing_parameter.app_error",
     "translation": "Для добавления пользователя в команду требуется указать параметр."
   },
   {
-    "id": "api.team.get_invite_info.not_open_team",
+    "id": "api.branch.get_invite_info.not_open_branch",
     "translation": "Приглашение недопустимо, так команда не является открытой."
   },
   {
-    "id": "api.team.get_team_icon.filesettings_no_driver.app_error",
+    "id": "api.branch.get_branch_icon.filesettings_no_driver.app_error",
     "translation": "Неверное имя драйвера в настройках файлов. Должно быть 'local' или 'amazons3'"
   },
   {
-    "id": "api.team.get_team_icon.read_file.app_error",
+    "id": "api.branch.get_branch_icon.read_file.app_error",
     "translation": "Невозможно прочитать файл изображения команды."
   },
   {
-    "id": "api.team.import_team.array.app_error",
+    "id": "api.branch.import_branch.array.app_error",
     "translation": "Пустой массив 'file' в запросе"
   },
   {
-    "id": "api.team.import_team.integer.app_error",
+    "id": "api.branch.import_branch.integer.app_error",
     "translation": "Размер файла не является целым числом"
   },
   {
-    "id": "api.team.import_team.no_file.app_error",
+    "id": "api.branch.import_branch.no_file.app_error",
     "translation": "Нет файла 'file' в запросе"
   },
   {
-    "id": "api.team.import_team.no_import_from.app_error",
+    "id": "api.branch.import_branch.no_import_from.app_error",
     "translation": "Неправильный запрос: отсутствует поле \"importFrom\"."
   },
   {
-    "id": "api.team.import_team.open.app_error",
+    "id": "api.branch.import_branch.open.app_error",
     "translation": "Не могу открыть файл"
   },
   {
-    "id": "api.team.import_team.parse.app_error",
+    "id": "api.branch.import_branch.parse.app_error",
     "translation": "Невозможно обработать многострочную форму"
   },
   {
-    "id": "api.team.import_team.unavailable.app_error",
+    "id": "api.branch.import_branch.unavailable.app_error",
     "translation": "Неправильный запрос: отсутствует поле \"filesize\"."
   },
   {
-    "id": "api.team.invite_members.disabled.app_error",
+    "id": "api.branch.invite_members.disabled.app_error",
     "translation": "Приглашения по электронной почте отключены."
   },
   {
-    "id": "api.team.invite_members.invalid_email.app_error",
+    "id": "api.branch.invite_members.invalid_email.app_error",
     "translation": "Данный адрес почтового ящика не принадлежит списку разрешенных доменов: {{.Addresses}}. Пожалуйста, обратитесь к Вашему системному администратору за информацией."
   },
   {
-    "id": "api.team.invite_members.member",
+    "id": "api.branch.invite_members.member",
     "translation": "участник"
   },
   {
-    "id": "api.team.invite_members.no_one.app_error",
+    "id": "api.branch.invite_members.no_one.app_error",
     "translation": "Никого нет для приглашения."
   },
   {
-    "id": "api.team.is_team_creation_allowed.disabled.app_error",
+    "id": "api.branch.is_branch_creation_allowed.disabled.app_error",
     "translation": "Возможность создания команд была отключена. Пожалуйста, обратитесь к вашему системному администратору за подробностями."
   },
   {
-    "id": "api.team.is_team_creation_allowed.domain.app_error",
+    "id": "api.branch.is_branch_creation_allowed.domain.app_error",
     "translation": "E-mail должен принадлежать реальному домену (например @example.com). Пожалуйста, обратитесь к системному администратору за дополнительной информацией."
   },
   {
-    "id": "api.team.join_team.post_and_forget",
+    "id": "api.branch.join_branch.post_and_forget",
     "translation": "%v присоединился(-лась) к команде."
   },
   {
-    "id": "api.team.join_user_to_team.allowed_domains.app_error",
+    "id": "api.branch.join_user_to_branch.allowed_domains.app_error",
     "translation": "E-mail должен принадлежать реальному домену (например @example.com). Пожалуйста, обратитесь к системному администратору за дополнительной информацией."
   },
   {
-    "id": "api.team.leave.left",
+    "id": "api.branch.leave.left",
     "translation": "%v покинул(а) команду."
   },
   {
-    "id": "api.team.move_channel.post.error",
+    "id": "api.branch.move_class.post.error",
     "translation": "Не удалось опубликовать сообщение перемещения канала."
   },
   {
-    "id": "api.team.move_channel.success",
+    "id": "api.branch.move_class.success",
     "translation": "Канал перемещен в эту команду из %v."
   },
   {
-    "id": "api.team.remove_team_icon.get_team.app_error",
+    "id": "api.branch.remove_branch_icon.get_branch.app_error",
     "translation": "Произошла ошибка при подключении Команды"
   },
   {
-    "id": "api.team.remove_user_from_team.missing.app_error",
+    "id": "api.branch.remove_user_from_branch.missing.app_error",
     "translation": "Пользователь неактивен для участия в этой команде."
   },
   {
-    "id": "api.team.remove_user_from_team.removed",
+    "id": "api.branch.remove_user_from_branch.removed",
     "translation": " %v удален из команды."
   },
   {
-    "id": "api.team.set_team_icon.array.app_error",
+    "id": "api.branch.set_branch_icon.array.app_error",
     "translation": "Запрос выдал пустой массив в переменной 'image'"
   },
   {
-    "id": "api.team.set_team_icon.decode.app_error",
+    "id": "api.branch.set_branch_icon.decode.app_error",
     "translation": "Не удалось декодировать поток."
   },
   {
-    "id": "api.team.set_team_icon.decode_config.app_error",
+    "id": "api.branch.set_branch_icon.decode_config.app_error",
     "translation": "Не удалось декодировать метаданные поток команды"
   },
   {
-    "id": "api.team.set_team_icon.encode.app_error",
+    "id": "api.branch.set_branch_icon.encode.app_error",
     "translation": "Не удалось закодировать поток."
   },
   {
-    "id": "api.team.set_team_icon.get_team.app_error",
+    "id": "api.branch.set_branch_icon.get_branch.app_error",
     "translation": "Произошла ошибка при подключении команды"
   },
   {
-    "id": "api.team.set_team_icon.no_file.app_error",
+    "id": "api.branch.set_branch_icon.no_file.app_error",
     "translation": "Нет файла 'image' в запросе"
   },
   {
-    "id": "api.team.set_team_icon.open.app_error",
+    "id": "api.branch.set_branch_icon.open.app_error",
     "translation": "Не удалось открыть файл"
   },
   {
-    "id": "api.team.set_team_icon.parse.app_error",
+    "id": "api.branch.set_branch_icon.parse.app_error",
     "translation": "Невозможно обработать форму из нескольких частей"
   },
   {
-    "id": "api.team.set_team_icon.storage.app_error",
+    "id": "api.branch.set_branch_icon.storage.app_error",
     "translation": "Не удалось загрузить файл. Хранилище изображений не настроено."
   },
   {
-    "id": "api.team.set_team_icon.too_large.app_error",
+    "id": "api.branch.set_branch_icon.too_large.app_error",
     "translation": "Невозможно загрузить изображение. Файл слишком большой."
   },
   {
-    "id": "api.team.set_team_icon.write_file.app_error",
+    "id": "api.branch.set_branch_icon.write_file.app_error",
     "translation": "Не удалось установить значок"
   },
   {
-    "id": "api.team.team_icon.update.app_error",
+    "id": "api.branch.branch_icon.update.app_error",
     "translation": "Во время создания метки произошла ошибка:"
   },
   {
-    "id": "api.team.update_member_roles.not_a_member",
+    "id": "api.branch.update_member_roles.not_a_member",
     "translation": "Указанный пользователь не является участником указанной группы."
   },
   {
-    "id": "api.team.update_restricted_domains.mismatch.app_error",
+    "id": "api.branch.update_restricted_domains.mismatch.app_error",
     "translation": "Ограничения Команды на домене {{.Domain}} запрещены в настройках системы. Пожалуйста, обратитесь к системному администратору."
   },
   {
-    "id": "api.team.update_team_scheme.license.error",
+    "id": "api.branch.update_branch_scheme.license.error",
     "translation": "Ваша лицензия не поддерживает изменение схемы команды."
   },
   {
-    "id": "api.team.update_team_scheme.scheme_scope.error",
+    "id": "api.branch.update_branch_scheme.scheme_scope.error",
     "translation": "Невозможно установить схему команды так как данная схема не является схемой команды."
   },
   {
@@ -1908,7 +1908,7 @@
   },
   {
     "id": "api.templates.email_change_body.info",
-    "translation": "Ваш e-mail адрес для {{.TeamDisplayName}} был изменен на {{.NewEmail}}."
+    "translation": "Ваш e-mail адрес для {{.BranchDisplayName}} был изменен на {{.NewEmail}}."
   },
   {
     "id": "api.templates.email_change_body.title",
@@ -1924,7 +1924,7 @@
   },
   {
     "id": "api.templates.email_change_verify_body.info",
-    "translation": "Для завершения обновления Вашего адреса электронной почты для {{.TeamDisplayName}}, пожалуйста, нажмите на ссылку ниже, чтобы подтвердить корректность адреса."
+    "translation": "Для завершения обновления Вашего адреса электронной почты для {{.BranchDisplayName}}, пожалуйста, нажмите на ссылку ниже, чтобы подтвердить корректность адреса."
   },
   {
     "id": "api.templates.email_change_verify_body.title",
@@ -1964,11 +1964,11 @@
   },
   {
     "id": "api.templates.invite_body.extra_info",
-    "translation": "Mattermost позволяет обмениваться сообщениями и файлами с компьютера или телефона с возможностью моментального поиска и архивирования. После того, как Вы присоединитесь к команде {{.TeamDisplayName}}, Вы сможете получить доступ к этим функциям в любое время через Веб-сайт:"
+    "translation": "Mattermost позволяет обмениваться сообщениями и файлами с компьютера или телефона с возможностью моментального поиска и архивирования. После того, как Вы присоединитесь к команде {{.BranchDisplayName}}, Вы сможете получить доступ к этим функциям в любое время через Веб-сайт:"
   },
   {
     "id": "api.templates.invite_body.info",
-    "translation": "Команда {{.SenderStatus}} [[{.SenderName}}]] пригласила вас присоединиться к [[{.TeamDisplayName}}]]."
+    "translation": "Команда {{.SenderStatus}} [[{.SenderName}}]] пригласила вас присоединиться к [[{.BranchDisplayName}}]]."
   },
   {
     "id": "api.templates.invite_body.title",
@@ -1976,7 +1976,7 @@
   },
   {
     "id": "api.templates.invite_subject",
-    "translation": "[{{ .SiteName }}] {{ .SenderName }} пригласил вас в команду {{ .TeamDisplayName }}"
+    "translation": "[{{ .SiteName }}] {{ .SenderName }} пригласил вас в команду {{ .BranchDisplayName }}"
   },
   {
     "id": "api.templates.mfa_activated_body.info",
@@ -2000,7 +2000,7 @@
   },
   {
     "id": "api.templates.password_change_body.info",
-    "translation": "Ваш пароль был обновлен для {{.TeamDisplayName}} в {{.TeamURL}} {{.Method}}."
+    "translation": "Ваш пароль был обновлен для {{.BranchDisplayName}} в {{.BranchURL}} {{.Method}}."
   },
   {
     "id": "api.templates.password_change_body.title",
@@ -2064,7 +2064,7 @@
   },
   {
     "id": "api.templates.username_change_body.info",
-    "translation": "Ваш e-mail адрес для {{.TeamDisplayName}} был изменен на {{.NewEmail}}."
+    "translation": "Ваш e-mail адрес для {{.BranchDisplayName}} был изменен на {{.NewEmail}}."
   },
   {
     "id": "api.templates.username_change_body.title",
@@ -2123,8 +2123,8 @@
     "translation": "MFA недоступен для данного типа аккаунта"
   },
   {
-    "id": "api.user.add_direct_channels_and_forget.failed.error",
-    "translation": "Не удалось применить настройки приватного канала для пользователя: user_id={{.UserId}}, team_id={{.TeamId}}, err={{.Error}}"
+    "id": "api.user.add_direct_classes_and_forget.failed.error",
+    "translation": "Не удалось применить настройки приватного канала для пользователя: user_id={{.UserId}}, branch_id={{.BranchId}}, err={{.Error}}"
   },
   {
     "id": "api.user.authorize_oauth_user.bad_response.app_error",
@@ -2159,7 +2159,7 @@
     "translation": "Неподдерживаемый провайдер OAuth"
   },
   {
-    "id": "api.user.autocomplete_users.invalid_team_id",
+    "id": "api.user.autocomplete_users.invalid_branch_id",
     "translation": "Некорректный идентификатор Команды"
   },
   {
@@ -2548,14 +2548,14 @@
   },
   {
     "id": "api.webhook.create_outgoing.triggers.app_error",
-    "translation": "Должны быть заданы trigger_words или channel_id"
+    "translation": "Должны быть заданы trigger_words или class_id"
   },
   {
     "id": "api.webhook.incoming.error",
     "translation": "Не удалось декодировать многостраничную полезную нагрузку входящего вебхука"
   },
   {
-    "id": "api.webhook.team_mismatch.app_error",
+    "id": "api.webhook.branch_mismatch.app_error",
     "translation": "Не удалось обновить webhook в разных командах"
   },
   {
@@ -2571,31 +2571,31 @@
     "translation": "Соединение неудачно: {{.Error}}"
   },
   {
-    "id": "app.channel.create_channel.no_team_id.app_error",
+    "id": "app.class.create_class.no_branch_id.app_error",
     "translation": "Для создания канала необходимо указать ID команды"
   },
   {
-    "id": "app.channel.move_channel.members_do_not_match.error",
+    "id": "app.class.move_class.members_do_not_match.error",
     "translation": "Невозможно переместить канал, если все его участники уже не являются членами Команды."
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.post.error",
+    "id": "app.class.post_update_class_purpose_message.post.error",
     "translation": "Не удалось обновить заголовок канала."
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.removed",
+    "id": "app.class.post_update_class_purpose_message.removed",
     "translation": "%s удалил заголовок канала (был: %s)"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.retrieve_user.error",
+    "id": "app.class.post_update_class_purpose_message.retrieve_user.error",
     "translation": "Не удалось получить пользователя при попытке обновления сообщения заголовка канала %v"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.updated_from",
+    "id": "app.class.post_update_class_purpose_message.updated_from",
     "translation": "%s обновил заголовок канала с: %s на: %s"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.updated_to",
+    "id": "app.class.post_update_class_purpose_message.updated_to",
     "translation": "%s обновил заголовок канала на: %s"
   },
   {
@@ -2635,43 +2635,43 @@
     "translation": "Ошибка при чтении файла изображения emoji. Emoji с именем: \"{{.EmojiName}}\""
   },
   {
-    "id": "app.import.import_channel.scheme_deleted.error",
+    "id": "app.import.import_class.scheme_deleted.error",
     "translation": "Нельзя назначить каналу удаленную схему."
   },
   {
-    "id": "app.import.import_channel.scheme_wrong_scope.error",
+    "id": "app.import.import_class.scheme_wrong_scope.error",
     "translation": "Канал должен быть назначен в схеме уровня канала."
   },
   {
-    "id": "app.import.import_channel.team_not_found.error",
-    "translation": "Ошибка импорта канала. Команда с именем \"{{.TeamName}}\" не найдена."
+    "id": "app.import.import_class.branch_not_found.error",
+    "translation": "Ошибка импорта канала. Команда с именем \"{{.BranchName}}\" не найдена."
   },
   {
-    "id": "app.import.import_direct_channel.create_direct_channel.error",
+    "id": "app.import.import_direct_class.create_direct_class.error",
     "translation": "Не удалось создать прямой канал"
   },
   {
-    "id": "app.import.import_direct_channel.create_group_channel.error",
+    "id": "app.import.import_direct_class.create_group_class.error",
     "translation": "Не удалось создать групповой канал"
   },
   {
-    "id": "app.import.import_direct_channel.member_not_found.error",
+    "id": "app.import.import_direct_class.member_not_found.error",
     "translation": "Не удалось найти участника канала во время импорта прямого канала"
   },
   {
-    "id": "app.import.import_direct_channel.update_header_failed.error",
+    "id": "app.import.import_direct_class.update_header_failed.error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "app.import.import_direct_post.channel_member_not_found.error",
+    "id": "app.import.import_direct_post.class_member_not_found.error",
     "translation": "Не удалось найти участника канала во время импорта сообщения из личных сообщений"
   },
   {
-    "id": "app.import.import_direct_post.create_direct_channel.error",
+    "id": "app.import.import_direct_post.create_direct_class.error",
     "translation": "Не удалось получить прямой канал"
   },
   {
-    "id": "app.import.import_direct_post.create_group_channel.error",
+    "id": "app.import.import_direct_post.create_group_class.error",
     "translation": "Не удалось получить групповой канал"
   },
   {
@@ -2683,12 +2683,12 @@
     "translation": "Пользователь, отправивший сообщение, не существует"
   },
   {
-    "id": "app.import.import_line.null_channel.error",
-    "translation": "Строка импорта данных содержит тип \"channel\", но объект channel равен null."
+    "id": "app.import.import_line.null_class.error",
+    "translation": "Строка импорта данных содержит тип \"class\", но объект class равен null."
   },
   {
-    "id": "app.import.import_line.null_direct_channel.error",
-    "translation": "Строка импорта данных содержит тип \"direct_channel\", но direct_channel является null."
+    "id": "app.import.import_line.null_direct_class.error",
+    "translation": "Строка импорта данных содержит тип \"direct_class\", но direct_class является null."
   },
   {
     "id": "app.import.import_line.null_direct_post.error",
@@ -2707,8 +2707,8 @@
     "translation": "Строка импорта данных содержит тип \"scheme\", но объект scheme равен null."
   },
   {
-    "id": "app.import.import_line.null_team.error",
-    "translation": "Строка импорта данных содержит тип \"team\", но объект team равен null."
+    "id": "app.import.import_line.null_branch.error",
+    "translation": "Строка импорта данных содержит тип \"branch\", но объект branch равен null."
   },
   {
     "id": "app.import.import_line.null_user.error",
@@ -2719,16 +2719,16 @@
     "translation": "Строка импорта данных содержит неизвестный тип \"{{.Type}}\"."
   },
   {
-    "id": "app.import.import_post.channel_not_found.error",
-    "translation": "Ошибка импорта сообщения. Канал с именем \"{{.ChannelName}}\" не найден."
+    "id": "app.import.import_post.class_not_found.error",
+    "translation": "Ошибка импорта сообщения. Канал с именем \"{{.ClassName}}\" не найден."
   },
   {
     "id": "app.import.import_post.save_preferences.error",
     "translation": "Ошибка по время импорта поста. Не удалось сохранить настройки."
   },
   {
-    "id": "app.import.import_post.team_not_found.error",
-    "translation": "Ошибка импорта сообщения. Команда с именем \"{{.TeamName}}\" не найдена."
+    "id": "app.import.import_post.branch_not_found.error",
+    "translation": "Ошибка импорта сообщения. Команда с именем \"{{.BranchName}}\" не найдена."
   },
   {
     "id": "app.import.import_post.user_not_found.error",
@@ -2739,11 +2739,11 @@
     "translation": "Массовый импортер не может изменить область действия уже существующей схемы."
   },
   {
-    "id": "app.import.import_team.scheme_deleted.error",
+    "id": "app.import.import_branch.scheme_deleted.error",
     "translation": "Невозможно установить использование удаленной схемы для команды."
   },
   {
-    "id": "app.import.import_team.scheme_wrong_scope.error",
+    "id": "app.import.import_branch.scheme_wrong_scope.error",
     "translation": "Команда должна быть назначена схеме уровня команд."
   },
   {
@@ -2751,7 +2751,7 @@
     "translation": "Ошибка импорта настроек пользователя. Не удалось сохранить настройки."
   },
   {
-    "id": "app.import.import_user_channels.save_preferences.error",
+    "id": "app.import.import_user_classes.save_preferences.error",
     "translation": "Ошибка импорта участия пользователя в каналах. Не удалось сохранить настройки."
   },
   {
@@ -2759,79 +2759,79 @@
     "translation": "Невозможно прочитать версию файла данных импорта."
   },
   {
-    "id": "app.import.validate_channel_import_data.display_name_length.error",
-    "translation": "Свойство Channel display_name не находится в пределах допустимых ограничений длины."
+    "id": "app.import.validate_class_import_data.display_name_length.error",
+    "translation": "Свойство Class display_name не находится в пределах допустимых ограничений длины."
   },
   {
-    "id": "app.import.validate_channel_import_data.display_name_missing.error",
-    "translation": "Пропущено обязательное свойство channel: display_name."
+    "id": "app.import.validate_class_import_data.display_name_missing.error",
+    "translation": "Пропущено обязательное свойство class: display_name."
   },
   {
-    "id": "app.import.validate_channel_import_data.header_length.error",
+    "id": "app.import.validate_class_import_data.header_length.error",
     "translation": "Длина заголовка канала слишком большая."
   },
   {
-    "id": "app.import.validate_channel_import_data.name_characters.error",
+    "id": "app.import.validate_class_import_data.name_characters.error",
     "translation": "Имя канала содержит недопустимые символы."
   },
   {
-    "id": "app.import.validate_channel_import_data.name_length.error",
+    "id": "app.import.validate_class_import_data.name_length.error",
     "translation": "Имя канала слишком длинное."
   },
   {
-    "id": "app.import.validate_channel_import_data.name_missing.error",
-    "translation": "Пропущено обязательное свойство channel: name"
+    "id": "app.import.validate_class_import_data.name_missing.error",
+    "translation": "Пропущено обязательное свойство class: name"
   },
   {
-    "id": "app.import.validate_channel_import_data.purpose_length.error",
+    "id": "app.import.validate_class_import_data.purpose_length.error",
     "translation": "Заголовок канала слишком длинный."
   },
   {
-    "id": "app.import.validate_channel_import_data.scheme_invalid.error",
+    "id": "app.import.validate_class_import_data.scheme_invalid.error",
     "translation": "Недопустимое имя схемы для канала."
   },
   {
-    "id": "app.import.validate_channel_import_data.team_missing.error",
-    "translation": "Пропущено обязательное свойство channel: team"
+    "id": "app.import.validate_class_import_data.branch_missing.error",
+    "translation": "Пропущено обязательное свойство class: branch"
   },
   {
-    "id": "app.import.validate_channel_import_data.type_invalid.error",
+    "id": "app.import.validate_class_import_data.type_invalid.error",
     "translation": "Неверный тип канала."
   },
   {
-    "id": "app.import.validate_channel_import_data.type_missing.error",
-    "translation": "Пропущено обязательное свойство channel: type."
+    "id": "app.import.validate_class_import_data.type_missing.error",
+    "translation": "Пропущено обязательное свойство class: type."
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.header_length.error",
+    "id": "app.import.validate_direct_class_import_data.header_length.error",
     "translation": "Заголовок личного канала слишком длинный."
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_required.error",
-    "translation": "Пропущено обязательное свойство direct channel: members"
+    "id": "app.import.validate_direct_class_import_data.members_required.error",
+    "translation": "Пропущено обязательное свойство direct class: members"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_too_few.error",
+    "id": "app.import.validate_direct_class_import_data.members_too_few.error",
     "translation": "В списке пользователей личного канала слишком мало элементов."
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_too_many.error",
+    "id": "app.import.validate_direct_class_import_data.members_too_many.error",
     "translation": "В списке пользователей личного канала слишком много элементов."
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.unknown_favoriter.error",
+    "id": "app.import.validate_direct_class_import_data.unknown_favoriter.error",
     "translation": "Текущий канал может быть добавлен в избранное только членами команды. \"{{.Username}}\" не является членом данной команды."
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_required.error",
-    "translation": "Отсутствует необходимое поле для post: channel_members"
+    "id": "app.import.validate_direct_post_import_data.class_members_required.error",
+    "translation": "Отсутствует необходимое поле для post: class_members"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_too_few.error",
+    "id": "app.import.validate_direct_post_import_data.class_members_too_few.error",
     "translation": "В списке пользователей личного канала слишком мало элементов."
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_too_many.error",
+    "id": "app.import.validate_direct_post_import_data.class_members_too_many.error",
     "translation": "В списке пользователей личного канала слишком много элементов."
   },
   {
@@ -2871,8 +2871,8 @@
     "translation": "Имя поля Импорт эмодзи пропущено или пустое"
   },
   {
-    "id": "app.import.validate_post_import_data.channel_missing.error",
-    "translation": "Отсутствует необходимое поле для Post: Channel."
+    "id": "app.import.validate_post_import_data.class_missing.error",
+    "translation": "Отсутствует необходимое поле для Post: Class."
   },
   {
     "id": "app.import.validate_post_import_data.create_at_missing.error",
@@ -2891,8 +2891,8 @@
     "translation": "Отсутствует необходимое поле для Post: Message."
   },
   {
-    "id": "app.import.validate_post_import_data.team_missing.error",
-    "translation": "Отсутствует необходимое поле для Post: Team."
+    "id": "app.import.validate_post_import_data.branch_missing.error",
+    "translation": "Отсутствует необходимое поле для Post: Branch."
   },
   {
     "id": "app.import.validate_post_import_data.user_missing.error",
@@ -2987,63 +2987,63 @@
     "translation": "The wrong roles were provided for a scheme with this scope."
   },
   {
-    "id": "app.import.validate_team_import_data.description_length.error",
+    "id": "app.import.validate_branch_import_data.description_length.error",
     "translation": "Описание команды слишком длинное."
   },
   {
-    "id": "app.import.validate_team_import_data.display_name_length.error",
-    "translation": "Свойство Team display_name не находится в пределах допустимых ограничений длины."
+    "id": "app.import.validate_branch_import_data.display_name_length.error",
+    "translation": "Свойство Branch display_name не находится в пределах допустимых ограничений длины."
   },
   {
-    "id": "app.import.validate_team_import_data.display_name_missing.error",
-    "translation": "Отсутствует необходимое поле для team: display_name"
+    "id": "app.import.validate_branch_import_data.display_name_missing.error",
+    "translation": "Отсутствует необходимое поле для branch: display_name"
   },
   {
-    "id": "app.import.validate_team_import_data.name_characters.error",
+    "id": "app.import.validate_branch_import_data.name_characters.error",
     "translation": "Имя команды содержит недопустимые символы."
   },
   {
-    "id": "app.import.validate_team_import_data.name_length.error",
+    "id": "app.import.validate_branch_import_data.name_length.error",
     "translation": "Имя команды слишком длинное."
   },
   {
-    "id": "app.import.validate_team_import_data.name_missing.error",
-    "translation": "Пропущено необходимое свойство team: name."
+    "id": "app.import.validate_branch_import_data.name_missing.error",
+    "translation": "Пропущено необходимое свойство branch: name."
   },
   {
-    "id": "app.import.validate_team_import_data.name_reserved.error",
+    "id": "app.import.validate_branch_import_data.name_reserved.error",
     "translation": "Имя команды содержит зарезервированные слова."
   },
   {
-    "id": "app.import.validate_team_import_data.scheme_invalid.error",
+    "id": "app.import.validate_branch_import_data.scheme_invalid.error",
     "translation": "Недопустимое имя схемы для команды."
   },
   {
-    "id": "app.import.validate_team_import_data.type_invalid.error",
+    "id": "app.import.validate_branch_import_data.type_invalid.error",
     "translation": "Неверный тип команды."
   },
   {
-    "id": "app.import.validate_team_import_data.type_missing.error",
-    "translation": "Пропущено необходимое свойство team: type."
+    "id": "app.import.validate_branch_import_data.type_missing.error",
+    "translation": "Пропущено необходимое свойство branch: type."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.channel_name_missing.error",
+    "id": "app.import.validate_user_classes_import_data.class_name_missing.error",
     "translation": "Пропущено имя канала в «Участие пользователей на каналах»"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_desktop.error",
-    "translation": "Invalid Desktop NotifyProps for User's Channel Membership."
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_desktop.error",
+    "translation": "Invalid Desktop NotifyProps for User's Class Membership."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_mark_unread.error",
-    "translation": "Invalid MarkUnread NotifyProps for User's Channel Membership."
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_mark_unread.error",
+    "translation": "Invalid MarkUnread NotifyProps for User's Class Membership."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_mobile.error",
-    "translation": "Invalid Mobile NotifyProps for User's Channel Membership."
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_mobile.error",
+    "translation": "Invalid Mobile NotifyProps for User's Class Membership."
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_roles.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_roles.error",
     "translation": "Не правильные роли в «Участие пользователей на каналах»"
   },
   {
@@ -3075,8 +3075,8 @@
     "translation": "Псевдоним пользователя слишком длинный."
   },
   {
-    "id": "app.import.validate_user_import_data.notify_props_channel_trigger_invalid.error",
-    "translation": "Invalid Channel Trigger Notify Prop for user."
+    "id": "app.import.validate_user_import_data.notify_props_class_trigger_invalid.error",
+    "translation": "Invalid Class Trigger Notify Prop for user."
   },
   {
     "id": "app.import.validate_user_import_data.notify_props_comments_trigger_invalid.error",
@@ -3127,11 +3127,11 @@
     "translation": "Пропущено необходимое свойство user: username."
   },
   {
-    "id": "app.import.validate_user_teams_import_data.invalid_roles.error",
+    "id": "app.import.validate_user_branches_import_data.invalid_roles.error",
     "translation": "Неправильные роли в «Участие пользователей в команде»"
   },
   {
-    "id": "app.import.validate_user_teams_import_data.team_name_missing.error",
+    "id": "app.import.validate_user_branches_import_data.branch_name_missing.error",
     "translation": "Пропущено имя команды в «Участие пользователей в команде»"
   },
   {
@@ -3168,7 +3168,7 @@
   },
   {
     "id": "app.notification.body.text.group_message.full",
-    "translation": "Канал: {{.ChannelName}}"
+    "translation": "Канал: {{.ClassName}}"
   },
   {
     "id": "app.notification.body.text.group_message.full2",
@@ -3180,7 +3180,7 @@
   },
   {
     "id": "app.notification.body.text.notification.full",
-    "translation": "Канал: {{.ChannelName}}"
+    "translation": "Канал: {{.ClassName}}"
   },
   {
     "id": "app.notification.body.text.notification.full2",
@@ -3196,7 +3196,7 @@
   },
   {
     "id": "app.notification.subject.group_message.full",
-    "translation": "[{{ .SiteName }}] Новое групповое сообщение на {{ .ChannelName}} в {{.Month}} {{.Day}}, {{.Year}}"
+    "translation": "[{{ .SiteName }}] Новое групповое сообщение на {{ .ClassName}} в {{.Month}} {{.Day}}, {{.Year}}"
   },
   {
     "id": "app.notification.subject.group_message.generic",
@@ -3204,7 +3204,7 @@
   },
   {
     "id": "app.notification.subject.notification.full",
-    "translation": "[{{ .SiteName }}] Уведомление в {{ .TeamName}} в {{.Month}} {{.Day}}, {{.Year}}"
+    "translation": "[{{ .SiteName }}] Уведомление в {{ .BranchName}} в {{.Month}} {{.Day}}, {{.Year}}"
   },
   {
     "id": "app.plugin.cluster.save_config.app_error",
@@ -3299,7 +3299,7 @@
     "translation": "Failed to parse installation date"
   },
   {
-    "id": "app.team.join_user_to_team.max_accounts.app_error",
+    "id": "app.branch.join_user_to_branch.max_accounts.app_error",
     "translation": "Эта команда достигла максимального количества разрешенных учетных записей. Свяжитесь с системным администратором для увеличения лимита учётных записей."
   },
   {
@@ -3927,67 +3927,67 @@
     "translation": "Неверное имя пользователя"
   },
   {
-    "id": "model.channel.is_valid.2_or_more.app_error",
+    "id": "model.class.is_valid.2_or_more.app_error",
     "translation": "Имя должно состоять из 2 или более строчных букв и цифр"
   },
   {
-    "id": "model.channel.is_valid.create_at.app_error",
+    "id": "model.class.is_valid.create_at.app_error",
     "translation": "\"Создать в\" должно быть корректным временем"
   },
   {
-    "id": "model.channel.is_valid.creator_id.app_error",
+    "id": "model.class.is_valid.creator_id.app_error",
     "translation": "Недопустимый идентификатор автора"
   },
   {
-    "id": "model.channel.is_valid.display_name.app_error",
+    "id": "model.class.is_valid.display_name.app_error",
     "translation": "Недопустимое имя для отображения"
   },
   {
-    "id": "model.channel.is_valid.header.app_error",
+    "id": "model.class.is_valid.header.app_error",
     "translation": "Недопустимый заголовок"
   },
   {
-    "id": "model.channel.is_valid.id.app_error",
+    "id": "model.class.is_valid.id.app_error",
     "translation": "Недопустимый идентификатор"
   },
   {
-    "id": "model.channel.is_valid.purpose.app_error",
+    "id": "model.class.is_valid.purpose.app_error",
     "translation": "Недопустимая назначение"
   },
   {
-    "id": "model.channel.is_valid.type.app_error",
+    "id": "model.class.is_valid.type.app_error",
     "translation": "Недопустимый тип"
   },
   {
-    "id": "model.channel.is_valid.update_at.app_error",
+    "id": "model.class.is_valid.update_at.app_error",
     "translation": "\"Обновить в\" должно быть корректным временем"
   },
   {
-    "id": "model.channel_member.is_valid.channel_id.app_error",
+    "id": "model.class_member.is_valid.class_id.app_error",
     "translation": "Недопустимый идентификатор канала"
   },
   {
-    "id": "model.channel_member.is_valid.email_value.app_error",
+    "id": "model.class_member.is_valid.email_value.app_error",
     "translation": "Invalid email notification value"
   },
   {
-    "id": "model.channel_member.is_valid.ignore_channel_mentions_value.app_error",
-    "translation": "Invalid ignore channel mentions status"
+    "id": "model.class_member.is_valid.ignore_class_mentions_value.app_error",
+    "translation": "Invalid ignore class mentions status"
   },
   {
-    "id": "model.channel_member.is_valid.notify_level.app_error",
+    "id": "model.class_member.is_valid.notify_level.app_error",
     "translation": "Недопустимый уровень уведомлений"
   },
   {
-    "id": "model.channel_member.is_valid.push_level.app_error",
+    "id": "model.class_member.is_valid.push_level.app_error",
     "translation": "Invalid push notification level"
   },
   {
-    "id": "model.channel_member.is_valid.unread_level.app_error",
+    "id": "model.class_member.is_valid.unread_level.app_error",
     "translation": "Невозможно пометить как непрочитанное: неверный уровень разрешения."
   },
   {
-    "id": "model.channel_member.is_valid.user_id.app_error",
+    "id": "model.class_member.is_valid.user_id.app_error",
     "translation": "Неверный id пользователя"
   },
   {
@@ -4007,16 +4007,16 @@
     "translation": "Не удалось записать запрос"
   },
   {
-    "id": "model.client.get_flagged_posts_in_channel.missing_parameter.app_error",
-    "translation": "Missing channel parameter"
+    "id": "model.client.get_flagged_posts_in_class.missing_parameter.app_error",
+    "translation": "Missing class parameter"
   },
   {
-    "id": "model.client.get_flagged_posts_in_team.missing_parameter.app_error",
-    "translation": "Missing team parameter"
+    "id": "model.client.get_flagged_posts_in_branch.missing_parameter.app_error",
+    "translation": "Missing branch parameter"
   },
   {
-    "id": "model.client.get_team_icon.app_error",
-    "translation": "Unable to read the team icon from the body response."
+    "id": "model.client.get_branch_icon.app_error",
+    "translation": "Unable to read the branch icon from the body response."
   },
   {
     "id": "model.client.read_file.app_error",
@@ -4031,16 +4031,16 @@
     "translation": "Не удалось записать запрос"
   },
   {
-    "id": "model.client.set_team_icon.no_file.app_error",
+    "id": "model.client.set_branch_icon.no_file.app_error",
     "translation": "Нет файла 'image' в запросе"
   },
   {
-    "id": "model.client.set_team_icon.writer.app_error",
+    "id": "model.client.set_branch_icon.writer.app_error",
     "translation": "Не удалось записать запрос"
   },
   {
-    "id": "model.client.upload_post_attachment.channel_id.app_error",
-    "translation": "Error writing channel id to multipart form"
+    "id": "model.client.upload_post_attachment.class_id.app_error",
+    "translation": "Error writing class id to multipart form"
   },
   {
     "id": "model.client.upload_post_attachment.file.app_error",
@@ -4111,7 +4111,7 @@
     "translation": "Недопустимый метод"
   },
   {
-    "id": "model.command.is_valid.team_id.app_error",
+    "id": "model.command.is_valid.branch_id.app_error",
     "translation": "Недопустимый идентификатор команды"
   },
   {
@@ -4139,8 +4139,8 @@
     "translation": "Недопустимы идентификатор пользователя"
   },
   {
-    "id": "model.command_hook.channel_id.app_error",
-    "translation": "Неверный channel id"
+    "id": "model.command_hook.class_id.app_error",
+    "translation": "Неверный class id"
   },
   {
     "id": "model.command_hook.command_id.app_error",
@@ -4283,8 +4283,8 @@
     "translation": "Неверная соль публичной ссылки в настройках файлов. Должна состоять из 32 и более символов."
   },
   {
-    "id": "model.config.is_valid.group_unread_channels.app_error",
-    "translation": "Invalid group unread channels for service settings. Must be 'disabled', 'default_on', or 'default_off'."
+    "id": "model.config.is_valid.group_unread_classes.app_error",
+    "translation": "Invalid group unread classes for service settings. Must be 'disabled', 'default_on', or 'default_off'."
   },
   {
     "id": "model.config.is_valid.image_proxy_type.app_error",
@@ -4343,7 +4343,7 @@
     "translation": "Максимальное превышение полосы пропускания должно быть больше нуля."
   },
   {
-    "id": "model.config.is_valid.max_channels.app_error",
+    "id": "model.config.is_valid.max_classes.app_error",
     "translation": "Неверное максимальное количество пользователей на команду в настройках команд. Число должно быть положительным."
   },
   {
@@ -4351,7 +4351,7 @@
     "translation": "Invalid max file size for file settings. Must be a whole number greater than zero."
   },
   {
-    "id": "model.config.is_valid.max_notify_per_channel.app_error",
+    "id": "model.config.is_valid.max_notify_per_class.app_error",
     "translation": "Неверное максимальное количество пользователей на команду. Число должно быть положительным."
   },
   {
@@ -4416,7 +4416,7 @@
   },
   {
     "id": "model.config.is_valid.restrict_direct_message.app_error",
-    "translation": "Неверное ограничение личных сообщений. Должно быть 'any', или 'team'"
+    "translation": "Неверное ограничение личных сообщений. Должно быть 'any', или 'branch'"
   },
   {
     "id": "model.config.is_valid.saml_assertion_consumer_service_url.app_error",
@@ -4491,8 +4491,8 @@
     "translation": "Invalid query timeout for SQL settings.  Must be a positive number."
   },
   {
-    "id": "model.config.is_valid.teammate_name_display.app_error",
-    "translation": "Invalid teammate display. Must be 'full_name', 'nickname_full_name' or 'username'"
+    "id": "model.config.is_valid.branchmate_name_display.app_error",
+    "translation": "Invalid branchmate display. Must be 'full_name', 'nickname_full_name' or 'username'"
   },
   {
     "id": "model.config.is_valid.time_between_user_typing.app_error",
@@ -4628,10 +4628,10 @@
   },
   {
     "id": "model.group_syncable.unmarshaljson.duplicate_type_identifier",
-    "translation": "type identifier already exists: perhaps json contains both 'team_id' and 'channel_id'"
+    "translation": "type identifier already exists: perhaps json contains both 'branch_id' and 'class_id'"
   },
   {
-    "id": "model.incoming_hook.channel_id.app_error",
+    "id": "model.incoming_hook.class_id.app_error",
     "translation": "Некорректный идентификатор канала"
   },
   {
@@ -4659,7 +4659,7 @@
     "translation": "Невозможно разобрать входящие данные"
   },
   {
-    "id": "model.incoming_hook.team_id.app_error",
+    "id": "model.incoming_hook.branch_id.app_error",
     "translation": "Недопустимый идентификатор команды"
   },
   {
@@ -4771,7 +4771,7 @@
     "translation": "Неверный адрес колбэка"
   },
   {
-    "id": "model.outgoing_hook.is_valid.channel_id.app_error",
+    "id": "model.outgoing_hook.is_valid.class_id.app_error",
     "translation": "Некорректный идентификатор канала"
   },
   {
@@ -4795,7 +4795,7 @@
     "translation": "Некорректный идентификатор"
   },
   {
-    "id": "model.outgoing_hook.is_valid.team_id.app_error",
+    "id": "model.outgoing_hook.is_valid.branch_id.app_error",
     "translation": "Недопустимый идентификатор команды"
   },
   {
@@ -4839,7 +4839,7 @@
     "translation": "Invalid plugin ID, must be more than {{.Min}} and a of maximum {{.Max}} characters long."
   },
   {
-    "id": "model.post.is_valid.channel_id.app_error",
+    "id": "model.post.is_valid.class_id.app_error",
     "translation": "Некорректный идентификатор канала"
   },
   {
@@ -4935,59 +4935,59 @@
     "translation": "Неверный идентификатор пользователя"
   },
   {
-    "id": "model.team.is_valid.characters.app_error",
+    "id": "model.branch.is_valid.characters.app_error",
     "translation": "Имя должно состоять из 2 или более строчных букв и цифр"
   },
   {
-    "id": "model.team.is_valid.company.app_error",
+    "id": "model.branch.is_valid.company.app_error",
     "translation": "Некорректное имя компании"
   },
   {
-    "id": "model.team.is_valid.create_at.app_error",
+    "id": "model.branch.is_valid.create_at.app_error",
     "translation": "\"Создано в\" должно быть корректным временем"
   },
   {
-    "id": "model.team.is_valid.description.app_error",
+    "id": "model.branch.is_valid.description.app_error",
     "translation": "Неверное описание"
   },
   {
-    "id": "model.team.is_valid.domains.app_error",
+    "id": "model.branch.is_valid.domains.app_error",
     "translation": "Некорректные разрешенные домены"
   },
   {
-    "id": "model.team.is_valid.email.app_error",
+    "id": "model.branch.is_valid.email.app_error",
     "translation": "Некорректный адрес эл.почты"
   },
   {
-    "id": "model.team.is_valid.id.app_error",
+    "id": "model.branch.is_valid.id.app_error",
     "translation": "Некорректный идентификатор"
   },
   {
-    "id": "model.team.is_valid.name.app_error",
+    "id": "model.branch.is_valid.name.app_error",
     "translation": "Некорректное имя"
   },
   {
-    "id": "model.team.is_valid.reserved.app_error",
+    "id": "model.branch.is_valid.reserved.app_error",
     "translation": "Этот URL-адрес недоступен. Пожалуйста, введите другой."
   },
   {
-    "id": "model.team.is_valid.type.app_error",
+    "id": "model.branch.is_valid.type.app_error",
     "translation": "Некорректный тип"
   },
   {
-    "id": "model.team.is_valid.update_at.app_error",
+    "id": "model.branch.is_valid.update_at.app_error",
     "translation": "\"Обновлено в\" должно быть корректным временем"
   },
   {
-    "id": "model.team.is_valid.url.app_error",
+    "id": "model.branch.is_valid.url.app_error",
     "translation": "Некорректный идентификатор URL"
   },
   {
-    "id": "model.team_member.is_valid.team_id.app_error",
+    "id": "model.branch_member.is_valid.branch_id.app_error",
     "translation": "Недопустимый идентификатор команды"
   },
   {
-    "id": "model.team_member.is_valid.user_id.app_error",
+    "id": "model.branch_member.is_valid.user_id.app_error",
     "translation": "Некорректный идентификатор пользователя"
   },
   {
@@ -5215,383 +5215,383 @@
     "translation": "Возникла ошибка обновления приложения"
   },
   {
-    "id": "store.sql_channel.analytics_deleted_type_count.app_error",
+    "id": "store.sql_class.analytics_deleted_type_count.app_error",
     "translation": "Не удалось получить количество удалённых каналов по типам"
   },
   {
-    "id": "store.sql_channel.analytics_type_count.app_error",
+    "id": "store.sql_class.analytics_type_count.app_error",
     "translation": "Не удалось получить количество удалённых каналов по типам"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.commit_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.commit_transaction.app_error",
     "translation": "Failed to commit the database transaction"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.open_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.open_transaction.app_error",
     "translation": "Failed to begin the database transaction"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.rollback_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.rollback_transaction.app_error",
     "translation": "Failed to rollback the database transaction"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.select.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.select.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.update.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.update.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_channel.delete.channel.app_error",
+    "id": "store.sql_class.delete.class.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_channel.get.existing.app_error",
+    "id": "store.sql_class.get.existing.app_error",
     "translation": "Не удалось найти существующий удалённый канал"
   },
   {
-    "id": "store.sql_channel.get.find.app_error",
+    "id": "store.sql_class.get.find.app_error",
     "translation": "Возникла проблема при поиске канала"
   },
   {
-    "id": "store.sql_channel.get_all.app_error",
+    "id": "store.sql_class.get_all.app_error",
     "translation": "Невозможно получить каналы"
   },
   {
-    "id": "store.sql_channel.get_by_name.existing.app_error",
+    "id": "store.sql_class.get_by_name.existing.app_error",
     "translation": "Не удалось найти существующий удалённый канал"
   },
   {
-    "id": "store.sql_channel.get_by_name.missing.app_error",
+    "id": "store.sql_class.get_by_name.missing.app_error",
     "translation": "Канал не существует"
   },
   {
-    "id": "store.sql_channel.get_by_scheme.app_error",
-    "translation": "Unable to get the channels for the provided scheme"
+    "id": "store.sql_class.get_by_scheme.app_error",
+    "translation": "Unable to get the classes for the provided scheme"
   },
   {
-    "id": "store.sql_channel.get_channel_counts.get.app_error",
+    "id": "store.sql_class.get_class_counts.get.app_error",
     "translation": "Не удалось добавить участников прямого канала"
   },
   {
-    "id": "store.sql_channel.get_channels.get.app_error",
+    "id": "store.sql_class.get_classes.get.app_error",
     "translation": "Невозможно получить каналы"
   },
   {
-    "id": "store.sql_channel.get_channels.not_found.app_error",
+    "id": "store.sql_class.get_classes.not_found.app_error",
     "translation": "Каналы не найдены"
   },
   {
-    "id": "store.sql_channel.get_channels_by_ids.get.app_error",
+    "id": "store.sql_class.get_classes_by_ids.get.app_error",
     "translation": "Невозможно получить каналы"
   },
   {
-    "id": "store.sql_channel.get_channels_by_ids.not_found.app_error",
+    "id": "store.sql_class.get_classes_by_ids.not_found.app_error",
     "translation": "Каналы не найдены"
   },
   {
-    "id": "store.sql_channel.get_deleted.existing.app_error",
+    "id": "store.sql_class.get_deleted.existing.app_error",
     "translation": "Не удалось найти существующий удалённый канал"
   },
   {
-    "id": "store.sql_channel.get_deleted.missing.app_error",
-    "translation": "No deleted channels exist"
+    "id": "store.sql_class.get_deleted.missing.app_error",
+    "translation": "No deleted classes exist"
   },
   {
-    "id": "store.sql_channel.get_deleted_by_name.existing.app_error",
+    "id": "store.sql_class.get_deleted_by_name.existing.app_error",
     "translation": "Не удалось найти существующий удалённый канал"
   },
   {
-    "id": "store.sql_channel.get_deleted_by_name.missing.app_error",
+    "id": "store.sql_class.get_deleted_by_name.missing.app_error",
     "translation": "Не существует удалённого канала с таким именем."
   },
   {
-    "id": "store.sql_channel.get_for_post.app_error",
+    "id": "store.sql_class.get_for_post.app_error",
     "translation": "Мы не смогли получить канал для данного сообщения"
   },
   {
-    "id": "store.sql_channel.get_member.app_error",
+    "id": "store.sql_class.get_member.app_error",
     "translation": "Не удалось добавить участников прямого канала"
   },
   {
-    "id": "store.sql_channel.get_member.missing.app_error",
+    "id": "store.sql_class.get_member.missing.app_error",
     "translation": "Не найдено ни одного участника канала по данному идентификатору пользователя и канала"
   },
   {
-    "id": "store.sql_channel.get_member_count.app_error",
+    "id": "store.sql_class.get_member_count.app_error",
     "translation": "Не удалось получить подсчет участников канала"
   },
   {
-    "id": "store.sql_channel.get_member_for_post.app_error",
+    "id": "store.sql_class.get_member_for_post.app_error",
     "translation": "Мы не смогли получить участника канала для данного сообщения"
   },
   {
-    "id": "store.sql_channel.get_members.app_error",
+    "id": "store.sql_class.get_members.app_error",
     "translation": "Не удалось добавить участников прямого канала"
   },
   {
-    "id": "store.sql_channel.get_members_by_ids.app_error",
+    "id": "store.sql_class.get_members_by_ids.app_error",
     "translation": "Не удалось добавить участников прямого канала"
   },
   {
-    "id": "store.sql_channel.get_more_channels.get.app_error",
+    "id": "store.sql_class.get_more_classes.get.app_error",
     "translation": "Невозможно получить каналы"
   },
   {
-    "id": "store.sql_channel.get_public_channels.get.app_error",
+    "id": "store.sql_class.get_public_classes.get.app_error",
     "translation": "Невозможно получить каналы"
   },
   {
-    "id": "store.sql_channel.get_timezone.app_error",
+    "id": "store.sql_class.get_timezone.app_error",
     "translation": "Не удалось получить участников канала"
   },
   {
-    "id": "store.sql_channel.get_unread.app_error",
+    "id": "store.sql_class.get_unread.app_error",
     "translation": "Не удалось получить список непрочитанных сообщений в канале"
   },
   {
-    "id": "store.sql_channel.increment_mention_count.app_error",
+    "id": "store.sql_class.increment_mention_count.app_error",
     "translation": "Unable to increment the mention count"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.commit_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.commit_transaction.app_error",
     "translation": "Failed to commit the database transaction"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.open_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.open_transaction.app_error",
     "translation": "Failed to open the database transaction"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.rollback_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.rollback_transaction.app_error",
     "translation": "Failed to roll back the database transaction"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.select.app_error",
-    "translation": "Failed to select the batch of channel members"
+    "id": "store.sql_class.migrate_class_members.select.app_error",
+    "translation": "Failed to select the batch of class members"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.update.app_error",
+    "id": "store.sql_class.migrate_class_members.update.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_channel.permanent_delete.app_error",
+    "id": "store.sql_class.permanent_delete.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_channel.permanent_delete.commit_transaction.app_error",
+    "id": "store.sql_class.permanent_delete.commit_transaction.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.permanent_delete.delete_public_channel.app_error",
-    "translation": "Unable to delete materialized public channel"
+    "id": "store.sql_class.permanent_delete.delete_public_class.app_error",
+    "translation": "Unable to delete materialized public class"
   },
   {
-    "id": "store.sql_channel.permanent_delete.open_transaction.app_error",
+    "id": "store.sql_class.permanent_delete.open_transaction.app_error",
     "translation": "Невозможно открыть транзакцию"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.commit_transaction.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.commit_transaction.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.delete_public_channels.app_error",
-    "translation": "Unable to delete materialized public channels"
+    "id": "store.sql_class.permanent_delete_by_branch.delete_public_classes.app_error",
+    "translation": "Unable to delete materialized public classes"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.open_transaction.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.open_transaction.app_error",
     "translation": "Невозможно открыть транзакцию"
   },
   {
-    "id": "store.sql_channel.permanent_delete_members_by_user.app_error",
+    "id": "store.sql_class.permanent_delete_members_by_user.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_channel.pinned_posts.app_error",
+    "id": "store.sql_class.pinned_posts.app_error",
     "translation": "Unable to find the pinned posts"
   },
   {
-    "id": "store.sql_channel.remove_all_deactivated_members.app_error",
-    "translation": "We could not remove the deactivated users from the channel"
+    "id": "store.sql_class.remove_all_deactivated_members.app_error",
+    "translation": "We could not remove the deactivated users from the class"
   },
   {
-    "id": "store.sql_channel.remove_member.app_error",
+    "id": "store.sql_class.remove_member.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.app_error",
-    "translation": "We could not reset the channel schemes"
+    "id": "store.sql_class.reset_all_class_schemes.app_error",
+    "translation": "We could not reset the class schemes"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.commit_transaction.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.commit_transaction.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.open_transaction.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.open_transaction.app_error",
     "translation": "Невозможно открыть транзакцию"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.app_error",
-    "translation": "We could not reset the channel last post at date"
+    "id": "store.sql_class.reset_last_post_at.app_error",
+    "translation": "We could not reset the class last post at date"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.commit_transaction.app_error",
+    "id": "store.sql_class.reset_last_post_at.commit_transaction.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.open_transaction.app_error",
+    "id": "store.sql_class.reset_last_post_at.open_transaction.app_error",
     "translation": "Невозможно открыть транзакцию"
   },
   {
-    "id": "store.sql_channel.save.archived_channel.app_error",
+    "id": "store.sql_class.save.archived_class.app_error",
     "translation": "Вы не можете редактировать архивный канал."
   },
   {
-    "id": "store.sql_channel.save.commit_transaction.app_error",
+    "id": "store.sql_class.save.commit_transaction.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.save.direct_channel.app_error",
-    "translation": "Используйте SaveDirectChannel для создания прямого канала"
+    "id": "store.sql_class.save.direct_class.app_error",
+    "translation": "Используйте SaveDirectClass для создания прямого канала"
   },
   {
-    "id": "store.sql_channel.save.open_transaction.app_error",
+    "id": "store.sql_class.save.open_transaction.app_error",
     "translation": "Невозможно открыть транзакцию"
   },
   {
-    "id": "store.sql_channel.save.upsert_public_channel.app_error",
-    "translation": "Unable to upsert materialized public channel"
+    "id": "store.sql_class.save.upsert_public_class.app_error",
+    "translation": "Unable to upsert materialized public class"
   },
   {
-    "id": "store.sql_channel.save_channel.current_count.app_error",
+    "id": "store.sql_class.save_class.current_count.app_error",
     "translation": "Не удалось получить счет текущего канала"
   },
   {
-    "id": "store.sql_channel.save_channel.existing.app_error",
+    "id": "store.sql_class.save_class.existing.app_error",
     "translation": "Необходимо вызвать обновление для существующего канала"
   },
   {
-    "id": "store.sql_channel.save_channel.exists.app_error",
+    "id": "store.sql_class.save_class.exists.app_error",
     "translation": "Канал с таким именем уже существует в этой команде"
   },
   {
-    "id": "store.sql_channel.save_channel.limit.app_error",
+    "id": "store.sql_class.save_class.limit.app_error",
     "translation": "Вы достигли предела количества разрешённых каналов."
   },
   {
-    "id": "store.sql_channel.save_channel.previously.app_error",
+    "id": "store.sql_class.save_class.previously.app_error",
     "translation": "Канал с таким URL был создан ранее"
   },
   {
-    "id": "store.sql_channel.save_channel.save.app_error",
+    "id": "store.sql_class.save_class.save.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.add_members.app_error",
+    "id": "store.sql_class.save_direct_class.add_members.app_error",
     "translation": "Не удалось добавить участников прямого канала"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.commit.app_error",
+    "id": "store.sql_class.save_direct_class.commit.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.not_direct.app_error",
-    "translation": "Попытка создать канал, не являющийся прямым с использованием SaveDirectChannel"
+    "id": "store.sql_class.save_direct_class.not_direct.app_error",
+    "translation": "Попытка создать канал, не являющийся прямым с использованием SaveDirectClass"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.open_transaction.app_error",
+    "id": "store.sql_class.save_direct_class.open_transaction.app_error",
     "translation": "Невозможно начать транзакцию"
   },
   {
-    "id": "store.sql_channel.save_member.commit_transaction.app_error",
+    "id": "store.sql_class.save_member.commit_transaction.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.save_member.exists.app_error",
+    "id": "store.sql_class.save_member.exists.app_error",
     "translation": "Участник канала с таким идентификатором уже существует"
   },
   {
-    "id": "store.sql_channel.save_member.open_transaction.app_error",
+    "id": "store.sql_class.save_member.open_transaction.app_error",
     "translation": "Невозможно начать транзакцию"
   },
   {
-    "id": "store.sql_channel.save_member.save.app_error",
+    "id": "store.sql_class.save_member.save.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_channel.search.app_error",
+    "id": "store.sql_class.search.app_error",
     "translation": "Возникла проблема при поиске канала"
   },
   {
-    "id": "store.sql_channel.set_delete_at.commit_transaction.app_error",
+    "id": "store.sql_class.set_delete_at.commit_transaction.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.set_delete_at.open_transaction.app_error",
+    "id": "store.sql_class.set_delete_at.open_transaction.app_error",
     "translation": "Невозможно открыть транзакцию"
   },
   {
-    "id": "store.sql_channel.set_delete_at.update_public_channel.app_error",
-    "translation": "Unable to update the materialized public channel"
+    "id": "store.sql_class.set_delete_at.update_public_class.app_error",
+    "translation": "Unable to update the materialized public class"
   },
   {
-    "id": "store.sql_channel.update.app_error",
+    "id": "store.sql_class.update.app_error",
     "translation": "Не удалось обновить канал"
   },
   {
-    "id": "store.sql_channel.update.archived_channel.app_error",
+    "id": "store.sql_class.update.archived_class.app_error",
     "translation": "Вы не можете редактировать архивный канал."
   },
   {
-    "id": "store.sql_channel.update.commit_transaction.app_error",
+    "id": "store.sql_class.update.commit_transaction.app_error",
     "translation": "Не удалось зафиксировать транзакцию"
   },
   {
-    "id": "store.sql_channel.update.exists.app_error",
+    "id": "store.sql_class.update.exists.app_error",
     "translation": "Канал с таким дескриптором уже существует"
   },
   {
-    "id": "store.sql_channel.update.open_transaction.app_error",
+    "id": "store.sql_class.update.open_transaction.app_error",
     "translation": "Невозможно открыть транзакцию"
   },
   {
-    "id": "store.sql_channel.update.previously.app_error",
+    "id": "store.sql_class.update.previously.app_error",
     "translation": "Канал с таким дескриптором был создан ранее"
   },
   {
-    "id": "store.sql_channel.update.updating.app_error",
+    "id": "store.sql_class.update.updating.app_error",
     "translation": "Возникла ошибка при обновлении канала"
   },
   {
-    "id": "store.sql_channel.update.upsert_public_channel.app_error",
-    "translation": "Unable to upsert materialized public channel"
+    "id": "store.sql_class.update.upsert_public_class.app_error",
+    "translation": "Unable to upsert materialized public class"
   },
   {
-    "id": "store.sql_channel.update_last_viewed_at.app_error",
+    "id": "store.sql_class.update_last_viewed_at.app_error",
     "translation": "Ну удалось установить время последнего просмотра на"
   },
   {
-    "id": "store.sql_channel.update_member.app_error",
+    "id": "store.sql_class.update_member.app_error",
     "translation": "Возникла ошибка при обновлении участника канала"
   },
   {
-    "id": "store.sql_channel_member_history.get_users_in_channel_during.app_error",
-    "translation": "Failed to get users in channel during specified time period"
+    "id": "store.sql_class_member_history.get_users_in_class_during.app_error",
+    "translation": "Failed to get users in class during specified time period"
   },
   {
-    "id": "store.sql_channel_member_history.log_join_event.app_error",
-    "translation": "Failed to record channel member history"
+    "id": "store.sql_class_member_history.log_join_event.app_error",
+    "translation": "Failed to record class member history"
   },
   {
-    "id": "store.sql_channel_member_history.log_leave_event.update_error",
-    "translation": "Failed to record channel member history. Failed to update existing join record"
+    "id": "store.sql_class_member_history.log_leave_event.update_error",
+    "translation": "Failed to record class member history. Failed to update existing join record"
   },
   {
-    "id": "store.sql_channel_member_history.permanent_delete_batch.app_error",
+    "id": "store.sql_class_member_history.permanent_delete_batch.app_error",
     "translation": "Failed to purge records"
   },
   {
@@ -5639,7 +5639,7 @@
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_command.save.get_team.app_error",
+    "id": "store.sql_command.save.get_branch.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
@@ -6007,7 +6007,7 @@
     "translation": "We encountered an error permanently deleting the batch of posts"
   },
   {
-    "id": "store.sql_post.permanent_delete_by_channel.app_error",
+    "id": "store.sql_post.permanent_delete_by_class.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
@@ -6207,12 +6207,12 @@
     "translation": "We could not permanently delete the schemes"
   },
   {
-    "id": "store.sql_scheme.reset_channels.app_error",
-    "translation": "Unable to reset all channels using this scheme to the default scheme"
+    "id": "store.sql_scheme.reset_classes.app_error",
+    "translation": "Unable to reset all classes using this scheme to the default scheme"
   },
   {
-    "id": "store.sql_scheme.reset_teams.app_error",
-    "translation": "Unable to reset all teams using this scheme to the default scheme"
+    "id": "store.sql_scheme.reset_branches.app_error",
+    "translation": "Unable to reset all branches using this scheme to the default scheme"
   },
   {
     "id": "store.sql_scheme.save.insert.app_error",
@@ -6259,7 +6259,7 @@
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_session.remove_all_sessions_for_team.app_error",
+    "id": "store.sql_session.remove_all_sessions_for_branch.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
@@ -6299,7 +6299,7 @@
     "translation": "Возникла ошибка при получении всех статусов \"В сети/Отошёл\""
   },
   {
-    "id": "store.sql_status.get_team_statuses.app_error",
+    "id": "store.sql_status.get_branch_statuses.app_error",
     "translation": "Возникла ошибка с получением всех статусов участников команды"
   },
   {
@@ -6343,172 +6343,172 @@
     "translation": "Возникла ошибка при обновлении свойства системы"
   },
   {
-    "id": "store.sql_team.analytics_get_team_count_for_scheme.app_error",
-    "translation": "Unable to get the channel count for the scheme."
+    "id": "store.sql_branch.analytics_get_branch_count_for_scheme.app_error",
+    "translation": "Unable to get the class count for the scheme."
   },
   {
-    "id": "store.sql_team.analytics_team_count.app_error",
+    "id": "store.sql_branch.analytics_branch_count.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.commit_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.commit_transaction.app_error",
     "translation": "Failed to commit the database transaction"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.open_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.open_transaction.app_error",
     "translation": "Failed to begin the database transaction"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.rollback_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.rollback_transaction.app_error",
     "translation": "Failed to rollback the database transaction"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.select.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.select.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.update.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.update.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.get.find.app_error",
+    "id": "store.sql_branch.get.find.app_error",
     "translation": "Не удалось найти действительную команду для обновления"
   },
   {
-    "id": "store.sql_team.get.finding.app_error",
+    "id": "store.sql_branch.get.finding.app_error",
     "translation": "Возникла ошибка с обнаружением команды"
   },
   {
-    "id": "store.sql_team.get_all.app_error",
+    "id": "store.sql_branch.get_all.app_error",
     "translation": "Не удалось получить все команды"
   },
   {
-    "id": "store.sql_team.get_all_team_listing.app_error",
+    "id": "store.sql_branch.get_all_branch_listing.app_error",
     "translation": "Не удалось получить все команды"
   },
   {
-    "id": "store.sql_team.get_by_invite_id.find.app_error",
+    "id": "store.sql_branch.get_by_invite_id.find.app_error",
     "translation": "Не удалось найти действительную команду для обновления"
   },
   {
-    "id": "store.sql_team.get_by_invite_id.finding.app_error",
+    "id": "store.sql_branch.get_by_invite_id.finding.app_error",
     "translation": "Не удалось найти действительную команду для обновления"
   },
   {
-    "id": "store.sql_team.get_by_name.app_error",
+    "id": "store.sql_branch.get_by_name.app_error",
     "translation": "Не удалось найти действительную команду для обновления"
   },
   {
-    "id": "store.sql_team.get_by_scheme.app_error",
-    "translation": "Unable to get the channels for the provided scheme"
+    "id": "store.sql_branch.get_by_scheme.app_error",
+    "translation": "Unable to get the classes for the provided scheme"
   },
   {
-    "id": "store.sql_team.get_member.app_error",
+    "id": "store.sql_branch.get_member.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.get_member.missing.app_error",
+    "id": "store.sql_branch.get_member.missing.app_error",
     "translation": "Не найдено ни одного участника команды по данному идентификатору пользователя и канала"
   },
   {
-    "id": "store.sql_team.get_member_count.app_error",
+    "id": "store.sql_branch.get_member_count.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.get_members.app_error",
+    "id": "store.sql_branch.get_members.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.get_members_by_ids.app_error",
+    "id": "store.sql_branch.get_members_by_ids.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.get_unread.app_error",
+    "id": "store.sql_branch.get_unread.app_error",
     "translation": "Не удалось получить список непрочтённых сообщений для команды"
   },
   {
-    "id": "store.sql_team.migrate_team_members.commit_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.commit_transaction.app_error",
     "translation": "Failed to commit the database transaction"
   },
   {
-    "id": "store.sql_team.migrate_team_members.open_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.open_transaction.app_error",
     "translation": "Failed to open the database transaction"
   },
   {
-    "id": "store.sql_team.migrate_team_members.rollback_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.rollback_transaction.app_error",
     "translation": "Failed to roll back the database transaction"
   },
   {
-    "id": "store.sql_team.migrate_team_members.select.app_error",
-    "translation": " Failed to select the batch of team members"
+    "id": "store.sql_branch.migrate_branch_members.select.app_error",
+    "translation": " Failed to select the batch of branch members"
   },
   {
-    "id": "store.sql_team.migrate_team_members.update.app_error",
+    "id": "store.sql_branch.migrate_branch_members.update.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.permanent_delete.app_error",
+    "id": "store.sql_branch.permanent_delete.app_error",
     "translation": "Не удалось найти действительную команду для обновления"
   },
   {
-    "id": "store.sql_team.remove_member.app_error",
+    "id": "store.sql_branch.remove_member.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.reset_all_team_schemes.app_error",
-    "translation": "We could not reset the team schemes"
+    "id": "store.sql_branch.reset_all_branch_schemes.app_error",
+    "translation": "We could not reset the branch schemes"
   },
   {
-    "id": "store.sql_team.save.app_error",
+    "id": "store.sql_branch.save.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_team.save.domain_exists.app_error",
+    "id": "store.sql_branch.save.domain_exists.app_error",
     "translation": "Команда с таким именем уже существует"
   },
   {
-    "id": "store.sql_team.save.existing.app_error",
+    "id": "store.sql_branch.save.existing.app_error",
     "translation": "Необходимо вызвать обновление для существующей команды"
   },
   {
-    "id": "store.sql_team.save_member.exists.app_error",
+    "id": "store.sql_branch.save_member.exists.app_error",
     "translation": "Участник команды с таким идентификатором уже существует"
   },
   {
-    "id": "store.sql_team.save_member.save.app_error",
+    "id": "store.sql_branch.save_member.save.app_error",
     "translation": "Не удалось обновить заголовок канала"
   },
   {
-    "id": "store.sql_team.search_all_team.app_error",
+    "id": "store.sql_branch.search_all_branch.app_error",
     "translation": "Возникла проблема при поиске команд"
   },
   {
-    "id": "store.sql_team.search_open_team.app_error",
+    "id": "store.sql_branch.search_open_branch.app_error",
     "translation": "Возникла проблема при поиске открытых команд"
   },
   {
-    "id": "store.sql_team.update.app_error",
+    "id": "store.sql_branch.update.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_team.update.find.app_error",
+    "id": "store.sql_branch.update.find.app_error",
     "translation": "Не удалось найти действительную команду для обновления"
   },
   {
-    "id": "store.sql_team.update.finding.app_error",
+    "id": "store.sql_branch.update.finding.app_error",
     "translation": "Возникла ошибка с обнаружением команды"
   },
   {
-    "id": "store.sql_team.update.updating.app_error",
+    "id": "store.sql_branch.update.updating.app_error",
     "translation": "Возникла ошибка обновления команды"
   },
   {
-    "id": "store.sql_team.update_display_name.app_error",
+    "id": "store.sql_branch.update_display_name.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_team.update_last_team_icon_update.app_error",
-    "translation": "Unable to update the date of the last team icon update"
+    "id": "store.sql_branch.update_last_branch_icon_update.app_error",
+    "translation": "Unable to update the date of the last branch icon update"
   },
   {
     "id": "store.sql_terms_of_service.save.app_error",
@@ -6619,7 +6619,7 @@
     "translation": "Не удалось получить количество непрочитанных сообщений для пользователя"
   },
   {
-    "id": "store.sql_user.get_unread_count_for_channel.app_error",
+    "id": "store.sql_user.get_unread_count_for_class.app_error",
     "translation": "Не удалось получить количество непрочитанных сообщений для пользователя и канала"
   },
   {
@@ -6811,7 +6811,7 @@
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_webhooks.get_incoming_by_channel.app_error",
+    "id": "store.sql_webhooks.get_incoming_by_class.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
@@ -6823,15 +6823,15 @@
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_webhooks.get_outgoing_by_channel.app_error",
+    "id": "store.sql_webhooks.get_outgoing_by_class.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_webhooks.get_outgoing_by_team.app_error",
+    "id": "store.sql_webhooks.get_outgoing_by_branch.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_webhooks.permanent_delete_incoming_by_channel.app_error",
+    "id": "store.sql_webhooks.permanent_delete_incoming_by_class.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
@@ -6839,7 +6839,7 @@
     "translation": "Не удалось удалить плагин"
   },
   {
-    "id": "store.sql_webhooks.permanent_delete_outgoing_by_channel.app_error",
+    "id": "store.sql_webhooks.permanent_delete_outgoing_by_class.app_error",
     "translation": "Не удалось удалить плагин"
   },
   {
@@ -6995,12 +6995,12 @@
     "translation": "Не удалось обновить пароль пользователя"
   },
   {
-    "id": "web.incoming_webhook.channel.app_error",
+    "id": "web.incoming_webhook.class.app_error",
     "translation": "Не удалось найти канал"
   },
   {
-    "id": "web.incoming_webhook.channel_locked.app_error",
-    "translation": "This webhook is not permitted to post to the requested channel"
+    "id": "web.incoming_webhook.class_locked.app_error",
+    "translation": "This webhook is not permitted to post to the requested class"
   },
   {
     "id": "web.incoming_webhook.disabled.app_error",

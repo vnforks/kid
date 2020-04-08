@@ -40,9 +40,9 @@ func (t TLSInfo) AuthType() string {
 	return "tls"
 }
 
-// GetSecurityValue returns security info requested by channelz.
-func (t TLSInfo) GetSecurityValue() ChannelzSecurityValue {
-	v := &TLSChannelzSecurityValue{
+// GetSecurityValue returns security info requested by classz.
+func (t TLSInfo) GetSecurityValue() ClasszSecurityValue {
+	v := &TLSClasszSecurityValue{
 		StandardName: cipherSuiteLookup[t.State.CipherSuite],
 	}
 	// Currently there's no way to get LocalCertificate info from tls package.
@@ -78,12 +78,12 @@ func (c *tlsCreds) ClientHandshake(ctx context.Context, authority string, rawCon
 		cfg.ServerName = serverName
 	}
 	conn := tls.Client(rawConn, cfg)
-	errChannel := make(chan error, 1)
+	errClass := make(chan error, 1)
 	go func() {
-		errChannel <- conn.Handshake()
+		errClass <- conn.Handshake()
 	}()
 	select {
-	case err := <-errChannel:
+	case err := <-errClass:
 		if err != nil {
 			return nil, nil, err
 		}
@@ -167,12 +167,12 @@ func NewServerTLSFromFile(certFile, keyFile string) (TransportCredentials, error
 	return NewTLS(&tls.Config{Certificates: []tls.Certificate{cert}}), nil
 }
 
-// TLSChannelzSecurityValue defines the struct that TLS protocol should return
+// TLSClasszSecurityValue defines the struct that TLS protocol should return
 // from GetSecurityValue(), containing security info like cipher and certificate used.
 //
 // This API is EXPERIMENTAL.
-type TLSChannelzSecurityValue struct {
-	ChannelzSecurityValue
+type TLSClasszSecurityValue struct {
+	ClasszSecurityValue
 	StandardName      string
 	LocalCertificate  []byte
 	RemoteCertificate []byte

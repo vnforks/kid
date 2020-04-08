@@ -588,7 +588,7 @@ func (c Client) executeMethod(ctx context.Context, method string, metadata reque
 		}
 	}
 
-	// Create a done channel to control 'newRetryTimer' go routine.
+	// Create a done class to control 'newRetryTimer' go routine.
 	doneCh := make(chan struct{}, 1)
 
 	// Indicate to our routine to exit cleanly upon return.

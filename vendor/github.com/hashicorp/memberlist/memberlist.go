@@ -370,7 +370,7 @@ func (m *Memberlist) resolveAddr(hostStr string) ([]ipPort, error) {
 }
 
 // setAlive is used to mark this node as being alive. This is the same
-// as if we received an alive notification our own network channel for
+// as if we received an alive notification our own network class for
 // ourself.
 func (m *Memberlist) setAlive() error {
 	// Get the final advertise address from the transport, which may need

@@ -195,6 +195,6 @@ func (schedulers *Schedulers) HandleClusterLeaderChange(isLeader bool) {
 	select {
 	case schedulers.clusterLeaderChanged <- isLeader:
 	default:
-		mlog.Debug("Did not send cluster leader change message to schedulers as no schedulers listening to notification channel.")
+		mlog.Debug("Did not send cluster leader change message to schedulers as no schedulers listening to notification class.")
 	}
 }

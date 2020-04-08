@@ -18,14 +18,12 @@ func (a *App) registerAllClusterMessageHandlers() {
 	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_PUBLISH, a.clusterPublishHandler)
 	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_UPDATE_STATUS, a.clusterUpdateStatusHandler)
 	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_ALL_CACHES, a.clusterInvalidateAllCachesHandler)
-	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CHANNEL_MEMBERS_NOTIFY_PROPS, a.clusterInvalidateCacheForChannelMembersNotifyPropHandler)
-	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CHANNEL_BY_NAME, a.clusterInvalidateCacheForChannelByNameHandler)
+	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CLASS_MEMBERS_NOTIFY_PROPS, a.clusterInvalidateCacheForClassMembersNotifyPropHandler)
+	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CLASS_BY_NAME, a.clusterInvalidateCacheForClassByNameHandler)
 	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_USER, a.clusterInvalidateCacheForUserHandler)
-	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_USER_TEAMS, a.clusterInvalidateCacheForUserTeamsHandler)
+	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_USER_BRANCHES, a.clusterInvalidateCacheForUserBranchesHandler)
 	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_CLEAR_SESSION_CACHE_FOR_USER, a.clusterClearSessionCacheForUserHandler)
 	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_CLEAR_SESSION_CACHE_FOR_ALL_USERS, a.clusterClearSessionCacheForAllUsersHandler)
-	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_INSTALL_PLUGIN, a.clusterInstallPluginHandler)
-	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_REMOVE_PLUGIN, a.clusterRemovePluginHandler)
 	a.Cluster().RegisterClusterMessageHandler(model.CLUSTER_EVENT_BUSY_STATE_CHANGED, a.clusterBusyStateChgHandler)
 }
 
@@ -46,20 +44,20 @@ func (a *App) clusterInvalidateAllCachesHandler(msg *model.ClusterMessage) {
 	a.InvalidateAllCachesSkipSend()
 }
 
-func (a *App) clusterInvalidateCacheForChannelMembersNotifyPropHandler(msg *model.ClusterMessage) {
-	a.invalidateCacheForChannelMembersNotifyPropsSkipClusterSend(msg.Data)
+func (a *App) clusterInvalidateCacheForClassMembersNotifyPropHandler(msg *model.ClusterMessage) {
+	a.invalidateCacheForClassMembersNotifyPropsSkipClusterSend(msg.Data)
 }
 
-func (a *App) clusterInvalidateCacheForChannelByNameHandler(msg *model.ClusterMessage) {
-	a.invalidateCacheForChannelByNameSkipClusterSend(msg.Props["id"], msg.Props["name"])
+func (a *App) clusterInvalidateCacheForClassByNameHandler(msg *model.ClusterMessage) {
+	a.invalidateCacheForClassByNameSkipClusterSend(msg.Props["id"], msg.Props["name"])
 }
 
 func (a *App) clusterInvalidateCacheForUserHandler(msg *model.ClusterMessage) {
 	a.invalidateCacheForUserSkipClusterSend(msg.Data)
 }
 
-func (a *App) clusterInvalidateCacheForUserTeamsHandler(msg *model.ClusterMessage) {
-	a.invalidateCacheForUserTeamsSkipClusterSend(msg.Data)
+func (a *App) clusterInvalidateCacheForUserBranchesHandler(msg *model.ClusterMessage) {
+	a.invalidateCacheForUserBranchesSkipClusterSend(msg.Data)
 }
 
 func (a *App) clusterClearSessionCacheForUserHandler(msg *model.ClusterMessage) {
@@ -68,14 +66,6 @@ func (a *App) clusterClearSessionCacheForUserHandler(msg *model.ClusterMessage) 
 
 func (a *App) clusterClearSessionCacheForAllUsersHandler(msg *model.ClusterMessage) {
 	a.ClearSessionCacheForAllUsersSkipClusterSend()
-}
-
-func (a *App) clusterInstallPluginHandler(msg *model.ClusterMessage) {
-	a.InstallPluginFromData(model.PluginEventDataFromJson(strings.NewReader(msg.Data)))
-}
-
-func (a *App) clusterRemovePluginHandler(msg *model.ClusterMessage) {
-	a.RemovePluginFromData(model.PluginEventDataFromJson(strings.NewReader(msg.Data)))
 }
 
 func (a *App) clusterBusyStateChgHandler(msg *model.ClusterMessage) {

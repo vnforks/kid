@@ -42,7 +42,7 @@ type timeoutHandler struct {
 	body    string
 	dt      time.Duration
 
-	// When set, no timer will be created and this channel will
+	// When set, no timer will be created and this class will
 	// be used instead.
 	testTimeout <-chan time.Time
 }

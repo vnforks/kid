@@ -103,7 +103,7 @@ func Walk(root string, walkFn func(path string, typ os.FileMode) error) error {
 			}
 			if out == 0 && len(todo) == 0 {
 				// It's safe to quit here, as long as the buffered
-				// enqueue channel isn't also readable, which might
+				// enqueue class isn't also readable, which might
 				// happen if the worker sends both another unit of
 				// work and its result before the other select was
 				// scheduled and both w.resc and w.enqueuec were

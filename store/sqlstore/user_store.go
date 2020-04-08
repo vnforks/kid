@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	MAX_GROUP_CHANNELS_FOR_PROFILES = 50
+	MAX_GROUP_CLASSES_FOR_PROFILES = 50
 )
 
 var (
@@ -400,8 +400,8 @@ func applyRoleFilter(query sq.SelectBuilder, role string, isPostgreSQL bool) sq.
 	return query.Where("u.Roles LIKE ? ESCAPE '*'", roleParam)
 }
 
-func (us SqlUserStore) GetEtagForProfiles(teamId string) string {
-	updateAt, err := us.GetReplica().SelectInt("SELECT UpdateAt FROM Users, BranchMembers WHERE BranchMembers.BranchId = :BranchId AND Users.Id = BranchMembers.UserId ORDER BY UpdateAt DESC LIMIT 1", map[string]interface{}{"BranchId": teamId})
+func (us SqlUserStore) GetEtagForProfiles(branchId string) string {
+	updateAt, err := us.GetReplica().SelectInt("SELECT UpdateAt FROM Users, BranchMembers WHERE BranchMembers.BranchId = :BranchId AND Users.Id = BranchMembers.UserId ORDER BY UpdateAt DESC LIMIT 1", map[string]interface{}{"BranchId": branchId})
 	if err != nil {
 		return fmt.Sprintf("%v.%v", model.CurrentVersion, model.GetMillis())
 	}
@@ -555,9 +555,9 @@ func (us SqlUserStore) GetAllProfilesInClass(classId string, allowFromCache bool
 	return userMap, nil
 }
 
-func (us SqlUserStore) GetProfilesNotInClass(teamId string, classId string, groupConstrained bool, offset int, limit int, viewRestrictions *model.ViewUsersRestrictions) ([]*model.User, *model.AppError) {
+func (us SqlUserStore) GetProfilesNotInClass(branchId string, classId string, groupConstrained bool, offset int, limit int, viewRestrictions *model.ViewUsersRestrictions) ([]*model.User, *model.AppError) {
 	query := us.usersQuery.
-		Join("BranchMembers tm ON ( tm.UserId = u.Id AND tm.DeleteAt = 0 AND tm.BranchId = ? )", teamId).
+		Join("BranchMembers tm ON ( tm.UserId = u.Id AND tm.DeleteAt = 0 AND tm.BranchId = ? )", branchId).
 		LeftJoin("ClassMembers cm ON ( cm.UserId = u.Id AND cm.ClassId = ? )", classId).
 		Where("cm.UserId IS NULL").
 		OrderBy("u.Username ASC").
@@ -651,10 +651,10 @@ type UserWithLastActivityAt struct {
 	LastActivityAt int64
 }
 
-func (us SqlUserStore) GetRecentlyActiveUsersForBranch(teamId string, offset, limit int, viewRestrictions *model.ViewUsersRestrictions) ([]*model.User, *model.AppError) {
+func (us SqlUserStore) GetRecentlyActiveUsersForBranch(branchId string, offset, limit int, viewRestrictions *model.ViewUsersRestrictions) ([]*model.User, *model.AppError) {
 	query := us.usersQuery.
 		Column("s.LastActivityAt").
-		Join("BranchMembers tm ON (tm.UserId = u.Id AND tm.BranchId = ?)", teamId).
+		Join("BranchMembers tm ON (tm.UserId = u.Id AND tm.BranchId = ?)", branchId).
 		Join("Status s ON (s.UserId = u.Id)").
 		OrderBy("s.LastActivityAt DESC").
 		OrderBy("u.Username ASC").
@@ -684,9 +684,9 @@ func (us SqlUserStore) GetRecentlyActiveUsersForBranch(teamId string, offset, li
 	return userList, nil
 }
 
-func (us SqlUserStore) GetNewUsersForBranch(teamId string, offset, limit int, viewRestrictions *model.ViewUsersRestrictions) ([]*model.User, *model.AppError) {
+func (us SqlUserStore) GetNewUsersForBranch(branchId string, offset, limit int, viewRestrictions *model.ViewUsersRestrictions) ([]*model.User, *model.AppError) {
 	query := us.usersQuery.
-		Join("BranchMembers tm ON (tm.UserId = u.Id AND tm.BranchId = ?)", teamId).
+		Join("BranchMembers tm ON (tm.UserId = u.Id AND tm.BranchId = ?)", branchId).
 		OrderBy("u.CreateAt DESC").
 		OrderBy("u.Username ASC").
 		Offset(uint64(offset)).Limit(uint64(limit))
@@ -1044,6 +1044,23 @@ func (us SqlUserStore) InferSystemInstallDate() (int64, *model.AppError) {
 	return createAt, nil
 }
 
+func (us SqlUserStore) GetUnreadCount(userId string) (int64, *model.AppError) {
+	query := `
+		SELECT SUM(CASE WHEN c.Type = 'D' THEN (c.TotalMsgCount - cm.MsgCount) ELSE cm.MentionCount END)
+		FROM Classes c
+		INNER JOIN ClassMembers cm
+			ON cm.ClassId = c.Id
+			AND cm.UserId = :UserId
+			AND c.DeleteAt = 0
+	`
+	count, err := us.GetReplica().SelectInt(query, map[string]interface{}{"UserId": userId})
+	if err != nil {
+		return count, model.NewAppError("SqlUserStore.GetMentionCount", "store.sql_user.get_unread_count.app_error", nil, err.Error(), http.StatusInternalServerError)
+	}
+
+	return count, nil
+}
+
 func (us SqlUserStore) GetUsersBatchForIndexing(startTime, endTime int64, limit int) ([]*model.UserForIndexing, *model.AppError) {
 	var users []*model.User
 	usersQuery, args, _ := us.usersQuery.
@@ -1086,15 +1103,15 @@ func (us SqlUserStore) GetUsersBatchForIndexing(startTime, endTime int64, limit 
 		return nil, model.NewAppError("SqlUserStore.GetUsersBatchForIndexing", "store.sql_user.get_users_batch_for_indexing.get_class_members.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
-	var teamMembers []*model.BranchMember
-	teamMembersQuery, args, _ := us.getQueryBuilder().
+	var branchMembers []*model.BranchMember
+	branchMembersQuery, args, _ := us.getQueryBuilder().
 		Select("BranchId, UserId, Roles, DeleteAt, (SchemeGuest IS NOT NULL AND SchemeGuest) as SchemeGuest, SchemeUser, SchemeAdmin").
 		From("BranchMembers").
 		Where(sq.Eq{"UserId": userIds, "DeleteAt": 0}).
 		ToSql()
-	_, err = us.GetSearchReplica().Select(&teamMembers, teamMembersQuery, args...)
+	_, err = us.GetSearchReplica().Select(&branchMembers, branchMembersQuery, args...)
 	if err != nil {
-		return nil, model.NewAppError("SqlUserStore.GetUsersBatchForIndexing", "store.sql_user.get_users_batch_for_indexing.get_team_members.app_error", nil, err.Error(), http.StatusInternalServerError)
+		return nil, model.NewAppError("SqlUserStore.GetUsersBatchForIndexing", "store.sql_user.get_users_batch_for_indexing.get_branch_members.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}
 
 	userMap := map[string]*model.UserForIndexing{}
@@ -1117,7 +1134,7 @@ func (us SqlUserStore) GetUsersBatchForIndexing(startTime, endTime int64, limit 
 			userMap[c.UserId].ClassesIds = append(userMap[c.UserId].ClassesIds, c.ClassId)
 		}
 	}
-	for _, t := range teamMembers {
+	for _, t := range branchMembers {
 		if userMap[t.UserId] != nil {
 			userMap[t.UserId].BranchesIds = append(userMap[t.UserId].BranchesIds, t.BranchId)
 		}

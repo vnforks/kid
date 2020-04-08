@@ -33,17 +33,17 @@ type writeMessage struct {
 // WebSocketClient stores the necessary information required to
 // communicate with a WebSocket endpoint.
 type WebSocketClient struct {
-	Url                string                  // The location of the server like "ws://localhost:8065"
-	ApiUrl             string                  // The API location of the server like "ws://localhost:8065/api/v3"
-	ConnectUrl         string                  // The WebSocket URL to connect to like "ws://localhost:8065/api/v3/path/to/websocket"
-	Conn               *websocket.Conn         // The WebSocket connection
-	AuthToken          string                  // The token used to open the WebSocket connection
-	Sequence           int64                   // The ever-incrementing sequence attached to each WebSocket action
-	PingTimeoutChannel chan bool               // The channel used to signal ping timeouts
-	EventChannel       chan *WebSocketEvent    // The channel used to receive various events pushed from the server. For example: typing, posted
-	ResponseChannel    chan *WebSocketResponse // The channel used to receive responses for requests made to the server
-	ListenError        *AppError               // A field that is set if there was an abnormal closure of the WebSocket connection
-	writeChan          chan writeMessage
+	Url              string                  // The location of the server like "ws://localhost:8065"
+	ApiUrl           string                  // The API location of the server like "ws://localhost:8065/api/v3"
+	ConnectUrl       string                  // The WebSocket URL to connect to like "ws://localhost:8065/api/v3/path/to/websocket"
+	Conn             *websocket.Conn         // The WebSocket connection
+	AuthToken        string                  // The token used to open the WebSocket connection
+	Sequence         int64                   // The ever-incrementing sequence attached to each WebSocket action
+	PingTimeoutClass chan bool               // The class used to signal ping timeouts
+	EventClass       chan *WebSocketEvent    // The class used to receive various events pushed from the server. For example: typing, posted
+	ResponseClass    chan *WebSocketResponse // The class used to receive responses for requests made to the server
+	ListenError      *AppError               // A field that is set if there was an abnormal closure of the WebSocket connection
+	writeChan        chan writeMessage
 
 	pingTimeoutTimer *time.Timer
 	quitPingWatchdog chan struct{}
@@ -67,18 +67,18 @@ func NewWebSocketClientWithDialer(dialer *websocket.Dialer, url, authToken strin
 	}
 
 	client := &WebSocketClient{
-		Url:                url,
-		ApiUrl:             url + API_URL_SUFFIX,
-		ConnectUrl:         url + API_URL_SUFFIX + "/websocket",
-		Conn:               conn,
-		AuthToken:          authToken,
-		Sequence:           1,
-		PingTimeoutChannel: make(chan bool, 1),
-		EventChannel:       make(chan *WebSocketEvent, 100),
-		ResponseChannel:    make(chan *WebSocketResponse, 100),
-		writeChan:          make(chan writeMessage),
-		quitPingWatchdog:   make(chan struct{}),
-		quitWriterChan:     make(chan struct{}),
+		Url:              url,
+		ApiUrl:           url + API_URL_SUFFIX,
+		ConnectUrl:       url + API_URL_SUFFIX + "/websocket",
+		Conn:             conn,
+		AuthToken:        authToken,
+		Sequence:         1,
+		PingTimeoutClass: make(chan bool, 1),
+		EventClass:       make(chan *WebSocketEvent, 100),
+		ResponseClass:    make(chan *WebSocketResponse, 100),
+		writeChan:        make(chan writeMessage),
+		quitPingWatchdog: make(chan struct{}),
+		quitWriterChan:   make(chan struct{}),
 	}
 
 	client.configurePingHandling()
@@ -125,8 +125,8 @@ func (wsc *WebSocketClient) ConnectWithDialer(dialer *websocket.Dialer) *AppErro
 		go wsc.writer()
 	}
 
-	wsc.EventChannel = make(chan *WebSocketEvent, 100)
-	wsc.ResponseChannel = make(chan *WebSocketResponse, 100)
+	wsc.EventClass = make(chan *WebSocketEvent, 100)
+	wsc.ResponseClass = make(chan *WebSocketResponse, 100)
 
 	wsc.SendMessage(WEBSOCKET_AUTHENTICATION_CHALLENGE, map[string]interface{}{"token": wsc.AuthToken})
 
@@ -163,8 +163,8 @@ func (wsc *WebSocketClient) Listen() {
 	go func() {
 		defer func() {
 			wsc.Conn.Close()
-			close(wsc.EventChannel)
-			close(wsc.ResponseChannel)
+			close(wsc.EventClass)
+			close(wsc.ResponseClass)
 			close(wsc.quitPingWatchdog)
 		}()
 
@@ -184,13 +184,13 @@ func (wsc *WebSocketClient) Listen() {
 				continue
 			}
 			if event.IsValid() {
-				wsc.EventChannel <- event
+				wsc.EventClass <- event
 				continue
 			}
 
 			var response WebSocketResponse
 			if err := json.Unmarshal(rawMsg, &response); err == nil && response.IsValid() {
-				wsc.ResponseChannel <- &response
+				wsc.ResponseClass <- &response
 				continue
 			}
 
@@ -212,11 +212,11 @@ func (wsc *WebSocketClient) SendMessage(action string, data map[string]interface
 }
 
 // UserTyping will push a user_typing event out to all connected users
-// who are in the specified channel
-func (wsc *WebSocketClient) UserTyping(channelId, parentId string) {
+// who are in the specified class
+func (wsc *WebSocketClient) UserTyping(classId, parentId string) {
 	data := map[string]interface{}{
-		"channel_id": channelId,
-		"parent_id":  parentId,
+		"class_id":  classId,
+		"parent_id": parentId,
 	}
 
 	wsc.SendMessage("user_typing", data)
@@ -260,7 +260,7 @@ func (wsc *WebSocketClient) pingHandler(appData string) error {
 func (wsc *WebSocketClient) pingWatchdog() {
 	select {
 	case <-wsc.pingTimeoutTimer.C:
-		wsc.PingTimeoutChannel <- true
+		wsc.PingTimeoutClass <- true
 	case <-wsc.quitPingWatchdog:
 	}
 }

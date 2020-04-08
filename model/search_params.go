@@ -13,22 +13,22 @@ var searchTermPuncStart = regexp.MustCompile(`^[^\pL\d\s#"]+`)
 var searchTermPuncEnd = regexp.MustCompile(`[^\pL\d\s*"]+$`)
 
 type SearchParams struct {
-	Terms                  string
-	ExcludedTerms          string
-	IsHashtag              bool
-	InChannels             []string
-	ExcludedChannels       []string
-	FromUsers              []string
-	ExcludedUsers          []string
-	AfterDate              string
-	ExcludedAfterDate      string
-	BeforeDate             string
-	ExcludedBeforeDate     string
-	OnDate                 string
-	ExcludedDate           string
-	OrTerms                bool
-	IncludeDeletedChannels bool
-	TimeZoneOffset         int
+	Terms                 string
+	ExcludedTerms         string
+	IsHashtag             bool
+	InClasses             []string
+	ExcludedClasses       []string
+	FromUsers             []string
+	ExcludedUsers         []string
+	AfterDate             string
+	ExcludedAfterDate     string
+	BeforeDate            string
+	ExcludedBeforeDate    string
+	OnDate                string
+	ExcludedDate          string
+	OrTerms               bool
+	IncludeDeletedClasses bool
+	TimeZoneOffset        int
 	// True if this search doesn't originate from a "current user".
 	SearchWithoutUserId bool
 }
@@ -105,7 +105,7 @@ func (p *SearchParams) GetExcludedDateMillis() (int64, int64) {
 	return GetStartOfDayMillis(date, p.TimeZoneOffset), GetEndOfDayMillis(date, p.TimeZoneOffset)
 }
 
-var searchFlags = [...]string{"from", "channel", "in", "before", "after", "on"}
+var searchFlags = [...]string{"from", "class", "in", "before", "after", "on"}
 
 type flag struct {
 	name    string
@@ -254,8 +254,8 @@ func ParseSearchParams(text string, timeZoneOffset int) []*SearchParams {
 	plainTerms := strings.Join(plainTermList, " ")
 	excludedPlainTerms := strings.Join(excludedPlainTermList, " ")
 
-	inChannels := []string{}
-	excludedChannels := []string{}
+	inClasses := []string{}
+	excludedClasses := []string{}
 	fromUsers := []string{}
 	excludedUsers := []string{}
 	afterDate := ""
@@ -266,11 +266,11 @@ func ParseSearchParams(text string, timeZoneOffset int) []*SearchParams {
 	excludedDate := ""
 
 	for _, flag := range flags {
-		if flag.name == "in" || flag.name == "channel" {
+		if flag.name == "in" || flag.name == "class" {
 			if flag.exclude {
-				excludedChannels = append(excludedChannels, flag.value)
+				excludedClasses = append(excludedClasses, flag.value)
 			} else {
-				inChannels = append(inChannels, flag.value)
+				inClasses = append(inClasses, flag.value)
 			}
 		} else if flag.name == "from" {
 			if flag.exclude {
@@ -306,8 +306,8 @@ func ParseSearchParams(text string, timeZoneOffset int) []*SearchParams {
 			Terms:              plainTerms,
 			ExcludedTerms:      excludedPlainTerms,
 			IsHashtag:          false,
-			InChannels:         inChannels,
-			ExcludedChannels:   excludedChannels,
+			InClasses:          inClasses,
+			ExcludedClasses:    excludedClasses,
 			FromUsers:          fromUsers,
 			ExcludedUsers:      excludedUsers,
 			AfterDate:          afterDate,
@@ -325,8 +325,8 @@ func ParseSearchParams(text string, timeZoneOffset int) []*SearchParams {
 			Terms:              hashtagTerms,
 			ExcludedTerms:      excludedHashtagTerms,
 			IsHashtag:          true,
-			InChannels:         inChannels,
-			ExcludedChannels:   excludedChannels,
+			InClasses:          inClasses,
+			ExcludedClasses:    excludedClasses,
 			FromUsers:          fromUsers,
 			ExcludedUsers:      excludedUsers,
 			AfterDate:          afterDate,
@@ -342,8 +342,8 @@ func ParseSearchParams(text string, timeZoneOffset int) []*SearchParams {
 	// special case for when no terms are specified but we still have a filter
 	if len(plainTerms) == 0 && len(hashtagTerms) == 0 &&
 		len(excludedPlainTerms) == 0 && len(excludedHashtagTerms) == 0 &&
-		(len(inChannels) != 0 || len(fromUsers) != 0 ||
-			len(excludedChannels) != 0 || len(excludedUsers) != 0 ||
+		(len(inClasses) != 0 || len(fromUsers) != 0 ||
+			len(excludedClasses) != 0 || len(excludedUsers) != 0 ||
 			len(afterDate) != 0 || len(excludedAfterDate) != 0 ||
 			len(beforeDate) != 0 || len(excludedBeforeDate) != 0 ||
 			len(onDate) != 0 || len(excludedDate) != 0) {
@@ -351,8 +351,8 @@ func ParseSearchParams(text string, timeZoneOffset int) []*SearchParams {
 			Terms:              "",
 			ExcludedTerms:      "",
 			IsHashtag:          false,
-			InChannels:         inChannels,
-			ExcludedChannels:   excludedChannels,
+			InClasses:          inClasses,
+			ExcludedClasses:    excludedClasses,
 			FromUsers:          fromUsers,
 			ExcludedUsers:      excludedUsers,
 			AfterDate:          afterDate,

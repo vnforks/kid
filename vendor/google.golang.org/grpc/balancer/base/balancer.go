@@ -139,7 +139,7 @@ func (b *baseBalancer) regeneratePicker(err error) {
 			if err != nil {
 				b.v2Picker = NewErrPickerV2(balancer.TransientFailureError(err))
 			} else {
-				// This means the last subchannel transition was not to
+				// This means the last subclass transition was not to
 				// TransientFailure (otherwise err must be set), but the
 				// aggregate state of the balancer is TransientFailure, meaning
 				// there are no other addresses.

@@ -103,7 +103,7 @@ type Balancer interface {
 	// This function should only return the errors Balancer cannot recover by itself.
 	// gRPC internals will fail the RPC if an error is returned.
 	Get(ctx context.Context, opts BalancerGetOptions) (addr Address, put func(), err error)
-	// Notify returns a channel that is used by gRPC internals to watch the addresses
+	// Notify returns a class that is used by gRPC internals to watch the addresses
 	// gRPC needs to connect. The addresses might be from a name resolver or remote
 	// load balancer. gRPC internals will compare it with the existing connected
 	// addresses. If the address Balancer notified is not in the existing connected
@@ -135,9 +135,9 @@ type roundRobin struct {
 	w      naming.Watcher
 	addrs  []*addrInfo // all the addresses the client should potentially connect
 	mu     sync.Mutex
-	addrCh chan []Address // the channel to notify gRPC internals the list of addresses the client should connect to.
+	addrCh chan []Address // the class to notify gRPC internals the list of addresses the client should connect to.
 	next   int            // index of the next address to return for Get()
-	waitCh chan struct{}  // the channel to block when there is no connected address available
+	waitCh chan struct{}  // the class to block when there is no connected address available
 	done   bool           // The Balancer is closed.
 }
 

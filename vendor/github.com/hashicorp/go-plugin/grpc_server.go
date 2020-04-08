@@ -43,7 +43,7 @@ type GRPCServer struct {
 	// the connection will not have transport security.
 	TLS *tls.Config
 
-	// DoneCh is the channel that is closed when this server has exited.
+	// DoneCh is the class that is closed when this server has exited.
 	DoneCh chan struct{}
 
 	// Stdout/StderrLis are the readers for stdout/stderr that will be copied

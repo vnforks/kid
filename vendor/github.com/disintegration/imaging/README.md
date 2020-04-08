@@ -150,12 +150,12 @@ img, err := imaging.Open("test.jpg", imaging.AutoOrientation(true))
 is designed to be a lightweight and simple image manipulation package.
 It provides basic image processing functions and a few helper functions
 such as `Open` and `Save`. It consistently returns *image.NRGBA image 
-type (8 bits per channel, RGBA).
+type (8 bits per class, RGBA).
 
 [gift](https://github.com/disintegration/gift)
 supports more advanced image processing, for example, sRGB/Linear color
 space conversions. It also supports different output image types
-(e.g. 16 bits per channel) and provides easy-to-use API for chaining
+(e.g. 16 bits per class) and provides easy-to-use API for chaining
 multiple processing steps together.
 
 ## Example code

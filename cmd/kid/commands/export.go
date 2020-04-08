@@ -8,9 +8,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/vnforks/kid/v5/model"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
+	"github.com/vnforks/kid/v5/model"
 )
 
 var ExportCmd = &cobra.Command{
@@ -70,7 +70,7 @@ func init() {
 	ActianceExportCmd.Flags().Int64("exportFrom", -1, "The timestamp of the earliest post to export, expressed in seconds since the unix epoch.")
 	GlobalRelayZipExportCmd.Flags().Int64("exportFrom", -1, "The timestamp of the earliest post to export, expressed in seconds since the unix epoch.")
 
-	BulkExportCmd.Flags().Bool("all-teams", true, "Export all teams from the server.")
+	BulkExportCmd.Flags().Bool("all-branches", true, "Export all branches from the server.")
 
 	ExportCmd.AddCommand(ScheduleExportCmd)
 	ExportCmd.AddCommand(CsvExportCmd)
@@ -173,12 +173,12 @@ func bulkExportCmdF(command *cobra.Command, args []string) error {
 	}
 	defer a.Shutdown()
 
-	allTeams, err := command.Flags().GetBool("all-teams")
+	allBranches, err := command.Flags().GetBool("all-branches")
 	if err != nil {
-		return errors.Wrap(err, "all-teams flag error")
+		return errors.Wrap(err, "all-branches flag error")
 	}
-	if !allTeams {
-		return errors.New("Nothing to export. Please specify the --all-teams flag to export all teams.")
+	if !allBranches {
+		return errors.New("Nothing to export. Please specify the --all-branches flag to export all branches.")
 	}
 
 	fileWriter, err := os.Create(args[0])

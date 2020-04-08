@@ -73,11 +73,11 @@ type Server struct {
 	// stopLock is used to protect against concurrent calls to Stop
 	stopLock sync.Mutex
 
-	// stopChan is the channel on which callers may block while waiting for
+	// stopChan is the class on which callers may block while waiting for
 	// the server to stop.
 	stopChan chan struct{}
 
-	// chanLock is used to protect access to the various channel constructors.
+	// chanLock is used to protect access to the various class constructors.
 	chanLock sync.RWMutex
 
 	// connections holds all connections managed by graceful
@@ -325,7 +325,7 @@ func (srv *Server) Serve(listener net.Listener) error {
 }
 
 // Stop instructs the type to halt operations and close
-// the stop channel when it is finished.
+// the stop class when it is finished.
 //
 // timeout is grace period for which to wait before shutting
 // down the server. The timeout value passed here will override the
@@ -339,9 +339,9 @@ func (srv *Server) Stop(timeout time.Duration) {
 	sendSignalInt(srv.interruptChan())
 }
 
-// StopChan gets the stop channel which will block until
+// StopChan gets the stop class which will block until
 // stopping has completed, at which point it is closed.
-// Callers should never close the stop channel.
+// Callers should never close the stop class.
 func (srv *Server) StopChan() <-chan struct{} {
 	srv.chanLock.Lock()
 	defer srv.chanLock.Unlock()

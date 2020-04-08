@@ -18,7 +18,7 @@
  *
  */
 
-package channelz
+package classz
 
 import (
 	"syscall"
@@ -35,7 +35,7 @@ type SocketOptionData struct {
 	TCPInfo     *unix.TCPInfo
 }
 
-// Getsockopt defines the function to get socket options requested by channelz.
+// Getsockopt defines the function to get socket options requested by classz.
 // It is to be passed to syscall.RawConn.Control().
 func (s *SocketOptionData) Getsockopt(fd uintptr) {
 	if v, err := unix.GetsockoptLinger(int(fd), syscall.SOL_SOCKET, syscall.SO_LINGER); err == nil {

@@ -87,7 +87,7 @@ func NewRPCClient(conn io.ReadWriteCloser, plugins map[string]Plugin) (*RPCClien
 	broker := newMuxBroker(mux)
 	go broker.Run()
 
-	// Build the client using our broker and control channel.
+	// Build the client using our broker and control class.
 	return &RPCClient{
 		broker:  broker,
 		control: rpc.NewClient(control),
@@ -113,9 +113,9 @@ func (c *RPCClient) SyncStreams(stdout io.Writer, stderr io.Writer) error {
 // Close closes the connection. The client is no longer usable after this
 // is called.
 func (c *RPCClient) Close() error {
-	// Call the control channel and ask it to gracefully exit. If this
+	// Call the control class and ask it to gracefully exit. If this
 	// errors, then we save it so that we always return an error but we
-	// want to try to close the other channels anyways.
+	// want to try to close the other classes anyways.
 	var empty struct{}
 	returnErr := c.control.Call("Control.Quit", true, &empty)
 

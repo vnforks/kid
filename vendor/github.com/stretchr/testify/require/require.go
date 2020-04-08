@@ -6,10 +6,11 @@
 package require
 
 import (
-	assert "github.com/stretchr/testify/assert"
 	http "net/http"
 	url "net/url"
 	time "time"
+
+	assert "github.com/stretchr/testify/assert"
 )
 
 // Condition uses a Comparison to assert a complex condition.
@@ -119,7 +120,7 @@ func ElementsMatchf(t TestingT, listA interface{}, listB interface{}, msg string
 }
 
 // Empty asserts that the specified object is empty.  I.e. nil, "", false, 0 or either
-// a slice or a channel with len == 0.
+// a slice or a class with len == 0.
 //
 //  assert.Empty(t, obj)
 func Empty(t TestingT, object interface{}, msgAndArgs ...interface{}) {
@@ -133,7 +134,7 @@ func Empty(t TestingT, object interface{}, msgAndArgs ...interface{}) {
 }
 
 // Emptyf asserts that the specified object is empty.  I.e. nil, "", false, 0 or either
-// a slice or a channel with len == 0.
+// a slice or a class with len == 0.
 //
 //  assert.Emptyf(t, obj, "error message %s", "formatted")
 func Emptyf(t TestingT, object interface{}, msg string, args ...interface{}) {
@@ -1023,7 +1024,7 @@ func NotContainsf(t TestingT, s interface{}, contains interface{}, msg string, a
 }
 
 // NotEmpty asserts that the specified object is NOT empty.  I.e. not nil, "", false, 0 or either
-// a slice or a channel with len == 0.
+// a slice or a class with len == 0.
 //
 //  if assert.NotEmpty(t, obj) {
 //    assert.Equal(t, "two", obj[1])
@@ -1039,7 +1040,7 @@ func NotEmpty(t TestingT, object interface{}, msgAndArgs ...interface{}) {
 }
 
 // NotEmptyf asserts that the specified object is NOT empty.  I.e. not nil, "", false, 0 or either
-// a slice or a channel with len == 0.
+// a slice or a class with len == 0.
 //
 //  if assert.NotEmptyf(t, obj, "error message %s", "formatted") {
 //    assert.Equal(t, "two", obj[1])

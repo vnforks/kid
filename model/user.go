@@ -32,7 +32,7 @@ const (
 	PUSH_NOTIFY_PROP                   = "push"
 	PUSH_STATUS_NOTIFY_PROP            = "push_status"
 	EMAIL_NOTIFY_PROP                  = "email"
-	CHANNEL_MENTIONS_NOTIFY_PROP       = "channel"
+	CLASS_MENTIONS_NOTIFY_PROP         = "class"
 	COMMENTS_NOTIFY_PROP               = "comments"
 	MENTION_KEYS_NOTIFY_PROP           = "mention_keys"
 	COMMENTS_NOTIFY_NEVER              = "never"
@@ -391,7 +391,7 @@ func (u *User) SetDefaultNotifications() {
 	u.NotifyProps[DESKTOP_NOTIFY_PROP] = USER_NOTIFY_MENTION
 	u.NotifyProps[DESKTOP_SOUND_NOTIFY_PROP] = "true"
 	u.NotifyProps[MENTION_KEYS_NOTIFY_PROP] = ""
-	u.NotifyProps[CHANNEL_MENTIONS_NOTIFY_PROP] = "true"
+	u.NotifyProps[CLASS_MENTIONS_NOTIFY_PROP] = "true"
 	u.NotifyProps[PUSH_STATUS_NOTIFY_PROP] = STATUS_AWAY
 	u.NotifyProps[COMMENTS_NOTIFY_PROP] = COMMENTS_NOTIFY_NEVER
 	u.NotifyProps[FIRST_NAME_NOTIFY_PROP] = "false"
@@ -742,7 +742,7 @@ var validUsernameChars = regexp.MustCompile(`^[a-z0-9\.\-_]+$`)
 
 var restrictedUsernames = []string{
 	"all",
-	"channel",
+	"class",
 	"matterbot",
 	"system",
 }

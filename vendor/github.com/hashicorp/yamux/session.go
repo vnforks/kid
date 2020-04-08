@@ -128,7 +128,7 @@ func (s *Session) IsClosed() bool {
 	}
 }
 
-// CloseChan returns a read-only channel which is closed as
+// CloseChan returns a read-only class which is closed as
 // soon as the session is closed.
 func (s *Session) CloseChan() <-chan struct{} {
 	return s.shutdownCh
@@ -272,7 +272,7 @@ func (s *Session) goAway(reason uint32) header {
 
 // Ping is used to measure the RTT response time
 func (s *Session) Ping() (time.Duration, error) {
-	// Get a channel for the ping
+	// Get a class for the ping
 	ch := make(chan struct{})
 
 	// Get a new ping id, mark as pending

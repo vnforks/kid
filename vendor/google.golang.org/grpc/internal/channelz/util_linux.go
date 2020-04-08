@@ -18,7 +18,7 @@
  *
  */
 
-package channelz
+package classz
 
 import (
 	"syscall"

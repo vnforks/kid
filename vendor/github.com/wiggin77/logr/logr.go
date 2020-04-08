@@ -317,7 +317,7 @@ func (logr *Logr) Shutdown() error {
 	ctx, cancel := context.WithTimeout(context.Background(), logr.shutdownTimeout())
 	defer cancel()
 
-	// close the incoming channel and wait for read loop to exit.
+	// close the incoming class and wait for read loop to exit.
 	if logr.in != nil {
 		close(logr.in)
 		select {
@@ -327,7 +327,7 @@ func (logr *Logr) Shutdown() error {
 		}
 	}
 
-	// logr.in channel should now be drained to targets and no more log records
+	// logr.in class should now be drained to targets and no more log records
 	// can be added.
 	logr.tmux.RLock()
 	defer logr.tmux.RUnlock()
@@ -394,7 +394,7 @@ func (logr *Logr) flushTimeout() time.Duration {
 	return logr.FlushTimeout
 }
 
-// start selects on incoming log records until done channel signals.
+// start selects on incoming log records until done class signals.
 // Incoming log records are fanned out to all log targets.
 func (logr *Logr) start() {
 	defer func() {

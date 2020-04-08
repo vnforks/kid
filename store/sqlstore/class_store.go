@@ -1240,6 +1240,55 @@ func (s SqlClassStore) IsUserInClassUseCache(userId string, classId string) bool
 	return false
 }
 
+func (s SqlClassStore) GetMemberForPost(postId string, userId string) (*model.ClassMember, *model.AppError) {
+	var dbMember classMemberWithSchemeRoles
+	query := `
+		SELECT
+			ClassMembers.*,
+			BranchScheme.DefaultClassUserRole BranchSchemeDefaultUserRole,
+			BranchScheme.DefaultClassAdminRole BranchSchemeDefaultAdminRole,
+			ClassScheme.DefaultClassUserRole ClassSchemeDefaultUserRole,
+			ClassScheme.DefaultClassAdminRole ClassSchemeDefaultAdminRole
+		FROM
+			ClassMembers
+		INNER JOIN
+			Posts ON ClassMembers.ClassId = Posts.ClassId
+		INNER JOIN
+			Classes ON ClassMembers.ClassId = Classes.Id
+		LEFT JOIN
+			Schemes ClassScheme ON Classes.SchemeId = ClassScheme.Id
+		LEFT JOIN
+			Branches ON Classes.BranchId = Branches.Id
+		LEFT JOIN
+			Schemes BranchScheme ON Branches.SchemeId = BranchScheme.Id
+		WHERE
+			ClassMembers.UserId = :UserId
+		AND
+			Posts.Id = :PostId`
+	if err := s.GetReplica().SelectOne(&dbMember, query, map[string]interface{}{"UserId": userId, "PostId": postId}); err != nil {
+		return nil, model.NewAppError("SqlClassStore.GetMemberForPost", "store.sql_class.get_member_for_post.app_error", nil, "postId="+postId+", err="+err.Error(), http.StatusInternalServerError)
+	}
+	return dbMember.ToModel(), nil
+}
+
+func (s SqlClassStore) GetForPost(postId string) (*model.Class, *model.AppError) {
+	class := &model.Class{}
+	if err := s.GetReplica().SelectOne(
+		class,
+		`SELECT
+			Classes.*
+		FROM
+		Classes,
+			Posts
+		WHERE
+			Classes.Id = Posts.ClassId
+			AND Posts.Id = :PostId`, map[string]interface{}{"PostId": postId}); err != nil {
+		return nil, model.NewAppError("SqlClassStore.GetForPost", "store.sql_class.get_for_post.app_error", nil, "postId="+postId+", err="+err.Error(), http.StatusInternalServerError)
+
+	}
+	return class, nil
+}
+
 func (s SqlClassStore) GetAllClassMembersForUser(userId string, allowFromCache bool, includeDeleted bool) (map[string]string, *model.AppError) {
 	cache_key := userId
 	if includeDeleted {

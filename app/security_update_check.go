@@ -26,7 +26,7 @@ const (
 	PROP_SECURITY_DATABASE          = "db"
 	PROP_SECURITY_OS                = "os"
 	PROP_SECURITY_USER_COUNT        = "uc"
-	PROP_SECURITY_TEAM_COUNT        = "tc"
+	PROP_SECURITY_BRANCH_COUNT      = "tc"
 	PROP_SECURITY_ACTIVE_USER_COUNT = "auc"
 	PROP_SECURITY_UNIT_TESTS        = "ut"
 )
@@ -76,8 +76,8 @@ func (s *Server) DoSecurityUpdateCheck() {
 			v.Set(PROP_SECURITY_ACTIVE_USER_COUNT, strconv.FormatInt(ucr, 10))
 		}
 
-		if teamCount, err := s.Store.Team().AnalyticsTeamCount(false); err == nil {
-			v.Set(PROP_SECURITY_TEAM_COUNT, strconv.FormatInt(teamCount, 10))
+		if branchCount, err := s.Store.Branch().AnalyticsBranchCount(false); err == nil {
+			v.Set(PROP_SECURITY_BRANCH_COUNT, strconv.FormatInt(branchCount, 10))
 		}
 
 		res, err := http.Get(SECURITY_URL + "/security?" + v.Encode())

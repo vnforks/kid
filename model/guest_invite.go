@@ -10,9 +10,9 @@ import (
 )
 
 type GuestsInvite struct {
-	Emails   []string `json:"emails"`
-	Channels []string `json:"channels"`
-	Message  string   `json:"message"`
+	Emails  []string `json:"emails"`
+	Classes []string `json:"classes"`
+	Message string   `json:"message"`
 }
 
 // IsValid validates the user and returns an error if it isn't configured
@@ -28,13 +28,13 @@ func (i *GuestsInvite) IsValid() *AppError {
 		}
 	}
 
-	if len(i.Channels) == 0 {
-		return NewAppError("GuestsInvite.IsValid", "model.guest.is_valid.channels.app_error", nil, "", http.StatusBadRequest)
+	if len(i.Classes) == 0 {
+		return NewAppError("GuestsInvite.IsValid", "model.guest.is_valid.classes.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	for _, channel := range i.Channels {
-		if len(channel) != 26 {
-			return NewAppError("GuestsInvite.IsValid", "model.guest.is_valid.channel.app_error", nil, "channel="+channel, http.StatusBadRequest)
+	for _, class := range i.Classes {
+		if len(class) != 26 {
+			return NewAppError("GuestsInvite.IsValid", "model.guest.is_valid.class.app_error", nil, "class="+class, http.StatusBadRequest)
 		}
 	}
 	return nil

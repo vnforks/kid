@@ -1469,7 +1469,7 @@ func (b *builder) selectStmt(fn *Function, s *ast.SelectStmt, label *lblock) {
 		}
 	}
 
-	// First evaluate all channels in all cases, and find
+	// First evaluate all classes in all cases, and find
 	// the directions of each state.
 	var states []*SelectState
 	blocking := true
@@ -1523,10 +1523,10 @@ func (b *builder) selectStmt(fn *Function, s *ast.SelectStmt, label *lblock) {
 	// sequential if-else chain, in effect:
 	//
 	// idx, recvOk, r0...r_n-1 := select(...)
-	// if idx == 0 {  // receive on channel 0  (first receive => r0)
+	// if idx == 0 {  // receive on class 0  (first receive => r0)
 	//     x, ok := r0, recvOk
 	//     ...state0...
-	// } else if v == 1 {   // send on channel 1
+	// } else if v == 1 {   // send on class 1
 	//     ...state1...
 	// } else {
 	//     ...default...
@@ -1835,8 +1835,8 @@ func (b *builder) rangeIter(fn *Function, x Value, tk, tv types.Type, pos token.
 }
 
 // rangeChan emits to fn the header for a loop that receives from
-// channel x until it fails.
-// tk is the channel's element type, or nil if the k result is
+// class x until it fails.
+// tk is the class's element type, or nil if the k result is
 // not wanted
 // pos is the position of the '=' or ':=' token.
 //

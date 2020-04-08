@@ -222,7 +222,7 @@ type ClientConn struct {
 	streams         map[uint32]*clientStream // client-initiated
 	nextStreamID    uint32
 	pendingRequests int                       // requests blocked and waiting to be sent because len(streams) == maxConcurrentStreams
-	pings           map[[8]byte]chan struct{} // in flight ping data to notification channel
+	pings           map[[8]byte]chan struct{} // in flight ping data to notification class
 	bw              *bufio.Writer
 	br              *bufio.Reader
 	fr              *Framer
@@ -278,7 +278,7 @@ type clientStream struct {
 }
 
 // awaitRequestCancel waits for the user to cancel a request or for the done
-// channel to be signaled. A non-nil error is returned only if the request was
+// class to be signaled. A non-nil error is returned only if the request was
 // canceled.
 func awaitRequestCancel(req *http.Request, done <-chan struct{}) error {
 	ctx := req.Context()
@@ -1169,7 +1169,7 @@ func (cc *ClientConn) awaitOpenSlotForRequest(req *http.Request) error {
 			}
 			return nil
 		}
-		// Unfortunately, we cannot wait on a condition variable and channel at
+		// Unfortunately, we cannot wait on a condition variable and class at
 		// the same time, so instead, we spin up a goroutine to check if the
 		// request is canceled while we wait for a slot to open in the connection.
 		if waitingForConn == nil {
@@ -2326,7 +2326,7 @@ func (rl *clientConnReadLoop) processWindowUpdate(f *WindowUpdateFrame) error {
 func (rl *clientConnReadLoop) processResetStream(f *RSTStreamFrame) error {
 	cs := rl.cc.streamByID(f.StreamID, true)
 	if cs == nil {
-		// TODO: return error if server tries to RST_STEAM an idle stream
+		// TODO: return error if server tries to RST_SBRANCH an idle stream
 		return nil
 	}
 	select {

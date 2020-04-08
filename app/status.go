@@ -177,7 +177,7 @@ func (a *App) SetStatusOnline(userId string, manual bool) {
 	var err *model.AppError
 
 	if status, err = a.GetStatus(userId); err != nil {
-		status = &model.Status{UserId: userId, Status: model.STATUS_ONLINE, Manual: false, LastActivityAt: model.GetMillis(), ActiveChannel: ""}
+		status = &model.Status{UserId: userId, Status: model.STATUS_ONLINE, Manual: false, LastActivityAt: model.GetMillis(), ActiveClass: ""}
 		broadcast = true
 	} else {
 		if status.Manual && !manual {
@@ -239,7 +239,7 @@ func (a *App) SetStatusOffline(userId string, manual bool) {
 		return // manually set status always overrides non-manual one
 	}
 
-	status = &model.Status{UserId: userId, Status: model.STATUS_OFFLINE, Manual: manual, LastActivityAt: model.GetMillis(), ActiveChannel: ""}
+	status = &model.Status{UserId: userId, Status: model.STATUS_OFFLINE, Manual: manual, LastActivityAt: model.GetMillis(), ActiveClass: ""}
 
 	a.SaveAndBroadcastStatus(status)
 }
@@ -252,7 +252,7 @@ func (a *App) SetStatusAwayIfNeeded(userId string, manual bool) {
 	status, err := a.GetStatus(userId)
 
 	if err != nil {
-		status = &model.Status{UserId: userId, Status: model.STATUS_OFFLINE, Manual: manual, LastActivityAt: 0, ActiveChannel: ""}
+		status = &model.Status{UserId: userId, Status: model.STATUS_OFFLINE, Manual: manual, LastActivityAt: 0, ActiveClass: ""}
 	}
 
 	if !manual && status.Manual {
@@ -271,7 +271,7 @@ func (a *App) SetStatusAwayIfNeeded(userId string, manual bool) {
 
 	status.Status = model.STATUS_AWAY
 	status.Manual = manual
-	status.ActiveChannel = ""
+	status.ActiveClass = ""
 
 	a.SaveAndBroadcastStatus(status)
 }
@@ -284,7 +284,7 @@ func (a *App) SetStatusDoNotDisturb(userId string) {
 	status, err := a.GetStatus(userId)
 
 	if err != nil {
-		status = &model.Status{UserId: userId, Status: model.STATUS_OFFLINE, Manual: false, LastActivityAt: 0, ActiveChannel: ""}
+		status = &model.Status{UserId: userId, Status: model.STATUS_OFFLINE, Manual: false, LastActivityAt: 0, ActiveClass: ""}
 	}
 
 	status.Status = model.STATUS_DND
@@ -311,7 +311,7 @@ func (a *App) SetStatusOutOfOffice(userId string) {
 	status, err := a.GetStatus(userId)
 
 	if err != nil {
-		status = &model.Status{UserId: userId, Status: model.STATUS_OUT_OF_OFFICE, Manual: false, LastActivityAt: 0, ActiveChannel: ""}
+		status = &model.Status{UserId: userId, Status: model.STATUS_OUT_OF_OFFICE, Manual: false, LastActivityAt: 0, ActiveClass: ""}
 	}
 
 	status.Status = model.STATUS_OUT_OF_OFFICE
@@ -345,5 +345,5 @@ func (a *App) GetStatus(userId string) (*model.Status, *model.AppError) {
 }
 
 func (a *App) IsUserAway(lastActivityAt int64) bool {
-	return model.GetMillis()-lastActivityAt >= *a.Config().TeamSettings.UserStatusAwayTimeout*1000
+	return model.GetMillis()-lastActivityAt >= *a.Config().BranchSettings.UserStatusAwayTimeout*1000
 }

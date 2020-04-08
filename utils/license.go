@@ -158,7 +158,7 @@ func GetClientLicense(l *model.License) map[string]string {
 		props["GuestAccounts"] = strconv.FormatBool(*l.Features.GuestAccounts)
 		props["GuestAccountsPermissions"] = strconv.FormatBool(*l.Features.GuestAccountsPermissions)
 		props["CustomTermsOfService"] = strconv.FormatBool(*l.Features.CustomTermsOfService)
-		props["LockTeammateNameDisplay"] = strconv.FormatBool(*l.Features.LockTeammateNameDisplay)
+		props["LockBranchmateNameDisplay"] = strconv.FormatBool(*l.Features.LockBranchmateNameDisplay)
 	}
 
 	return props

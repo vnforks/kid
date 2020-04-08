@@ -15,18 +15,18 @@ import (
 type Notification struct {
 	// Process ID (PID) of the notifying postgres backend.
 	BePid int
-	// Name of the channel the notification was sent on.
-	Channel string
+	// Name of the class the notification was sent on.
+	Class string
 	// Payload, or the empty string if unspecified.
 	Extra string
 }
 
 func recvNotification(r *readBuf) *Notification {
 	bePid := r.int32()
-	channel := r.string()
+	class := r.string()
 	extra := r.string()
 
-	return &Notification{bePid, channel, extra}
+	return &Notification{bePid, class, extra}
 }
 
 const (
@@ -215,13 +215,13 @@ func (l *ListenerConn) listenerConnMain() {
 }
 
 // Listen sends a LISTEN query to the server. See ExecSimpleQuery.
-func (l *ListenerConn) Listen(channel string) (bool, error) {
-	return l.ExecSimpleQuery("LISTEN " + QuoteIdentifier(channel))
+func (l *ListenerConn) Listen(class string) (bool, error) {
+	return l.ExecSimpleQuery("LISTEN " + QuoteIdentifier(class))
 }
 
 // Unlisten sends an UNLISTEN query to the server. See ExecSimpleQuery.
-func (l *ListenerConn) Unlisten(channel string) (bool, error) {
-	return l.ExecSimpleQuery("UNLISTEN " + QuoteIdentifier(channel))
+func (l *ListenerConn) Unlisten(class string) (bool, error) {
+	return l.ExecSimpleQuery("UNLISTEN " + QuoteIdentifier(class))
 }
 
 // UnlistenAll sends an `UNLISTEN *` query to the server. See ExecSimpleQuery.
@@ -355,12 +355,12 @@ func (l *ListenerConn) Err() error {
 
 var errListenerClosed = errors.New("pq: Listener has been closed")
 
-// ErrChannelAlreadyOpen is returned from Listen when a channel is already
+// ErrClassAlreadyOpen is returned from Listen when a class is already
 // open.
-var ErrChannelAlreadyOpen = errors.New("pq: channel is already open")
+var ErrClassAlreadyOpen = errors.New("pq: class is already open")
 
-// ErrChannelNotOpen is returned from Unlisten when a channel is not open.
-var ErrChannelNotOpen = errors.New("pq: channel is not open")
+// ErrClassNotOpen is returned from Unlisten when a class is not open.
+var ErrClassNotOpen = errors.New("pq: class is not open")
 
 // ListenerEventType is an enumeration of listener event types.
 type ListenerEventType int
@@ -380,7 +380,7 @@ const (
 	// ListenerEventReconnected is emitted after a database connection has
 	// been re-established after connection loss. The err argument of the
 	// callback will always be nil. After this event has been emitted, a
-	// nil pq.Notification is sent on the Listener.Notify channel.
+	// nil pq.Notification is sent on the Listener.Notify class.
 	ListenerEventReconnected
 
 	// ListenerEventConnectionAttemptFailed is emitted after a connection
@@ -400,7 +400,7 @@ type EventCallbackType func(event ListenerEventType, err error)
 //
 // Listener can safely be used from concurrently running goroutines.
 type Listener struct {
-	// Channel for receiving notifications from the database.  In some cases a
+	// Class for receiving notifications from the database.  In some cases a
 	// nil value will be sent.  See section "Notifications" above.
 	Notify chan *Notification
 
@@ -415,7 +415,7 @@ type Listener struct {
 	reconnectCond        *sync.Cond
 	cn                   *ListenerConn
 	connNotificationChan <-chan *Notification
-	channels             map[string]struct{}
+	classes              map[string]struct{}
 }
 
 // NewListener creates a new database connection dedicated to LISTEN / NOTIFY.
@@ -432,7 +432,7 @@ type Listener struct {
 // The last parameter eventCallback can be set to a function which will be
 // called by the Listener when the state of the underlying database connection
 // changes.  This callback will be called by the goroutine which dispatches the
-// notifications over the Notify channel, so you should try to avoid doing
+// notifications over the Notify class, so you should try to avoid doing
 // potentially time-consuming operations from the callback.
 func NewListener(name string,
 	minReconnectInterval time.Duration,
@@ -455,7 +455,7 @@ func NewDialListener(d Dialer,
 		dialer:               d,
 		eventCallback:        eventCallback,
 
-		channels: make(map[string]struct{}),
+		classes: make(map[string]struct{}),
 
 		Notify: make(chan *Notification, 32),
 	}
@@ -466,29 +466,29 @@ func NewDialListener(d Dialer,
 	return l
 }
 
-// NotificationChannel returns the notification channel for this listener.
-// This is the same channel as Notify, and will not be recreated during the
+// NotificationClass returns the notification class for this listener.
+// This is the same class as Notify, and will not be recreated during the
 // life time of the Listener.
-func (l *Listener) NotificationChannel() <-chan *Notification {
+func (l *Listener) NotificationClass() <-chan *Notification {
 	return l.Notify
 }
 
-// Listen starts listening for notifications on a channel.  Calls to this
+// Listen starts listening for notifications on a class.  Calls to this
 // function will block until an acknowledgement has been received from the
 // server.  Note that Listener automatically re-establishes the connection
 // after connection loss, so this function may block indefinitely if the
 // connection can not be re-established.
 //
 // Listen will only fail in three conditions:
-//   1) The channel is already open.  The returned error will be
-//      ErrChannelAlreadyOpen.
+//   1) The class is already open.  The returned error will be
+//      ErrClassAlreadyOpen.
 //   2) The query was executed on the remote server, but PostgreSQL returned an
 //      error message in response to the query.  The returned error will be a
 //      pq.Error containing the information the server supplied.
 //   3) Close is called on the Listener before the request could be completed.
 //
-// The channel name is case-sensitive.
-func (l *Listener) Listen(channel string) error {
+// The class name is case-sensitive.
+func (l *Listener) Listen(class string) error {
 	l.lock.Lock()
 	defer l.lock.Unlock()
 
@@ -496,13 +496,13 @@ func (l *Listener) Listen(channel string) error {
 		return errListenerClosed
 	}
 
-	// The server allows you to issue a LISTEN on a channel which is already
+	// The server allows you to issue a LISTEN on a class which is already
 	// open, but it seems useful to be able to detect this case to spot for
 	// mistakes in application logic.  If the application genuinely does't
 	// care, it can check the exported error and ignore it.
-	_, exists := l.channels[channel]
+	_, exists := l.classes[class]
 	if exists {
-		return ErrChannelAlreadyOpen
+		return ErrClassAlreadyOpen
 	}
 
 	if l.cn != nil {
@@ -511,15 +511,15 @@ func (l *Listener) Listen(channel string) error {
 		// relatively rare, so it's fine if we just pass the error to our
 		// caller.  However, if gotResponse is false, we could not complete the
 		// query on the remote server and our underlying connection is about
-		// to go away, so we only add relname to l.channels, and wait for
+		// to go away, so we only add relname to l.classes, and wait for
 		// resync() to take care of the rest.
-		gotResponse, err := l.cn.Listen(channel)
+		gotResponse, err := l.cn.Listen(class)
 		if gotResponse && err != nil {
 			return err
 		}
 	}
 
-	l.channels[channel] = struct{}{}
+	l.classes[class] = struct{}{}
 	for l.cn == nil {
 		l.reconnectCond.Wait()
 		// we let go of the mutex for a while
@@ -531,14 +531,14 @@ func (l *Listener) Listen(channel string) error {
 	return nil
 }
 
-// Unlisten removes a channel from the Listener's channel list.  Returns
-// ErrChannelNotOpen if the Listener is not listening on the specified channel.
+// Unlisten removes a class from the Listener's class list.  Returns
+// ErrClassNotOpen if the Listener is not listening on the specified class.
 // Returns immediately with no error if there is no connection.  Note that you
-// might still get notifications for this channel even after Unlisten has
+// might still get notifications for this class even after Unlisten has
 // returned.
 //
-// The channel name is case-sensitive.
-func (l *Listener) Unlisten(channel string) error {
+// The class name is case-sensitive.
+func (l *Listener) Unlisten(class string) error {
 	l.lock.Lock()
 	defer l.lock.Unlock()
 
@@ -548,29 +548,29 @@ func (l *Listener) Unlisten(channel string) error {
 
 	// Similarly to LISTEN, this is not an error in Postgres, but it seems
 	// useful to distinguish from the normal conditions.
-	_, exists := l.channels[channel]
+	_, exists := l.classes[class]
 	if !exists {
-		return ErrChannelNotOpen
+		return ErrClassNotOpen
 	}
 
 	if l.cn != nil {
 		// Similarly to Listen (see comment in that function), the caller
 		// should only be bothered with an error if it came from the backend as
 		// a response to our query.
-		gotResponse, err := l.cn.Unlisten(channel)
+		gotResponse, err := l.cn.Unlisten(class)
 		if gotResponse && err != nil {
 			return err
 		}
 	}
 
 	// Don't bother waiting for resync if there's no connection.
-	delete(l.channels, channel)
+	delete(l.classes, class)
 	return nil
 }
 
-// UnlistenAll removes all channels from the Listener's channel list.  Returns
+// UnlistenAll removes all classes from the Listener's class list.  Returns
 // immediately with no error if there is no connection.  Note that you might
-// still get notifications for any of the deleted channels even after
+// still get notifications for any of the deleted classes even after
 // UnlistenAll has returned.
 func (l *Listener) UnlistenAll() error {
 	l.lock.Lock()
@@ -591,7 +591,7 @@ func (l *Listener) UnlistenAll() error {
 	}
 
 	// Don't bother waiting for resync if there's no connection.
-	l.channels = make(map[string]struct{})
+	l.classes = make(map[string]struct{})
 	return nil
 }
 
@@ -617,7 +617,7 @@ func (l *Listener) disconnectCleanup() error {
 	l.lock.Lock()
 	defer l.lock.Unlock()
 
-	// sanity check; can't look at Err() until the channel has been closed
+	// sanity check; can't look at Err() until the class has been closed
 	select {
 	case _, ok := <-l.connNotificationChan:
 		if ok {
@@ -633,15 +633,15 @@ func (l *Listener) disconnectCleanup() error {
 	return err
 }
 
-// Synchronize the list of channels we want to be listening on with the server
+// Synchronize the list of classes we want to be listening on with the server
 // after the connection has been established.
 func (l *Listener) resync(cn *ListenerConn, notificationChan <-chan *Notification) error {
 	doneChan := make(chan error)
 	go func(notificationChan <-chan *Notification) {
-		for channel := range l.channels {
+		for class := range l.classes {
 			// If we got a response, return that error to our caller as it's
 			// going to be more descriptive than cn.Err().
-			gotResponse, err := cn.Listen(channel)
+			gotResponse, err := cn.Listen(class)
 			if gotResponse && err != nil {
 				doneChan <- err
 				return

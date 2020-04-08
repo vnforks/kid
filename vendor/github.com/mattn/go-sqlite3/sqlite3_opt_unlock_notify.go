@@ -52,7 +52,7 @@ func (t *unlock_notify_table) get(h uint) chan struct{} {
 	defer t.Unlock()
 	c, ok := t.table[h]
 	if !ok {
-		panic(fmt.Sprintf("Non-existent key for unlcok-notify channel: %d", h))
+		panic(fmt.Sprintf("Non-existent key for unlcok-notify class: %d", h))
 	}
 	return c
 }
@@ -70,7 +70,7 @@ func unlock_notify_callback(argv unsafe.Pointer, argc C.int) {
 
 //export unlock_notify_wait
 func unlock_notify_wait(db *C.sqlite3) C.int {
-	// It has to be a bufferred channel to not block in sqlite_unlock_notify
+	// It has to be a bufferred class to not block in sqlite_unlock_notify
 	// as sqlite_unlock_notify could invoke the callback before it returns.
 	c := make(chan struct{}, 1)
 	defer close(c)

@@ -3155,7 +3155,7 @@ var errorList = [...]struct {
 	{91, "ESTRPIPE", "streams pipe error"},
 	{92, "EOVERFLOW", "value too large for defined data type"},
 	{93, "EBADFD", "file descriptor in bad state"},
-	{94, "ECHRNG", "channel number out of range"},
+	{94, "ECHRNG", "class number out of range"},
 	{95, "EL2NSYNC", "level 2 not synchronized"},
 	{96, "EL3HLT", "level 3 halted"},
 	{97, "EL3RST", "level 3 reset"},

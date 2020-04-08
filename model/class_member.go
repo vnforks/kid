@@ -20,14 +20,15 @@ const (
 	IGNORE_CLASS_MENTIONS_DEFAULT     = "default"
 	IGNORE_CLASS_MENTIONS_OFF         = "off"
 	IGNORE_CLASS_MENTIONS_ON          = "on"
-	IGNORE_CLASS_MENTIONS_NOTIFY_PROP = "ignore_channel_mentions"
+	IGNORE_CLASS_MENTIONS_NOTIFY_PROP = "ignore_class_mentions"
 )
 
 type ClassMember struct {
-	ClassId       string    `json:"channel_id"`
+	ClassId       string    `json:"class_id"`
 	UserId        string    `json:"user_id"`
 	Roles         string    `json:"roles"`
 	NotifyProps   StringMap `json:"notify_props"`
+	LastViewedAt  int64     `json:"last_viewed_at"`
 	LastUpdateAt  int64     `json:"last_update_at"`
 	SchemeUser    bool      `json:"scheme_user"`
 	SchemeAdmin   bool      `json:"scheme_admin"`
@@ -70,27 +71,27 @@ func ClassMemberFromJson(data io.Reader) *ClassMember {
 func (o *ClassMember) IsValid() *AppError {
 
 	if len(o.ClassId) != 26 {
-		return NewAppError("ClassMember.IsValid", "model.channel_member.is_valid.channel_id.app_error", nil, "", http.StatusBadRequest)
+		return NewAppError("ClassMember.IsValid", "model.class_member.is_valid.class_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	if len(o.UserId) != 26 {
-		return NewAppError("ClassMember.IsValid", "model.channel_member.is_valid.user_id.app_error", nil, "", http.StatusBadRequest)
+		return NewAppError("ClassMember.IsValid", "model.class_member.is_valid.user_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	notifyLevel := o.NotifyProps[DESKTOP_NOTIFY_PROP]
 	if len(notifyLevel) > 20 || !IsClassNotifyLevelValid(notifyLevel) {
-		return NewAppError("ClassMember.IsValid", "model.channel_member.is_valid.notify_level.app_error", nil, "notify_level="+notifyLevel, http.StatusBadRequest)
+		return NewAppError("ClassMember.IsValid", "model.class_member.is_valid.notify_level.app_error", nil, "notify_level="+notifyLevel, http.StatusBadRequest)
 	}
 
 	if pushLevel, ok := o.NotifyProps[PUSH_NOTIFY_PROP]; ok {
 		if len(pushLevel) > 20 || !IsClassNotifyLevelValid(pushLevel) {
-			return NewAppError("ClassMember.IsValid", "model.channel_member.is_valid.push_level.app_error", nil, "push_notification_level="+pushLevel, http.StatusBadRequest)
+			return NewAppError("ClassMember.IsValid", "model.class_member.is_valid.push_level.app_error", nil, "push_notification_level="+pushLevel, http.StatusBadRequest)
 		}
 	}
 
 	if sendEmail, ok := o.NotifyProps[EMAIL_NOTIFY_PROP]; ok {
 		if len(sendEmail) > 20 || !IsSendEmailValid(sendEmail) {
-			return NewAppError("ClassMember.IsValid", "model.channel_member.is_valid.email_value.app_error", nil, "push_notification_level="+sendEmail, http.StatusBadRequest)
+			return NewAppError("ClassMember.IsValid", "model.class_member.is_valid.email_value.app_error", nil, "push_notification_level="+sendEmail, http.StatusBadRequest)
 		}
 	}
 

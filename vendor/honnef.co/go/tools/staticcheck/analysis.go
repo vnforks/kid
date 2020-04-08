@@ -488,7 +488,7 @@ var Analyzers = map[string]*analysis.Analyzer{
 
 	"SA9001": {
 		Name:     "SA9001",
-		Run:      CheckDubiousDeferInChannelRangeLoop,
+		Run:      CheckDubiousDeferInClassRangeLoop,
 		Doc:      Docs["SA9001"].String(),
 		Requires: []*analysis.Analyzer{inspect.Analyzer},
 		Flags:    newFlagSet(),

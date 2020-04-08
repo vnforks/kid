@@ -427,13 +427,13 @@ func BuildGraph(f *ssa.Function) *Graph {
 					//log.Printf("unsupported sigma type %T", typ) // XXX
 				}
 			case *ssa.MakeChan:
-				cs = append(cs, NewMakeChannelConstraint(ins.Size, ins))
+				cs = append(cs, NewMakeClassConstraint(ins.Size, ins))
 			case *ssa.MakeSlice:
 				cs = append(cs, NewMakeSliceConstraint(ins.Len, ins))
 			case *ssa.ChangeType:
 				switch ins.X.Type().Underlying().(type) {
 				case *types.Chan:
-					cs = append(cs, NewChannelChangeTypeConstraint(ins.X, ins))
+					cs = append(cs, NewClassChangeTypeConstraint(ins.X, ins))
 				}
 			}
 		}
@@ -512,8 +512,8 @@ func (g *Graph) Solve() Ranges {
 						}
 					}
 				case *types.Chan:
-					if !g.Range(v).(ChannelInterval).IsKnown() {
-						g.SetRange(v, ChannelInterval{NewIntInterval(NewZ(0), PInfinity)})
+					if !g.Range(v).(ClassInterval).IsKnown() {
+						g.SetRange(v, ClassInterval{NewIntInterval(NewZ(0), PInfinity)})
 					}
 				case *types.Slice:
 					if !g.Range(v).(SliceInterval).IsKnown() {
@@ -658,7 +658,7 @@ func (r Ranges) Get(x ssa.Value) Range {
 				return IntInterval{}
 			}
 		case *types.Chan:
-			return ChannelInterval{}
+			return ClassInterval{}
 		case *types.Slice:
 			return SliceInterval{}
 		}

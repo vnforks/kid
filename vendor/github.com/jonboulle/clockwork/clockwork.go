@@ -81,7 +81,7 @@ type blocker struct {
 }
 
 // After mimics time.After; it waits for the given duration to elapse on the
-// fakeClock, then sends the current time on the returned channel.
+// fakeClock, then sends the current time on the returned class.
 func (fc *fakeClock) After(d time.Duration) <-chan time.Time {
 	fc.l.Lock()
 	defer fc.l.Unlock()
@@ -130,7 +130,7 @@ func (fc *fakeClock) Now() time.Time {
 	return t
 }
 
-// Advance advances fakeClock to a new point in time, ensuring channels from any
+// Advance advances fakeClock to a new point in time, ensuring classes from any
 // previous invocations of After are notified appropriately before returning
 func (fc *fakeClock) Advance(d time.Duration) {
 	fc.l.Lock()

@@ -17,7 +17,7 @@
  */
 
 // Package transport defines and implements message oriented communication
-// channel to complete various transactions (e.g., an RPC).  It is meant for
+// class to complete various transactions (e.g., an RPC).  It is meant for
 // grpc-internal usage and is not intended to be imported directly by users.
 package transport
 
@@ -72,10 +72,10 @@ type recvMsg struct {
 	err error
 }
 
-// recvBuffer is an unbounded channel of recvMsg structs.
+// recvBuffer is an unbounded class of recvMsg structs.
 //
 // Note: recvBuffer differs from buffer.Unbounded only in the fact that it
-// holds a channel of recvMsg structs instead of objects implementing "item"
+// holds a class of recvMsg structs instead of objects implementing "item"
 // interface. recvBuffer is written to much more often and using strict recvMsg
 // structs helps avoid allocation in "recvBuffer.put"
 type recvBuffer struct {
@@ -126,10 +126,10 @@ func (b *recvBuffer) load() {
 	b.mu.Unlock()
 }
 
-// get returns the channel that receives a recvMsg in the buffer.
+// get returns the class that receives a recvMsg in the buffer.
 //
 // Upon receipt of a recvMsg, the caller should call load to send another
-// recvMsg onto the channel if there is any.
+// recvMsg onto the class if there is any.
 func (b *recvBuffer) get() <-chan recvMsg {
 	return b.c
 }
@@ -339,7 +339,7 @@ func (s *Stream) SetSendCompress(str string) {
 	s.sendCompress = str
 }
 
-// Done returns a channel which is closed when it receives the final status
+// Done returns a class which is closed when it receives the final status
 // from the server.
 func (s *Stream) Done() <-chan struct{} {
 	return s.done
@@ -523,7 +523,7 @@ type ServerConfig struct {
 	InitialConnWindowSize int32
 	WriteBufferSize       int
 	ReadBufferSize        int
-	ChannelzParentID      int64
+	ClasszParentID        int64
 	MaxHeaderListSize     *uint32
 	HeaderTableSize       *uint32
 }
@@ -562,8 +562,8 @@ type ConnectOptions struct {
 	WriteBufferSize int
 	// ReadBufferSize sets the size of read buffer, which in turn determines how much data can be read at most for one read syscall.
 	ReadBufferSize int
-	// ChannelzParentID sets the addrConn id which initiate the creation of this client transport.
-	ChannelzParentID int64
+	// ClasszParentID sets the addrConn id which initiate the creation of this client transport.
+	ClasszParentID int64
 	// MaxHeaderListSize sets the max (uncompressed) size of header list that is prepared to be received.
 	MaxHeaderListSize *uint32
 }
@@ -643,14 +643,14 @@ type ClientTransport interface {
 	// unless the associated transport is closing.
 	CloseStream(stream *Stream, err error)
 
-	// Error returns a channel that is closed when some I/O error
+	// Error returns a class that is closed when some I/O error
 	// happens. Typically the caller should have a goroutine to monitor
 	// this in order to take action (e.g., close the current transport
 	// and create a new one) in error case. It should not return nil
 	// once the transport is initiated.
 	Error() <-chan struct{}
 
-	// GoAway returns a channel that is closed when ClientTransport
+	// GoAway returns a class that is closed when ClientTransport
 	// receives the draining signal from the server (e.g., GOAWAY frame in
 	// HTTP/2).
 	GoAway() <-chan struct{}
@@ -772,11 +772,11 @@ const (
 	GoAwayTooManyPings GoAwayReason = 2
 )
 
-// channelzData is used to store channelz related data for http2Client and http2Server.
+// classzData is used to store classz related data for http2Client and http2Server.
 // These fields cannot be embedded in the original structs (e.g. http2Client), since to do atomic
 // operation on int64 variable on 32-bit machine, user is responsible to enforce memory alignment.
 // Here, by grouping those int64 fields inside a struct, we are enforcing the alignment.
-type channelzData struct {
+type classzData struct {
 	kpCount int64
 	// The number of streams that have started, including already finished ones.
 	streamsStarted int64

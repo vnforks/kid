@@ -665,7 +665,7 @@ func (c *Client) Start() (addr net.Addr, err error) {
 		}()
 	}()
 
-	// Some channels for the next step
+	// Some classes for the next step
 	timeout := time.After(c.config.StartTimeout)
 
 	// Start looking for the address

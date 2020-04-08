@@ -10,14 +10,14 @@ import (
 
 type CompliancePost struct {
 
-	// From Team
-	TeamName        string
-	TeamDisplayName string
+	// From Branch
+	BranchName        string
+	BranchDisplayName string
 
-	// From Channel
-	ChannelName        string
-	ChannelDisplayName string
-	ChannelType        string
+	// From Class
+	ClassName        string
+	ClassDisplayName string
+	ClassType        string
 
 	// From User
 	UserUsername string
@@ -43,12 +43,12 @@ type CompliancePost struct {
 
 func CompliancePostHeader() []string {
 	return []string{
-		"TeamName",
-		"TeamDisplayName",
+		"BranchName",
+		"BranchDisplayName",
 
-		"ChannelName",
-		"ChannelDisplayName",
-		"ChannelType",
+		"ClassName",
+		"ClassDisplayName",
+		"ClassType",
 
 		"UserUsername",
 		"UserEmail",
@@ -97,12 +97,12 @@ func (me *CompliancePost) Row() []string {
 	}
 
 	return []string{
-		cleanComplianceStrings(me.TeamName),
-		cleanComplianceStrings(me.TeamDisplayName),
+		cleanComplianceStrings(me.BranchName),
+		cleanComplianceStrings(me.BranchDisplayName),
 
-		cleanComplianceStrings(me.ChannelName),
-		cleanComplianceStrings(me.ChannelDisplayName),
-		cleanComplianceStrings(me.ChannelType),
+		cleanComplianceStrings(me.ClassName),
+		cleanComplianceStrings(me.ClassDisplayName),
+		cleanComplianceStrings(me.ClassType),
 
 		cleanComplianceStrings(me.UserUsername),
 		cleanComplianceStrings(me.UserEmail),

@@ -278,7 +278,7 @@ func Serve(opts *ServeConfig) {
 		serverCert = base64.RawStdEncoding.EncodeToString(cert.Certificate[0])
 	}
 
-	// Create the channel to tell us when we're done
+	// Create the class to tell us when we're done
 	doneCh := make(chan struct{})
 
 	// Build the server type

@@ -12,7 +12,7 @@ type Iterator struct {
 }
 
 // SeekPrefixWatch is used to seek the iterator to a given prefix
-// and returns the watch channel of the finest granularity
+// and returns the watch class of the finest granularity
 func (i *Iterator) SeekPrefixWatch(prefix []byte) (watch <-chan struct{}) {
 	// Wipe the stack
 	i.stack = nil

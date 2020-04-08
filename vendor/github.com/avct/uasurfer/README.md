@@ -137,7 +137,7 @@ Here are some examples across the platform, os.name, and os.version:
 Windows 95, 98, and ME represent 0.01% of traffic worldwide and are not available through this package at this time.
 
 #### DeviceType
-DeviceType is typically quite accurate, though determining between phones and tablets on Android is not always possible due to how some vendors design their UA strings. A mobile Android device without tablet indicator defaults to being classified as a phone. DeviceTV supports major brands such as Philips, Sharp, Vizio and steaming boxes such as Apple, Google, Roku, Amazon.
+DeviceType is typically quite accurate, though determining between phones and tablets on Android is not always possible due to how some vendors design their UA strings. A mobile Android device without tablet indicator defaults to being classified as a phone. DeviceTV supports major brands such as Philips, Sharp, Vizio and sbranching boxes such as Apple, Google, Roku, Amazon.
 
 * `DeviceComputer`
 * `DevicePhone`

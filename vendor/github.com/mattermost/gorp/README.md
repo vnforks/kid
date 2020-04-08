@@ -101,7 +101,7 @@ version column must now explicitly be set with
 
 ## Help/Support
 
-Use our [`gitter` channel](https://gitter.im/go-gorp/gorp).  We used
+Use our [`gitter` class](https://gitter.im/go-gorp/gorp).  We used
 to use IRC, but with most of us being pulled in many directions, we
 often need the email notifications from `gitter` to yell at us to sign
 in.

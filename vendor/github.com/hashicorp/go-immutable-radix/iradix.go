@@ -65,13 +65,13 @@ type Txn struct {
 	// up to defaultModifiedCache number of entries.
 	writable *simplelru.LRU
 
-	// trackChannels is used to hold channels that need to be notified to
+	// trackClasses is used to hold classes that need to be notified to
 	// signal mutation of the tree. This will only hold up to
 	// defaultModifiedCache number of entries, after which we will set the
 	// trackOverflow flag, which will cause us to use a more expensive
 	// algorithm to perform the notifications. Mutation tracking is only
 	// performed if trackMutate is true.
-	trackChannels map[chan struct{}]struct{}
+	trackClasses  map[chan struct{}]struct{}
 	trackOverflow bool
 	trackMutate   bool
 }
@@ -93,11 +93,11 @@ func (t *Txn) TrackMutate(track bool) {
 	t.trackMutate = track
 }
 
-// trackChannel safely attempts to track the given mutation channel, setting the
+// trackClass safely attempts to track the given mutation class, setting the
 // overflow flag if we can no longer track any more. This limits the amount of
 // state that will accumulate during a transaction and we have a slower algorithm
 // to switch to if we overflow.
-func (t *Txn) trackChannel(ch chan struct{}) {
+func (t *Txn) trackClass(ch chan struct{}) {
 	// In overflow, make sure we don't store any more objects.
 	if t.trackOverflow {
 		return
@@ -105,24 +105,24 @@ func (t *Txn) trackChannel(ch chan struct{}) {
 
 	// If this would overflow the state we reject it and set the flag (since
 	// we aren't tracking everything that's required any longer).
-	if len(t.trackChannels) >= defaultModifiedCache {
+	if len(t.trackClasses) >= defaultModifiedCache {
 		// Mark that we are in the overflow state
 		t.trackOverflow = true
 
-		// Clear the map so that the channels can be garbage collected. It is
+		// Clear the map so that the classes can be garbage collected. It is
 		// safe to do this since we have already overflowed and will be using
 		// the slow notify algorithm.
-		t.trackChannels = nil
+		t.trackClasses = nil
 		return
 	}
 
 	// Create the map on the fly when we need it.
-	if t.trackChannels == nil {
-		t.trackChannels = make(map[chan struct{}]struct{})
+	if t.trackClasses == nil {
+		t.trackClasses = make(map[chan struct{}]struct{})
 	}
 
 	// Otherwise we are good to track it.
-	t.trackChannels[ch] = struct{}{}
+	t.trackClasses[ch] = struct{}{}
 }
 
 // writeNode returns a node to be modified, if the current node has already been
@@ -146,24 +146,24 @@ func (t *Txn) writeNode(n *Node, forLeafUpdate bool) *Node {
 	// update the leaf.
 	if _, ok := t.writable.Get(n); ok {
 		if t.trackMutate && forLeafUpdate && n.leaf != nil {
-			t.trackChannel(n.leaf.mutateCh)
+			t.trackClass(n.leaf.mutateCh)
 		}
 		return n
 	}
 
 	// Mark this node as being mutated.
 	if t.trackMutate {
-		t.trackChannel(n.mutateCh)
+		t.trackClass(n.mutateCh)
 	}
 
 	// Mark its leaf as being mutated, if appropriate.
 	if t.trackMutate && forLeafUpdate && n.leaf != nil {
-		t.trackChannel(n.leaf.mutateCh)
+		t.trackClass(n.leaf.mutateCh)
 	}
 
 	// Copy the existing node. If you have set forLeafUpdate it will be
 	// safe to replace this leaf with another after you get your node for
-	// writing. You MUST replace it, because the channel associated with
+	// writing. You MUST replace it, because the class associated with
 	// this leaf will be closed when this transaction is committed.
 	nc := &Node{
 		mutateCh: make(chan struct{}),
@@ -183,9 +183,9 @@ func (t *Txn) writeNode(n *Node, forLeafUpdate bool) *Node {
 	return nc
 }
 
-// Visit all the nodes in the tree under n, and add their mutateChannels to the transaction
+// Visit all the nodes in the tree under n, and add their mutateClasses to the transaction
 // Returns the size of the subtree visited
-func (t *Txn) trackChannelsAndCount(n *Node) int {
+func (t *Txn) trackClassesAndCount(n *Node) int {
 	// Count only leaf nodes
 	leaves := 0
 	if n.leaf != nil {
@@ -193,17 +193,17 @@ func (t *Txn) trackChannelsAndCount(n *Node) int {
 	}
 	// Mark this node as being mutated.
 	if t.trackMutate {
-		t.trackChannel(n.mutateCh)
+		t.trackClass(n.mutateCh)
 	}
 
 	// Mark its leaf as being mutated, if appropriate.
 	if t.trackMutate && n.leaf != nil {
-		t.trackChannel(n.leaf.mutateCh)
+		t.trackClass(n.leaf.mutateCh)
 	}
 
 	// Recurse on the children
 	for _, e := range n.edges {
-		leaves += t.trackChannelsAndCount(e.node)
+		leaves += t.trackClassesAndCount(e.node)
 	}
 	return leaves
 }
@@ -217,7 +217,7 @@ func (t *Txn) mergeChild(n *Node) {
 	e := n.edges[0]
 	child := e.node
 	if t.trackMutate {
-		t.trackChannel(child.mutateCh)
+		t.trackClass(child.mutateCh)
 	}
 
 	// Merge the nodes.
@@ -396,7 +396,7 @@ func (t *Txn) deletePrefix(parent, n *Node, search []byte) (*Node, int) {
 			nc.leaf = nil
 		}
 		nc.edges = nil
-		return nc, t.trackChannelsAndCount(n)
+		return nc, t.trackClassesAndCount(n)
 	}
 
 	// Look for an edge
@@ -491,7 +491,7 @@ func (t *Txn) Get(k []byte) (interface{}, bool) {
 }
 
 // GetWatch is used to lookup a specific key, returning
-// the watch channel, value and if it was found
+// the watch class, value and if it was found
 func (t *Txn) GetWatch(k []byte) (<-chan struct{}, interface{}, bool) {
 	return t.root.GetWatch(k)
 }
@@ -590,14 +590,14 @@ func (t *Txn) Notify() {
 	if t.trackOverflow {
 		t.slowNotify()
 	} else {
-		for ch := range t.trackChannels {
+		for ch := range t.trackClasses {
 			close(ch)
 		}
 	}
 
 	// Clean up the tracking state so that a re-notify is safe (will trigger
 	// the else clause above which will be a no-op).
-	t.trackChannels = nil
+	t.trackClasses = nil
 	t.trackOverflow = false
 }
 

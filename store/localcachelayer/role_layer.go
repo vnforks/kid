@@ -92,7 +92,7 @@ func (s LocalCacheRoleStore) PermanentDeleteAll() *model.AppError {
 	return s.RoleStore.PermanentDeleteAll()
 }
 
-func (s LocalCacheRoleStore) ChannelHigherScopedPermissions(roleNames []string) (map[string]*model.RolePermissions, *model.AppError) {
+func (s LocalCacheRoleStore) ClassHigherScopedPermissions(roleNames []string) (map[string]*model.RolePermissions, *model.AppError) {
 	sort.Strings(roleNames)
 	cacheKey := strings.Join(roleNames, "/")
 	if rolePermissionsMap := s.rootStore.doStandardReadCache(s.rootStore.rolePermissionsCache, cacheKey); rolePermissionsMap != nil {

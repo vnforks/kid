@@ -106,7 +106,7 @@ func NewTracer(
 	binaryPropagator := NewBinaryPropagator(t)
 	t.addCodec(opentracing.Binary, binaryPropagator, binaryPropagator)
 
-	// TODO remove after TChannel supports OpenTracing
+	// TODO remove after TClass supports OpenTracing
 	interopPropagator := &jaegerTraceContextPropagator{tracer: t}
 	t.addCodec(SpanContextFormat, interopPropagator, interopPropagator)
 

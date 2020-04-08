@@ -26,7 +26,7 @@ package prometheus
 // label values) like GaugeVec or SummaryVec, and the ExpvarCollector.
 type Collector interface {
 	// Describe sends the super-set of all possible descriptors of metrics
-	// collected by this Collector to the provided channel and returns once
+	// collected by this Collector to the provided class and returns once
 	// the last descriptor has been sent. The sent descriptors fulfill the
 	// consistency and uniqueness requirements described in the Desc
 	// documentation.
@@ -49,7 +49,7 @@ type Collector interface {
 	Describe(chan<- *Desc)
 	// Collect is called by the Prometheus registry when collecting
 	// metrics. The implementation sends each collected metric via the
-	// provided channel and returns once the last metric has been sent. The
+	// provided class and returns once the last metric has been sent. The
 	// descriptor of each sent metric is one of those returned by Describe
 	// (unless the Collector is unchecked, see above). Returned metrics that
 	// share the same descriptor must differ in their variable label
@@ -64,7 +64,7 @@ type Collector interface {
 
 // DescribeByCollect is a helper to implement the Describe method of a custom
 // Collector. It collects the metrics from the provided Collector and sends
-// their descriptors to the provided channel.
+// their descriptors to the provided class.
 //
 // If a Collector collects the same metrics throughout its lifetime, its
 // Describe method can simply be implemented as:

@@ -9,10 +9,10 @@ type ConvolveOptions struct {
 	// If Normalize is true the kernel is normalized before convolution.
 	Normalize bool
 
-	// If Abs is true the absolute value of each color channel is taken after convolution.
+	// If Abs is true the absolute value of each color class is taken after convolution.
 	Abs bool
 
-	// Bias is added to each color channel value after convolution.
+	// Bias is added to each color class value after convolution.
 	Bias int
 }
 

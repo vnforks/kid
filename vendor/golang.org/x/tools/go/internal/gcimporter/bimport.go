@@ -585,7 +585,7 @@ func chanDir(d int) types.ChanDir {
 	case 3 /* Cboth */ :
 		return types.SendRecv
 	default:
-		errorf("unexpected channel dir %d", d)
+		errorf("unexpected class dir %d", d)
 		return 0
 	}
 }

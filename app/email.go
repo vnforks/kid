@@ -64,13 +64,13 @@ func (a *App) sendChangeUsernameEmail(oldUsername, newUsername, email, locale, s
 
 	subject := T("api.templates.username_change_subject",
 		map[string]interface{}{"SiteName": a.ClientConfig()["SiteName"],
-			"TeamDisplayName": a.Config().TeamSettings.SiteName})
+			"BranchDisplayName": a.Config().BranchSettings.SiteName})
 
 	bodyPage := a.newEmailTemplate("email_change_body", locale)
 	bodyPage.Props["SiteURL"] = siteURL
 	bodyPage.Props["Title"] = T("api.templates.username_change_body.title")
 	bodyPage.Props["Info"] = T("api.templates.username_change_body.info",
-		map[string]interface{}{"TeamDisplayName": a.Config().TeamSettings.SiteName, "NewUsername": newUsername})
+		map[string]interface{}{"BranchDisplayName": a.Config().BranchSettings.SiteName, "NewUsername": newUsername})
 	bodyPage.Props["Warning"] = T("api.templates.email_warning")
 
 	if err := a.sendMail(email, subject, bodyPage.Render()); err != nil {
@@ -87,13 +87,13 @@ func (a *App) sendEmailChangeVerifyEmail(newUserEmail, locale, siteURL, token st
 
 	subject := T("api.templates.email_change_verify_subject",
 		map[string]interface{}{"SiteName": a.ClientConfig()["SiteName"],
-			"TeamDisplayName": a.Config().TeamSettings.SiteName})
+			"BranchDisplayName": a.Config().BranchSettings.SiteName})
 
 	bodyPage := a.newEmailTemplate("email_change_verify_body", locale)
 	bodyPage.Props["SiteURL"] = siteURL
 	bodyPage.Props["Title"] = T("api.templates.email_change_verify_body.title")
 	bodyPage.Props["Info"] = T("api.templates.email_change_verify_body.info",
-		map[string]interface{}{"TeamDisplayName": a.Config().TeamSettings.SiteName})
+		map[string]interface{}{"BranchDisplayName": a.Config().BranchSettings.SiteName})
 	bodyPage.Props["VerifyUrl"] = link
 	bodyPage.Props["VerifyButton"] = T("api.templates.email_change_verify_body.button")
 
@@ -109,13 +109,13 @@ func (a *App) sendEmailChangeEmail(oldEmail, newEmail, locale, siteURL string) *
 
 	subject := T("api.templates.email_change_subject",
 		map[string]interface{}{"SiteName": a.ClientConfig()["SiteName"],
-			"TeamDisplayName": a.Config().TeamSettings.SiteName})
+			"BranchDisplayName": a.Config().BranchSettings.SiteName})
 
 	bodyPage := a.newEmailTemplate("email_change_body", locale)
 	bodyPage.Props["SiteURL"] = siteURL
 	bodyPage.Props["Title"] = T("api.templates.email_change_body.title")
 	bodyPage.Props["Info"] = T("api.templates.email_change_body.info",
-		map[string]interface{}{"TeamDisplayName": a.Config().TeamSettings.SiteName, "NewEmail": newEmail})
+		map[string]interface{}{"BranchDisplayName": a.Config().BranchSettings.SiteName, "NewEmail": newEmail})
 	bodyPage.Props["Warning"] = T("api.templates.email_warning")
 
 	if err := a.sendMail(oldEmail, subject, bodyPage.Render()); err != nil {
@@ -217,13 +217,13 @@ func (a *App) sendPasswordChangeEmail(email, method, locale, siteURL string) *mo
 
 	subject := T("api.templates.password_change_subject",
 		map[string]interface{}{"SiteName": a.ClientConfig()["SiteName"],
-			"TeamDisplayName": a.Config().TeamSettings.SiteName})
+			"BranchDisplayName": a.Config().BranchSettings.SiteName})
 
 	bodyPage := a.newEmailTemplate("password_change_body", locale)
 	bodyPage.Props["SiteURL"] = siteURL
 	bodyPage.Props["Title"] = T("api.templates.password_change_body.title")
 	bodyPage.Props["Info"] = T("api.templates.password_change_body.info",
-		map[string]interface{}{"TeamDisplayName": a.Config().TeamSettings.SiteName, "TeamURL": siteURL, "Method": method})
+		map[string]interface{}{"BranchDisplayName": a.Config().BranchSettings.SiteName, "BranchURL": siteURL, "Method": method})
 	bodyPage.Props["Warning"] = T("api.templates.email_warning")
 
 	if err := a.sendMail(email, subject, bodyPage.Render()); err != nil {
@@ -301,21 +301,21 @@ func (a *App) sendMfaChangeEmail(email string, activated bool, locale, siteURL s
 	return nil
 }
 
-func (a *App) SendInviteEmails(team *model.Team, senderName string, senderUserId string, invites []string, siteURL string) {
+func (a *App) SendInviteEmails(branch *model.Branch, senderName string, senderUserId string, invites []string, siteURL string) {
 	if a.Srv().EmailRateLimiter == nil {
-		a.Log().Error("Email invite not sent, rate limiting could not be setup.", mlog.String("user_id", senderUserId), mlog.String("team_id", team.Id))
+		a.Log().Error("Email invite not sent, rate limiting could not be setup.", mlog.String("user_id", senderUserId), mlog.String("branch_id", branch.Id))
 		return
 	}
 	rateLimited, result, err := a.Srv().EmailRateLimiter.RateLimit(senderUserId, len(invites))
 	if err != nil {
-		a.Log().Error("Error rate limiting invite email.", mlog.String("user_id", senderUserId), mlog.String("team_id", team.Id), mlog.Err(err))
+		a.Log().Error("Error rate limiting invite email.", mlog.String("user_id", senderUserId), mlog.String("branch_id", branch.Id), mlog.Err(err))
 		return
 	}
 
 	if rateLimited {
 		a.Log().Error("Invite emails rate limited.",
 			mlog.String("user_id", senderUserId),
-			mlog.String("team_id", team.Id),
+			mlog.String("branch_id", branch.Id),
 			mlog.String("retry_after", result.RetryAfter.String()),
 			mlog.Err(err))
 		return
@@ -325,28 +325,28 @@ func (a *App) SendInviteEmails(team *model.Team, senderName string, senderUserId
 		if len(invite) > 0 {
 			subject := utils.T("api.templates.invite_subject",
 				map[string]interface{}{"SenderName": senderName,
-					"TeamDisplayName": team.DisplayName,
-					"SiteName":        a.ClientConfig()["SiteName"]})
+					"BranchDisplayName": branch.DisplayName,
+					"SiteName":          a.ClientConfig()["SiteName"]})
 
 			bodyPage := a.newEmailTemplate("invite_body", model.DEFAULT_LOCALE)
 			bodyPage.Props["SiteURL"] = siteURL
 			bodyPage.Props["Title"] = utils.T("api.templates.invite_body.title")
 			bodyPage.Html["Info"] = utils.TranslateAsHtml(utils.T, "api.templates.invite_body.info",
-				map[string]interface{}{"SenderName": senderName, "TeamDisplayName": team.DisplayName})
+				map[string]interface{}{"SenderName": senderName, "BranchDisplayName": branch.DisplayName})
 			bodyPage.Props["Button"] = utils.T("api.templates.invite_body.button")
 			bodyPage.Html["ExtraInfo"] = utils.TranslateAsHtml(utils.T, "api.templates.invite_body.extra_info",
-				map[string]interface{}{"TeamDisplayName": team.DisplayName})
-			bodyPage.Props["TeamURL"] = siteURL + "/" + team.Name
+				map[string]interface{}{"BranchDisplayName": branch.DisplayName})
+			bodyPage.Props["BranchURL"] = siteURL + "/" + branch.Name
 
 			token := model.NewToken(
-				TOKEN_TYPE_TEAM_INVITATION,
-				model.MapToJson(map[string]string{"teamId": team.Id, "email": invite}),
+				TOKEN_TYPE_BRANCH_INVITATION,
+				model.MapToJson(map[string]string{"branchId": branch.Id, "email": invite}),
 			)
 
 			props := make(map[string]string)
 			props["email"] = invite
-			props["display_name"] = team.DisplayName
-			props["name"] = team.Name
+			props["display_name"] = branch.DisplayName
+			props["name"] = branch.Name
 			data := model.MapToJson(props)
 
 			if err := a.Srv().Store.Token().Save(token); err != nil {
@@ -362,32 +362,32 @@ func (a *App) SendInviteEmails(team *model.Team, senderName string, senderUserId
 	}
 }
 
-func (a *App) sendGuestInviteEmails(team *model.Team, channels []*model.Channel, senderName string, senderUserId string, invites []string, siteURL string, message string) {
+func (a *App) sendGuestInviteEmails(branch *model.Branch, classes []*model.Class, senderName string, senderUserId string, invites []string, siteURL string, message string) {
 	if a.Srv().EmailRateLimiter == nil {
-		a.Log().Error("Email invite not sent, rate limiting could not be setup.", mlog.String("user_id", senderUserId), mlog.String("team_id", team.Id))
+		a.Log().Error("Email invite not sent, rate limiting could not be setup.", mlog.String("user_id", senderUserId), mlog.String("branch_id", branch.Id))
 		return
 	}
 	rateLimited, result, err := a.Srv().EmailRateLimiter.RateLimit(senderUserId, len(invites))
 	if err != nil {
-		a.Log().Error("Error rate limiting invite email.", mlog.String("user_id", senderUserId), mlog.String("team_id", team.Id), mlog.Err(err))
+		a.Log().Error("Error rate limiting invite email.", mlog.String("user_id", senderUserId), mlog.String("branch_id", branch.Id), mlog.Err(err))
 		return
 	}
 
 	sender, appErr := a.GetUser(senderUserId)
 	if appErr != nil {
-		a.Log().Error("Email invite not sent, unable to find the sender user.", mlog.String("user_id", senderUserId), mlog.String("team_id", team.Id), mlog.Err(appErr))
+		a.Log().Error("Email invite not sent, unable to find the sender user.", mlog.String("user_id", senderUserId), mlog.String("branch_id", branch.Id), mlog.Err(appErr))
 		return
 	}
 
 	senderProfileImage, _, appErr := a.GetProfileImage(sender)
 	if appErr != nil {
-		a.Log().Warn("Unable to get the sender user profile image.", mlog.String("user_id", senderUserId), mlog.String("team_id", team.Id), mlog.Err(appErr))
+		a.Log().Warn("Unable to get the sender user profile image.", mlog.String("user_id", senderUserId), mlog.String("branch_id", branch.Id), mlog.Err(appErr))
 	}
 
 	if rateLimited {
 		a.Log().Error("Invite emails rate limited.",
 			mlog.String("user_id", senderUserId),
-			mlog.String("team_id", team.Id),
+			mlog.String("branch_id", branch.Id),
 			mlog.String("retry_after", result.RetryAfter.String()),
 			mlog.Err(err))
 		return
@@ -397,14 +397,14 @@ func (a *App) sendGuestInviteEmails(team *model.Team, channels []*model.Channel,
 		if len(invite) > 0 {
 			subject := utils.T("api.templates.invite_guest_subject",
 				map[string]interface{}{"SenderName": senderName,
-					"TeamDisplayName": team.DisplayName,
-					"SiteName":        a.ClientConfig()["SiteName"]})
+					"BranchDisplayName": branch.DisplayName,
+					"SiteName":          a.ClientConfig()["SiteName"]})
 
 			bodyPage := a.newEmailTemplate("invite_body", model.DEFAULT_LOCALE)
 			bodyPage.Props["SiteURL"] = siteURL
 			bodyPage.Props["Title"] = utils.T("api.templates.invite_body.title")
 			bodyPage.Html["Info"] = utils.TranslateAsHtml(utils.T, "api.templates.invite_body_guest.info",
-				map[string]interface{}{"SenderName": senderName, "TeamDisplayName": team.DisplayName})
+				map[string]interface{}{"SenderName": senderName, "BranchDisplayName": branch.DisplayName})
 			bodyPage.Props["Button"] = utils.T("api.templates.invite_body.button")
 			bodyPage.Props["SenderName"] = senderName
 			bodyPage.Props["SenderId"] = senderUserId
@@ -413,19 +413,19 @@ func (a *App) sendGuestInviteEmails(team *model.Team, channels []*model.Channel,
 				bodyPage.Props["Message"] = message
 			}
 			bodyPage.Html["ExtraInfo"] = utils.TranslateAsHtml(utils.T, "api.templates.invite_body.extra_info",
-				map[string]interface{}{"TeamDisplayName": team.DisplayName})
-			bodyPage.Props["TeamURL"] = siteURL + "/" + team.Name
+				map[string]interface{}{"BranchDisplayName": branch.DisplayName})
+			bodyPage.Props["BranchURL"] = siteURL + "/" + branch.Name
 
-			channelIds := []string{}
-			for _, channel := range channels {
-				channelIds = append(channelIds, channel.Id)
+			classIds := []string{}
+			for _, class := range classes {
+				classIds = append(classIds, class.Id)
 			}
 
 			token := model.NewToken(
 				TOKEN_TYPE_GUEST_INVITATION,
 				model.MapToJson(map[string]string{
-					"teamId":   team.Id,
-					"channels": strings.Join(channelIds, " "),
+					"branchId": branch.Id,
+					"classes":  strings.Join(classIds, " "),
 					"email":    invite,
 					"guest":    "true",
 				}),
@@ -433,8 +433,8 @@ func (a *App) sendGuestInviteEmails(team *model.Team, channels []*model.Channel,
 
 			props := make(map[string]string)
 			props["email"] = invite
-			props["display_name"] = team.DisplayName
-			props["name"] = team.Name
+			props["display_name"] = branch.DisplayName
+			props["name"] = branch.Name
 			data := model.MapToJson(props)
 
 			if err := a.Srv().Store.Token().Save(token); err != nil {
@@ -484,7 +484,7 @@ func (a *App) newEmailTemplate(name, locale string) *utils.HTMLTemplate {
 	t.Props["EmailInfo1"] = localT("api.templates.email_info1")
 	t.Props["EmailInfo2"] = localT("api.templates.email_info2")
 	t.Props["EmailInfo3"] = localT("api.templates.email_info3",
-		map[string]interface{}{"SiteName": a.Config().TeamSettings.SiteName})
+		map[string]interface{}{"SiteName": a.Config().BranchSettings.SiteName})
 	t.Props["SupportEmail"] = *a.Config().SupportSettings.SupportEmail
 
 	return t

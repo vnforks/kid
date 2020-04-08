@@ -75,49 +75,49 @@ func (watcher *Watcher) PollAndNotify() {
 		if job.Type == model.JOB_TYPE_DATA_RETENTION {
 			if watcher.workers.DataRetention != nil {
 				select {
-				case watcher.workers.DataRetention.JobChannel() <- *job:
+				case watcher.workers.DataRetention.JobClass() <- *job:
 				default:
 				}
 			}
 		} else if job.Type == model.JOB_TYPE_MESSAGE_EXPORT {
 			if watcher.workers.MessageExport != nil {
 				select {
-				case watcher.workers.MessageExport.JobChannel() <- *job:
+				case watcher.workers.MessageExport.JobClass() <- *job:
 				default:
 				}
 			}
 		} else if job.Type == model.JOB_TYPE_ELASTICSEARCH_POST_INDEXING {
 			if watcher.workers.ElasticsearchIndexing != nil {
 				select {
-				case watcher.workers.ElasticsearchIndexing.JobChannel() <- *job:
+				case watcher.workers.ElasticsearchIndexing.JobClass() <- *job:
 				default:
 				}
 			}
 		} else if job.Type == model.JOB_TYPE_ELASTICSEARCH_POST_AGGREGATION {
 			if watcher.workers.ElasticsearchAggregation != nil {
 				select {
-				case watcher.workers.ElasticsearchAggregation.JobChannel() <- *job:
+				case watcher.workers.ElasticsearchAggregation.JobClass() <- *job:
 				default:
 				}
 			}
 		} else if job.Type == model.JOB_TYPE_LDAP_SYNC {
 			if watcher.workers.LdapSync != nil {
 				select {
-				case watcher.workers.LdapSync.JobChannel() <- *job:
+				case watcher.workers.LdapSync.JobClass() <- *job:
 				default:
 				}
 			}
 		} else if job.Type == model.JOB_TYPE_MIGRATIONS {
 			if watcher.workers.Migrations != nil {
 				select {
-				case watcher.workers.Migrations.JobChannel() <- *job:
+				case watcher.workers.Migrations.JobClass() <- *job:
 				default:
 				}
 			}
 		} else if job.Type == model.JOB_TYPE_PLUGINS {
 			if watcher.workers.Plugins != nil {
 				select {
-				case watcher.workers.Plugins.JobChannel() <- *job:
+				case watcher.workers.Plugins.JobClass() <- *job:
 				default:
 				}
 			}

@@ -24,7 +24,7 @@ func newSqlCommandWebhookStore(sqlStore SqlStore) store.CommandWebhookStore {
 		tablec.ColMap("Id").SetMaxSize(26)
 		tablec.ColMap("CommandId").SetMaxSize(26)
 		tablec.ColMap("UserId").SetMaxSize(26)
-		tablec.ColMap("ChannelId").SetMaxSize(26)
+		tablec.ColMap("ClassId").SetMaxSize(26)
 		tablec.ColMap("RootId").SetMaxSize(26)
 		tablec.ColMap("ParentId").SetMaxSize(26)
 	}

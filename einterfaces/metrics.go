@@ -7,6 +7,8 @@ type MetricsInterface interface {
 	StartServer()
 	StopServer()
 
+	IncrementNotificationMessageSentPush()
+
 	IncrementPostCreate()
 	IncrementWebhookPost()
 	IncrementPostSentEmail()
@@ -51,7 +53,7 @@ type MetricsInterface interface {
 	ObserveApiEndpointDuration(endpoint, method string, elapsed float64)
 	IncrementPostIndexCounter()
 	IncrementUserIndexCounter()
-	IncrementChannelIndexCounter()
+	IncrementClassIndexCounter()
 
 	ObservePluginHookDuration(pluginID, hookName string, success bool, elapsed float64)
 	ObservePluginMultiHookIterationDuration(pluginID string, elapsed float64)

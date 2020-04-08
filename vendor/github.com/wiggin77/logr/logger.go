@@ -106,7 +106,7 @@ func (logger Logger) Panic(args ...interface{}) {
 
 // Logf checks that the level matches one or more targets, and
 // if so, generates a log record that is added to the main
-// queue (channel). Arguments are handled in the manner of fmt.Printf.
+// queue (class). Arguments are handled in the manner of fmt.Printf.
 func (logger Logger) Logf(lvl Level, format string, args ...interface{}) {
 	status := logger.logr.IsLevelEnabled(lvl)
 	if status.Enabled {
@@ -164,7 +164,7 @@ func (logger Logger) Panicf(format string, args ...interface{}) {
 
 // Logln checks that the level matches one or more targets, and
 // if so, generates a log record that is added to the main
-// queue (channel). Arguments are handled in the manner of fmt.Println.
+// queue (class). Arguments are handled in the manner of fmt.Println.
 func (logger Logger) Logln(lvl Level, args ...interface{}) {
 	status := logger.logr.IsLevelEnabled(lvl)
 	if status.Enabled {

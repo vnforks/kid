@@ -281,9 +281,9 @@ type RawSockaddrNetlink struct {
 }
 
 type RawSockaddrHCI struct {
-	Family  uint16
-	Dev     uint16
-	Channel uint16
+	Family uint16
+	Dev    uint16
+	Class  uint16
 }
 
 type RawSockaddrL2 struct {
@@ -296,10 +296,10 @@ type RawSockaddrL2 struct {
 }
 
 type RawSockaddrRFCOMM struct {
-	Family  uint16
-	Bdaddr  [6]uint8
-	Channel uint8
-	_       [1]byte
+	Family uint16
+	Bdaddr [6]uint8
+	Class  uint8
+	_      [1]byte
 }
 
 type RawSockaddrCAN struct {
@@ -2143,23 +2143,23 @@ const (
 	NCSI_ATTR_IFINDEX               = 0x1
 	NCSI_ATTR_PACKAGE_LIST          = 0x2
 	NCSI_ATTR_PACKAGE_ID            = 0x3
-	NCSI_ATTR_CHANNEL_ID            = 0x4
+	NCSI_ATTR_CLASS_ID            = 0x4
 	NCSI_PKG_ATTR_UNSPEC            = 0x0
 	NCSI_PKG_ATTR                   = 0x1
 	NCSI_PKG_ATTR_ID                = 0x2
 	NCSI_PKG_ATTR_FORCED            = 0x3
-	NCSI_PKG_ATTR_CHANNEL_LIST      = 0x4
-	NCSI_CHANNEL_ATTR_UNSPEC        = 0x0
-	NCSI_CHANNEL_ATTR               = 0x1
-	NCSI_CHANNEL_ATTR_ID            = 0x2
-	NCSI_CHANNEL_ATTR_VERSION_MAJOR = 0x3
-	NCSI_CHANNEL_ATTR_VERSION_MINOR = 0x4
-	NCSI_CHANNEL_ATTR_VERSION_STR   = 0x5
-	NCSI_CHANNEL_ATTR_LINK_STATE    = 0x6
-	NCSI_CHANNEL_ATTR_ACTIVE        = 0x7
-	NCSI_CHANNEL_ATTR_FORCED        = 0x8
-	NCSI_CHANNEL_ATTR_VLAN_LIST     = 0x9
-	NCSI_CHANNEL_ATTR_VLAN_ID       = 0xa
+	NCSI_PKG_ATTR_CLASS_LIST      = 0x4
+	NCSI_CLASS_ATTR_UNSPEC        = 0x0
+	NCSI_CLASS_ATTR               = 0x1
+	NCSI_CLASS_ATTR_ID            = 0x2
+	NCSI_CLASS_ATTR_VERSION_MAJOR = 0x3
+	NCSI_CLASS_ATTR_VERSION_MINOR = 0x4
+	NCSI_CLASS_ATTR_VERSION_STR   = 0x5
+	NCSI_CLASS_ATTR_LINK_STATE    = 0x6
+	NCSI_CLASS_ATTR_ACTIVE        = 0x7
+	NCSI_CLASS_ATTR_FORCED        = 0x8
+	NCSI_CLASS_ATTR_VLAN_LIST     = 0x9
+	NCSI_CLASS_ATTR_VLAN_ID       = 0xa
 )
 
 type ScmTimestamping struct {

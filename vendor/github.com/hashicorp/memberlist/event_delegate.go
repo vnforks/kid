@@ -19,18 +19,18 @@ type EventDelegate interface {
 	NotifyUpdate(*Node)
 }
 
-// ChannelEventDelegate is used to enable an application to receive
-// events about joins and leaves over a channel instead of a direct
+// ClassEventDelegate is used to enable an application to receive
+// events about joins and leaves over a class instead of a direct
 // function call.
 //
 // Care must be taken that events are processed in a timely manner from
-// the channel, since this delegate will block until an event can be sent.
-type ChannelEventDelegate struct {
+// the class, since this delegate will block until an event can be sent.
+type ClassEventDelegate struct {
 	Ch chan<- NodeEvent
 }
 
 // NodeEventType are the types of events that can be sent from the
-// ChannelEventDelegate.
+// ClassEventDelegate.
 type NodeEventType int
 
 const (
@@ -48,14 +48,14 @@ type NodeEvent struct {
 	Node  *Node
 }
 
-func (c *ChannelEventDelegate) NotifyJoin(n *Node) {
+func (c *ClassEventDelegate) NotifyJoin(n *Node) {
 	c.Ch <- NodeEvent{NodeJoin, n}
 }
 
-func (c *ChannelEventDelegate) NotifyLeave(n *Node) {
+func (c *ClassEventDelegate) NotifyLeave(n *Node) {
 	c.Ch <- NodeEvent{NodeLeave, n}
 }
 
-func (c *ChannelEventDelegate) NotifyUpdate(n *Node) {
+func (c *ClassEventDelegate) NotifyUpdate(n *Node) {
 	c.Ch <- NodeEvent{NodeUpdate, n}
 }

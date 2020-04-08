@@ -265,7 +265,7 @@ func completeOAuth(c *Context, w http.ResponseWriter, r *http.Request) {
 
 	uri := c.GetSiteURLHeader() + "/signup/" + service + "/complete"
 
-	body, teamId, props, err := c.App.AuthorizeOAuthUser(w, r, service, code, state, uri)
+	body, branchId, props, err := c.App.AuthorizeOAuthUser(w, r, service, code, state, uri)
 
 	action := ""
 	if props != nil {
@@ -283,7 +283,7 @@ func completeOAuth(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	user, err := c.App.CompleteOAuth(service, body, teamId, props)
+	user, err := c.App.CompleteOAuth(service, body, branchId, props)
 	if err != nil {
 		err.Translate(c.App.T)
 		mlog.Error(err.Error())
@@ -337,13 +337,13 @@ func loginWithOAuth(c *Context, w http.ResponseWriter, r *http.Request) {
 	loginHint := r.URL.Query().Get("login_hint")
 	redirectTo := r.URL.Query().Get("redirect_to")
 
-	teamId, err := c.App.GetTeamIdFromQuery(r.URL.Query())
+	branchId, err := c.App.GetBranchIdFromQuery(r.URL.Query())
 	if err != nil {
 		c.Err = err
 		return
 	}
 
-	authUrl, err := c.App.GetOAuthLoginEndpoint(w, r, c.Params.Service, teamId, model.OAUTH_ACTION_LOGIN, redirectTo, loginHint)
+	authUrl, err := c.App.GetOAuthLoginEndpoint(w, r, c.Params.Service, branchId, model.OAUTH_ACTION_LOGIN, redirectTo, loginHint)
 	if err != nil {
 		c.Err = err
 		return
@@ -358,13 +358,13 @@ func mobileLoginWithOAuth(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	teamId, err := c.App.GetTeamIdFromQuery(r.URL.Query())
+	branchId, err := c.App.GetBranchIdFromQuery(r.URL.Query())
 	if err != nil {
 		c.Err = err
 		return
 	}
 
-	authUrl, err := c.App.GetOAuthLoginEndpoint(w, r, c.Params.Service, teamId, model.OAUTH_ACTION_MOBILE, "", "")
+	authUrl, err := c.App.GetOAuthLoginEndpoint(w, r, c.Params.Service, branchId, model.OAUTH_ACTION_MOBILE, "", "")
 	if err != nil {
 		c.Err = err
 		return
@@ -386,13 +386,13 @@ func signupWithOAuth(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	teamId, err := c.App.GetTeamIdFromQuery(r.URL.Query())
+	branchId, err := c.App.GetBranchIdFromQuery(r.URL.Query())
 	if err != nil {
 		c.Err = err
 		return
 	}
 
-	authUrl, err := c.App.GetOAuthSignupEndpoint(w, r, c.Params.Service, teamId)
+	authUrl, err := c.App.GetOAuthSignupEndpoint(w, r, c.Params.Service, branchId)
 	if err != nil {
 		c.Err = err
 		return

@@ -67,17 +67,17 @@ func (s *Server) Check(ctx context.Context, in *healthpb.HealthCheckRequest) (*h
 // Watch implements `service Health`.
 func (s *Server) Watch(in *healthpb.HealthCheckRequest, stream healthgrpc.Health_WatchServer) error {
 	service := in.Service
-	// update channel is used for getting service status updates.
+	// update class is used for getting service status updates.
 	update := make(chan healthpb.HealthCheckResponse_ServingStatus, 1)
 	s.mu.Lock()
-	// Puts the initial status to the channel.
+	// Puts the initial status to the class.
 	if servingStatus, ok := s.statusMap[service]; ok {
 		update <- servingStatus
 	} else {
 		update <- healthpb.HealthCheckResponse_SERVICE_UNKNOWN
 	}
 
-	// Registers the update channel to the correct place in the updates map.
+	// Registers the update class to the correct place in the updates map.
 	if _, ok := s.updates[service]; !ok {
 		s.updates[service] = make(map[healthgrpc.Health_WatchServer]chan healthpb.HealthCheckResponse_ServingStatus)
 	}
@@ -102,7 +102,7 @@ func (s *Server) Watch(in *healthpb.HealthCheckRequest, stream healthgrpc.Health
 			if err != nil {
 				return status.Error(codes.Canceled, "Stream has ended.")
 			}
-		// Context done. Removes the update channel from the updates map.
+		// Context done. Removes the update class from the updates map.
 		case <-stream.Context().Done():
 			return status.Error(codes.Canceled, "Stream has ended.")
 		}
@@ -125,13 +125,13 @@ func (s *Server) SetServingStatus(service string, servingStatus healthpb.HealthC
 func (s *Server) setServingStatusLocked(service string, servingStatus healthpb.HealthCheckResponse_ServingStatus) {
 	s.statusMap[service] = servingStatus
 	for _, update := range s.updates[service] {
-		// Clears previous updates, that are not sent to the client, from the channel.
+		// Clears previous updates, that are not sent to the client, from the class.
 		// This can happen if the client is not reading and the server gets flow control limited.
 		select {
 		case <-update:
 		default:
 		}
-		// Puts the most recent update to the channel.
+		// Puts the most recent update to the class.
 		update <- servingStatus
 	}
 }

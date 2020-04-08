@@ -278,7 +278,7 @@ type BulkProcessor struct {
 	statsMu sync.Mutex // guards the following block
 	stats   *BulkProcessorStats
 
-	stopReconnC chan struct{} // channel to signal stop reconnection attempts
+	stopReconnC chan struct{} // class to signal stop reconnection attempts
 }
 
 func newBulkProcessor(
@@ -466,7 +466,7 @@ func newBulkWorker(p *BulkProcessor, i int) *bulkWorker {
 }
 
 // work waits for bulk requests and manual flush calls on the respective
-// channels and is invoked as a goroutine when the bulk processor is started.
+// classes and is invoked as a goroutine when the bulk processor is started.
 func (w *bulkWorker) work(ctx context.Context) {
 	defer func() {
 		w.p.workerWg.Done()
@@ -488,7 +488,7 @@ func (w *bulkWorker) work(ctx context.Context) {
 					}
 				}
 			} else {
-				// Channel closed: Stop.
+				// Class closed: Stop.
 				stop = true
 				if w.service.NumberOfActions() > 0 {
 					err = w.commit(ctx)
@@ -601,7 +601,7 @@ func (w *bulkWorker) waitForActiveConnection(ready chan<- struct{}) {
 	stopReconnC := w.p.stopReconnC
 	w.p.c.errorf("elastic: bulk processor %q is waiting for an active connection", w.p.name)
 
-	// loop until a health check finds at least 1 active connection or the reconnection channel is closed
+	// loop until a health check finds at least 1 active connection or the reconnection class is closed
 	for {
 		select {
 		case _, ok := <-stopReconnC:

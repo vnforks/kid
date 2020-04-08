@@ -29,7 +29,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: audits; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: audits; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.audits (
@@ -43,28 +43,28 @@ CREATE TABLE public.audits (
 );
 
 
-ALTER TABLE public.audits OWNER TO mmuser;
+ALTER TABLE public.audits OWNER TO kuser;
 
 --
--- Name: channelmemberhistory; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: classmemberhistory; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE TABLE public.channelmemberhistory (
-    channelid character varying(26) NOT NULL,
+CREATE TABLE public.classmemberhistory (
+    classid character varying(26) NOT NULL,
     userid character varying(26) NOT NULL,
     jointime bigint NOT NULL,
     leavetime bigint
 );
 
 
-ALTER TABLE public.channelmemberhistory OWNER TO mmuser;
+ALTER TABLE public.classmemberhistory OWNER TO kuser;
 
 --
--- Name: channelmembers; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: classmembers; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE TABLE public.channelmembers (
-    channelid character varying(26) NOT NULL,
+CREATE TABLE public.classmembers (
+    classid character varying(26) NOT NULL,
     userid character varying(26) NOT NULL,
     roles character varying(64),
     lastviewedat bigint,
@@ -77,18 +77,18 @@ CREATE TABLE public.channelmembers (
 );
 
 
-ALTER TABLE public.channelmembers OWNER TO mmuser;
+ALTER TABLE public.classmembers OWNER TO kuser;
 
 --
--- Name: channels; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: classes; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE TABLE public.channels (
+CREATE TABLE public.classes (
     id character varying(26) NOT NULL,
     createat bigint,
     updateat bigint,
     deleteat bigint,
-    teamid character varying(26),
+    branchid character varying(26),
     type character varying(1),
     displayname character varying(64),
     name character varying(64),
@@ -102,10 +102,10 @@ CREATE TABLE public.channels (
 );
 
 
-ALTER TABLE public.channels OWNER TO mmuser;
+ALTER TABLE public.classes OWNER TO kuser;
 
 --
--- Name: clusterdiscovery; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: clusterdiscovery; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.clusterdiscovery (
@@ -120,10 +120,10 @@ CREATE TABLE public.clusterdiscovery (
 );
 
 
-ALTER TABLE public.clusterdiscovery OWNER TO mmuser;
+ALTER TABLE public.clusterdiscovery OWNER TO kuser;
 
 --
--- Name: commands; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: commands; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.commands (
@@ -133,7 +133,7 @@ CREATE TABLE public.commands (
     updateat bigint,
     deleteat bigint,
     creatorid character varying(26),
-    teamid character varying(26),
+    branchid character varying(26),
     trigger character varying(128),
     method character varying(1),
     username character varying(64),
@@ -147,10 +147,10 @@ CREATE TABLE public.commands (
 );
 
 
-ALTER TABLE public.commands OWNER TO mmuser;
+ALTER TABLE public.commands OWNER TO kuser;
 
 --
--- Name: commandwebhooks; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: commandwebhooks; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.commandwebhooks (
@@ -158,17 +158,17 @@ CREATE TABLE public.commandwebhooks (
     createat bigint,
     commandid character varying(26),
     userid character varying(26),
-    channelid character varying(26),
+    classid character varying(26),
     rootid character varying(26),
     parentid character varying(26),
     usecount integer
 );
 
 
-ALTER TABLE public.commandwebhooks OWNER TO mmuser;
+ALTER TABLE public.commandwebhooks OWNER TO kuser;
 
 --
--- Name: compliances; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: compliances; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.compliances (
@@ -186,10 +186,10 @@ CREATE TABLE public.compliances (
 );
 
 
-ALTER TABLE public.compliances OWNER TO mmuser;
+ALTER TABLE public.compliances OWNER TO kuser;
 
 --
--- Name: emoji; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: emoji; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.emoji (
@@ -202,10 +202,10 @@ CREATE TABLE public.emoji (
 );
 
 
-ALTER TABLE public.emoji OWNER TO mmuser;
+ALTER TABLE public.emoji OWNER TO kuser;
 
 --
--- Name: fileinfo; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: fileinfo; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.fileinfo (
@@ -228,10 +228,10 @@ CREATE TABLE public.fileinfo (
 );
 
 
-ALTER TABLE public.fileinfo OWNER TO mmuser;
+ALTER TABLE public.fileinfo OWNER TO kuser;
 
 --
--- Name: incomingwebhooks; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: incomingwebhooks; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.incomingwebhooks (
@@ -240,20 +240,20 @@ CREATE TABLE public.incomingwebhooks (
     updateat bigint,
     deleteat bigint,
     userid character varying(26),
-    channelid character varying(26),
-    teamid character varying(26),
+    classid character varying(26),
+    branchid character varying(26),
     displayname character varying(64),
     description character varying(128),
     username text,
     iconurl text,
-    channellocked boolean
+    classlocked boolean
 );
 
 
-ALTER TABLE public.incomingwebhooks OWNER TO mmuser;
+ALTER TABLE public.incomingwebhooks OWNER TO kuser;
 
 --
--- Name: jobs; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: jobs; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.jobs (
@@ -269,10 +269,10 @@ CREATE TABLE public.jobs (
 );
 
 
-ALTER TABLE public.jobs OWNER TO mmuser;
+ALTER TABLE public.jobs OWNER TO kuser;
 
 --
--- Name: licenses; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: licenses; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.licenses (
@@ -282,10 +282,10 @@ CREATE TABLE public.licenses (
 );
 
 
-ALTER TABLE public.licenses OWNER TO mmuser;
+ALTER TABLE public.licenses OWNER TO kuser;
 
 --
--- Name: oauthaccessdata; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: oauthaccessdata; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.oauthaccessdata (
@@ -299,10 +299,10 @@ CREATE TABLE public.oauthaccessdata (
 );
 
 
-ALTER TABLE public.oauthaccessdata OWNER TO mmuser;
+ALTER TABLE public.oauthaccessdata OWNER TO kuser;
 
 --
--- Name: oauthapps; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: oauthapps; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.oauthapps (
@@ -320,10 +320,10 @@ CREATE TABLE public.oauthapps (
 );
 
 
-ALTER TABLE public.oauthapps OWNER TO mmuser;
+ALTER TABLE public.oauthapps OWNER TO kuser;
 
 --
--- Name: oauthauthdata; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: oauthauthdata; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.oauthauthdata (
@@ -338,10 +338,10 @@ CREATE TABLE public.oauthauthdata (
 );
 
 
-ALTER TABLE public.oauthauthdata OWNER TO mmuser;
+ALTER TABLE public.oauthauthdata OWNER TO kuser;
 
 --
--- Name: outgoingwebhooks; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: outgoingwebhooks; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.outgoingwebhooks (
@@ -351,8 +351,8 @@ CREATE TABLE public.outgoingwebhooks (
     updateat bigint,
     deleteat bigint,
     creatorid character varying(26),
-    channelid character varying(26),
-    teamid character varying(26),
+    classid character varying(26),
+    branchid character varying(26),
     triggerwords character varying(1024),
     triggerwhen integer,
     callbackurls character varying(1024),
@@ -362,10 +362,10 @@ CREATE TABLE public.outgoingwebhooks (
 );
 
 
-ALTER TABLE public.outgoingwebhooks OWNER TO mmuser;
+ALTER TABLE public.outgoingwebhooks OWNER TO kuser;
 
 --
--- Name: pluginkeyvaluestore; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: pluginkeyvaluestore; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.pluginkeyvaluestore (
@@ -375,10 +375,10 @@ CREATE TABLE public.pluginkeyvaluestore (
 );
 
 
-ALTER TABLE public.pluginkeyvaluestore OWNER TO mmuser;
+ALTER TABLE public.pluginkeyvaluestore OWNER TO kuser;
 
 --
--- Name: posts; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: posts; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.posts (
@@ -389,7 +389,7 @@ CREATE TABLE public.posts (
     deleteat bigint,
     ispinned boolean,
     userid character varying(26),
-    channelid character varying(26),
+    classid character varying(26),
     rootid character varying(26),
     parentid character varying(26),
     originalid character varying(26),
@@ -403,10 +403,10 @@ CREATE TABLE public.posts (
 );
 
 
-ALTER TABLE public.posts OWNER TO mmuser;
+ALTER TABLE public.posts OWNER TO kuser;
 
 --
--- Name: preferences; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: preferences; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.preferences (
@@ -417,10 +417,10 @@ CREATE TABLE public.preferences (
 );
 
 
-ALTER TABLE public.preferences OWNER TO mmuser;
+ALTER TABLE public.preferences OWNER TO kuser;
 
 --
--- Name: reactions; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: reactions; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.reactions (
@@ -431,10 +431,10 @@ CREATE TABLE public.reactions (
 );
 
 
-ALTER TABLE public.reactions OWNER TO mmuser;
+ALTER TABLE public.reactions OWNER TO kuser;
 
 --
--- Name: roles; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: roles; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.roles (
@@ -451,10 +451,10 @@ CREATE TABLE public.roles (
 );
 
 
-ALTER TABLE public.roles OWNER TO mmuser;
+ALTER TABLE public.roles OWNER TO kuser;
 
 --
--- Name: schemes; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: schemes; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.schemes (
@@ -466,17 +466,17 @@ CREATE TABLE public.schemes (
     updateat bigint,
     deleteat bigint,
     scope character varying(32),
-    defaultteamadminrole character varying(64),
-    defaultteamuserrole character varying(64),
-    defaultchanneladminrole character varying(64),
-    defaultchanneluserrole character varying(64)
+    defaultbranchadminrole character varying(64),
+    defaultbranchuserrole character varying(64),
+    defaultclassadminrole character varying(64),
+    defaultclassuserrole character varying(64)
 );
 
 
-ALTER TABLE public.schemes OWNER TO mmuser;
+ALTER TABLE public.schemes OWNER TO kuser;
 
 --
--- Name: sessions; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: sessions; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.sessions (
@@ -493,10 +493,10 @@ CREATE TABLE public.sessions (
 );
 
 
-ALTER TABLE public.sessions OWNER TO mmuser;
+ALTER TABLE public.sessions OWNER TO kuser;
 
 --
--- Name: status; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: status; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.status (
@@ -507,10 +507,10 @@ CREATE TABLE public.status (
 );
 
 
-ALTER TABLE public.status OWNER TO mmuser;
+ALTER TABLE public.status OWNER TO kuser;
 
 --
--- Name: systems; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: systems; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.systems (
@@ -519,14 +519,14 @@ CREATE TABLE public.systems (
 );
 
 
-ALTER TABLE public.systems OWNER TO mmuser;
+ALTER TABLE public.systems OWNER TO kuser;
 
 --
--- Name: teammembers; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: branchmembers; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE TABLE public.teammembers (
-    teamid character varying(26) NOT NULL,
+CREATE TABLE public.branchmembers (
+    branchid character varying(26) NOT NULL,
     userid character varying(26) NOT NULL,
     roles character varying(64),
     deleteat bigint,
@@ -535,13 +535,13 @@ CREATE TABLE public.teammembers (
 );
 
 
-ALTER TABLE public.teammembers OWNER TO mmuser;
+ALTER TABLE public.branchmembers OWNER TO kuser;
 
 --
--- Name: teams; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: branches; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE TABLE public.teams (
+CREATE TABLE public.branches (
     id character varying(26) NOT NULL,
     createat bigint,
     updateat bigint,
@@ -555,15 +555,15 @@ CREATE TABLE public.teams (
     alloweddomains character varying(500),
     inviteid character varying(32),
     allowopeninvite boolean,
-    lastteamiconupdate bigint,
+    lastbranchiconupdate bigint,
     schemeid text
 );
 
 
-ALTER TABLE public.teams OWNER TO mmuser;
+ALTER TABLE public.branches OWNER TO kuser;
 
 --
--- Name: tokens; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: tokens; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.tokens (
@@ -574,10 +574,10 @@ CREATE TABLE public.tokens (
 );
 
 
-ALTER TABLE public.tokens OWNER TO mmuser;
+ALTER TABLE public.tokens OWNER TO kuser;
 
 --
--- Name: useraccesstokens; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: useraccesstokens; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.useraccesstokens (
@@ -589,10 +589,10 @@ CREATE TABLE public.useraccesstokens (
 );
 
 
-ALTER TABLE public.useraccesstokens OWNER TO mmuser;
+ALTER TABLE public.useraccesstokens OWNER TO kuser;
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: users; Type: TABLE; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE TABLE public.users (
@@ -624,10 +624,10 @@ CREATE TABLE public.users (
 );
 
 
-ALTER TABLE public.users OWNER TO mmuser;
+ALTER TABLE public.users OWNER TO kuser;
 
 --
--- Data for Name: audits; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: audits; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.audits (id, createat, userid, action, extrainfo, ipaddress, sessionid) FROM stdin;
@@ -635,31 +635,31 @@ COPY public.audits (id, createat, userid, action, extrainfo, ipaddress, sessioni
 
 
 --
--- Data for Name: channelmemberhistory; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: classmemberhistory; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.channelmemberhistory (channelid, userid, jointime, leavetime) FROM stdin;
+COPY public.classmemberhistory (classid, userid, jointime, leavetime) FROM stdin;
 \.
 
 
 --
--- Data for Name: channelmembers; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: classmembers; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.channelmembers (channelid, userid, roles, lastviewedat, msgcount, mentioncount, notifyprops, lastupdateat, schemeuser, schemeadmin) FROM stdin;
+COPY public.classmembers (classid, userid, roles, lastviewedat, msgcount, mentioncount, notifyprops, lastupdateat, schemeuser, schemeadmin) FROM stdin;
 \.
 
 
 --
--- Data for Name: channels; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: classes; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.channels (id, createat, updateat, deleteat, teamid, type, displayname, name, header, purpose, lastpostat, totalmsgcount, extraupdateat, creatorid, schemeid) FROM stdin;
+COPY public.classes (id, createat, updateat, deleteat, branchid, type, displayname, name, header, purpose, lastpostat, totalmsgcount, extraupdateat, creatorid, schemeid) FROM stdin;
 \.
 
 
 --
--- Data for Name: clusterdiscovery; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: clusterdiscovery; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.clusterdiscovery (id, type, clustername, hostname, gossipport, port, createat, lastpingat) FROM stdin;
@@ -667,23 +667,23 @@ COPY public.clusterdiscovery (id, type, clustername, hostname, gossipport, port,
 
 
 --
--- Data for Name: commands; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: commands; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.commands (id, token, createat, updateat, deleteat, creatorid, teamid, trigger, method, username, iconurl, autocomplete, autocompletedesc, autocompletehint, displayname, description, url) FROM stdin;
+COPY public.commands (id, token, createat, updateat, deleteat, creatorid, branchid, trigger, method, username, iconurl, autocomplete, autocompletedesc, autocompletehint, displayname, description, url) FROM stdin;
 \.
 
 
 --
--- Data for Name: commandwebhooks; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: commandwebhooks; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.commandwebhooks (id, createat, commandid, userid, channelid, rootid, parentid, usecount) FROM stdin;
+COPY public.commandwebhooks (id, createat, commandid, userid, classid, rootid, parentid, usecount) FROM stdin;
 \.
 
 
 --
--- Data for Name: compliances; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: compliances; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.compliances (id, createat, userid, status, count, "desc", type, startat, endat, keywords, emails) FROM stdin;
@@ -691,7 +691,7 @@ COPY public.compliances (id, createat, userid, status, count, "desc", type, star
 
 
 --
--- Data for Name: emoji; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: emoji; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.emoji (id, createat, updateat, deleteat, creatorid, name) FROM stdin;
@@ -699,7 +699,7 @@ COPY public.emoji (id, createat, updateat, deleteat, creatorid, name) FROM stdin
 
 
 --
--- Data for Name: fileinfo; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: fileinfo; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.fileinfo (id, creatorid, postid, createat, updateat, deleteat, path, thumbnailpath, previewpath, name, extension, size, mimetype, width, height, haspreviewimage) FROM stdin;
@@ -707,15 +707,15 @@ COPY public.fileinfo (id, creatorid, postid, createat, updateat, deleteat, path,
 
 
 --
--- Data for Name: incomingwebhooks; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: incomingwebhooks; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.incomingwebhooks (id, createat, updateat, deleteat, userid, channelid, teamid, displayname, description, username, iconurl, channellocked) FROM stdin;
+COPY public.incomingwebhooks (id, createat, updateat, deleteat, userid, classid, branchid, displayname, description, username, iconurl, classlocked) FROM stdin;
 \.
 
 
 --
--- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: jobs; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.jobs (id, type, priority, createat, startat, lastactivityat, status, progress, data) FROM stdin;
@@ -723,7 +723,7 @@ COPY public.jobs (id, type, priority, createat, startat, lastactivityat, status,
 
 
 --
--- Data for Name: licenses; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: licenses; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.licenses (id, createat, bytes) FROM stdin;
@@ -731,7 +731,7 @@ COPY public.licenses (id, createat, bytes) FROM stdin;
 
 
 --
--- Data for Name: oauthaccessdata; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: oauthaccessdata; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.oauthaccessdata (clientid, userid, token, refreshtoken, redirecturi, expiresat, scope) FROM stdin;
@@ -739,7 +739,7 @@ COPY public.oauthaccessdata (clientid, userid, token, refreshtoken, redirecturi,
 
 
 --
--- Data for Name: oauthapps; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: oauthapps; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.oauthapps (id, creatorid, createat, updateat, clientsecret, name, description, iconurl, callbackurls, homepage, istrusted) FROM stdin;
@@ -747,7 +747,7 @@ COPY public.oauthapps (id, creatorid, createat, updateat, clientsecret, name, de
 
 
 --
--- Data for Name: oauthauthdata; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: oauthauthdata; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.oauthauthdata (clientid, userid, code, expiresin, createat, redirecturi, state, scope) FROM stdin;
@@ -755,15 +755,15 @@ COPY public.oauthauthdata (clientid, userid, code, expiresin, createat, redirect
 
 
 --
--- Data for Name: outgoingwebhooks; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: outgoingwebhooks; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.outgoingwebhooks (id, token, createat, updateat, deleteat, creatorid, channelid, teamid, triggerwords, triggerwhen, callbackurls, displayname, description, contenttype) FROM stdin;
+COPY public.outgoingwebhooks (id, token, createat, updateat, deleteat, creatorid, classid, branchid, triggerwords, triggerwhen, callbackurls, displayname, description, contenttype) FROM stdin;
 \.
 
 
 --
--- Data for Name: pluginkeyvaluestore; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: pluginkeyvaluestore; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.pluginkeyvaluestore (pluginid, pkey, pvalue) FROM stdin;
@@ -771,15 +771,15 @@ COPY public.pluginkeyvaluestore (pluginid, pkey, pvalue) FROM stdin;
 
 
 --
--- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: posts; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.posts (id, createat, updateat, editat, deleteat, ispinned, userid, channelid, rootid, parentid, originalid, message, type, props, hashtags, filenames, fileids, hasreactions) FROM stdin;
+COPY public.posts (id, createat, updateat, editat, deleteat, ispinned, userid, classid, rootid, parentid, originalid, message, type, props, hashtags, filenames, fileids, hasreactions) FROM stdin;
 \.
 
 
 --
--- Data for Name: preferences; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: preferences; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.preferences (userid, category, name, value) FROM stdin;
@@ -787,7 +787,7 @@ COPY public.preferences (userid, category, name, value) FROM stdin;
 
 
 --
--- Data for Name: reactions; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: reactions; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.reactions (userid, postid, emojiname, createat) FROM stdin;
@@ -795,34 +795,34 @@ COPY public.reactions (userid, postid, emojiname, createat) FROM stdin;
 
 
 --
--- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.roles (id, name, displayname, description, createat, updateat, deleteat, permissions, schememanaged, builtin) FROM stdin;
-aap88jdt37dgdgkek1c7dq69ua	team_post_all	authentication.roles.team_post_all.name	authentication.roles.team_post_all.description	1552912816230	1552912816230	0	 create_post	f	t
-masesduwobn95dqoyba5xmtz5o	team_post_all_public	authentication.roles.team_post_all_public.name	authentication.roles.team_post_all_public.description	1552912816258	1552912816258	0	 create_post_public	f	t
+aap88jdt37dgdgkek1c7dq69ua	branch_post_all	authentication.roles.branch_post_all.name	authentication.roles.branch_post_all.description	1552912816230	1552912816230	0	 create_post	f	t
+masesduwobn95dqoyba5xmtz5o	branch_post_all_public	authentication.roles.branch_post_all_public.name	authentication.roles.branch_post_all_public.description	1552912816258	1552912816258	0	 create_post_public	f	t
 ufy3o8h1y3g4bgqeyw7yb6hrwe	system_post_all	authentication.roles.system_post_all.name	authentication.roles.system_post_all.description	1552912816269	1552912816269	0	 create_post	f	t
 7ptq38iy4br59q8y4zt9mm3zwy	system_post_all_public	authentication.roles.system_post_all_public.name	authentication.roles.system_post_all_public.description	1552912816288	1552912816288	0	 create_post_public	f	t
 wpxrpuiyo3bgdf34u7t65gcota	system_user_access_token	authentication.roles.system_user_access_token.name	authentication.roles.system_user_access_token.description	1552912816404	1552912816404	0	 create_user_access_token read_user_access_token revoke_user_access_token	f	t
-fomn851ie3gmz8zwr87szazm6w	channel_user	authentication.roles.channel_user.name	authentication.roles.channel_user.description	1552912816614	1552912816614	0	 read_channel add_reaction remove_reaction manage_public_channel_members upload_file get_public_link create_post use_slash_commands manage_private_channel_members delete_post edit_post	t	t
-xjxw3p6ect8bjfre7wc5jhwbqr	channel_admin	authentication.roles.channel_admin.name	authentication.roles.channel_admin.description	1552912816669	1552912816669	0	 manage_channel_roles	t	t
-q5qjsjsn3py5mfodcirqjkhsjy	team_user	authentication.roles.team_user.name	authentication.roles.team_user.description	1552912816680	1552912816680	0	 list_team_channels join_public_channels read_public_channel view_team create_public_channel manage_public_channel_properties delete_public_channel create_private_channel manage_private_channel_properties delete_private_channel invite_user add_user_to_team	t	t
-ntqm5c1rbjb9mrh69zagibxoxa	team_admin	authentication.roles.team_admin.name	authentication.roles.team_admin.description	1552912816746	1552912816746	0	 edit_others_posts remove_user_from_team manage_team import_team manage_team_roles manage_channel_roles manage_others_webhooks manage_slash_commands manage_others_slash_commands manage_webhooks delete_post delete_others_posts	t	t
-ts6aqp9p6jy97jwyf6wh4f5qaa	system_user	authentication.roles.global_user.name	authentication.roles.global_user.description	1552912816757	1552912816913	0	 create_direct_channel create_group_channel permanent_delete_user create_team manage_emojis	t	t
-twatrmjz8i8spfdyus18bm4nth	system_admin	authentication.roles.global_admin.name	authentication.roles.global_admin.description	1552912816481	1552912816923	0	 assign_system_admin_role manage_system manage_roles manage_public_channel_properties manage_public_channel_members manage_private_channel_members delete_public_channel create_public_channel manage_private_channel_properties delete_private_channel create_private_channel manage_system_wide_oauth manage_others_webhooks edit_other_users manage_oauth invite_user delete_post delete_others_posts create_team add_user_to_team list_users_without_team manage_jobs create_post_public create_post_ephemeral create_user_access_token read_user_access_token revoke_user_access_token remove_others_reactions list_team_channels join_public_channels read_public_channel view_team read_channel add_reaction remove_reaction upload_file get_public_link create_post use_slash_commands edit_others_posts remove_user_from_team manage_team import_team manage_team_roles manage_channel_roles manage_slash_commands manage_others_slash_commands manage_webhooks edit_post manage_emojis manage_others_emojis	t	t
+fomn851ie3gmz8zwr87szazm6w	class_user	authentication.roles.class_user.name	authentication.roles.class_user.description	1552912816614	1552912816614	0	 read_class add_reaction remove_reaction manage_public_class_members upload_file get_public_link create_post use_slash_commands manage_private_class_members delete_post edit_post	t	t
+xjxw3p6ect8bjfre7wc5jhwbqr	class_admin	authentication.roles.class_admin.name	authentication.roles.class_admin.description	1552912816669	1552912816669	0	 manage_class_roles	t	t
+q5qjsjsn3py5mfodcirqjkhsjy	branch_user	authentication.roles.branch_user.name	authentication.roles.branch_user.description	1552912816680	1552912816680	0	 list_branch_classes join_public_classes read_public_class view_branch create_public_class manage_public_class_properties delete_public_class create_private_class manage_private_class_properties delete_private_class invite_user add_user_to_branch	t	t
+ntqm5c1rbjb9mrh69zagibxoxa	branch_admin	authentication.roles.branch_admin.name	authentication.roles.branch_admin.description	1552912816746	1552912816746	0	 edit_others_posts remove_user_from_branch manage_branch import_branch manage_branch_roles manage_class_roles manage_others_webhooks manage_slash_commands manage_others_slash_commands manage_webhooks delete_post delete_others_posts	t	t
+ts6aqp9p6jy97jwyf6wh4f5qaa	system_user	authentication.roles.global_user.name	authentication.roles.global_user.description	1552912816757	1552912816913	0	 create_direct_class create_group_class permanent_delete_user create_branch manage_emojis	t	t
+twatrmjz8i8spfdyus18bm4nth	system_admin	authentication.roles.global_admin.name	authentication.roles.global_admin.description	1552912816481	1552912816923	0	 assign_system_admin_role manage_system manage_roles manage_public_class_properties manage_public_class_members manage_private_class_members delete_public_class create_public_class manage_private_class_properties delete_private_class create_private_class manage_system_wide_oauth manage_others_webhooks edit_other_users manage_oauth invite_user delete_post delete_others_posts create_branch add_user_to_branch list_users_without_branch manage_jobs create_post_public create_post_ephemeral create_user_access_token read_user_access_token revoke_user_access_token remove_others_reactions list_branch_classes join_public_classes read_public_class view_branch read_class add_reaction remove_reaction upload_file get_public_link create_post use_slash_commands edit_others_posts remove_user_from_branch manage_branch import_branch manage_branch_roles manage_class_roles manage_slash_commands manage_others_slash_commands manage_webhooks edit_post manage_emojis manage_others_emojis	t	t
 \.
 
 
 --
--- Data for Name: schemes; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: schemes; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.schemes (id, name, displayname, description, createat, updateat, deleteat, scope, defaultteamadminrole, defaultteamuserrole, defaultchanneladminrole, defaultchanneluserrole) FROM stdin;
+COPY public.schemes (id, name, displayname, description, createat, updateat, deleteat, scope, defaultbranchadminrole, defaultbranchuserrole, defaultclassadminrole, defaultclassuserrole) FROM stdin;
 \.
 
 
 --
--- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: sessions; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.sessions (id, token, createat, expiresat, lastactivityat, userid, deviceid, roles, isoauth, props) FROM stdin;
@@ -830,7 +830,7 @@ COPY public.sessions (id, token, createat, expiresat, lastactivityat, userid, de
 
 
 --
--- Data for Name: status; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: status; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.status (userid, status, manual, lastactivityat) FROM stdin;
@@ -838,7 +838,7 @@ COPY public.status (userid, status, manual, lastactivityat) FROM stdin;
 
 
 --
--- Data for Name: systems; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: systems; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.systems (name, value) FROM stdin;
@@ -852,23 +852,23 @@ LastSecurityTime	1552912819442
 
 
 --
--- Data for Name: teammembers; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: branchmembers; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.teammembers (teamid, userid, roles, deleteat, schemeuser, schemeadmin) FROM stdin;
+COPY public.branchmembers (branchid, userid, roles, deleteat, schemeuser, schemeadmin) FROM stdin;
 \.
 
 
 --
--- Data for Name: teams; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: branches; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
-COPY public.teams (id, createat, updateat, deleteat, displayname, name, description, email, type, companyname, alloweddomains, inviteid, allowopeninvite, lastteamiconupdate, schemeid) FROM stdin;
+COPY public.branches (id, createat, updateat, deleteat, displayname, name, description, email, type, companyname, alloweddomains, inviteid, allowopeninvite, lastbranchiconupdate, schemeid) FROM stdin;
 \.
 
 
 --
--- Data for Name: tokens; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: tokens; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.tokens (token, createat, type, extra) FROM stdin;
@@ -876,7 +876,7 @@ COPY public.tokens (token, createat, type, extra) FROM stdin;
 
 
 --
--- Data for Name: useraccesstokens; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: useraccesstokens; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.useraccesstokens (id, token, userid, description, isactive) FROM stdin;
@@ -884,7 +884,7 @@ COPY public.useraccesstokens (id, token, userid, description, isactive) FROM std
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: mmuser
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: kuser
 --
 
 COPY public.users (id, createat, updateat, deleteat, username, password, authdata, authservice, email, emailverified, nickname, firstname, lastname, "position", roles, allowmarketing, props, notifyprops, lastpasswordupdate, lastpictureupdate, failedattempts, locale, timezone, mfaactive, mfasecret) FROM stdin;
@@ -892,7 +892,7 @@ COPY public.users (id, createat, updateat, deleteat, username, password, authdat
 
 
 --
--- Name: audits_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: audits_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.audits
@@ -900,39 +900,39 @@ ALTER TABLE ONLY public.audits
 
 
 --
--- Name: channelmemberhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: classmemberhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
-ALTER TABLE ONLY public.channelmemberhistory
-    ADD CONSTRAINT channelmemberhistory_pkey PRIMARY KEY (channelid, userid, jointime);
-
-
---
--- Name: channelmembers_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
---
-
-ALTER TABLE ONLY public.channelmembers
-    ADD CONSTRAINT channelmembers_pkey PRIMARY KEY (channelid, userid);
+ALTER TABLE ONLY public.classmemberhistory
+    ADD CONSTRAINT classmemberhistory_pkey PRIMARY KEY (classid, userid, jointime);
 
 
 --
--- Name: channels_name_teamid_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: classmembers_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
-ALTER TABLE ONLY public.channels
-    ADD CONSTRAINT channels_name_teamid_key UNIQUE (name, teamid);
-
-
---
--- Name: channels_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
---
-
-ALTER TABLE ONLY public.channels
-    ADD CONSTRAINT channels_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.classmembers
+    ADD CONSTRAINT classmembers_pkey PRIMARY KEY (classid, userid);
 
 
 --
--- Name: clusterdiscovery_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: classes_name_branchid_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
+--
+
+ALTER TABLE ONLY public.classes
+    ADD CONSTRAINT classes_name_branchid_key UNIQUE (name, branchid);
+
+
+--
+-- Name: classes_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
+--
+
+ALTER TABLE ONLY public.classes
+    ADD CONSTRAINT classes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: clusterdiscovery_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.clusterdiscovery
@@ -940,7 +940,7 @@ ALTER TABLE ONLY public.clusterdiscovery
 
 
 --
--- Name: commands_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: commands_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.commands
@@ -948,7 +948,7 @@ ALTER TABLE ONLY public.commands
 
 
 --
--- Name: commandwebhooks_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: commandwebhooks_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.commandwebhooks
@@ -956,7 +956,7 @@ ALTER TABLE ONLY public.commandwebhooks
 
 
 --
--- Name: compliances_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: compliances_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.compliances
@@ -964,7 +964,7 @@ ALTER TABLE ONLY public.compliances
 
 
 --
--- Name: emoji_name_deleteat_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: emoji_name_deleteat_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.emoji
@@ -972,7 +972,7 @@ ALTER TABLE ONLY public.emoji
 
 
 --
--- Name: emoji_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: emoji_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.emoji
@@ -980,7 +980,7 @@ ALTER TABLE ONLY public.emoji
 
 
 --
--- Name: fileinfo_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: fileinfo_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.fileinfo
@@ -988,7 +988,7 @@ ALTER TABLE ONLY public.fileinfo
 
 
 --
--- Name: incomingwebhooks_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: incomingwebhooks_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.incomingwebhooks
@@ -996,7 +996,7 @@ ALTER TABLE ONLY public.incomingwebhooks
 
 
 --
--- Name: jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.jobs
@@ -1004,7 +1004,7 @@ ALTER TABLE ONLY public.jobs
 
 
 --
--- Name: licenses_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: licenses_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.licenses
@@ -1012,7 +1012,7 @@ ALTER TABLE ONLY public.licenses
 
 
 --
--- Name: oauthaccessdata_clientid_userid_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: oauthaccessdata_clientid_userid_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.oauthaccessdata
@@ -1020,7 +1020,7 @@ ALTER TABLE ONLY public.oauthaccessdata
 
 
 --
--- Name: oauthaccessdata_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: oauthaccessdata_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.oauthaccessdata
@@ -1028,7 +1028,7 @@ ALTER TABLE ONLY public.oauthaccessdata
 
 
 --
--- Name: oauthapps_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: oauthapps_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.oauthapps
@@ -1036,7 +1036,7 @@ ALTER TABLE ONLY public.oauthapps
 
 
 --
--- Name: oauthauthdata_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: oauthauthdata_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.oauthauthdata
@@ -1044,7 +1044,7 @@ ALTER TABLE ONLY public.oauthauthdata
 
 
 --
--- Name: outgoingwebhooks_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: outgoingwebhooks_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.outgoingwebhooks
@@ -1052,7 +1052,7 @@ ALTER TABLE ONLY public.outgoingwebhooks
 
 
 --
--- Name: pluginkeyvaluestore_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: pluginkeyvaluestore_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.pluginkeyvaluestore
@@ -1060,7 +1060,7 @@ ALTER TABLE ONLY public.pluginkeyvaluestore
 
 
 --
--- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: posts_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.posts
@@ -1068,7 +1068,7 @@ ALTER TABLE ONLY public.posts
 
 
 --
--- Name: preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: preferences_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.preferences
@@ -1076,7 +1076,7 @@ ALTER TABLE ONLY public.preferences
 
 
 --
--- Name: reactions_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: reactions_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.reactions
@@ -1084,7 +1084,7 @@ ALTER TABLE ONLY public.reactions
 
 
 --
--- Name: roles_name_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: roles_name_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.roles
@@ -1092,7 +1092,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.roles
@@ -1100,7 +1100,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- Name: schemes_name_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: schemes_name_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.schemes
@@ -1108,7 +1108,7 @@ ALTER TABLE ONLY public.schemes
 
 
 --
--- Name: schemes_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: schemes_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.schemes
@@ -1116,7 +1116,7 @@ ALTER TABLE ONLY public.schemes
 
 
 --
--- Name: sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: sessions_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.sessions
@@ -1124,7 +1124,7 @@ ALTER TABLE ONLY public.sessions
 
 
 --
--- Name: status_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: status_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.status
@@ -1132,7 +1132,7 @@ ALTER TABLE ONLY public.status
 
 
 --
--- Name: systems_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: systems_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.systems
@@ -1140,31 +1140,31 @@ ALTER TABLE ONLY public.systems
 
 
 --
--- Name: teammembers_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: branchmembers_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
-ALTER TABLE ONLY public.teammembers
-    ADD CONSTRAINT teammembers_pkey PRIMARY KEY (teamid, userid);
-
-
---
--- Name: teams_name_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
---
-
-ALTER TABLE ONLY public.teams
-    ADD CONSTRAINT teams_name_key UNIQUE (name);
+ALTER TABLE ONLY public.branchmembers
+    ADD CONSTRAINT branchmembers_pkey PRIMARY KEY (branchid, userid);
 
 
 --
--- Name: teams_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: branches_name_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
-ALTER TABLE ONLY public.teams
-    ADD CONSTRAINT teams_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.branches
+    ADD CONSTRAINT branches_name_key UNIQUE (name);
 
 
 --
--- Name: tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: branches_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
+--
+
+ALTER TABLE ONLY public.branches
+    ADD CONSTRAINT branches_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.tokens
@@ -1172,7 +1172,7 @@ ALTER TABLE ONLY public.tokens
 
 
 --
--- Name: useraccesstokens_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: useraccesstokens_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.useraccesstokens
@@ -1180,7 +1180,7 @@ ALTER TABLE ONLY public.useraccesstokens
 
 
 --
--- Name: useraccesstokens_token_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: useraccesstokens_token_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.useraccesstokens
@@ -1188,7 +1188,7 @@ ALTER TABLE ONLY public.useraccesstokens
 
 
 --
--- Name: users_authdata_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: users_authdata_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.users
@@ -1196,7 +1196,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.users
@@ -1204,7 +1204,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.users
@@ -1212,7 +1212,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: users_username_key; Type: CONSTRAINT; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: users_username_key; Type: CONSTRAINT; Schema: public; Owner: kuser; Tablespace: 
 --
 
 ALTER TABLE ONLY public.users
@@ -1220,593 +1220,593 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: idx_audits_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_audits_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_audits_user_id ON public.audits USING btree (userid);
 
 
 --
--- Name: idx_channelmembers_channel_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_classmembers_class_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_channelmembers_channel_id ON public.channelmembers USING btree (channelid);
-
-
---
--- Name: idx_channelmembers_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_channelmembers_user_id ON public.channelmembers USING btree (userid);
+CREATE INDEX idx_classmembers_class_id ON public.classmembers USING btree (classid);
 
 
 --
--- Name: idx_channels_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_classmembers_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_channels_create_at ON public.channels USING btree (createat);
-
-
---
--- Name: idx_channels_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_channels_delete_at ON public.channels USING btree (deleteat);
+CREATE INDEX idx_classmembers_user_id ON public.classmembers USING btree (userid);
 
 
 --
--- Name: idx_channels_displayname_lower; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_classes_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_channels_displayname_lower ON public.channels USING btree (lower((displayname)::text));
-
-
---
--- Name: idx_channels_name; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_channels_name ON public.channels USING btree (name);
+CREATE INDEX idx_classes_create_at ON public.classes USING btree (createat);
 
 
 --
--- Name: idx_channels_name_lower; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_classes_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_channels_name_lower ON public.channels USING btree (lower((name)::text));
-
-
---
--- Name: idx_channels_team_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_channels_team_id ON public.channels USING btree (teamid);
+CREATE INDEX idx_classes_delete_at ON public.classes USING btree (deleteat);
 
 
 --
--- Name: idx_channels_txt; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_classes_displayname_lower; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_channels_txt ON public.channels USING gin (to_tsvector('english'::regconfig, (((name)::text || ' '::text) || (displayname)::text)));
-
-
---
--- Name: idx_channels_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_channels_update_at ON public.channels USING btree (updateat);
+CREATE INDEX idx_classes_displayname_lower ON public.classes USING btree (lower((displayname)::text));
 
 
 --
--- Name: idx_command_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_classes_name; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_classes_name ON public.classes USING btree (name);
+
+
+--
+-- Name: idx_classes_name_lower; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_classes_name_lower ON public.classes USING btree (lower((name)::text));
+
+
+--
+-- Name: idx_classes_branch_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_classes_branch_id ON public.classes USING btree (branchid);
+
+
+--
+-- Name: idx_classes_txt; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_classes_txt ON public.classes USING gin (to_tsvector('english'::regconfig, (((name)::text || ' '::text) || (displayname)::text)));
+
+
+--
+-- Name: idx_classes_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_classes_update_at ON public.classes USING btree (updateat);
+
+
+--
+-- Name: idx_command_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_command_create_at ON public.commands USING btree (createat);
 
 
 --
--- Name: idx_command_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_command_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_command_delete_at ON public.commands USING btree (deleteat);
 
 
 --
--- Name: idx_command_team_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_command_branch_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_command_team_id ON public.commands USING btree (teamid);
+CREATE INDEX idx_command_branch_id ON public.commands USING btree (branchid);
 
 
 --
--- Name: idx_command_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_command_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_command_update_at ON public.commands USING btree (updateat);
 
 
 --
--- Name: idx_command_webhook_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_command_webhook_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_command_webhook_create_at ON public.commandwebhooks USING btree (createat);
 
 
 --
--- Name: idx_emoji_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_emoji_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_emoji_create_at ON public.emoji USING btree (createat);
 
 
 --
--- Name: idx_emoji_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_emoji_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_emoji_delete_at ON public.emoji USING btree (deleteat);
 
 
 --
--- Name: idx_emoji_name; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_emoji_name; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_emoji_name ON public.emoji USING btree (name);
 
 
 --
--- Name: idx_emoji_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_emoji_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_emoji_update_at ON public.emoji USING btree (updateat);
 
 
 --
--- Name: idx_fileinfo_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_fileinfo_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_fileinfo_create_at ON public.fileinfo USING btree (createat);
 
 
 --
--- Name: idx_fileinfo_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_fileinfo_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_fileinfo_delete_at ON public.fileinfo USING btree (deleteat);
 
 
 --
--- Name: idx_fileinfo_postid_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_fileinfo_postid_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_fileinfo_postid_at ON public.fileinfo USING btree (postid);
 
 
 --
--- Name: idx_fileinfo_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_fileinfo_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_fileinfo_update_at ON public.fileinfo USING btree (updateat);
 
 
 --
--- Name: idx_incoming_webhook_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_incoming_webhook_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_incoming_webhook_create_at ON public.incomingwebhooks USING btree (createat);
 
 
 --
--- Name: idx_incoming_webhook_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_incoming_webhook_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_incoming_webhook_delete_at ON public.incomingwebhooks USING btree (deleteat);
 
 
 --
--- Name: idx_incoming_webhook_team_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_incoming_webhook_branch_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_incoming_webhook_team_id ON public.incomingwebhooks USING btree (teamid);
+CREATE INDEX idx_incoming_webhook_branch_id ON public.incomingwebhooks USING btree (branchid);
 
 
 --
--- Name: idx_incoming_webhook_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_incoming_webhook_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_incoming_webhook_update_at ON public.incomingwebhooks USING btree (updateat);
 
 
 --
--- Name: idx_incoming_webhook_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_incoming_webhook_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_incoming_webhook_user_id ON public.incomingwebhooks USING btree (userid);
 
 
 --
--- Name: idx_jobs_type; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_jobs_type; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_jobs_type ON public.jobs USING btree (type);
 
 
 --
--- Name: idx_oauthaccessdata_client_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_oauthaccessdata_client_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_oauthaccessdata_client_id ON public.oauthaccessdata USING btree (clientid);
 
 
 --
--- Name: idx_oauthaccessdata_refresh_token; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_oauthaccessdata_refresh_token; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_oauthaccessdata_refresh_token ON public.oauthaccessdata USING btree (refreshtoken);
 
 
 --
--- Name: idx_oauthaccessdata_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_oauthaccessdata_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_oauthaccessdata_user_id ON public.oauthaccessdata USING btree (userid);
 
 
 --
--- Name: idx_oauthapps_creator_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_oauthapps_creator_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_oauthapps_creator_id ON public.oauthapps USING btree (creatorid);
 
 
 --
--- Name: idx_oauthauthdata_client_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_oauthauthdata_client_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_oauthauthdata_client_id ON public.oauthauthdata USING btree (code);
 
 
 --
--- Name: idx_outgoing_webhook_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_outgoing_webhook_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_outgoing_webhook_create_at ON public.outgoingwebhooks USING btree (createat);
 
 
 --
--- Name: idx_outgoing_webhook_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_outgoing_webhook_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_outgoing_webhook_delete_at ON public.outgoingwebhooks USING btree (deleteat);
 
 
 --
--- Name: idx_outgoing_webhook_team_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_outgoing_webhook_branch_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_outgoing_webhook_team_id ON public.outgoingwebhooks USING btree (teamid);
+CREATE INDEX idx_outgoing_webhook_branch_id ON public.outgoingwebhooks USING btree (branchid);
 
 
 --
--- Name: idx_outgoing_webhook_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_outgoing_webhook_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_outgoing_webhook_update_at ON public.outgoingwebhooks USING btree (updateat);
 
 
 --
--- Name: idx_posts_channel_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_class_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_posts_channel_id ON public.posts USING btree (channelid);
-
-
---
--- Name: idx_posts_channel_id_delete_at_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_posts_channel_id_delete_at_create_at ON public.posts USING btree (channelid, deleteat, createat);
+CREATE INDEX idx_posts_class_id ON public.posts USING btree (classid);
 
 
 --
--- Name: idx_posts_channel_id_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_class_id_delete_at_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_posts_channel_id_update_at ON public.posts USING btree (channelid, updateat);
+CREATE INDEX idx_posts_class_id_delete_at_create_at ON public.posts USING btree (classid, deleteat, createat);
 
 
 --
--- Name: idx_posts_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_class_id_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_posts_class_id_update_at ON public.posts USING btree (classid, updateat);
+
+
+--
+-- Name: idx_posts_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_posts_create_at ON public.posts USING btree (createat);
 
 
 --
--- Name: idx_posts_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_posts_delete_at ON public.posts USING btree (deleteat);
 
 
 --
--- Name: idx_posts_hashtags_txt; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_hashtags_txt; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_posts_hashtags_txt ON public.posts USING gin (to_tsvector('english'::regconfig, (hashtags)::text));
 
 
 --
--- Name: idx_posts_is_pinned; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_is_pinned; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_posts_is_pinned ON public.posts USING btree (ispinned);
 
 
 --
--- Name: idx_posts_message_txt; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_message_txt; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_posts_message_txt ON public.posts USING gin (to_tsvector('english'::regconfig, (message)::text));
 
 
 --
--- Name: idx_posts_root_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_root_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_posts_root_id ON public.posts USING btree (rootid);
 
 
 --
--- Name: idx_posts_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_posts_update_at ON public.posts USING btree (updateat);
 
 
 --
--- Name: idx_posts_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_posts_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_posts_user_id ON public.posts USING btree (userid);
 
 
 --
--- Name: idx_preferences_category; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_preferences_category; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_preferences_category ON public.preferences USING btree (category);
 
 
 --
--- Name: idx_preferences_name; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_preferences_name; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_preferences_name ON public.preferences USING btree (name);
 
 
 --
--- Name: idx_preferences_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_preferences_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_preferences_user_id ON public.preferences USING btree (userid);
 
 
 --
--- Name: idx_sessions_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_sessions_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_sessions_create_at ON public.sessions USING btree (createat);
 
 
 --
--- Name: idx_sessions_expires_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_sessions_expires_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_sessions_expires_at ON public.sessions USING btree (expiresat);
 
 
 --
--- Name: idx_sessions_last_activity_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_sessions_last_activity_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_sessions_last_activity_at ON public.sessions USING btree (lastactivityat);
 
 
 --
--- Name: idx_sessions_token; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_sessions_token; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_sessions_token ON public.sessions USING btree (token);
 
 
 --
--- Name: idx_sessions_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_sessions_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_sessions_user_id ON public.sessions USING btree (userid);
 
 
 --
--- Name: idx_status_status; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_status_status; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_status_status ON public.status USING btree (status);
 
 
 --
--- Name: idx_status_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_status_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_status_user_id ON public.status USING btree (userid);
 
 
 --
--- Name: idx_teammembers_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_branchmembers_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_teammembers_delete_at ON public.teammembers USING btree (deleteat);
-
-
---
--- Name: idx_teammembers_team_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_teammembers_team_id ON public.teammembers USING btree (teamid);
+CREATE INDEX idx_branchmembers_delete_at ON public.branchmembers USING btree (deleteat);
 
 
 --
--- Name: idx_teammembers_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_branchmembers_branch_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_teammembers_user_id ON public.teammembers USING btree (userid);
-
-
---
--- Name: idx_teams_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_teams_create_at ON public.teams USING btree (createat);
+CREATE INDEX idx_branchmembers_branch_id ON public.branchmembers USING btree (branchid);
 
 
 --
--- Name: idx_teams_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_branchmembers_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_teams_delete_at ON public.teams USING btree (deleteat);
-
-
---
--- Name: idx_teams_invite_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_teams_invite_id ON public.teams USING btree (inviteid);
+CREATE INDEX idx_branchmembers_user_id ON public.branchmembers USING btree (userid);
 
 
 --
--- Name: idx_teams_name; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_branches_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
-CREATE INDEX idx_teams_name ON public.teams USING btree (name);
-
-
---
--- Name: idx_teams_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
---
-
-CREATE INDEX idx_teams_update_at ON public.teams USING btree (updateat);
+CREATE INDEX idx_branches_create_at ON public.branches USING btree (createat);
 
 
 --
--- Name: idx_user_access_tokens_token; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_branches_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_branches_delete_at ON public.branches USING btree (deleteat);
+
+
+--
+-- Name: idx_branches_invite_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_branches_invite_id ON public.branches USING btree (inviteid);
+
+
+--
+-- Name: idx_branches_name; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_branches_name ON public.branches USING btree (name);
+
+
+--
+-- Name: idx_branches_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
+--
+
+CREATE INDEX idx_branches_update_at ON public.branches USING btree (updateat);
+
+
+--
+-- Name: idx_user_access_tokens_token; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_user_access_tokens_token ON public.useraccesstokens USING btree (token);
 
 
 --
--- Name: idx_user_access_tokens_user_id; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_user_access_tokens_user_id; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_user_access_tokens_user_id ON public.useraccesstokens USING btree (userid);
 
 
 --
--- Name: idx_users_all_no_full_name_txt; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_all_no_full_name_txt; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_all_no_full_name_txt ON public.users USING gin (to_tsvector('english'::regconfig, (((((username)::text || ' '::text) || (nickname)::text) || ' '::text) || (email)::text)));
 
 
 --
--- Name: idx_users_all_txt; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_all_txt; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_all_txt ON public.users USING gin (to_tsvector('english'::regconfig, (((((((((username)::text || ' '::text) || (firstname)::text) || ' '::text) || (lastname)::text) || ' '::text) || (nickname)::text) || ' '::text) || (email)::text)));
 
 
 --
--- Name: idx_users_create_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_create_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_create_at ON public.users USING btree (createat);
 
 
 --
--- Name: idx_users_delete_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_delete_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_delete_at ON public.users USING btree (deleteat);
 
 
 --
--- Name: idx_users_email; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_email; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_email ON public.users USING btree (email);
 
 
 --
--- Name: idx_users_email_lower; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_email_lower; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_email_lower ON public.users USING btree (lower((email)::text));
 
 
 --
--- Name: idx_users_firstname_lower; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_firstname_lower; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_firstname_lower ON public.users USING btree (lower((firstname)::text));
 
 
 --
--- Name: idx_users_lastname_lower; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_lastname_lower; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_lastname_lower ON public.users USING btree (lower((lastname)::text));
 
 
 --
--- Name: idx_users_names_no_full_name_txt; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_names_no_full_name_txt; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_names_no_full_name_txt ON public.users USING gin (to_tsvector('english'::regconfig, (((username)::text || ' '::text) || (nickname)::text)));
 
 
 --
--- Name: idx_users_names_txt; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_names_txt; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_names_txt ON public.users USING gin (to_tsvector('english'::regconfig, (((((((username)::text || ' '::text) || (firstname)::text) || ' '::text) || (lastname)::text) || ' '::text) || (nickname)::text)));
 
 
 --
--- Name: idx_users_nickname_lower; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_nickname_lower; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_nickname_lower ON public.users USING btree (lower((nickname)::text));
 
 
 --
--- Name: idx_users_update_at; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_update_at; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_update_at ON public.users USING btree (updateat);
 
 
 --
--- Name: idx_users_username_lower; Type: INDEX; Schema: public; Owner: mmuser; Tablespace: 
+-- Name: idx_users_username_lower; Type: INDEX; Schema: public; Owner: kuser; Tablespace: 
 --
 
 CREATE INDEX idx_users_username_lower ON public.users USING btree (lower((username)::text));
 
 
 --
--- Name: SCHEMA public; Type: ACL; Schema: -; Owner: mmuser
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: kuser
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM mmuser;
-GRANT ALL ON SCHEMA public TO mmuser;
+REVOKE ALL ON SCHEMA public FROM kuser;
+GRANT ALL ON SCHEMA public TO kuser;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 

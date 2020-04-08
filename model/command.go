@@ -24,7 +24,7 @@ type Command struct {
 	UpdateAt         int64  `json:"update_at"`
 	DeleteAt         int64  `json:"delete_at"`
 	CreatorId        string `json:"creator_id"`
-	TeamId           string `json:"team_id"`
+	BranchId         string `json:"branch_id"`
 	Trigger          string `json:"trigger"`
 	Method           string `json:"method"`
 	Username         string `json:"username"`
@@ -81,8 +81,8 @@ func (o *Command) IsValid() *AppError {
 		return NewAppError("Command.IsValid", "model.command.is_valid.user_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if len(o.TeamId) != 26 {
-		return NewAppError("Command.IsValid", "model.command.is_valid.team_id.app_error", nil, "", http.StatusBadRequest)
+	if len(o.BranchId) != 26 {
+		return NewAppError("Command.IsValid", "model.command.is_valid.branch_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	if len(o.Trigger) < MIN_TRIGGER_LENGTH || len(o.Trigger) > MAX_TRIGGER_LENGTH || strings.Index(o.Trigger, "/") == 0 || strings.Contains(o.Trigger, " ") {

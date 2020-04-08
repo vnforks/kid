@@ -16,7 +16,7 @@
  *
  */
 
-package channelz
+package classz
 
 import (
 	"net"
@@ -29,13 +29,13 @@ import (
 	"google.golang.org/grpc/grpclog"
 )
 
-// entry represents a node in the channelz database.
+// entry represents a node in the classz database.
 type entry interface {
-	// addChild adds a child e, whose channelz id is id to child list
+	// addChild adds a child e, whose classz id is id to child list
 	addChild(id int64, e entry)
-	// deleteChild deletes a child with channelz id to be id from child list
+	// deleteChild deletes a child with classz id to be id from child list
 	deleteChild(id int64)
-	// triggerDelete tries to delete self from channelz database. However, if child
+	// triggerDelete tries to delete self from classz database. However, if child
 	// list is not empty, then deletion from the database is on hold until the last
 	// child is deleted from database.
 	triggerDelete()
@@ -58,8 +58,8 @@ func (d *dummyEntry) addChild(id int64, e entry) {
 	// in http2Client to error. The error info is then caught by transport monitor
 	// and before addrConn.tearDown() is called in side ClientConn.Close(). Therefore,
 	// the addrConn will create a new transport. And when registering the new transport in
-	// channelz, its parent addrConn could have already been torn down and deleted
-	// from channelz tracking, and thus reach the code here.
+	// classz, its parent addrConn could have already been torn down and deleted
+	// from classz tracking, and thus reach the code here.
 	grpclog.Infof("attempt to add child of type %T with id %d to a parent (id=%d) that doesn't currently exist", e, id, d.idNotFound)
 }
 
@@ -81,79 +81,79 @@ func (*dummyEntry) getParentID() int64 {
 	return 0
 }
 
-// ChannelMetric defines the info channelz provides for a specific Channel, which
-// includes ChannelInternalMetric and channelz-specific data, such as channelz id,
+// ClassMetric defines the info classz provides for a specific Class, which
+// includes ClassInternalMetric and classz-specific data, such as classz id,
 // child list, etc.
-type ChannelMetric struct {
-	// ID is the channelz id of this channel.
+type ClassMetric struct {
+	// ID is the classz id of this class.
 	ID int64
-	// RefName is the human readable reference string of this channel.
+	// RefName is the human readable reference string of this class.
 	RefName string
-	// ChannelData contains channel internal metric reported by the channel through
-	// ChannelzMetric().
-	ChannelData *ChannelInternalMetric
-	// NestedChans tracks the nested channel type children of this channel in the format of
-	// a map from nested channel channelz id to corresponding reference string.
+	// ClassData contains class internal metric reported by the class through
+	// ClasszMetric().
+	ClassData *ClassInternalMetric
+	// NestedChans tracks the nested class type children of this class in the format of
+	// a map from nested class classz id to corresponding reference string.
 	NestedChans map[int64]string
-	// SubChans tracks the subchannel type children of this channel in the format of a
-	// map from subchannel channelz id to corresponding reference string.
+	// SubChans tracks the subclass type children of this class in the format of a
+	// map from subclass classz id to corresponding reference string.
 	SubChans map[int64]string
-	// Sockets tracks the socket type children of this channel in the format of a map
-	// from socket channelz id to corresponding reference string.
-	// Note current grpc implementation doesn't allow channel having sockets directly,
+	// Sockets tracks the socket type children of this class in the format of a map
+	// from socket classz id to corresponding reference string.
+	// Note current grpc implementation doesn't allow class having sockets directly,
 	// therefore, this is field is unused.
 	Sockets map[int64]string
 	// Trace contains the most recent traced events.
-	Trace *ChannelTrace
+	Trace *ClassTrace
 }
 
-// SubChannelMetric defines the info channelz provides for a specific SubChannel,
-// which includes ChannelInternalMetric and channelz-specific data, such as
-// channelz id, child list, etc.
-type SubChannelMetric struct {
-	// ID is the channelz id of this subchannel.
+// SubClassMetric defines the info classz provides for a specific SubClass,
+// which includes ClassInternalMetric and classz-specific data, such as
+// classz id, child list, etc.
+type SubClassMetric struct {
+	// ID is the classz id of this subclass.
 	ID int64
-	// RefName is the human readable reference string of this subchannel.
+	// RefName is the human readable reference string of this subclass.
 	RefName string
-	// ChannelData contains subchannel internal metric reported by the subchannel
-	// through ChannelzMetric().
-	ChannelData *ChannelInternalMetric
-	// NestedChans tracks the nested channel type children of this subchannel in the format of
-	// a map from nested channel channelz id to corresponding reference string.
-	// Note current grpc implementation doesn't allow subchannel to have nested channels
+	// ClassData contains subclass internal metric reported by the subclass
+	// through ClasszMetric().
+	ClassData *ClassInternalMetric
+	// NestedChans tracks the nested class type children of this subclass in the format of
+	// a map from nested class classz id to corresponding reference string.
+	// Note current grpc implementation doesn't allow subclass to have nested classes
 	// as children, therefore, this field is unused.
 	NestedChans map[int64]string
-	// SubChans tracks the subchannel type children of this subchannel in the format of a
-	// map from subchannel channelz id to corresponding reference string.
-	// Note current grpc implementation doesn't allow subchannel to have subchannels
+	// SubChans tracks the subclass type children of this subclass in the format of a
+	// map from subclass classz id to corresponding reference string.
+	// Note current grpc implementation doesn't allow subclass to have subclasses
 	// as children, therefore, this field is unused.
 	SubChans map[int64]string
-	// Sockets tracks the socket type children of this subchannel in the format of a map
-	// from socket channelz id to corresponding reference string.
+	// Sockets tracks the socket type children of this subclass in the format of a map
+	// from socket classz id to corresponding reference string.
 	Sockets map[int64]string
 	// Trace contains the most recent traced events.
-	Trace *ChannelTrace
+	Trace *ClassTrace
 }
 
-// ChannelInternalMetric defines the struct that the implementor of Channel interface
-// should return from ChannelzMetric().
-type ChannelInternalMetric struct {
-	// current connectivity state of the channel.
+// ClassInternalMetric defines the struct that the implementor of Class interface
+// should return from ClasszMetric().
+type ClassInternalMetric struct {
+	// current connectivity state of the class.
 	State connectivity.State
-	// The target this channel originally tried to connect to.  May be absent
+	// The target this class originally tried to connect to.  May be absent
 	Target string
-	// The number of calls started on the channel.
+	// The number of calls started on the class.
 	CallsStarted int64
 	// The number of calls that have completed with an OK status.
 	CallsSucceeded int64
 	// The number of calls that have a completed with a non-OK status.
 	CallsFailed int64
-	// The last time a call was started on the channel.
+	// The last time a call was started on the class.
 	LastCallStartedTimestamp time.Time
 }
 
-// ChannelTrace stores traced events on a channel/subchannel and related info.
-type ChannelTrace struct {
+// ClassTrace stores traced events on a class/subclass and related info.
+type ClassTrace struct {
 	// EventNum is the number of events that ever got traced (i.e. including those that have been deleted)
 	EventNum int64
 	// CreationTime is the creation time of the trace.
@@ -173,112 +173,112 @@ type TraceEvent struct {
 	Timestamp time.Time
 	// RefID is the id of the entity that gets referenced in the event. RefID is 0 if no other entity is
 	// involved in this event.
-	// e.g. SubChannel (id: 4[]) Created. --> RefID = 4, RefName = "" (inside [])
+	// e.g. SubClass (id: 4[]) Created. --> RefID = 4, RefName = "" (inside [])
 	RefID int64
 	// RefName is the reference name for the entity that gets referenced in the event.
 	RefName string
-	// RefType indicates the referenced entity type, i.e Channel or SubChannel.
-	RefType RefChannelType
+	// RefType indicates the referenced entity type, i.e Class or SubClass.
+	RefType RefClassType
 }
 
-// Channel is the interface that should be satisfied in order to be tracked by
-// channelz as Channel or SubChannel.
-type Channel interface {
-	ChannelzMetric() *ChannelInternalMetric
+// Class is the interface that should be satisfied in order to be tracked by
+// classz as Class or SubClass.
+type Class interface {
+	ClasszMetric() *ClassInternalMetric
 }
 
-type dummyChannel struct{}
+type dummyClass struct{}
 
-func (d *dummyChannel) ChannelzMetric() *ChannelInternalMetric {
-	return &ChannelInternalMetric{}
+func (d *dummyClass) ClasszMetric() *ClassInternalMetric {
+	return &ClassInternalMetric{}
 }
 
-type channel struct {
+type class struct {
 	refName     string
-	c           Channel
+	c           Class
 	closeCalled bool
 	nestedChans map[int64]string
 	subChans    map[int64]string
 	id          int64
 	pid         int64
-	cm          *channelMap
-	trace       *channelTrace
-	// traceRefCount is the number of trace events that reference this channel.
-	// Non-zero traceRefCount means the trace of this channel cannot be deleted.
+	cm          *classMap
+	trace       *classTrace
+	// traceRefCount is the number of trace events that reference this class.
+	// Non-zero traceRefCount means the trace of this class cannot be deleted.
 	traceRefCount int32
 }
 
-func (c *channel) addChild(id int64, e entry) {
+func (c *class) addChild(id int64, e entry) {
 	switch v := e.(type) {
-	case *subChannel:
+	case *subClass:
 		c.subChans[id] = v.refName
-	case *channel:
+	case *class:
 		c.nestedChans[id] = v.refName
 	default:
-		grpclog.Errorf("cannot add a child (id = %d) of type %T to a channel", id, e)
+		grpclog.Errorf("cannot add a child (id = %d) of type %T to a class", id, e)
 	}
 }
 
-func (c *channel) deleteChild(id int64) {
+func (c *class) deleteChild(id int64) {
 	delete(c.subChans, id)
 	delete(c.nestedChans, id)
 	c.deleteSelfIfReady()
 }
 
-func (c *channel) triggerDelete() {
+func (c *class) triggerDelete() {
 	c.closeCalled = true
 	c.deleteSelfIfReady()
 }
 
-func (c *channel) getParentID() int64 {
+func (c *class) getParentID() int64 {
 	return c.pid
 }
 
-// deleteSelfFromTree tries to delete the channel from the channelz entry relation tree, which means
-// deleting the channel reference from its parent's child list.
+// deleteSelfFromTree tries to delete the class from the classz entry relation tree, which means
+// deleting the class reference from its parent's child list.
 //
-// In order for a channel to be deleted from the tree, it must meet the criteria that, removal of the
-// corresponding grpc object has been invoked, and the channel does not have any children left.
+// In order for a class to be deleted from the tree, it must meet the criteria that, removal of the
+// corresponding grpc object has been invoked, and the class does not have any children left.
 //
-// The returned boolean value indicates whether the channel has been successfully deleted from tree.
-func (c *channel) deleteSelfFromTree() (deleted bool) {
+// The returned boolean value indicates whether the class has been successfully deleted from tree.
+func (c *class) deleteSelfFromTree() (deleted bool) {
 	if !c.closeCalled || len(c.subChans)+len(c.nestedChans) != 0 {
 		return false
 	}
-	// not top channel
+	// not top class
 	if c.pid != 0 {
 		c.cm.findEntry(c.pid).deleteChild(c.id)
 	}
 	return true
 }
 
-// deleteSelfFromMap checks whether it is valid to delete the channel from the map, which means
-// deleting the channel from channelz's tracking entirely. Users can no longer use id to query the
-// channel, and its memory will be garbage collected.
+// deleteSelfFromMap checks whether it is valid to delete the class from the map, which means
+// deleting the class from classz's tracking entirely. Users can no longer use id to query the
+// class, and its memory will be garbage collected.
 //
-// The trace reference count of the channel must be 0 in order to be deleted from the map. This is
-// specified in the channel tracing gRFC that as long as some other trace has reference to an entity,
+// The trace reference count of the class must be 0 in order to be deleted from the map. This is
+// specified in the class tracing gRFC that as long as some other trace has reference to an entity,
 // the trace of the referenced entity must not be deleted. In order to release the resource allocated
 // by grpc, the reference to the grpc object is reset to a dummy object.
 //
 // deleteSelfFromMap must be called after deleteSelfFromTree returns true.
 //
-// It returns a bool to indicate whether the channel can be safely deleted from map.
-func (c *channel) deleteSelfFromMap() (delete bool) {
+// It returns a bool to indicate whether the class can be safely deleted from map.
+func (c *class) deleteSelfFromMap() (delete bool) {
 	if c.getTraceRefCount() != 0 {
-		c.c = &dummyChannel{}
+		c.c = &dummyClass{}
 		return false
 	}
 	return true
 }
 
-// deleteSelfIfReady tries to delete the channel itself from the channelz database.
+// deleteSelfIfReady tries to delete the class itself from the classz database.
 // The delete process includes two steps:
-// 1. delete the channel from the entry relation tree, i.e. delete the channel reference from its
+// 1. delete the class from the entry relation tree, i.e. delete the class reference from its
 //    parent's child list.
-// 2. delete the channel from the map, i.e. delete the channel entirely from channelz. Lookup by id
+// 2. delete the class from the map, i.e. delete the class entirely from classz. Lookup by id
 //    will return entry not found error.
-func (c *channel) deleteSelfIfReady() {
+func (c *class) deleteSelfIfReady() {
 	if !c.deleteSelfFromTree() {
 		return
 	}
@@ -289,69 +289,69 @@ func (c *channel) deleteSelfIfReady() {
 	c.trace.clear()
 }
 
-func (c *channel) getChannelTrace() *channelTrace {
+func (c *class) getClassTrace() *classTrace {
 	return c.trace
 }
 
-func (c *channel) incrTraceRefCount() {
+func (c *class) incrTraceRefCount() {
 	atomic.AddInt32(&c.traceRefCount, 1)
 }
 
-func (c *channel) decrTraceRefCount() {
+func (c *class) decrTraceRefCount() {
 	atomic.AddInt32(&c.traceRefCount, -1)
 }
 
-func (c *channel) getTraceRefCount() int {
+func (c *class) getTraceRefCount() int {
 	i := atomic.LoadInt32(&c.traceRefCount)
 	return int(i)
 }
 
-func (c *channel) getRefName() string {
+func (c *class) getRefName() string {
 	return c.refName
 }
 
-type subChannel struct {
+type subClass struct {
 	refName       string
-	c             Channel
+	c             Class
 	closeCalled   bool
 	sockets       map[int64]string
 	id            int64
 	pid           int64
-	cm            *channelMap
-	trace         *channelTrace
+	cm            *classMap
+	trace         *classTrace
 	traceRefCount int32
 }
 
-func (sc *subChannel) addChild(id int64, e entry) {
+func (sc *subClass) addChild(id int64, e entry) {
 	if v, ok := e.(*normalSocket); ok {
 		sc.sockets[id] = v.refName
 	} else {
-		grpclog.Errorf("cannot add a child (id = %d) of type %T to a subChannel", id, e)
+		grpclog.Errorf("cannot add a child (id = %d) of type %T to a subClass", id, e)
 	}
 }
 
-func (sc *subChannel) deleteChild(id int64) {
+func (sc *subClass) deleteChild(id int64) {
 	delete(sc.sockets, id)
 	sc.deleteSelfIfReady()
 }
 
-func (sc *subChannel) triggerDelete() {
+func (sc *subClass) triggerDelete() {
 	sc.closeCalled = true
 	sc.deleteSelfIfReady()
 }
 
-func (sc *subChannel) getParentID() int64 {
+func (sc *subClass) getParentID() int64 {
 	return sc.pid
 }
 
-// deleteSelfFromTree tries to delete the subchannel from the channelz entry relation tree, which
-// means deleting the subchannel reference from its parent's child list.
+// deleteSelfFromTree tries to delete the subclass from the classz entry relation tree, which
+// means deleting the subclass reference from its parent's child list.
 //
-// In order for a subchannel to be deleted from the tree, it must meet the criteria that, removal of
-// the corresponding grpc object has been invoked, and the subchannel does not have any children left.
+// In order for a subclass to be deleted from the tree, it must meet the criteria that, removal of
+// the corresponding grpc object has been invoked, and the subclass does not have any children left.
 //
-// The returned boolean value indicates whether the channel has been successfully deleted from tree.
-func (sc *subChannel) deleteSelfFromTree() (deleted bool) {
+// The returned boolean value indicates whether the class has been successfully deleted from tree.
+func (sc *subClass) deleteSelfFromTree() (deleted bool) {
 	if !sc.closeCalled || len(sc.sockets) != 0 {
 		return false
 	}
@@ -359,34 +359,34 @@ func (sc *subChannel) deleteSelfFromTree() (deleted bool) {
 	return true
 }
 
-// deleteSelfFromMap checks whether it is valid to delete the subchannel from the map, which means
-// deleting the subchannel from channelz's tracking entirely. Users can no longer use id to query
-// the subchannel, and its memory will be garbage collected.
+// deleteSelfFromMap checks whether it is valid to delete the subclass from the map, which means
+// deleting the subclass from classz's tracking entirely. Users can no longer use id to query
+// the subclass, and its memory will be garbage collected.
 //
-// The trace reference count of the subchannel must be 0 in order to be deleted from the map. This is
-// specified in the channel tracing gRFC that as long as some other trace has reference to an entity,
+// The trace reference count of the subclass must be 0 in order to be deleted from the map. This is
+// specified in the class tracing gRFC that as long as some other trace has reference to an entity,
 // the trace of the referenced entity must not be deleted. In order to release the resource allocated
 // by grpc, the reference to the grpc object is reset to a dummy object.
 //
 // deleteSelfFromMap must be called after deleteSelfFromTree returns true.
 //
-// It returns a bool to indicate whether the channel can be safely deleted from map.
-func (sc *subChannel) deleteSelfFromMap() (delete bool) {
+// It returns a bool to indicate whether the class can be safely deleted from map.
+func (sc *subClass) deleteSelfFromMap() (delete bool) {
 	if sc.getTraceRefCount() != 0 {
 		// free the grpc struct (i.e. addrConn)
-		sc.c = &dummyChannel{}
+		sc.c = &dummyClass{}
 		return false
 	}
 	return true
 }
 
-// deleteSelfIfReady tries to delete the subchannel itself from the channelz database.
+// deleteSelfIfReady tries to delete the subclass itself from the classz database.
 // The delete process includes two steps:
-// 1. delete the subchannel from the entry relation tree, i.e. delete the subchannel reference from
+// 1. delete the subclass from the entry relation tree, i.e. delete the subclass reference from
 //    its parent's child list.
-// 2. delete the subchannel from the map, i.e. delete the subchannel entirely from channelz. Lookup
+// 2. delete the subclass from the map, i.e. delete the subclass entirely from classz. Lookup
 //    by id will return entry not found error.
-func (sc *subChannel) deleteSelfIfReady() {
+func (sc *subClass) deleteSelfIfReady() {
 	if !sc.deleteSelfFromTree() {
 		return
 	}
@@ -397,41 +397,41 @@ func (sc *subChannel) deleteSelfIfReady() {
 	sc.trace.clear()
 }
 
-func (sc *subChannel) getChannelTrace() *channelTrace {
+func (sc *subClass) getClassTrace() *classTrace {
 	return sc.trace
 }
 
-func (sc *subChannel) incrTraceRefCount() {
+func (sc *subClass) incrTraceRefCount() {
 	atomic.AddInt32(&sc.traceRefCount, 1)
 }
 
-func (sc *subChannel) decrTraceRefCount() {
+func (sc *subClass) decrTraceRefCount() {
 	atomic.AddInt32(&sc.traceRefCount, -1)
 }
 
-func (sc *subChannel) getTraceRefCount() int {
+func (sc *subClass) getTraceRefCount() int {
 	i := atomic.LoadInt32(&sc.traceRefCount)
 	return int(i)
 }
 
-func (sc *subChannel) getRefName() string {
+func (sc *subClass) getRefName() string {
 	return sc.refName
 }
 
-// SocketMetric defines the info channelz provides for a specific Socket, which
-// includes SocketInternalMetric and channelz-specific data, such as channelz id, etc.
+// SocketMetric defines the info classz provides for a specific Socket, which
+// includes SocketInternalMetric and classz-specific data, such as classz id, etc.
 type SocketMetric struct {
-	// ID is the channelz id of this socket.
+	// ID is the classz id of this socket.
 	ID int64
 	// RefName is the human readable reference string of this socket.
 	RefName string
 	// SocketData contains socket internal metric reported by the socket through
-	// ChannelzMetric().
+	// ClasszMetric().
 	SocketData *SocketInternalMetric
 }
 
 // SocketInternalMetric defines the struct that the implementor of Socket interface
-// should return from ChannelzMetric().
+// should return from ClasszMetric().
 type SocketInternalMetric struct {
 	// The number of streams that have been started.
 	StreamsStarted int64
@@ -475,13 +475,13 @@ type SocketInternalMetric struct {
 	// the original target name.
 	RemoteName    string
 	SocketOptions *SocketOptionData
-	Security      credentials.ChannelzSecurityValue
+	Security      credentials.ClasszSecurityValue
 }
 
 // Socket is the interface that should be satisfied in order to be tracked by
-// channelz as Socket.
+// classz as Socket.
 type Socket interface {
-	ChannelzMetric() *SocketInternalMetric
+	ClasszMetric() *SocketInternalMetric
 }
 
 type listenSocket struct {
@@ -489,7 +489,7 @@ type listenSocket struct {
 	s       Socket
 	id      int64
 	pid     int64
-	cm      *channelMap
+	cm      *classMap
 }
 
 func (ls *listenSocket) addChild(id int64, e entry) {
@@ -518,7 +518,7 @@ type normalSocket struct {
 	s       Socket
 	id      int64
 	pid     int64
-	cm      *channelMap
+	cm      *classMap
 }
 
 func (ns *normalSocket) addChild(id int64, e entry) {
@@ -542,24 +542,24 @@ func (ns *normalSocket) getParentID() int64 {
 	return ns.pid
 }
 
-// ServerMetric defines the info channelz provides for a specific Server, which
-// includes ServerInternalMetric and channelz-specific data, such as channelz id,
+// ServerMetric defines the info classz provides for a specific Server, which
+// includes ServerInternalMetric and classz-specific data, such as classz id,
 // child list, etc.
 type ServerMetric struct {
-	// ID is the channelz id of this server.
+	// ID is the classz id of this server.
 	ID int64
 	// RefName is the human readable reference string of this server.
 	RefName string
 	// ServerData contains server internal metric reported by the server through
-	// ChannelzMetric().
+	// ClasszMetric().
 	ServerData *ServerInternalMetric
 	// ListenSockets tracks the listener socket type children of this server in the
-	// format of a map from socket channelz id to corresponding reference string.
+	// format of a map from socket classz id to corresponding reference string.
 	ListenSockets map[int64]string
 }
 
 // ServerInternalMetric defines the struct that the implementor of Server interface
-// should return from ChannelzMetric().
+// should return from ClasszMetric().
 type ServerInternalMetric struct {
 	// The number of incoming calls started on the server.
 	CallsStarted int64
@@ -571,10 +571,10 @@ type ServerInternalMetric struct {
 	LastCallStartedTimestamp time.Time
 }
 
-// Server is the interface to be satisfied in order to be tracked by channelz as
+// Server is the interface to be satisfied in order to be tracked by classz as
 // Server.
 type Server interface {
-	ChannelzMetric() *ServerInternalMetric
+	ClasszMetric() *ServerInternalMetric
 }
 
 type server struct {
@@ -584,7 +584,7 @@ type server struct {
 	sockets       map[int64]string
 	listenSockets map[int64]string
 	id            int64
-	cm            *channelMap
+	cm            *classMap
 }
 
 func (s *server) addChild(id int64, e entry) {
@@ -620,22 +620,22 @@ func (s *server) getParentID() int64 {
 	return 0
 }
 
-type tracedChannel interface {
-	getChannelTrace() *channelTrace
+type tracedClass interface {
+	getClassTrace() *classTrace
 	incrTraceRefCount()
 	decrTraceRefCount()
 	getRefName() string
 }
 
-type channelTrace struct {
-	cm          *channelMap
+type classTrace struct {
+	cm          *classMap
 	createdTime time.Time
 	eventCount  int64
 	mu          sync.Mutex
 	events      []*TraceEvent
 }
 
-func (c *channelTrace) append(e *TraceEvent) {
+func (c *classTrace) append(e *TraceEvent) {
 	c.mu.Lock()
 	if len(c.events) == getMaxTraceEntry() {
 		del := c.events[0]
@@ -656,7 +656,7 @@ func (c *channelTrace) append(e *TraceEvent) {
 	c.mu.Unlock()
 }
 
-func (c *channelTrace) clear() {
+func (c *classTrace) clear() {
 	c.mu.Lock()
 	for _, e := range c.events {
 		if e.RefID != 0 {
@@ -669,7 +669,7 @@ func (c *channelTrace) clear() {
 
 // Severity is the severity level of a trace event.
 // The canonical enumeration of all valid values is here:
-// https://github.com/grpc/grpc-proto/blob/9b13d199cc0d4703c7ea26c9c330ba695866eb23/grpc/channelz/v1/channelz.proto#L126.
+// https://github.com/grpc/grpc-proto/blob/9b13d199cc0d4703c7ea26c9c330ba695866eb23/grpc/classz/v1/classz.proto#L126.
 type Severity int
 
 const (
@@ -683,19 +683,19 @@ const (
 	CtError
 )
 
-// RefChannelType is the type of the entity being referenced in a trace event.
-type RefChannelType int
+// RefClassType is the type of the entity being referenced in a trace event.
+type RefClassType int
 
 const (
-	// RefChannel indicates the referenced entity is a Channel.
-	RefChannel RefChannelType = iota
-	// RefSubChannel indicates the referenced entity is a SubChannel.
-	RefSubChannel
+	// RefClass indicates the referenced entity is a Class.
+	RefClass RefClassType = iota
+	// RefSubClass indicates the referenced entity is a SubClass.
+	RefSubClass
 )
 
-func (c *channelTrace) dumpData() *ChannelTrace {
+func (c *classTrace) dumpData() *ClassTrace {
 	c.mu.Lock()
-	ct := &ChannelTrace{EventNum: c.eventCount, CreationTime: c.createdTime}
+	ct := &ClassTrace{EventNum: c.eventCount, CreationTime: c.createdTime}
 	ct.Events = c.events[:len(c.events)]
 	c.mu.Unlock()
 	return ct

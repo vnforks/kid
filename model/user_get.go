@@ -4,17 +4,17 @@
 package model
 
 type UserGetOptions struct {
-	// Filters the users in the team
+	// Filters the users in the branch
 	InBranchId string
-	// Filters the users not in the team
+	// Filters the users not in the branch
 	NotInBranchId string
-	// Filters the users in the channel
+	// Filters the users in the class
 	InClassId string
-	// Filters the users not in the channel
+	// Filters the users not in the class
 	NotInClassId string
 	// Filters the users group constrained
 	GroupConstrained bool
-	// Filters the users without a team
+	// Filters the users without a branch
 	WithoutBranch bool
 	// Filters the inactive users
 	Inactive bool
@@ -22,7 +22,7 @@ type UserGetOptions struct {
 	Role string
 	// Sorting option
 	Sort string
-	// Restrict to search in a list of teams and channels
+	// Restrict to search in a list of branches and classes
 	ViewRestrictions *ViewUsersRestrictions
 	// Page
 	Page int

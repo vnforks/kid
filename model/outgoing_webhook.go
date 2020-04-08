@@ -20,8 +20,8 @@ type OutgoingWebhook struct {
 	UpdateAt     int64       `json:"update_at"`
 	DeleteAt     int64       `json:"delete_at"`
 	CreatorId    string      `json:"creator_id"`
-	ChannelId    string      `json:"channel_id"`
-	TeamId       string      `json:"team_id"`
+	ClassId      string      `json:"class_id"`
+	BranchId     string      `json:"branch_id"`
 	TriggerWords StringArray `json:"trigger_words"`
 	TriggerWhen  int         `json:"trigger_when"`
 	CallbackURLs StringArray `json:"callback_urls"`
@@ -33,18 +33,18 @@ type OutgoingWebhook struct {
 }
 
 type OutgoingWebhookPayload struct {
-	Token       string `json:"token"`
-	TeamId      string `json:"team_id"`
-	TeamDomain  string `json:"team_domain"`
-	ChannelId   string `json:"channel_id"`
-	ChannelName string `json:"channel_name"`
-	Timestamp   int64  `json:"timestamp"`
-	UserId      string `json:"user_id"`
-	UserName    string `json:"user_name"`
-	PostId      string `json:"post_id"`
-	Text        string `json:"text"`
-	TriggerWord string `json:"trigger_word"`
-	FileIds     string `json:"file_ids"`
+	Token        string `json:"token"`
+	BranchId     string `json:"branch_id"`
+	BranchDomain string `json:"branch_domain"`
+	ClassId      string `json:"class_id"`
+	ClassName    string `json:"class_name"`
+	Timestamp    int64  `json:"timestamp"`
+	UserId       string `json:"user_id"`
+	UserName     string `json:"user_name"`
+	PostId       string `json:"post_id"`
+	Text         string `json:"text"`
+	TriggerWord  string `json:"trigger_word"`
+	FileIds      string `json:"file_ids"`
 }
 
 type OutgoingWebhookResponse struct {
@@ -66,10 +66,10 @@ func (o *OutgoingWebhookPayload) ToJSON() string {
 func (o *OutgoingWebhookPayload) ToFormValues() string {
 	v := url.Values{}
 	v.Set("token", o.Token)
-	v.Set("team_id", o.TeamId)
-	v.Set("team_domain", o.TeamDomain)
-	v.Set("channel_id", o.ChannelId)
-	v.Set("channel_name", o.ChannelName)
+	v.Set("branch_id", o.BranchId)
+	v.Set("branch_domain", o.BranchDomain)
+	v.Set("class_id", o.ClassId)
+	v.Set("class_name", o.ClassName)
 	v.Set("timestamp", strconv.FormatInt(o.Timestamp/1000, 10))
 	v.Set("user_id", o.UserId)
 	v.Set("user_name", o.UserName)
@@ -136,12 +136,12 @@ func (o *OutgoingWebhook) IsValid() *AppError {
 		return NewAppError("OutgoingWebhook.IsValid", "model.outgoing_hook.is_valid.user_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if len(o.ChannelId) != 0 && len(o.ChannelId) != 26 {
-		return NewAppError("OutgoingWebhook.IsValid", "model.outgoing_hook.is_valid.channel_id.app_error", nil, "", http.StatusBadRequest)
+	if len(o.ClassId) != 0 && len(o.ClassId) != 26 {
+		return NewAppError("OutgoingWebhook.IsValid", "model.outgoing_hook.is_valid.class_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if len(o.TeamId) != 26 {
-		return NewAppError("OutgoingWebhook.IsValid", "model.outgoing_hook.is_valid.team_id.app_error", nil, "", http.StatusBadRequest)
+	if len(o.BranchId) != 26 {
+		return NewAppError("OutgoingWebhook.IsValid", "model.outgoing_hook.is_valid.branch_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	if len(fmt.Sprintf("%s", o.TriggerWords)) > 1024 {

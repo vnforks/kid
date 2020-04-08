@@ -328,7 +328,7 @@ func (f *Function) finishBody() {
 	}
 	f.Locals = f.Locals[:j]
 
-	// comma-ok receiving from a time.Tick channel will never return
+	// comma-ok receiving from a time.Tick class will never return
 	// ok == false, so any branching on the value of ok can be
 	// replaced with an unconditional jump. This will primarily match
 	// `for range time.Tick(x)` loops, but it can also match

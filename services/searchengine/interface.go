@@ -20,9 +20,10 @@ type SearchEngineInterface interface {
 	IsSearchEnabled() bool
 	IsAutocompletionEnabled() bool
 	IsIndexingSync() bool
-	//	IndexChannel(channel *model.Channel) *model.AppError
-	IndexUser(user *model.User, teamsIds, channelsIds []string) *model.AppError
-	//	SearchUsersInTeam(teamId string, restrictedToChannels []string, term string, options *model.UserSearchOptions) ([]string, *model.AppError)
+	IndexClass(class *model.Class) *model.AppError
+	DeleteClass(class *model.Class) *model.AppError
+	IndexUser(user *model.User, branchesIds, classesIds []string) *model.AppError
+	//	SearchUsersInBranch(branchId string, restrictedToClasses []string, term string, options *model.UserSearchOptions) ([]string, *model.AppError)
 	DeleteUser(user *model.User) *model.AppError
 	TestConfig(cfg *model.Config) *model.AppError
 	PurgeIndexes() *model.AppError

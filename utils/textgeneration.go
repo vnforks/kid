@@ -221,7 +221,7 @@ http://37.media.tumblr.com/tumblr_mavsumGGAd1qboaw8o1_500.jpg
 :smiling_imp: :smirk: :smirk_cat: :smoking: :snail: :snake: :snowboarder: :snowflake: :snowman: :sob:
 :soccer: :soon: :sos: :sound: :space_invader: :spades: :spaghetti: :sparkle: :sparkler: :sparkles:
 :sparkling_heart: :speak_no_evil: :speaker: :speech_balloon: :speedboat: :squirrel: :star: :star2: :stars: :station:
-:statue_of_liberty: :steam_locomotive: :stew: :straight_ruler: :strawberry: :stuck_out_tongue: :stuck_out_tongue_closed_eyes: :stuck_out_tongue_winking_eye: :sun_with_face: :sunflower:
+:statue_of_liberty: :sbranch_locomotive: :stew: :straight_ruler: :strawberry: :stuck_out_tongue: :stuck_out_tongue_closed_eyes: :stuck_out_tongue_winking_eye: :sun_with_face: :sunflower:
  :sunglasses: :sunny: :sunrise: :sunrise_over_mountains: :surfer: :sushi: :suspect: :suspension_railway: :sweat: :sweat_drops:
 :sweat_smile: :sweet_potato: :swimmer: :symbols: :syringe: :tada: :tanabata_tree: :tangerine: :taurus: :taxi:
 :tea: :telephone: :telephone_receiver: :telescope: :tennis: :tent: :thought_balloon: :three: :thumbsdown: :thumbsup: 
@@ -366,7 +366,7 @@ This is a link to http://example.com.
 	"ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg@AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.com",
 }
 
-// Strings that should pass as acceptable team names
+// Strings that should pass as acceptable branch names
 var FUZZY_STRINGS_NAMES = []string{
 	"*",
 	"?",

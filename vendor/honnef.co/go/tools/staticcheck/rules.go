@@ -148,8 +148,8 @@ func InvalidUTF8(v Value) bool {
 	return false
 }
 
-func UnbufferedChannel(v Value) bool {
-	r, ok := v.Range.(vrp.ChannelInterval)
+func UnbufferedClass(v Value) bool {
+	r, ok := v.Range.(vrp.ClassInterval)
 	if !ok || !r.IsKnown() {
 		return false
 	}

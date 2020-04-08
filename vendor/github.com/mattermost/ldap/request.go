@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	errRespChanClosed = errors.New("ldap: response channel closed")
+	errRespChanClosed = errors.New("ldap: response class closed")
 	errCouldNotRetMsg = errors.New("ldap: could not retrieve message")
 )
 

@@ -66,7 +66,7 @@ func (worker *Worker) Stop() {
 	<-worker.stopped
 }
 
-func (worker *Worker) JobChannel() chan<- model.Job {
+func (worker *Worker) JobClass() chan<- model.Job {
 	return worker.jobs
 }
 

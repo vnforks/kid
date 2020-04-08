@@ -16,34 +16,22 @@ type Permission struct {
 	Scope       string `json:"scope"`
 }
 
-var PERMISSION_INVITE_USER *Permission
 var PERMISSION_ADD_USER_TO_BRANCH *Permission
 var PERMISSION_USE_SLASH_COMMANDS *Permission
 var PERMISSION_MANAGE_SLASH_COMMANDS *Permission
 var PERMISSION_MANAGE_OTHERS_SLASH_COMMANDS *Permission
-var PERMISSION_CREATE_PUBLIC_CLASS *Permission
-var PERMISSION_CREATE_PRIVATE_CLASS *Permission
-var PERMISSION_MANAGE_PUBLIC_CLASS_MEMBERS *Permission
-var PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS *Permission
+var PERMISSION_CREATE_CLASS *Permission
+var PERMISSION_MANAGE_CLASS_MEMBERS *Permission
 var PERMISSION_ASSIGN_SYSTEM_ADMIN_ROLE *Permission
 var PERMISSION_MANAGE_ROLES *Permission
 var PERMISSION_MANAGE_BRANCH_ROLES *Permission
 var PERMISSION_MANAGE_CLASS_ROLES *Permission
-var PERMISSION_CREATE_DIRECT_CLASS *Permission
-var PERMISSION_CREATE_GROUP_CLASS *Permission
-var PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES *Permission
-var PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES *Permission
-var PERMISSION_LIST_PUBLIC_BRANCHES *Permission
-var PERMISSION_JOIN_PUBLIC_BRANCHES *Permission
-var PERMISSION_LIST_PRIVATE_BRANCHES *Permission
-var PERMISSION_JOIN_PRIVATE_BRANCHES *Permission
+var PERMISSION_MANAGE_CLASS *Permission
+var PERMISSION_LIST_BRANCHES *Permission
 var PERMISSION_LIST_BRANCH_CLASSES *Permission
-var PERMISSION_JOIN_PUBLIC_CLASSES *Permission
-var PERMISSION_DELETE_PUBLIC_CLASS *Permission
-var PERMISSION_DELETE_PRIVATE_CLASS *Permission
+var PERMISSION_DELETE_CLASS *Permission
 var PERMISSION_EDIT_OTHER_USERS *Permission
 var PERMISSION_READ_CLASS *Permission
-var PERMISSION_READ_PUBLIC_CLASS *Permission
 var PERMISSION_ADD_REACTION *Permission
 var PERMISSION_REMOVE_REACTION *Permission
 var PERMISSION_REMOVE_OTHERS_REACTIONS *Permission
@@ -64,7 +52,6 @@ var PERMISSION_CREATE_EMOJIS *Permission
 var PERMISSION_DELETE_EMOJIS *Permission
 var PERMISSION_DELETE_OTHERS_EMOJIS *Permission
 var PERMISSION_CREATE_POST *Permission
-var PERMISSION_CREATE_POST_PUBLIC *Permission
 var PERMISSION_CREATE_POST_EPHEMERAL *Permission
 var PERMISSION_EDIT_POST *Permission
 var PERMISSION_EDIT_OTHERS_POSTS *Permission
@@ -73,25 +60,14 @@ var PERMISSION_DELETE_OTHERS_POSTS *Permission
 var PERMISSION_REMOVE_USER_FROM_BRANCH *Permission
 var PERMISSION_CREATE_BRANCH *Permission
 var PERMISSION_MANAGE_BRANCH *Permission
-var PERMISSION_IMPORT_BRANCH *Permission
 var PERMISSION_VIEW_BRANCH *Permission
 var PERMISSION_LIST_USERS_WITHOUT_BRANCH *Permission
 var PERMISSION_MANAGE_JOBS *Permission
 var PERMISSION_CREATE_USER_ACCESS_TOKEN *Permission
 var PERMISSION_READ_USER_ACCESS_TOKEN *Permission
 var PERMISSION_REVOKE_USER_ACCESS_TOKEN *Permission
-var PERMISSION_CREATE_BOT *Permission
-var PERMISSION_ASSIGN_BOT *Permission
-var PERMISSION_READ_BOTS *Permission
-var PERMISSION_READ_OTHERS_BOTS *Permission
-var PERMISSION_MANAGE_BOTS *Permission
-var PERMISSION_MANAGE_OTHERS_BOTS *Permission
 var PERMISSION_VIEW_MEMBERS *Permission
-var PERMISSION_INVITE_GUEST *Permission
-var PERMISSION_PROMOTE_GUEST *Permission
-var PERMISSION_DEMOTE_TO_GUEST *Permission
 var PERMISSION_USE_CLASS_MENTIONS *Permission
-var PERMISSION_USE_GROUP_MENTIONS *Permission
 
 // General permission that encompasses all system admin functions
 // in the future this could be broken up to allow access to some
@@ -104,12 +80,6 @@ var CLASS_MODERATED_PERMISSIONS []string
 var CLASS_MODERATED_PERMISSIONS_MAP map[string]string
 
 func initializePermissions() {
-	PERMISSION_INVITE_USER = &Permission{
-		"invite_user",
-		"authentication.permissions.branch_invite_user.name",
-		"authentication.permissions.branch_invite_user.description",
-		PERMISSION_SCOPE_BRANCH,
-	}
 	PERMISSION_ADD_USER_TO_BRANCH = &Permission{
 		"add_user_to_branch",
 		"authentication.permissions.add_user_to_branch.name",
@@ -134,28 +104,16 @@ func initializePermissions() {
 		"authentication.permissions.manage_others_slash_commands.description",
 		PERMISSION_SCOPE_BRANCH,
 	}
-	PERMISSION_CREATE_PUBLIC_CLASS = &Permission{
-		"create_public_class",
-		"authentication.permissions.create_public_class.name",
-		"authentication.permissions.create_public_class.description",
+	PERMISSION_CREATE_CLASS = &Permission{
+		"create_class",
+		"authentication.permissions.create_class.name",
+		"authentication.permissions.create_class.description",
 		PERMISSION_SCOPE_BRANCH,
 	}
-	PERMISSION_CREATE_PRIVATE_CLASS = &Permission{
-		"create_private_class",
-		"authentication.permissions.create_private_class.name",
-		"authentication.permissions.create_private_class.description",
-		PERMISSION_SCOPE_BRANCH,
-	}
-	PERMISSION_MANAGE_PUBLIC_CLASS_MEMBERS = &Permission{
-		"manage_public_class_members",
-		"authentication.permissions.manage_public_class_members.name",
-		"authentication.permissions.manage_public_class_members.description",
-		PERMISSION_SCOPE_CLASS,
-	}
-	PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS = &Permission{
-		"manage_private_class_members",
-		"authentication.permissions.manage_private_class_members.name",
-		"authentication.permissions.manage_private_class_members.description",
+	PERMISSION_MANAGE_CLASS_MEMBERS = &Permission{
+		"manage_class_members",
+		"authentication.permissions.manage_class_members.name",
+		"authentication.permissions.manage_class_members.description",
 		PERMISSION_SCOPE_CLASS,
 	}
 	PERMISSION_ASSIGN_SYSTEM_ADMIN_ROLE = &Permission{
@@ -188,52 +146,16 @@ func initializePermissions() {
 		"authentication.permissions.manage_system.description",
 		PERMISSION_SCOPE_SYSTEM,
 	}
-	PERMISSION_CREATE_DIRECT_CLASS = &Permission{
-		"create_direct_class",
-		"authentication.permissions.create_direct_class.name",
-		"authentication.permissions.create_direct_class.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_CREATE_GROUP_CLASS = &Permission{
-		"create_group_class",
-		"authentication.permissions.create_group_class.name",
-		"authentication.permissions.create_group_class.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES = &Permission{
-		"manage_public_class_properties",
-		"authentication.permissions.manage_public_class_properties.name",
-		"authentication.permissions.manage_public_class_properties.description",
+	PERMISSION_MANAGE_CLASS = &Permission{
+		"manage_class_properties",
+		"authentication.permissions.manage_class_properties.name",
+		"authentication.permissions.manage_class_properties.description",
 		PERMISSION_SCOPE_CLASS,
 	}
-	PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES = &Permission{
-		"manage_private_class_properties",
-		"authentication.permissions.manage_private_class_properties.name",
-		"authentication.permissions.manage_private_class_properties.description",
-		PERMISSION_SCOPE_CLASS,
-	}
-	PERMISSION_LIST_PUBLIC_BRANCHES = &Permission{
-		"list_public_branches",
-		"authentication.permissions.list_public_branches.name",
-		"authentication.permissions.list_public_branches.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_JOIN_PUBLIC_BRANCHES = &Permission{
-		"join_public_branches",
-		"authentication.permissions.join_public_branches.name",
-		"authentication.permissions.join_public_branches.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_LIST_PRIVATE_BRANCHES = &Permission{
-		"list_private_branches",
-		"authentication.permissions.list_private_branches.name",
-		"authentication.permissions.list_private_branches.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_JOIN_PRIVATE_BRANCHES = &Permission{
-		"join_private_branches",
-		"authentication.permissions.join_private_branches.name",
-		"authentication.permissions.join_private_branches.description",
+	PERMISSION_LIST_BRANCHES = &Permission{
+		"list_branches",
+		"authentication.permissions.list_branches.name",
+		"authentication.permissions.list_branches.description",
 		PERMISSION_SCOPE_SYSTEM,
 	}
 	PERMISSION_LIST_BRANCH_CLASSES = &Permission{
@@ -242,22 +164,10 @@ func initializePermissions() {
 		"authentication.permissions.list_branch_classes.description",
 		PERMISSION_SCOPE_BRANCH,
 	}
-	PERMISSION_JOIN_PUBLIC_CLASSES = &Permission{
-		"join_public_classes",
-		"authentication.permissions.join_public_classes.name",
-		"authentication.permissions.join_public_classes.description",
-		PERMISSION_SCOPE_BRANCH,
-	}
-	PERMISSION_DELETE_PUBLIC_CLASS = &Permission{
-		"delete_public_class",
-		"authentication.permissions.delete_public_class.name",
-		"authentication.permissions.delete_public_class.description",
-		PERMISSION_SCOPE_CLASS,
-	}
-	PERMISSION_DELETE_PRIVATE_CLASS = &Permission{
-		"delete_private_class",
-		"authentication.permissions.delete_private_class.name",
-		"authentication.permissions.delete_private_class.description",
+	PERMISSION_DELETE_CLASS = &Permission{
+		"delete_class",
+		"authentication.permissions.delete_class.name",
+		"authentication.permissions.delete_class.description",
 		PERMISSION_SCOPE_CLASS,
 	}
 	PERMISSION_EDIT_OTHER_USERS = &Permission{
@@ -271,12 +181,6 @@ func initializePermissions() {
 		"authentication.permissions.read_class.name",
 		"authentication.permissions.read_class.description",
 		PERMISSION_SCOPE_CLASS,
-	}
-	PERMISSION_READ_PUBLIC_CLASS = &Permission{
-		"read_public_class",
-		"authentication.permissions.read_public_class.name",
-		"authentication.permissions.read_public_class.description",
-		PERMISSION_SCOPE_BRANCH,
 	}
 	PERMISSION_ADD_REACTION = &Permission{
 		"add_reaction",
@@ -403,12 +307,6 @@ func initializePermissions() {
 		"authentication.permissions.create_post.description",
 		PERMISSION_SCOPE_CLASS,
 	}
-	PERMISSION_CREATE_POST_PUBLIC = &Permission{
-		"create_post_public",
-		"authentication.permissions.create_post_public.name",
-		"authentication.permissions.create_post_public.description",
-		PERMISSION_SCOPE_CLASS,
-	}
 	PERMISSION_CREATE_POST_EPHEMERAL = &Permission{
 		"create_post_ephemeral",
 		"authentication.permissions.create_post_ephemeral.name",
@@ -457,12 +355,6 @@ func initializePermissions() {
 		"authentication.permissions.manage_branch.description",
 		PERMISSION_SCOPE_BRANCH,
 	}
-	PERMISSION_IMPORT_BRANCH = &Permission{
-		"import_branch",
-		"authentication.permissions.import_branch.name",
-		"authentication.permissions.import_branch.description",
-		PERMISSION_SCOPE_BRANCH,
-	}
 	PERMISSION_VIEW_BRANCH = &Permission{
 		"view_branch",
 		"authentication.permissions.view_branch.name",
@@ -493,42 +385,6 @@ func initializePermissions() {
 		"authentication.permissions.revoke_user_access_token.description",
 		PERMISSION_SCOPE_SYSTEM,
 	}
-	PERMISSION_CREATE_BOT = &Permission{
-		"create_bot",
-		"authentication.permissions.create_bot.name",
-		"authentication.permissions.create_bot.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_ASSIGN_BOT = &Permission{
-		"assign_bot",
-		"authentication.permissions.assign_bot.name",
-		"authentication.permissions.assign_bot.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_READ_BOTS = &Permission{
-		"read_bots",
-		"authentication.permissions.read_bots.name",
-		"authentication.permissions.read_bots.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_READ_OTHERS_BOTS = &Permission{
-		"read_others_bots",
-		"authentication.permissions.read_others_bots.name",
-		"authentication.permissions.read_others_bots.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_MANAGE_BOTS = &Permission{
-		"manage_bots",
-		"authentication.permissions.manage_bots.name",
-		"authentication.permissions.manage_bots.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-	PERMISSION_MANAGE_OTHERS_BOTS = &Permission{
-		"manage_others_bots",
-		"authentication.permissions.manage_others_bots.name",
-		"authentication.permissions.manage_others_bots.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
 	PERMISSION_MANAGE_JOBS = &Permission{
 		"manage_jobs",
 		"authentication.permisssions.manage_jobs.name",
@@ -541,26 +397,6 @@ func initializePermissions() {
 		"authentication.permisssions.view_members.description",
 		PERMISSION_SCOPE_BRANCH,
 	}
-	PERMISSION_INVITE_GUEST = &Permission{
-		"invite_guest",
-		"authentication.permissions.invite_guest.name",
-		"authentication.permissions.invite_guest.description",
-		PERMISSION_SCOPE_BRANCH,
-	}
-	PERMISSION_PROMOTE_GUEST = &Permission{
-		"promote_guest",
-		"authentication.permissions.promote_guest.name",
-		"authentication.permissions.promote_guest.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-
-	PERMISSION_DEMOTE_TO_GUEST = &Permission{
-		"demote_to_guest",
-		"authentication.permissions.demote_to_guest.name",
-		"authentication.permissions.demote_to_guest.description",
-		PERMISSION_SCOPE_SYSTEM,
-	}
-
 	PERMISSION_USE_CLASS_MENTIONS = &Permission{
 		"use_class_mentions",
 		"authentication.permissions.use_class_mentions.name",
@@ -568,42 +404,23 @@ func initializePermissions() {
 		PERMISSION_SCOPE_CLASS,
 	}
 
-	PERMISSION_USE_GROUP_MENTIONS = &Permission{
-		"use_group_mentions",
-		"authentication.permissions.use_group_mentions.name",
-		"authentication.permissions.use_group_mentions.description",
-		PERMISSION_SCOPE_CLASS,
-	}
-
 	ALL_PERMISSIONS = []*Permission{
-		PERMISSION_INVITE_USER,
 		PERMISSION_ADD_USER_TO_BRANCH,
 		PERMISSION_USE_SLASH_COMMANDS,
 		PERMISSION_MANAGE_SLASH_COMMANDS,
 		PERMISSION_MANAGE_OTHERS_SLASH_COMMANDS,
-		PERMISSION_CREATE_PUBLIC_CLASS,
-		PERMISSION_CREATE_PRIVATE_CLASS,
-		PERMISSION_MANAGE_PUBLIC_CLASS_MEMBERS,
-		PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS,
+		PERMISSION_CREATE_CLASS,
+		PERMISSION_MANAGE_CLASS_MEMBERS,
 		PERMISSION_ASSIGN_SYSTEM_ADMIN_ROLE,
 		PERMISSION_MANAGE_ROLES,
 		PERMISSION_MANAGE_BRANCH_ROLES,
 		PERMISSION_MANAGE_CLASS_ROLES,
-		PERMISSION_CREATE_DIRECT_CLASS,
-		PERMISSION_CREATE_GROUP_CLASS,
-		PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES,
-		PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES,
-		PERMISSION_LIST_PUBLIC_BRANCHES,
-		PERMISSION_JOIN_PUBLIC_BRANCHES,
-		PERMISSION_LIST_PRIVATE_BRANCHES,
-		PERMISSION_JOIN_PRIVATE_BRANCHES,
+		PERMISSION_MANAGE_CLASS,
+		PERMISSION_LIST_BRANCHES,
 		PERMISSION_LIST_BRANCH_CLASSES,
-		PERMISSION_JOIN_PUBLIC_CLASSES,
-		PERMISSION_DELETE_PUBLIC_CLASS,
-		PERMISSION_DELETE_PRIVATE_CLASS,
+		PERMISSION_DELETE_CLASS,
 		PERMISSION_EDIT_OTHER_USERS,
 		PERMISSION_READ_CLASS,
-		PERMISSION_READ_PUBLIC_CLASS,
 		PERMISSION_ADD_REACTION,
 		PERMISSION_REMOVE_REACTION,
 		PERMISSION_REMOVE_OTHERS_REACTIONS,
@@ -624,7 +441,6 @@ func initializePermissions() {
 		PERMISSION_DELETE_EMOJIS,
 		PERMISSION_DELETE_OTHERS_EMOJIS,
 		PERMISSION_CREATE_POST,
-		PERMISSION_CREATE_POST_PUBLIC,
 		PERMISSION_CREATE_POST_EPHEMERAL,
 		PERMISSION_EDIT_POST,
 		PERMISSION_EDIT_OTHERS_POSTS,
@@ -633,25 +449,15 @@ func initializePermissions() {
 		PERMISSION_REMOVE_USER_FROM_BRANCH,
 		PERMISSION_CREATE_BRANCH,
 		PERMISSION_MANAGE_BRANCH,
-		PERMISSION_IMPORT_BRANCH,
 		PERMISSION_VIEW_BRANCH,
 		PERMISSION_LIST_USERS_WITHOUT_BRANCH,
 		PERMISSION_MANAGE_JOBS,
 		PERMISSION_CREATE_USER_ACCESS_TOKEN,
 		PERMISSION_READ_USER_ACCESS_TOKEN,
 		PERMISSION_REVOKE_USER_ACCESS_TOKEN,
-		PERMISSION_CREATE_BOT,
-		PERMISSION_READ_BOTS,
-		PERMISSION_READ_OTHERS_BOTS,
-		PERMISSION_MANAGE_BOTS,
-		PERMISSION_MANAGE_OTHERS_BOTS,
 		PERMISSION_MANAGE_SYSTEM,
 		PERMISSION_VIEW_MEMBERS,
-		PERMISSION_INVITE_GUEST,
-		PERMISSION_PROMOTE_GUEST,
-		PERMISSION_DEMOTE_TO_GUEST,
 		PERMISSION_USE_CLASS_MENTIONS,
-		PERMISSION_USE_GROUP_MENTIONS,
 	}
 
 	CLASS_MODERATED_PERMISSIONS = []string{
@@ -662,12 +468,11 @@ func initializePermissions() {
 	}
 
 	CLASS_MODERATED_PERMISSIONS_MAP = map[string]string{
-		PERMISSION_CREATE_POST.Id:                  CLASS_MODERATED_PERMISSIONS[0],
-		PERMISSION_ADD_REACTION.Id:                 CLASS_MODERATED_PERMISSIONS[1],
-		PERMISSION_REMOVE_REACTION.Id:              CLASS_MODERATED_PERMISSIONS[1],
-		PERMISSION_MANAGE_PUBLIC_CLASS_MEMBERS.Id:  CLASS_MODERATED_PERMISSIONS[2],
-		PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS.Id: CLASS_MODERATED_PERMISSIONS[2],
-		PERMISSION_USE_CLASS_MENTIONS.Id:           CLASS_MODERATED_PERMISSIONS[3],
+		PERMISSION_CREATE_POST.Id:          CLASS_MODERATED_PERMISSIONS[0],
+		PERMISSION_ADD_REACTION.Id:         CLASS_MODERATED_PERMISSIONS[1],
+		PERMISSION_REMOVE_REACTION.Id:      CLASS_MODERATED_PERMISSIONS[1],
+		PERMISSION_MANAGE_CLASS_MEMBERS.Id: CLASS_MODERATED_PERMISSIONS[2],
+		PERMISSION_USE_CLASS_MENTIONS.Id:   CLASS_MODERATED_PERMISSIONS[3],
 	}
 }
 

@@ -436,7 +436,7 @@ const (
 	DLT_JUNIPER_CHDLC              = 0xb5
 	DLT_JUNIPER_ES                 = 0x84
 	DLT_JUNIPER_ETHER              = 0xb2
-	DLT_JUNIPER_FIBRECHANNEL       = 0xea
+	DLT_JUNIPER_FIBRECLASS         = 0xea
 	DLT_JUNIPER_FRELAY             = 0xb4
 	DLT_JUNIPER_GGSN               = 0x85
 	DLT_JUNIPER_ISM                = 0xc2

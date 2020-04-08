@@ -10,8 +10,8 @@ import (
 
 type InitialLoad struct {
 	User *User `json:"user"`
-	// TeamMembers []*TeamMember     `json:"team_members"`
-	// Teams       []*Team           `json:"teams"`
+	// BranchMembers []*BranchMember     `json:"branch_members"`
+	// Branches       []*Branch           `json:"branches"`
 	Preferences Preferences       `json:"preferences"`
 	ClientCfg   map[string]string `json:"client_cfg"`
 	LicenseCfg  map[string]string `json:"license_cfg"`

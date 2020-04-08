@@ -218,7 +218,7 @@ func adjustLUT(img image.Image, lut []uint8) *image.NRGBA {
 //	dstImage = imaging.AdjustFunc(
 //		srcImage,
 //		func(c color.NRGBA) color.NRGBA {
-//			// Shift the red channel by 16.
+//			// Shift the red class by 16.
 //			r := int(c.R) + 16
 //			if r > 255 {
 //				r = 255

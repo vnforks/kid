@@ -7,15 +7,10 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
-	"os"
-	"path/filepath"
 	"strings"
-
-	"github.com/vnforks/kid/v5/store"
 
 	"github.com/vnforks/kid/v5/mlog"
 	"github.com/vnforks/kid/v5/model"
-	"github.com/pkg/errors"
 )
 
 // We use this map to identify the exportable preferences.
@@ -43,8 +38,8 @@ var exportablePreferences = map[ComparablePreference]string{{
 	Name:     model.PREFERENCE_NAME_MESSAGE_DISPLAY,
 }: "MessageDisplay", {
 	Category: model.PREFERENCE_CATEGORY_DISPLAY_SETTINGS,
-	Name:     "channel_display_mode",
-}: "ChannelDisplayMode", {
+	Name:     "class_display_mode",
+}: "ClassDisplayMode", {
 	Category: model.PREFERENCE_CATEGORY_TUTORIAL_STEPS,
 	Name:     "",
 }: "TutorialStep", {
@@ -59,38 +54,18 @@ func (a *App) BulkExport(writer io.Writer, file string, pathToEmojiDir string, d
 		return err
 	}
 
-	mlog.Info("Bulk export: exporting teams")
-	if err := a.exportAllTeams(writer); err != nil {
+	mlog.Info("Bulk export: exporting branches")
+	if err := a.exportAllBranches(writer); err != nil {
 		return err
 	}
 
-	mlog.Info("Bulk export: exporting channels")
-	if err := a.exportAllChannels(writer); err != nil {
+	mlog.Info("Bulk export: exporting classes")
+	if err := a.exportAllClasses(writer); err != nil {
 		return err
 	}
 
 	mlog.Info("Bulk export: exporting users")
 	if err := a.exportAllUsers(writer); err != nil {
-		return err
-	}
-
-	mlog.Info("Bulk export: exporting posts")
-	if err := a.exportAllPosts(writer); err != nil {
-		return err
-	}
-
-	mlog.Info("Bulk export: exporting emoji")
-	if err := a.exportCustomEmoji(writer, file, pathToEmojiDir, dirNameToExportEmoji); err != nil {
-		return err
-	}
-
-	mlog.Info("Bulk export: exporting direct channels")
-	if err := a.exportAllDirectChannels(writer); err != nil {
-		return err
-	}
-
-	mlog.Info("Bulk export: exporting direct posts")
-	if err := a.exportAllDirectPosts(writer); err != nil {
 		return err
 	}
 
@@ -120,29 +95,29 @@ func (a *App) exportVersion(writer io.Writer) *model.AppError {
 	return a.exportWriteLine(writer, versionLine)
 }
 
-func (a *App) exportAllTeams(writer io.Writer) *model.AppError {
+func (a *App) exportAllBranches(writer io.Writer) *model.AppError {
 	afterId := strings.Repeat("0", 26)
 	for {
-		teams, err := a.Srv().Store.Team().GetAllForExportAfter(1000, afterId)
+		branches, err := a.Srv().Store.Branch().GetAllForExportAfter(1000, afterId)
 
 		if err != nil {
 			return err
 		}
 
-		if len(teams) == 0 {
+		if len(branches) == 0 {
 			break
 		}
 
-		for _, team := range teams {
-			afterId = team.Id
+		for _, branch := range branches {
+			afterId = branch.Id
 
 			// Skip deleted.
-			if team.DeleteAt != 0 {
+			if branch.DeleteAt != 0 {
 				continue
 			}
 
-			teamLine := ImportLineFromTeam(team)
-			if err := a.exportWriteLine(writer, teamLine); err != nil {
+			branchLine := ImportLineFromBranch(branch)
+			if err := a.exportWriteLine(writer, branchLine); err != nil {
 				return err
 			}
 		}
@@ -151,29 +126,29 @@ func (a *App) exportAllTeams(writer io.Writer) *model.AppError {
 	return nil
 }
 
-func (a *App) exportAllChannels(writer io.Writer) *model.AppError {
+func (a *App) exportAllClasses(writer io.Writer) *model.AppError {
 	afterId := strings.Repeat("0", 26)
 	for {
-		channels, err := a.Srv().Store.Channel().GetAllChannelsForExportAfter(1000, afterId)
+		classes, err := a.Srv().Store.Class().GetAllClassesForExportAfter(1000, afterId)
 
 		if err != nil {
 			return err
 		}
 
-		if len(channels) == 0 {
+		if len(classes) == 0 {
 			break
 		}
 
-		for _, channel := range channels {
-			afterId = channel.Id
+		for _, class := range classes {
+			afterId = class.Id
 
 			// Skip deleted.
-			if channel.DeleteAt != 0 {
+			if class.DeleteAt != 0 {
 				continue
 			}
 
-			channelLine := ImportLineFromChannel(channel)
-			if err := a.exportWriteLine(writer, channelLine); err != nil {
+			classLine := ImportLineFromClass(class)
+			if err := a.exportWriteLine(writer, classLine); err != nil {
 				return err
 			}
 		}
@@ -240,13 +215,13 @@ func (a *App) exportAllUsers(writer io.Writer) *model.AppError {
 
 			userLine.User.NotifyProps = a.buildUserNotifyProps(user.NotifyProps)
 
-			// Do the Team Memberships.
-			members, err := a.buildUserTeamAndChannelMemberships(user.Id)
+			// Do the Branch Memberships.
+			members, err := a.buildUserBranchAndClassMemberships(user.Id)
 			if err != nil {
 				return err
 			}
 
-			userLine.User.Teams = members
+			userLine.User.Branches = members
 
 			if err := a.exportWriteLine(writer, userLine); err != nil {
 				return err
@@ -257,10 +232,10 @@ func (a *App) exportAllUsers(writer io.Writer) *model.AppError {
 	return nil
 }
 
-func (a *App) buildUserTeamAndChannelMemberships(userId string) (*[]UserTeamImportData, *model.AppError) {
-	var memberships []UserTeamImportData
+func (a *App) buildUserBranchAndClassMemberships(userId string) (*[]UserBranchImportData, *model.AppError) {
+	var memberships []UserBranchImportData
 
-	members, err := a.Srv().Store.Team().GetTeamMembersForExport(userId)
+	members, err := a.Srv().Store.Branch().GetBranchMembersForExport(userId)
 
 	if err != nil {
 		return nil, err
@@ -272,21 +247,21 @@ func (a *App) buildUserTeamAndChannelMemberships(userId string) (*[]UserTeamImpo
 			continue
 		}
 
-		memberData := ImportUserTeamDataFromTeamMember(member)
+		memberData := ImportUserBranchDataFromBranchMember(member)
 
-		// Do the Channel Memberships.
-		channelMembers, err := a.buildUserChannelMemberships(userId, member.TeamId)
+		// Do the Class Memberships.
+		classMembers, err := a.buildUserClassMemberships(userId, member.BranchId)
 		if err != nil {
 			return nil, err
 		}
 
 		// Get the user theme
-		themePreference, err := a.Srv().Store.Preference().Get(member.UserId, model.PREFERENCE_CATEGORY_THEME, member.TeamId)
+		themePreference, err := a.Srv().Store.Preference().Get(member.UserId, model.PREFERENCE_CATEGORY_THEME, member.BranchId)
 		if err == nil {
 			memberData.Theme = &themePreference.Value
 		}
 
-		memberData.Channels = channelMembers
+		memberData.Classes = classMembers
 
 		memberships = append(memberships, *memberData)
 	}
@@ -294,22 +269,22 @@ func (a *App) buildUserTeamAndChannelMemberships(userId string) (*[]UserTeamImpo
 	return &memberships, nil
 }
 
-func (a *App) buildUserChannelMemberships(userId string, teamId string) (*[]UserChannelImportData, *model.AppError) {
-	var memberships []UserChannelImportData
+func (a *App) buildUserClassMemberships(userId string, branchId string) (*[]UserClassImportData, *model.AppError) {
+	var memberships []UserClassImportData
 
-	members, err := a.Srv().Store.Channel().GetChannelMembersForExport(userId, teamId)
+	members, err := a.Srv().Store.Class().GetClassMembersForExport(userId, branchId)
 	if err != nil {
 		return nil, err
 	}
 
-	category := model.PREFERENCE_CATEGORY_FAVORITE_CHANNEL
+	category := model.PREFERENCE_CATEGORY_FAVORITE_CLASS
 	preferences, err := a.GetPreferenceByCategoryForUser(userId, category)
 	if err != nil && err.StatusCode != http.StatusNotFound {
 		return nil, err
 	}
 
 	for _, member := range members {
-		memberships = append(memberships, *ImportUserChannelDataFromChannelMemberAndPreferences(member, &preferences))
+		memberships = append(memberships, *ImportUserClassDataFromClassMemberAndPreferences(member, &preferences))
 	}
 	return &memberships, nil
 }
@@ -329,251 +304,8 @@ func (a *App) buildUserNotifyProps(notifyProps model.StringMap) *UserNotifyProps
 		Email:            getProp(model.EMAIL_NOTIFY_PROP),
 		Mobile:           getProp(model.PUSH_NOTIFY_PROP),
 		MobilePushStatus: getProp(model.PUSH_STATUS_NOTIFY_PROP),
-		ChannelTrigger:   getProp(model.CHANNEL_MENTIONS_NOTIFY_PROP),
+		ClassTrigger:     getProp(model.PUSH_NOTIFY_PROP),
 		CommentsTrigger:  getProp(model.COMMENTS_NOTIFY_PROP),
 		MentionKeys:      getProp(model.MENTION_KEYS_NOTIFY_PROP),
 	}
-}
-
-func (a *App) exportAllPosts(writer io.Writer) *model.AppError {
-	afterId := strings.Repeat("0", 26)
-
-	for {
-		posts, err := a.Srv().Store.Post().GetParentsForExportAfter(1000, afterId)
-		if err != nil {
-			return err
-		}
-
-		if len(posts) == 0 {
-			return nil
-		}
-
-		for _, post := range posts {
-			afterId = post.Id
-
-			// Skip deleted.
-			if post.DeleteAt != 0 {
-				continue
-			}
-
-			postLine := ImportLineForPost(post)
-
-			postLine.Post.Replies, err = a.buildPostReplies(post.Id)
-			if err != nil {
-				return err
-			}
-
-			postLine.Post.Reactions = &[]ReactionImportData{}
-			if post.HasReactions {
-				postLine.Post.Reactions, err = a.BuildPostReactions(post.Id)
-				if err != nil {
-					return err
-				}
-			}
-
-			if err := a.exportWriteLine(writer, postLine); err != nil {
-				return err
-			}
-		}
-	}
-}
-
-func (a *App) buildPostReplies(postId string) (*[]ReplyImportData, *model.AppError) {
-	var replies []ReplyImportData
-
-	replyPosts, err := a.Srv().Store.Post().GetRepliesForExport(postId)
-	if err != nil {
-		return nil, err
-	}
-
-	for _, reply := range replyPosts {
-		replyImportObject := ImportReplyFromPost(reply)
-		if reply.HasReactions {
-			replyImportObject.Reactions, err = a.BuildPostReactions(reply.Id)
-			if err != nil {
-				return nil, err
-			}
-		}
-		replies = append(replies, *replyImportObject)
-	}
-
-	return &replies, nil
-}
-
-func (a *App) BuildPostReactions(postId string) (*[]ReactionImportData, *model.AppError) {
-	var reactionsOfPost []ReactionImportData
-
-	reactions, err := a.Srv().Store.Reaction().GetForPost(postId, true)
-	if err != nil {
-		return nil, err
-	}
-
-	for _, reaction := range reactions {
-		var user *model.User
-		user, err = a.Srv().Store.User().Get(reaction.UserId)
-		if err != nil {
-			if err.Id == store.MISSING_ACCOUNT_ERROR { // this is a valid case, the user that reacted might've been deleted by now
-				mlog.Info("Skipping reactions by user since the entity doesn't exist anymore", mlog.String("user_id", reaction.UserId))
-				continue
-			}
-			return nil, err
-		}
-		reactionsOfPost = append(reactionsOfPost, *ImportReactionFromPost(user, reaction))
-	}
-
-	return &reactionsOfPost, nil
-
-}
-
-func (a *App) exportCustomEmoji(writer io.Writer, file string, pathToEmojiDir string, dirNameToExportEmoji string) *model.AppError {
-	pageNumber := 0
-	for {
-		customEmojiList, err := a.GetEmojiList(pageNumber, 100, model.EMOJI_SORT_BY_NAME)
-
-		if err != nil {
-			return err
-		}
-
-		if len(customEmojiList) == 0 {
-			break
-		}
-
-		pageNumber++
-
-		pathToDir := a.createDirForEmoji(file, dirNameToExportEmoji)
-
-		for _, emoji := range customEmojiList {
-			emojiImagePath := pathToEmojiDir + emoji.Id + "/image"
-			err := a.copyEmojiImages(emoji.Id, emojiImagePath, pathToDir)
-			if err != nil {
-				return model.NewAppError("BulkExport", "app.export.export_custom_emoji.copy_emoji_images.error", nil, "err="+err.Error(), http.StatusBadRequest)
-			}
-
-			filePath := dirNameToExportEmoji + "/" + emoji.Id + "/image"
-
-			emojiImportObject := ImportLineFromEmoji(emoji, filePath)
-
-			if err := a.exportWriteLine(writer, emojiImportObject); err != nil {
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-// Creates directory named 'exported_emoji' to copy the emoji files
-// Directory and the file specified by admin share the same path
-func (a *App) createDirForEmoji(file string, dirName string) string {
-	pathToFile, _ := filepath.Abs(file)
-	pathSlice := strings.Split(pathToFile, "/")
-	if len(pathSlice) > 0 {
-		pathSlice = pathSlice[:len(pathSlice)-1]
-	}
-	pathToDir := strings.Join(pathSlice, "/") + "/" + dirName
-
-	if _, err := os.Stat(pathToDir); os.IsNotExist(err) {
-		os.Mkdir(pathToDir, os.ModePerm)
-	}
-	return pathToDir
-}
-
-// Copies emoji files from 'data/emoji' dir to 'exported_emoji' dir
-func (a *App) copyEmojiImages(emojiId string, emojiImagePath string, pathToDir string) error {
-	fromPath, err := os.Open(emojiImagePath)
-	if fromPath == nil || err != nil {
-		return errors.New("Error reading " + emojiImagePath + "file")
-	}
-	defer fromPath.Close()
-
-	emojiDir := pathToDir + "/" + emojiId
-
-	if _, err = os.Stat(emojiDir); err != nil {
-		if !os.IsNotExist(err) {
-			return errors.Wrapf(err, "Error fetching file info of emoji directory %v", emojiDir)
-		}
-
-		if err = os.Mkdir(emojiDir, os.ModePerm); err != nil {
-			return errors.Wrapf(err, "Error creating emoji directory %v", emojiDir)
-		}
-	}
-
-	toPath, err := os.OpenFile(emojiDir+"/image", os.O_RDWR|os.O_CREATE, 0666)
-	if err != nil {
-		return errors.New("Error creating the image file " + err.Error())
-	}
-	defer toPath.Close()
-
-	_, err = io.Copy(toPath, fromPath)
-	if err != nil {
-		return errors.New("Error copying emojis " + err.Error())
-	}
-
-	return nil
-}
-
-func (a *App) exportAllDirectChannels(writer io.Writer) *model.AppError {
-	afterId := strings.Repeat("0", 26)
-	for {
-		channels, err := a.Srv().Store.Channel().GetAllDirectChannelsForExportAfter(1000, afterId)
-		if err != nil {
-			return err
-		}
-
-		if len(channels) == 0 {
-			break
-		}
-
-		for _, channel := range channels {
-			afterId = channel.Id
-
-			// Skip deleted.
-			if channel.DeleteAt != 0 {
-				continue
-			}
-
-			channelLine := ImportLineFromDirectChannel(channel)
-			if err := a.exportWriteLine(writer, channelLine); err != nil {
-				return err
-			}
-		}
-	}
-
-	return nil
-}
-
-func (a *App) exportAllDirectPosts(writer io.Writer) *model.AppError {
-	afterId := strings.Repeat("0", 26)
-	for {
-		posts, err := a.Srv().Store.Post().GetDirectPostParentsForExportAfter(1000, afterId)
-		if err != nil {
-			return err
-		}
-
-		if len(posts) == 0 {
-			break
-		}
-
-		for _, post := range posts {
-			afterId = post.Id
-
-			// Skip deleted.
-			if post.DeleteAt != 0 {
-				continue
-			}
-
-			// Do the Replies.
-			replies, err := a.buildPostReplies(post.Id)
-			if err != nil {
-				return err
-			}
-
-			postLine := ImportLineForDirectPost(post)
-			postLine.DirectPost.Replies = replies
-			if err := a.exportWriteLine(writer, postLine); err != nil {
-				return err
-			}
-		}
-	}
-	return nil
 }

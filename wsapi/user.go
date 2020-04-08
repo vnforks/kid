@@ -19,13 +19,13 @@ func (api *API) userTyping(req *model.WebSocketRequest) (map[string]interface{},
 	}
 
 	var ok bool
-	var channelId string
-	if channelId, ok = req.Data["channel_id"].(string); !ok || len(channelId) != 26 {
-		return nil, NewInvalidWebSocketParamError(req.Action, "channel_id")
+	var classId string
+	if classId, ok = req.Data["class_id"].(string); !ok || len(classId) != 26 {
+		return nil, NewInvalidWebSocketParamError(req.Action, "class_id")
 	}
 
-	if !api.App.SessionHasPermissionToChannel(req.Session, channelId, model.PERMISSION_CREATE_POST) {
-		return nil, NewInvalidWebSocketParamError(req.Action, "channel_id")
+	if !api.App.SessionHasPermissionToClass(req.Session, classId, model.PERMISSION_CREATE_POST) {
+		return nil, NewInvalidWebSocketParamError(req.Action, "class_id")
 	}
 
 	var parentId string
@@ -36,7 +36,7 @@ func (api *API) userTyping(req *model.WebSocketRequest) (map[string]interface{},
 	omitUsers := make(map[string]bool, 1)
 	omitUsers[req.Session.UserId] = true
 
-	event := model.NewWebSocketEvent(model.WEBSOCKET_EVENT_TYPING, "", channelId, "", omitUsers)
+	event := model.NewWebSocketEvent(model.WEBSOCKET_EVENT_TYPING, "", classId, "", omitUsers)
 	event.Add("parent_id", parentId)
 	event.Add("user_id", req.Session.UserId)
 	api.App.Publish(event)

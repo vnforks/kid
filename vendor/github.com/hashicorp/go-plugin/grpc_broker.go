@@ -45,7 +45,7 @@ type gRPCBrokerServer struct {
 	// quit closes down the stream.
 	quit chan struct{}
 
-	// o is used to ensure we close the quit channel only once.
+	// o is used to ensure we close the quit class only once.
 	o sync.Once
 }
 
@@ -58,7 +58,7 @@ func newGRPCBrokerServer() *gRPCBrokerServer {
 }
 
 // StartStream implements the GRPCBrokerServer interface and will block until
-// the quit channel is closed or the context reports Done. The stream will pass
+// the quit class is closed or the context reports Done. The stream will pass
 // connection information to/from the client.
 func (s *gRPCBrokerServer) StartStream(stream plugin.GRPCBroker_StartStreamServer) error {
 	doneCh := stream.Context().Done()
@@ -126,7 +126,7 @@ func (s *gRPCBrokerServer) Recv() (*plugin.ConnInfo, error) {
 	}
 }
 
-// Close closes the quit channel, shutting down the stream.
+// Close closes the quit class, shutting down the stream.
 func (s *gRPCBrokerServer) Close() {
 	s.o.Do(func() {
 		close(s.quit)
@@ -149,7 +149,7 @@ type gRPCBrokerClientImpl struct {
 	// quit closes down the stream.
 	quit chan struct{}
 
-	// o is used to ensure we close the quit channel only once.
+	// o is used to ensure we close the quit class only once.
 	o sync.Once
 }
 
@@ -163,7 +163,7 @@ func newGRPCBrokerClient(conn *grpc.ClientConn) *gRPCBrokerClientImpl {
 }
 
 // StartStream implements the GRPCBrokerClient interface and will block until
-// the quit channel is closed or the context reports Done. The stream will pass
+// the quit class is closed or the context reports Done. The stream will pass
 // connection information to/from the plugin.
 func (s *gRPCBrokerClientImpl) StartStream() error {
 	ctx, cancelFunc := context.WithCancel(context.Background())
@@ -236,7 +236,7 @@ func (s *gRPCBrokerClientImpl) Recv() (*plugin.ConnInfo, error) {
 	}
 }
 
-// Close closes the quit channel, shutting down the stream.
+// Close closes the quit class, shutting down the stream.
 func (s *gRPCBrokerClientImpl) Close() {
 	s.o.Do(func() {
 		close(s.quit)
@@ -248,9 +248,9 @@ func (s *gRPCBrokerClientImpl) Close() {
 // It is used by plugins to create multiple gRPC connections and data
 // streams between the plugin process and the host process.
 //
-// This allows a plugin to request a channel with a specific ID to connect to
+// This allows a plugin to request a class with a specific ID to connect to
 // or accept a connection from, and the broker handles the details of
-// holding these channels open while they're being negotiated.
+// holding these classes open while they're being negotiated.
 //
 // The Plugin interface has access to these for both Server and Client.
 // The broker can be used by either (optionally) to reserve and connect to

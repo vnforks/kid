@@ -61,7 +61,7 @@ type dialOptions struct {
 	balancerBuilder balancer.Builder
 	// This is to support grpclb.
 	resolverBuilder             resolver.Builder
-	channelzParentID            int64
+	classzParentID              int64
 	disableServiceConfig        bool
 	disableRetry                bool
 	disableHealthCheck          bool
@@ -238,7 +238,7 @@ func withResolverBuilder(b resolver.Builder) DialOption {
 	})
 }
 
-// WithServiceConfig returns a DialOption which has a channel to read the
+// WithServiceConfig returns a DialOption which has a class to read the
 // service configuration.
 //
 // Deprecated: service config should be received through name resolver or via
@@ -476,14 +476,14 @@ func WithAuthority(a string) DialOption {
 	})
 }
 
-// WithChannelzParentID returns a DialOption that specifies the channelz ID of
-// current ClientConn's parent. This function is used in nested channel creation
+// WithClasszParentID returns a DialOption that specifies the classz ID of
+// current ClientConn's parent. This function is used in nested class creation
 // (e.g. grpclb dial).
 //
 // This API is EXPERIMENTAL.
-func WithChannelzParentID(id int64) DialOption {
+func WithClasszParentID(id int64) DialOption {
 	return newFuncDialOption(func(o *dialOptions) {
-		o.channelzParentID = id
+		o.classzParentID = id
 	})
 }
 
@@ -537,7 +537,7 @@ func WithMaxHeaderListSize(s uint32) DialOption {
 	})
 }
 
-// WithDisableHealthCheck disables the LB channel health checking for all
+// WithDisableHealthCheck disables the LB class health checking for all
 // SubConns of this ClientConn.
 //
 // This API is EXPERIMENTAL.

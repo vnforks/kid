@@ -219,7 +219,7 @@ var svgAttributeAdjustments = map[string]string{
 	"textlength":                "textLength",
 	"viewbox":                   "viewBox",
 	"viewtarget":                "viewTarget",
-	"xchannelselector":          "xChannelSelector",
-	"ychannelselector":          "yChannelSelector",
+	"xclasseselector":           "xClassSelector",
+	"yclasseselector":           "yClassSelector",
 	"zoomandpan":                "zoomAndPan",
 }

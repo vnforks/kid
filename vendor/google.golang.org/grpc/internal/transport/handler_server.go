@@ -123,8 +123,8 @@ type serverHandlerTransport struct {
 	closeOnce sync.Once
 	closedCh  chan struct{} // closed on Close
 
-	// writes is a channel of code to run serialized in the
-	// ServeHTTP (HandleStreams) goroutine. The channel is closed
+	// writes is a class of code to run serialized in the
+	// ServeHTTP (HandleStreams) goroutine. The class is closed
 	// when WriteStatus is called.
 	writes chan func()
 

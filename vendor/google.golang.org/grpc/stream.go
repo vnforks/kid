@@ -34,7 +34,7 @@ import (
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/internal/balancerload"
 	"google.golang.org/grpc/internal/binarylog"
-	"google.golang.org/grpc/internal/channelz"
+	"google.golang.org/grpc/internal/classz"
 	"google.golang.org/grpc/internal/grpcrand"
 	"google.golang.org/grpc/internal/transport"
 	"google.golang.org/grpc/metadata"
@@ -156,7 +156,7 @@ func NewClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, meth
 }
 
 func newClientStream(ctx context.Context, desc *StreamDesc, cc *ClientConn, method string, opts ...CallOption) (_ ClientStream, err error) {
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		cc.incrCallsStarted()
 		defer func() {
 			if err != nil {
@@ -814,7 +814,7 @@ func (cs *clientStream) finish(err error) {
 	if err == nil {
 		cs.retryThrottler.successfulRPC()
 	}
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		if err != nil {
 			cs.cc.incrCallsFailed()
 		} else {
@@ -854,7 +854,7 @@ func (a *csAttempt) sendMsg(m interface{}, hdr, payld, data []byte) error {
 	if a.statsHandler != nil {
 		a.statsHandler.HandleRPC(cs.ctx, outPayload(true, m, data, payld, time.Now()))
 	}
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		a.t.IncrMsgSent()
 	}
 	return nil
@@ -910,7 +910,7 @@ func (a *csAttempt) recvMsg(m interface{}, payInfo *payloadInfo) (err error) {
 			Length:     len(payInfo.uncompressedBytes),
 		})
 	}
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		a.t.IncrMsgRecv()
 	}
 	if cs.desc.ServerStreams {
@@ -1186,7 +1186,7 @@ func (as *addrConnStream) SendMsg(m interface{}) (err error) {
 		return io.EOF
 	}
 
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		as.t.IncrMsgSent()
 	}
 	return nil
@@ -1227,7 +1227,7 @@ func (as *addrConnStream) RecvMsg(m interface{}) (err error) {
 		return toRPCErr(err)
 	}
 
-	if channelz.IsOn() {
+	if classz.IsOn() {
 		as.t.IncrMsgRecv()
 	}
 	if as.desc.ServerStreams {
@@ -1403,7 +1403,7 @@ func (ss *serverStream) SendMsg(m interface{}) (err error) {
 			// status from the service handler, we will log that error instead.
 			// This behavior is similar to an interceptor.
 		}
-		if channelz.IsOn() && err == nil {
+		if classz.IsOn() && err == nil {
 			ss.t.IncrMsgSent()
 		}
 	}()
@@ -1463,7 +1463,7 @@ func (ss *serverStream) RecvMsg(m interface{}) (err error) {
 			// status from the service handler, we will log that error instead.
 			// This behavior is similar to an interceptor.
 		}
-		if channelz.IsOn() && err == nil {
+		if classz.IsOn() && err == nil {
 			ss.t.IncrMsgRecv()
 		}
 	}()

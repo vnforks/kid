@@ -146,31 +146,31 @@ func init() {
 	}
 }
 
-// ChannelzSecurityInfo defines the interface that security protocols should implement
-// in order to provide security info to channelz.
+// ClasszSecurityInfo defines the interface that security protocols should implement
+// in order to provide security info to classz.
 //
 // This API is experimental.
-type ChannelzSecurityInfo interface {
-	GetSecurityValue() ChannelzSecurityValue
+type ClasszSecurityInfo interface {
+	GetSecurityValue() ClasszSecurityValue
 }
 
-// ChannelzSecurityValue defines the interface that GetSecurityValue() return value
-// should satisfy. This interface should only be satisfied by *TLSChannelzSecurityValue
-// and *OtherChannelzSecurityValue.
+// ClasszSecurityValue defines the interface that GetSecurityValue() return value
+// should satisfy. This interface should only be satisfied by *TLSClasszSecurityValue
+// and *OtherClasszSecurityValue.
 //
 // This API is experimental.
-type ChannelzSecurityValue interface {
-	isChannelzSecurityValue()
+type ClasszSecurityValue interface {
+	isClasszSecurityValue()
 }
 
-// OtherChannelzSecurityValue defines the struct that non-TLS protocol should return
+// OtherClasszSecurityValue defines the struct that non-TLS protocol should return
 // from GetSecurityValue(), which contains protocol specific security info. Note
-// the Value field will be sent to users of channelz requesting channel info, and
+// the Value field will be sent to users of classz requesting class info, and
 // thus sensitive info should better be avoided.
 //
 // This API is experimental.
-type OtherChannelzSecurityValue struct {
-	ChannelzSecurityValue
+type OtherClasszSecurityValue struct {
+	ClasszSecurityValue
 	Name  string
 	Value proto.Message
 }

@@ -75,8 +75,8 @@ func (s LocalCacheWebhookStore) PermanentDeleteIncomingByUser(userId string) *mo
 	return nil
 }
 
-func (s LocalCacheWebhookStore) PermanentDeleteIncomingByChannel(channelId string) *model.AppError {
-	err := s.WebhookStore.PermanentDeleteIncomingByChannel(channelId)
+func (s LocalCacheWebhookStore) PermanentDeleteIncomingByClass(classId string) *model.AppError {
+	err := s.WebhookStore.PermanentDeleteIncomingByClass(classId)
 	if err != nil {
 		return err
 	}

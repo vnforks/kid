@@ -23,7 +23,7 @@ import (
 )
 
 const (
-	FILE_TEAM_ID = "noteam"
+	FILE_BRANCH_ID = "nobranch"
 
 	PREVIEW_IMAGE_TYPE   = "image/jpeg"
 	THUMBNAIL_IMAGE_TYPE = "image/jpeg"
@@ -148,7 +148,7 @@ func uploadFileStream(c *Context, w http.ResponseWriter, r *http.Request) {
 // uploadFileSimple uploads a file from a simple POST with the file in the request body
 func uploadFileSimple(c *Context, r *http.Request, timestamp time.Time) *model.FileUploadResponse {
 	// Simple POST with the file in the body and all metadata in the args.
-	c.RequireChannelId()
+	c.RequireClassId()
 	c.RequireFilename()
 	if c.Err != nil {
 		return nil
@@ -156,10 +156,10 @@ func uploadFileSimple(c *Context, r *http.Request, timestamp time.Time) *model.F
 
 	auditRec := c.MakeAuditRecord("uploadFileSimple", audit.Fail)
 	defer c.LogAuditRec(auditRec)
-	auditRec.AddMeta("channel_id", c.Params.ChannelId)
+	auditRec.AddMeta("class_id", c.Params.ClassId)
 	auditRec.AddMeta("filename", c.Params.Filename)
 
-	if !c.App.SessionHasPermissionToChannel(*c.App.Session(), c.Params.ChannelId, model.PERMISSION_UPLOAD_FILE) {
+	if !c.App.SessionHasPermissionToClass(*c.App.Session(), c.Params.ClassId, model.PERMISSION_UPLOAD_FILE) {
 		c.SetPermissionError(model.PERMISSION_UPLOAD_FILE)
 		return nil
 	}
@@ -168,8 +168,8 @@ func uploadFileSimple(c *Context, r *http.Request, timestamp time.Time) *model.F
 	auditRec.AddMeta("client_id", clientId)
 	auditRec.AddMeta("content_length", r.ContentLength)
 
-	info, appErr := c.App.UploadFileX(c.Params.ChannelId, c.Params.Filename, r.Body,
-		app.UploadFileSetTeamId(FILE_TEAM_ID),
+	info, appErr := c.App.UploadFileX(c.Params.ClassId, c.Params.Filename, r.Body,
+		app.UploadFileSetBranchId(FILE_BRANCH_ID),
 		app.UploadFileSetUserId(c.App.Session().UserId),
 		app.UploadFileSetTimestamp(timestamp),
 		app.UploadFileSetContentLength(r.ContentLength),
@@ -191,7 +191,7 @@ func uploadFileSimple(c *Context, r *http.Request, timestamp time.Time) *model.F
 
 // uploadFileMultipart parses and uploads file(s) from a mime/multipart
 // request.  It pre-buffers up to the first part which is either the (a)
-// `channel_id` value, or (b) a file. Then in case of (a) it re-processes the
+// `class_id` value, or (b) a file. Then in case of (a) it re-processes the
 // entire message recursively calling itself in stream mode. In case of (b) it
 // calls to uploadFileMultipartLegacy for legacy support
 func uploadFileMultipart(c *Context, r *http.Request, asStream io.Reader, timestamp time.Time) *model.FileUploadResponse {
@@ -207,7 +207,7 @@ func uploadFileMultipart(c *Context, r *http.Request, asStream io.Reader, timest
 	var mr *multipart.Reader
 	var err error
 	if asStream == nil {
-		// We need to buffer until we get the channel_id, or the first file.
+		// We need to buffer until we get the class_id, or the first file.
 		buf = &bytes.Buffer{}
 		mr, err = multipartReader(r, io.TeeReader(r.Body, buf))
 	} else {
@@ -253,18 +253,18 @@ NEXT_PART:
 			v := b.String()
 
 			switch formname {
-			case "channel_id":
-				if c.Params.ChannelId != "" && c.Params.ChannelId != v {
+			case "class_id":
+				if c.Params.ClassId != "" && c.Params.ClassId != v {
 					c.Err = model.NewAppError("uploadFileMultipart",
-						"api.file.upload_file.multiple_channel_ids.app_error",
+						"api.file.upload_file.multiple_class_ids.app_error",
 						nil, "", http.StatusBadRequest)
 					return nil
 				}
 				if v != "" {
-					c.Params.ChannelId = v
+					c.Params.ClassId = v
 				}
 
-				// Got channel_id, re-process the entire post
+				// Got class_id, re-process the entire post
 				// in the streaming mode.
 				if asStream == nil {
 					return uploadFileMultipart(c, r, io.MultiReader(buf, r.Body), timestamp)
@@ -287,8 +287,8 @@ NEXT_PART:
 
 		// A file part.
 
-		if c.Params.ChannelId == "" && asStream == nil {
-			// Got file before channel_id, fall back to legacy buffered mode
+		if c.Params.ClassId == "" && asStream == nil {
+			// Got file before class_id, fall back to legacy buffered mode
 			mr, err = multipartReader(r, io.MultiReader(buf, r.Body))
 			if err != nil {
 				c.Err = model.NewAppError("uploadFileMultipart",
@@ -300,11 +300,11 @@ NEXT_PART:
 			return uploadFileMultipartLegacy(c, mr, timestamp)
 		}
 
-		c.RequireChannelId()
+		c.RequireClassId()
 		if c.Err != nil {
 			return nil
 		}
-		if !c.App.SessionHasPermissionToChannel(*c.App.Session(), c.Params.ChannelId, model.PERMISSION_UPLOAD_FILE) {
+		if !c.App.SessionHasPermissionToClass(*c.App.Session(), c.Params.ClassId, model.PERMISSION_UPLOAD_FILE) {
 			c.SetPermissionError(model.PERMISSION_UPLOAD_FILE)
 			return nil
 		}
@@ -327,12 +327,12 @@ NEXT_PART:
 		}
 
 		auditRec := c.MakeAuditRecord("uploadFileMultipart", audit.Fail)
-		auditRec.AddMeta("channel_id", c.Params.ChannelId)
+		auditRec.AddMeta("class_id", c.Params.ClassId)
 		auditRec.AddMeta("filename", filename)
 		auditRec.AddMeta("client_id", clientId)
 
-		info, appErr := c.App.UploadFileX(c.Params.ChannelId, filename, part,
-			app.UploadFileSetTeamId(FILE_TEAM_ID),
+		info, appErr := c.App.UploadFileX(c.Params.ClassId, filename, part,
+			app.UploadFileSetBranchId(FILE_BRANCH_ID),
 			app.UploadFileSetUserId(c.App.Session().UserId),
 			app.UploadFileSetTimestamp(timestamp),
 			app.UploadFileSetContentLength(-1),
@@ -381,18 +381,18 @@ func uploadFileMultipartLegacy(c *Context, mr *multipart.Reader,
 		return nil
 	}
 
-	// get and validate the channel Id, permission to upload there.
-	if len(form.Value["channel_id"]) == 0 {
-		c.SetInvalidParam("channel_id")
+	// get and validate the class Id, permission to upload there.
+	if len(form.Value["class_id"]) == 0 {
+		c.SetInvalidParam("class_id")
 		return nil
 	}
-	channelId := form.Value["channel_id"][0]
-	c.Params.ChannelId = channelId
-	c.RequireChannelId()
+	classId := form.Value["class_id"][0]
+	c.Params.ClassId = classId
+	c.RequireClassId()
 	if c.Err != nil {
 		return nil
 	}
-	if !c.App.SessionHasPermissionToChannel(*c.App.Session(), channelId, model.PERMISSION_UPLOAD_FILE) {
+	if !c.App.SessionHasPermissionToClass(*c.App.Session(), classId, model.PERMISSION_UPLOAD_FILE) {
 		c.SetPermissionError(model.PERMISSION_UPLOAD_FILE)
 		return nil
 	}
@@ -429,12 +429,12 @@ func uploadFileMultipartLegacy(c *Context, mr *multipart.Reader,
 
 		auditRec := c.MakeAuditRecord("uploadFileMultipartLegacy", audit.Fail)
 		defer c.LogAuditRec(auditRec)
-		auditRec.AddMeta("channel_id", channelId)
+		auditRec.AddMeta("class_id", classId)
 		auditRec.AddMeta("filename", fileHeader.Filename)
 		auditRec.AddMeta("client_id", clientId)
 
-		info, appErr := c.App.UploadFileX(c.Params.ChannelId, fileHeader.Filename, f,
-			app.UploadFileSetTeamId(FILE_TEAM_ID),
+		info, appErr := c.App.UploadFileX(c.Params.ClassId, fileHeader.Filename, f,
+			app.UploadFileSetBranchId(FILE_BRANCH_ID),
 			app.UploadFileSetUserId(c.App.Session().UserId),
 			app.UploadFileSetTimestamp(timestamp),
 			app.UploadFileSetContentLength(-1),
@@ -475,8 +475,8 @@ func getFile(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CHANNEL) {
-		c.SetPermissionError(model.PERMISSION_READ_CHANNEL)
+	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CLASS) {
+		c.SetPermissionError(model.PERMISSION_READ_CLASS)
 		return
 	}
 
@@ -512,8 +512,8 @@ func getFileThumbnail(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CHANNEL) {
-		c.SetPermissionError(model.PERMISSION_READ_CHANNEL)
+	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CLASS) {
+		c.SetPermissionError(model.PERMISSION_READ_CLASS)
 		return
 	}
 
@@ -554,8 +554,8 @@ func getFileLink(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CHANNEL) {
-		c.SetPermissionError(model.PERMISSION_READ_CHANNEL)
+	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CLASS) {
+		c.SetPermissionError(model.PERMISSION_READ_CLASS)
 		return
 	}
 
@@ -587,8 +587,8 @@ func getFilePreview(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CHANNEL) {
-		c.SetPermissionError(model.PERMISSION_READ_CHANNEL)
+	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CLASS) {
+		c.SetPermissionError(model.PERMISSION_READ_CLASS)
 		return
 	}
 
@@ -624,8 +624,8 @@ func getFileInfo(c *Context, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToChannelByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CHANNEL) {
-		c.SetPermissionError(model.PERMISSION_READ_CHANNEL)
+	if info.CreatorId != c.App.Session().UserId && !c.App.SessionHasPermissionToClassByPost(*c.App.Session(), info.PostId, model.PERMISSION_READ_CLASS) {
+		c.SetPermissionError(model.PERMISSION_READ_CLASS)
 		return
 	}
 

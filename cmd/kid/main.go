@@ -6,7 +6,7 @@ package main
 import (
 	"os"
 
-	"github.com/vnforks/kid/v5/cmd/mattermost/commands"
+	"github.com/vnforks/kid/v5/cmd/kid/commands"
 
 	// Plugins
 	_ "github.com/vnforks/kid/v5/model/gitlab"

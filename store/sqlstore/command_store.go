@@ -22,7 +22,7 @@ func newSqlCommandStore(sqlStore SqlStore) store.CommandStore {
 		tableo.ColMap("Id").SetMaxSize(26)
 		tableo.ColMap("Token").SetMaxSize(26)
 		tableo.ColMap("CreatorId").SetMaxSize(26)
-		tableo.ColMap("TeamId").SetMaxSize(26)
+		tableo.ColMap("BranchId").SetMaxSize(26)
 		tableo.ColMap("Trigger").SetMaxSize(128)
 		tableo.ColMap("URL").SetMaxSize(1024)
 		tableo.ColMap("Method").SetMaxSize(1)
@@ -38,7 +38,7 @@ func newSqlCommandStore(sqlStore SqlStore) store.CommandStore {
 }
 
 func (s SqlCommandStore) createIndexesIfNotExists() {
-	s.CreateIndexIfNotExists("idx_command_team_id", "Commands", "TeamId")
+	s.CreateIndexIfNotExists("idx_command_branch_id", "Commands", "BranchId")
 	s.CreateIndexIfNotExists("idx_command_update_at", "Commands", "UpdateAt")
 	s.CreateIndexIfNotExists("idx_command_create_at", "Commands", "CreateAt")
 	s.CreateIndexIfNotExists("idx_command_delete_at", "Commands", "DeleteAt")
@@ -71,28 +71,28 @@ func (s SqlCommandStore) Get(id string) (*model.Command, *model.AppError) {
 	return &command, nil
 }
 
-func (s SqlCommandStore) GetByTeam(teamId string) ([]*model.Command, *model.AppError) {
+func (s SqlCommandStore) GetByBranch(branchId string) ([]*model.Command, *model.AppError) {
 	var commands []*model.Command
 
-	if _, err := s.GetReplica().Select(&commands, "SELECT * FROM Commands WHERE TeamId = :TeamId AND DeleteAt = 0", map[string]interface{}{"TeamId": teamId}); err != nil {
-		return nil, model.NewAppError("SqlCommandStore.GetByTeam", "store.sql_command.save.get_team.app_error", nil, "teamId="+teamId+", err="+err.Error(), http.StatusInternalServerError)
+	if _, err := s.GetReplica().Select(&commands, "SELECT * FROM Commands WHERE BranchId = :BranchId AND DeleteAt = 0", map[string]interface{}{"BranchId": branchId}); err != nil {
+		return nil, model.NewAppError("SqlCommandStore.GetByBranch", "store.sql_command.save.get_branch.app_error", nil, "branchId="+branchId+", err="+err.Error(), http.StatusInternalServerError)
 	}
 
 	return commands, nil
 }
 
-func (s SqlCommandStore) GetByTrigger(teamId string, trigger string) (*model.Command, *model.AppError) {
+func (s SqlCommandStore) GetByTrigger(branchId string, trigger string) (*model.Command, *model.AppError) {
 	var command model.Command
 
 	var query string
 	if s.DriverName() == "mysql" {
-		query = "SELECT * FROM Commands WHERE TeamId = :TeamId AND `Trigger` = :Trigger AND DeleteAt = 0"
+		query = "SELECT * FROM Commands WHERE BranchId = :BranchId AND `Trigger` = :Trigger AND DeleteAt = 0"
 	} else {
-		query = "SELECT * FROM Commands WHERE TeamId = :TeamId AND \"trigger\" = :Trigger AND DeleteAt = 0"
+		query = "SELECT * FROM Commands WHERE BranchId = :BranchId AND \"trigger\" = :Trigger AND DeleteAt = 0"
 	}
 
-	if err := s.GetReplica().SelectOne(&command, query, map[string]interface{}{"TeamId": teamId, "Trigger": trigger}); err != nil {
-		return nil, model.NewAppError("SqlCommandStore.GetByTrigger", "store.sql_command.get_by_trigger.app_error", nil, "teamId="+teamId+", trigger="+trigger+", err="+err.Error(), http.StatusInternalServerError)
+	if err := s.GetReplica().SelectOne(&command, query, map[string]interface{}{"BranchId": branchId, "Trigger": trigger}); err != nil {
+		return nil, model.NewAppError("SqlCommandStore.GetByTrigger", "store.sql_command.get_by_trigger.app_error", nil, "branchId="+branchId+", trigger="+trigger+", err="+err.Error(), http.StatusInternalServerError)
 	}
 
 	return &command, nil
@@ -107,10 +107,10 @@ func (s SqlCommandStore) Delete(commandId string, time int64) *model.AppError {
 	return nil
 }
 
-func (s SqlCommandStore) PermanentDeleteByTeam(teamId string) *model.AppError {
-	_, err := s.GetMaster().Exec("DELETE FROM Commands WHERE TeamId = :TeamId", map[string]interface{}{"TeamId": teamId})
+func (s SqlCommandStore) PermanentDeleteByBranch(branchId string) *model.AppError {
+	_, err := s.GetMaster().Exec("DELETE FROM Commands WHERE BranchId = :BranchId", map[string]interface{}{"BranchId": branchId})
 	if err != nil {
-		return model.NewAppError("SqlCommandStore.DeleteByTeam", "store.sql_command.save.delete_perm.app_error", nil, "id="+teamId+", err="+err.Error(), http.StatusInternalServerError)
+		return model.NewAppError("SqlCommandStore.DeleteByBranch", "store.sql_command.save.delete_perm.app_error", nil, "id="+branchId+", err="+err.Error(), http.StatusInternalServerError)
 	}
 	return nil
 }
@@ -138,7 +138,7 @@ func (s SqlCommandStore) Update(cmd *model.Command) (*model.Command, *model.AppE
 	return cmd, nil
 }
 
-func (s SqlCommandStore) AnalyticsCommandCount(teamId string) (int64, *model.AppError) {
+func (s SqlCommandStore) AnalyticsCommandCount(branchId string) (int64, *model.AppError) {
 	query :=
 		`SELECT
 			COUNT(*)
@@ -147,11 +147,11 @@ func (s SqlCommandStore) AnalyticsCommandCount(teamId string) (int64, *model.App
 		WHERE
 			DeleteAt = 0`
 
-	if len(teamId) > 0 {
-		query += " AND TeamId = :TeamId"
+	if len(branchId) > 0 {
+		query += " AND BranchId = :BranchId"
 	}
 
-	c, err := s.GetReplica().SelectInt(query, map[string]interface{}{"TeamId": teamId})
+	c, err := s.GetReplica().SelectInt(query, map[string]interface{}{"BranchId": branchId})
 	if err != nil {
 		return 0, model.NewAppError("SqlCommandStore.AnalyticsCommandCount", "store.sql_command.analytics_command_count.app_error", nil, err.Error(), http.StatusInternalServerError)
 	}

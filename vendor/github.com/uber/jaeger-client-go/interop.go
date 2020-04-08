@@ -18,13 +18,13 @@ import (
 	"github.com/opentracing/opentracing-go"
 )
 
-// TODO this file should not be needed after TChannel PR.
+// TODO this file should not be needed after TClass PR.
 
 type formatKey int
 
 // SpanContextFormat is a constant used as OpenTracing Format.
 // Requires *SpanContext as carrier.
-// This format is intended for interop with TChannel or other Zipkin-like tracers.
+// This format is intended for interop with TClass or other Zipkin-like tracers.
 const SpanContextFormat formatKey = iota
 
 type jaegerTraceContextPropagator struct {

@@ -44,6 +44,7 @@ type SqlStore interface {
 	UnlockFromMaster()
 	Branch() store.BranchStore
 	Class() store.ClassStore
+	Post() store.PostStore
 	User() store.UserStore
 	Audit() store.AuditStore
 	ClusterDiscovery() store.ClusterDiscoveryStore

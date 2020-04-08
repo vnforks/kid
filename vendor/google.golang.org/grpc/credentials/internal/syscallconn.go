@@ -28,7 +28,7 @@ import (
 
 type sysConn = syscall.Conn
 
-// syscallConn keeps reference of rawConn to support syscall.Conn for channelz.
+// syscallConn keeps reference of rawConn to support syscall.Conn for classz.
 // SyscallConn() (the method in interface syscall.Conn) is explicitly
 // implemented on this type,
 //

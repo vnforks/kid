@@ -9,7 +9,6 @@ import (
 	"time"
 
 	goi18n "github.com/mattermost/go-i18n/i18n"
-	"github.com/vnforks/kid/v5/mlog"
 	"github.com/vnforks/kid/v5/model"
 )
 
@@ -68,7 +67,7 @@ func (me *EchoProvider) DoCommand(a *App, args *model.CommandArgs, message strin
 	}
 
 	if echoSem == nil {
-		// We want one additional thread allowed so we never reach channel lockup
+		// We want one additional thread allowed so we never reach class lockup
 		echoSem = make(chan bool, maxThreads+1)
 	}
 
@@ -80,17 +79,12 @@ func (me *EchoProvider) DoCommand(a *App, args *model.CommandArgs, message strin
 	a.Srv().Go(func() {
 		defer func() { <-echoSem }()
 		post := &model.Post{}
-		post.ChannelId = args.ChannelId
-		post.RootId = args.RootId
-		post.ParentId = args.ParentId
+		post.ClassId = args.ClassId
 		post.Message = message
 		post.UserId = args.UserId
 
 		time.Sleep(time.Duration(delay) * time.Second)
 
-		if _, err := a.CreatePostMissingChannel(post, true); err != nil {
-			mlog.Error("Unable to create /echo post.", mlog.Err(err))
-		}
 	})
 
 	return &model.CommandResponse{}

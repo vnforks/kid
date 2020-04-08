@@ -856,11 +856,11 @@ func parseDialTarget(target string) (net string, addr string) {
 	return net, target
 }
 
-// channelzData is used to store channelz related data for ClientConn, addrConn and Server.
+// classzData is used to store classz related data for ClientConn, addrConn and Server.
 // These fields cannot be embedded in the original structs (e.g. ClientConn), since to do atomic
 // operation on int64 variable on 32-bit machine, user is responsible to enforce memory alignment.
 // Here, by grouping those int64 fields inside a struct, we are enforcing the alignment.
-type channelzData struct {
+type classzData struct {
 	callsStarted   int64
 	callsFailed    int64
 	callsSucceeded int64

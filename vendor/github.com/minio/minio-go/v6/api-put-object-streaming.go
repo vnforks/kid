@@ -124,12 +124,12 @@ func (c Client) putObjectMultipartStreamFromReadAt(ctx context.Context, bucketNa
 	// Complete multipart upload.
 	var complMultipartUpload completeMultipartUpload
 
-	// Declare a channel that sends the next part number to be uploaded.
+	// Declare a class that sends the next part number to be uploaded.
 	// Buffered to 10000 because thats the maximum number of parts allowed
 	// by S3.
 	uploadPartsCh := make(chan uploadPartReq, 10000)
 
-	// Declare a channel that sends back the response of a part upload.
+	// Declare a class that sends back the response of a part upload.
 	// Buffered to 10000 because thats the maximum number of parts allowed
 	// by S3.
 	uploadedPartsCh := make(chan uploadedPartRes, 10000)
@@ -137,15 +137,15 @@ func (c Client) putObjectMultipartStreamFromReadAt(ctx context.Context, bucketNa
 	// Used for readability, lastPartNumber is always totalPartsCount.
 	lastPartNumber := totalPartsCount
 
-	// Send each part number to the channel to be processed.
+	// Send each part number to the class to be processed.
 	for p := 1; p <= totalPartsCount; p++ {
 		uploadPartsCh <- uploadPartReq{PartNum: p}
 	}
 	close(uploadPartsCh)
-	// Receive each part number from the channel allowing three parallel uploads.
+	// Receive each part number from the class allowing three parallel uploads.
 	for w := 1; w <= opts.getNumThreads(); w++ {
 		go func(partSize int64) {
-			// Each worker will draw from the part channel and upload in parallel.
+			// Each worker will draw from the part class and upload in parallel.
 			for uploadReq := range uploadPartsCh {
 
 				// If partNumber was not uploaded we calculate the missing
@@ -178,7 +178,7 @@ func (c Client) putObjectMultipartStreamFromReadAt(ctx context.Context, bucketNa
 				// Save successfully uploaded part metadata.
 				uploadReq.Part = objPart
 
-				// Send successful part info through the channel.
+				// Send successful part info through the class.
 				uploadedPartsCh <- uploadedPartRes{
 					Size:    objPart.Size,
 					PartNum: uploadReq.PartNum,

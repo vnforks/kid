@@ -105,12 +105,12 @@ func patchRole(c *Context, w http.ResponseWriter, r *http.Request) {
 	auditRec.AddMeta("role_display", oldRole.DisplayName)
 
 	if c.App.License() == nil && patch.Permissions != nil {
-		if oldRole.Name == "system_guest" || oldRole.Name == "team_guest" || oldRole.Name == "channel_guest" {
+		if oldRole.Name == "system_guest" || oldRole.Name == "branch_guest" || oldRole.Name == "class_guest" {
 			c.Err = model.NewAppError("Api4.PatchRoles", "api.roles.patch_roles.license.error", nil, "", http.StatusNotImplemented)
 			return
 		}
 		allowedPermissions := []string{
-			model.PERMISSION_CREATE_TEAM.Id,
+			model.PERMISSION_CREATE_BRANCH.Id,
 			model.PERMISSION_MANAGE_INCOMING_WEBHOOKS.Id,
 			model.PERMISSION_MANAGE_OUTGOING_WEBHOOKS.Id,
 			model.PERMISSION_MANAGE_SLASH_COMMANDS.Id,
@@ -137,7 +137,7 @@ func patchRole(c *Context, w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	if c.App.License() != nil && (oldRole.Name == "system_guest" || oldRole.Name == "team_guest" || oldRole.Name == "channel_guest") && !*c.App.License().Features.GuestAccountsPermissions {
+	if c.App.License() != nil && (oldRole.Name == "system_guest" || oldRole.Name == "branch_guest" || oldRole.Name == "class_guest") && !*c.App.License().Features.GuestAccountsPermissions {
 		c.Err = model.NewAppError("Api4.PatchRoles", "api.roles.patch_roles.license.error", nil, "", http.StatusNotImplemented)
 		return
 	}

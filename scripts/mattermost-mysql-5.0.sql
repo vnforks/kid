@@ -45,39 +45,39 @@ LOCK TABLES `Audits` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ChannelMemberHistory`
+-- Table structure for table `ClassMemberHistory`
 --
 
-DROP TABLE IF EXISTS `ChannelMemberHistory`;
+DROP TABLE IF EXISTS `ClassMemberHistory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ChannelMemberHistory` (
-  `ChannelId` varchar(26) NOT NULL,
+CREATE TABLE `ClassMemberHistory` (
+  `ClassId` varchar(26) NOT NULL,
   `UserId` varchar(26) NOT NULL,
   `JoinTime` bigint(20) NOT NULL,
   `LeaveTime` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`ChannelId`,`UserId`,`JoinTime`)
+  PRIMARY KEY (`ClassId`,`UserId`,`JoinTime`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ChannelMemberHistory`
+-- Dumping data for table `ClassMemberHistory`
 --
 
-LOCK TABLES `ChannelMemberHistory` WRITE;
-/*!40000 ALTER TABLE `ChannelMemberHistory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ChannelMemberHistory` ENABLE KEYS */;
+LOCK TABLES `ClassMemberHistory` WRITE;
+/*!40000 ALTER TABLE `ClassMemberHistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ClassMemberHistory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ChannelMembers`
+-- Table structure for table `ClassMembers`
 --
 
-DROP TABLE IF EXISTS `ChannelMembers`;
+DROP TABLE IF EXISTS `ClassMembers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `ChannelMembers` (
-  `ChannelId` varchar(26) NOT NULL,
+CREATE TABLE `ClassMembers` (
+  `ClassId` varchar(26) NOT NULL,
   `UserId` varchar(26) NOT NULL,
   `Roles` varchar(64) DEFAULT NULL,
   `LastViewedAt` bigint(20) DEFAULT NULL,
@@ -87,34 +87,34 @@ CREATE TABLE `ChannelMembers` (
   `LastUpdateAt` bigint(20) DEFAULT NULL,
   `SchemeUser` tinyint(4) DEFAULT NULL,
   `SchemeAdmin` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`ChannelId`,`UserId`),
-  KEY `idx_channelmembers_channel_id` (`ChannelId`),
-  KEY `idx_channelmembers_user_id` (`UserId`)
+  PRIMARY KEY (`ClassId`,`UserId`),
+  KEY `idx_classmembers_class_id` (`ClassId`),
+  KEY `idx_classmembers_user_id` (`UserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ChannelMembers`
+-- Dumping data for table `ClassMembers`
 --
 
-LOCK TABLES `ChannelMembers` WRITE;
-/*!40000 ALTER TABLE `ChannelMembers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ChannelMembers` ENABLE KEYS */;
+LOCK TABLES `ClassMembers` WRITE;
+/*!40000 ALTER TABLE `ClassMembers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ClassMembers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Channels`
+-- Table structure for table `Classes`
 --
 
-DROP TABLE IF EXISTS `Channels`;
+DROP TABLE IF EXISTS `Classes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Channels` (
+CREATE TABLE `Classes` (
   `Id` varchar(26) NOT NULL,
   `CreateAt` bigint(20) DEFAULT NULL,
   `UpdateAt` bigint(20) DEFAULT NULL,
   `DeleteAt` bigint(20) DEFAULT NULL,
-  `TeamId` varchar(26) DEFAULT NULL,
+  `BranchId` varchar(26) DEFAULT NULL,
   `Type` varchar(1) DEFAULT NULL,
   `DisplayName` varchar(64) DEFAULT NULL,
   `Name` varchar(64) DEFAULT NULL,
@@ -126,23 +126,23 @@ CREATE TABLE `Channels` (
   `CreatorId` varchar(26) DEFAULT NULL,
   `SchemeId` varchar(26) DEFAULT NULL,
   PRIMARY KEY (`Id`),
-  UNIQUE KEY `Name` (`Name`,`TeamId`),
-  KEY `idx_channels_team_id` (`TeamId`),
-  KEY `idx_channels_name` (`Name`),
-  KEY `idx_channels_update_at` (`UpdateAt`),
-  KEY `idx_channels_create_at` (`CreateAt`),
-  KEY `idx_channels_delete_at` (`DeleteAt`),
-  FULLTEXT KEY `idx_channels_txt` (`Name`,`DisplayName`)
+  UNIQUE KEY `Name` (`Name`,`BranchId`),
+  KEY `idx_classes_branch_id` (`BranchId`),
+  KEY `idx_classes_name` (`Name`),
+  KEY `idx_classes_update_at` (`UpdateAt`),
+  KEY `idx_classes_create_at` (`CreateAt`),
+  KEY `idx_classes_delete_at` (`DeleteAt`),
+  FULLTEXT KEY `idx_classes_txt` (`Name`,`DisplayName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Channels`
+-- Dumping data for table `Classes`
 --
 
-LOCK TABLES `Channels` WRITE;
-/*!40000 ALTER TABLE `Channels` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Channels` ENABLE KEYS */;
+LOCK TABLES `Classes` WRITE;
+/*!40000 ALTER TABLE `Classes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Classes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -186,7 +186,7 @@ CREATE TABLE `CommandWebhooks` (
   `CreateAt` bigint(20) DEFAULT NULL,
   `CommandId` varchar(26) DEFAULT NULL,
   `UserId` varchar(26) DEFAULT NULL,
-  `ChannelId` varchar(26) DEFAULT NULL,
+  `ClassId` varchar(26) DEFAULT NULL,
   `RootId` varchar(26) DEFAULT NULL,
   `ParentId` varchar(26) DEFAULT NULL,
   `UseCount` int(11) DEFAULT NULL,
@@ -218,7 +218,7 @@ CREATE TABLE `Commands` (
   `UpdateAt` bigint(20) DEFAULT NULL,
   `DeleteAt` bigint(20) DEFAULT NULL,
   `CreatorId` varchar(26) DEFAULT NULL,
-  `TeamId` varchar(26) DEFAULT NULL,
+  `BranchId` varchar(26) DEFAULT NULL,
   `Trigger` varchar(128) DEFAULT NULL,
   `Method` varchar(1) DEFAULT NULL,
   `Username` varchar(64) DEFAULT NULL,
@@ -230,7 +230,7 @@ CREATE TABLE `Commands` (
   `Description` varchar(128) DEFAULT NULL,
   `URL` text,
   PRIMARY KEY (`Id`),
-  KEY `idx_command_team_id` (`TeamId`),
+  KEY `idx_command_branch_id` (`BranchId`),
   KEY `idx_command_update_at` (`UpdateAt`),
   KEY `idx_command_create_at` (`CreateAt`),
   KEY `idx_command_delete_at` (`DeleteAt`)
@@ -364,16 +364,16 @@ CREATE TABLE `IncomingWebhooks` (
   `UpdateAt` bigint(20) DEFAULT NULL,
   `DeleteAt` bigint(20) DEFAULT NULL,
   `UserId` varchar(26) DEFAULT NULL,
-  `ChannelId` varchar(26) DEFAULT NULL,
-  `TeamId` varchar(26) DEFAULT NULL,
+  `ClassId` varchar(26) DEFAULT NULL,
+  `BranchId` varchar(26) DEFAULT NULL,
   `DisplayName` varchar(64) DEFAULT NULL,
   `Description` varchar(128) DEFAULT NULL,
   `Username` varchar(255) DEFAULT NULL,
   `IconURL` varchar(255) DEFAULT NULL,
-  `ChannelLocked` tinyint(1) DEFAULT NULL,
+  `ClassLocked` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `idx_incoming_webhook_user_id` (`UserId`),
-  KEY `idx_incoming_webhook_team_id` (`TeamId`),
+  KEY `idx_incoming_webhook_branch_id` (`BranchId`),
   KEY `idx_incoming_webhook_update_at` (`UpdateAt`),
   KEY `idx_incoming_webhook_create_at` (`CreateAt`),
   KEY `idx_incoming_webhook_delete_at` (`DeleteAt`)
@@ -553,8 +553,8 @@ CREATE TABLE `OutgoingWebhooks` (
   `UpdateAt` bigint(20) DEFAULT NULL,
   `DeleteAt` bigint(20) DEFAULT NULL,
   `CreatorId` varchar(26) DEFAULT NULL,
-  `ChannelId` varchar(26) DEFAULT NULL,
-  `TeamId` varchar(26) DEFAULT NULL,
+  `ClassId` varchar(26) DEFAULT NULL,
+  `BranchId` varchar(26) DEFAULT NULL,
   `TriggerWords` text,
   `TriggerWhen` int(11) DEFAULT NULL,
   `CallbackURLs` text,
@@ -562,7 +562,7 @@ CREATE TABLE `OutgoingWebhooks` (
   `Description` varchar(128) DEFAULT NULL,
   `ContentType` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`Id`),
-  KEY `idx_outgoing_webhook_team_id` (`TeamId`),
+  KEY `idx_outgoing_webhook_branch_id` (`BranchId`),
   KEY `idx_outgoing_webhook_update_at` (`UpdateAt`),
   KEY `idx_outgoing_webhook_create_at` (`CreateAt`),
   KEY `idx_outgoing_webhook_delete_at` (`DeleteAt`)
@@ -617,7 +617,7 @@ CREATE TABLE `Posts` (
   `DeleteAt` bigint(20) DEFAULT NULL,
   `IsPinned` tinyint(1) DEFAULT NULL,
   `UserId` varchar(26) DEFAULT NULL,
-  `ChannelId` varchar(26) DEFAULT NULL,
+  `ClassId` varchar(26) DEFAULT NULL,
   `RootId` varchar(26) DEFAULT NULL,
   `ParentId` varchar(26) DEFAULT NULL,
   `OriginalId` varchar(26) DEFAULT NULL,
@@ -632,12 +632,12 @@ CREATE TABLE `Posts` (
   KEY `idx_posts_update_at` (`UpdateAt`),
   KEY `idx_posts_create_at` (`CreateAt`),
   KEY `idx_posts_delete_at` (`DeleteAt`),
-  KEY `idx_posts_channel_id` (`ChannelId`),
+  KEY `idx_posts_class_id` (`ClassId`),
   KEY `idx_posts_root_id` (`RootId`),
   KEY `idx_posts_user_id` (`UserId`),
   KEY `idx_posts_is_pinned` (`IsPinned`),
-  KEY `idx_posts_channel_id_update_at` (`ChannelId`,`UpdateAt`),
-  KEY `idx_posts_channel_id_delete_at_create_at` (`ChannelId`,`DeleteAt`,`CreateAt`),
+  KEY `idx_posts_class_id_update_at` (`ClassId`,`UpdateAt`),
+  KEY `idx_posts_class_id_delete_at_create_at` (`ClassId`,`DeleteAt`,`CreateAt`),
   FULLTEXT KEY `idx_posts_message_txt` (`Message`),
   FULLTEXT KEY `idx_posts_hashtags_txt` (`Hashtags`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -734,7 +734,7 @@ CREATE TABLE `Roles` (
 
 LOCK TABLES `Roles` WRITE;
 /*!40000 ALTER TABLE `Roles` DISABLE KEYS */;
-INSERT INTO `Roles` VALUES ('1x1ypn6zwbrubc3i7urg1qc4hr','team_user','authentication.roles.team_user.name','authentication.roles.team_user.description',1552023386683,1552023386683,0,' list_team_channels join_public_channels read_public_channel view_team create_public_channel manage_public_channel_properties delete_public_channel create_private_channel manage_private_channel_properties delete_private_channel invite_user add_user_to_team',1,1),('9ro6s3aiffbomdsm1dszr1gxec','team_post_all','authentication.roles.team_post_all.name','authentication.roles.team_post_all.description',1552023386717,1552023386717,0,' create_post',0,1),('api7kwbqwjbrtp8b5zq1d5ot8w','system_user_access_token','authentication.roles.system_user_access_token.name','authentication.roles.system_user_access_token.description',1552023386784,1552023386784,0,' create_user_access_token read_user_access_token revoke_user_access_token',0,1),('b5hwuid8ofdb9eoca1skzepmoy','team_post_all_public','authentication.roles.team_post_all_public.name','authentication.roles.team_post_all_public.description',1552023386184,1552023386184,0,' create_post_public',0,1),('j79gy46igfrztkyihuqm38h51y','system_user','authentication.roles.global_user.name','authentication.roles.global_user.description',1552023386370,1552023386918,0,' create_direct_channel create_group_channel permanent_delete_user create_team manage_emojis',1,1),('miqk4yzctbyoxg8ye3sbfuoa9y','channel_user','authentication.roles.channel_user.name','authentication.roles.channel_user.description',1552023386587,1552023386587,0,' read_channel add_reaction remove_reaction manage_public_channel_members upload_file get_public_link create_post use_slash_commands manage_private_channel_members delete_post edit_post',1,1),('myf6w6mm5pbabx1dfhxbc9wyyy','system_post_all','authentication.roles.system_post_all.name','authentication.roles.system_post_all.description',1552023386460,1552023386460,0,' create_post',0,1),('nzwf773izfrkirwy47ow3o1xca','system_post_all_public','authentication.roles.system_post_all_public.name','authentication.roles.system_post_all_public.description',1552023386751,1552023386751,0,' create_post_public',0,1),('rhsqatx4yjnk8cwjh785p9tabo','system_admin','authentication.roles.global_admin.name','authentication.roles.global_admin.description',1552023386505,1552023386953,0,' assign_system_admin_role manage_system manage_roles manage_public_channel_properties manage_public_channel_members manage_private_channel_members delete_public_channel create_public_channel manage_private_channel_properties delete_private_channel create_private_channel manage_system_wide_oauth manage_others_webhooks edit_other_users manage_oauth invite_user delete_post delete_others_posts create_team add_user_to_team list_users_without_team manage_jobs create_post_public create_post_ephemeral create_user_access_token read_user_access_token revoke_user_access_token remove_others_reactions list_team_channels join_public_channels read_public_channel view_team read_channel add_reaction remove_reaction upload_file get_public_link create_post use_slash_commands edit_others_posts remove_user_from_team manage_team import_team manage_team_roles manage_channel_roles manage_slash_commands manage_others_slash_commands manage_webhooks edit_post manage_emojis manage_others_emojis',1,1),('s3uda9wt7p8cinzyyjb418o99h','team_admin','authentication.roles.team_admin.name','authentication.roles.team_admin.description',1552023386281,1552023386281,0,' edit_others_posts remove_user_from_team manage_team import_team manage_team_roles manage_channel_roles manage_others_webhooks manage_slash_commands manage_others_slash_commands manage_webhooks delete_post delete_others_posts',1,1),('uowhz7j9s3gx7r37b1twk87uhy','channel_admin','authentication.roles.channel_admin.name','authentication.roles.channel_admin.description',1552023386649,1552023386649,0,' manage_channel_roles',1,1);
+INSERT INTO `Roles` VALUES ('1x1ypn6zwbrubc3i7urg1qc4hr','branch_user','authentication.roles.branch_user.name','authentication.roles.branch_user.description',1552023386683,1552023386683,0,' list_branch_classes join_public_classes read_public_class view_branch create_public_class manage_public_class_properties delete_public_class create_private_class manage_private_class_properties delete_private_class invite_user add_user_to_branch',1,1),('9ro6s3aiffbomdsm1dszr1gxec','branch_post_all','authentication.roles.branch_post_all.name','authentication.roles.branch_post_all.description',1552023386717,1552023386717,0,' create_post',0,1),('api7kwbqwjbrtp8b5zq1d5ot8w','system_user_access_token','authentication.roles.system_user_access_token.name','authentication.roles.system_user_access_token.description',1552023386784,1552023386784,0,' create_user_access_token read_user_access_token revoke_user_access_token',0,1),('b5hwuid8ofdb9eoca1skzepmoy','branch_post_all_public','authentication.roles.branch_post_all_public.name','authentication.roles.branch_post_all_public.description',1552023386184,1552023386184,0,' create_post_public',0,1),('j79gy46igfrztkyihuqm38h51y','system_user','authentication.roles.global_user.name','authentication.roles.global_user.description',1552023386370,1552023386918,0,' create_direct_class create_group_class permanent_delete_user create_branch manage_emojis',1,1),('miqk4yzctbyoxg8ye3sbfuoa9y','class_user','authentication.roles.class_user.name','authentication.roles.class_user.description',1552023386587,1552023386587,0,' read_class add_reaction remove_reaction manage_public_class_members upload_file get_public_link create_post use_slash_commands manage_private_class_members delete_post edit_post',1,1),('myf6w6mm5pbabx1dfhxbc9wyyy','system_post_all','authentication.roles.system_post_all.name','authentication.roles.system_post_all.description',1552023386460,1552023386460,0,' create_post',0,1),('nzwf773izfrkirwy47ow3o1xca','system_post_all_public','authentication.roles.system_post_all_public.name','authentication.roles.system_post_all_public.description',1552023386751,1552023386751,0,' create_post_public',0,1),('rhsqatx4yjnk8cwjh785p9tabo','system_admin','authentication.roles.global_admin.name','authentication.roles.global_admin.description',1552023386505,1552023386953,0,' assign_system_admin_role manage_system manage_roles manage_public_class_properties manage_public_class_members manage_private_class_members delete_public_class create_public_class manage_private_class_properties delete_private_class create_private_class manage_system_wide_oauth manage_others_webhooks edit_other_users manage_oauth invite_user delete_post delete_others_posts create_branch add_user_to_branch list_users_without_branch manage_jobs create_post_public create_post_ephemeral create_user_access_token read_user_access_token revoke_user_access_token remove_others_reactions list_branch_classes join_public_classes read_public_class view_branch read_class add_reaction remove_reaction upload_file get_public_link create_post use_slash_commands edit_others_posts remove_user_from_branch manage_branch import_branch manage_branch_roles manage_class_roles manage_slash_commands manage_others_slash_commands manage_webhooks edit_post manage_emojis manage_others_emojis',1,1),('s3uda9wt7p8cinzyyjb418o99h','branch_admin','authentication.roles.branch_admin.name','authentication.roles.branch_admin.description',1552023386281,1552023386281,0,' edit_others_posts remove_user_from_branch manage_branch import_branch manage_branch_roles manage_class_roles manage_others_webhooks manage_slash_commands manage_others_slash_commands manage_webhooks delete_post delete_others_posts',1,1),('uowhz7j9s3gx7r37b1twk87uhy','class_admin','authentication.roles.class_admin.name','authentication.roles.class_admin.description',1552023386649,1552023386649,0,' manage_class_roles',1,1);
 /*!40000 ALTER TABLE `Roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -754,10 +754,10 @@ CREATE TABLE `Schemes` (
   `UpdateAt` bigint(20) DEFAULT NULL,
   `DeleteAt` bigint(20) DEFAULT NULL,
   `Scope` varchar(32) DEFAULT NULL,
-  `DefaultTeamAdminRole` varchar(64) DEFAULT NULL,
-  `DefaultTeamUserRole` varchar(64) DEFAULT NULL,
-  `DefaultChannelAdminRole` varchar(64) DEFAULT NULL,
-  `DefaultChannelUserRole` varchar(64) DEFAULT NULL,
+  `DefaultBranchAdminRole` varchar(64) DEFAULT NULL,
+  `DefaultBranchUserRole` varchar(64) DEFAULT NULL,
+  `DefaultClassAdminRole` varchar(64) DEFAULT NULL,
+  `DefaultClassUserRole` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Name` (`Name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -860,43 +860,43 @@ INSERT INTO `Systems` VALUES ('AdvancedPermissionsMigrationComplete','true'),('A
 UNLOCK TABLES;
 
 --
--- Table structure for table `TeamMembers`
+-- Table structure for table `BranchMembers`
 --
 
-DROP TABLE IF EXISTS `TeamMembers`;
+DROP TABLE IF EXISTS `BranchMembers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `TeamMembers` (
-  `TeamId` varchar(26) NOT NULL,
+CREATE TABLE `BranchMembers` (
+  `BranchId` varchar(26) NOT NULL,
   `UserId` varchar(26) NOT NULL,
   `Roles` varchar(64) DEFAULT NULL,
   `DeleteAt` bigint(20) DEFAULT NULL,
   `SchemeUser` tinyint(4) DEFAULT NULL,
   `SchemeAdmin` tinyint(4) DEFAULT NULL,
-  PRIMARY KEY (`TeamId`,`UserId`),
-  KEY `idx_teammembers_team_id` (`TeamId`),
-  KEY `idx_teammembers_user_id` (`UserId`),
-  KEY `idx_teammembers_delete_at` (`DeleteAt`)
+  PRIMARY KEY (`BranchId`,`UserId`),
+  KEY `idx_branchmembers_branch_id` (`BranchId`),
+  KEY `idx_branchmembers_user_id` (`UserId`),
+  KEY `idx_branchmembers_delete_at` (`DeleteAt`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `TeamMembers`
+-- Dumping data for table `BranchMembers`
 --
 
-LOCK TABLES `TeamMembers` WRITE;
-/*!40000 ALTER TABLE `TeamMembers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `TeamMembers` ENABLE KEYS */;
+LOCK TABLES `BranchMembers` WRITE;
+/*!40000 ALTER TABLE `BranchMembers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `BranchMembers` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `Teams`
+-- Table structure for table `Branches`
 --
 
-DROP TABLE IF EXISTS `Teams`;
+DROP TABLE IF EXISTS `Branches`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Teams` (
+CREATE TABLE `Branches` (
   `Id` varchar(26) NOT NULL,
   `CreateAt` bigint(20) DEFAULT NULL,
   `UpdateAt` bigint(20) DEFAULT NULL,
@@ -910,25 +910,25 @@ CREATE TABLE `Teams` (
   `AllowedDomains` text,
   `InviteId` varchar(32) DEFAULT NULL,
   `AllowOpenInvite` tinyint(1) DEFAULT NULL,
-  `LastTeamIconUpdate` bigint(20) DEFAULT NULL,
+  `LastBranchIconUpdate` bigint(20) DEFAULT NULL,
   `SchemeId` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `Name` (`Name`),
-  KEY `idx_teams_name` (`Name`),
-  KEY `idx_teams_invite_id` (`InviteId`),
-  KEY `idx_teams_update_at` (`UpdateAt`),
-  KEY `idx_teams_create_at` (`CreateAt`),
-  KEY `idx_teams_delete_at` (`DeleteAt`)
+  KEY `idx_branches_name` (`Name`),
+  KEY `idx_branches_invite_id` (`InviteId`),
+  KEY `idx_branches_update_at` (`UpdateAt`),
+  KEY `idx_branches_create_at` (`CreateAt`),
+  KEY `idx_branches_delete_at` (`DeleteAt`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `Teams`
+-- Dumping data for table `Branches`
 --
 
-LOCK TABLES `Teams` WRITE;
-/*!40000 ALTER TABLE `Teams` DISABLE KEYS */;
-/*!40000 ALTER TABLE `Teams` ENABLE KEYS */;
+LOCK TABLES `Branches` WRITE;
+/*!40000 ALTER TABLE `Branches` DISABLE KEYS */;
+/*!40000 ALTER TABLE `Branches` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

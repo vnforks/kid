@@ -1254,7 +1254,7 @@ var errorList = [...]struct {
 	{34, "ERANGE", "result too large"},
 	{35, "ENOMSG", "no message of desired type"},
 	{36, "EIDRM", "identifier removed"},
-	{37, "ECHRNG", "channel number out of range"},
+	{37, "ECHRNG", "class number out of range"},
 	{38, "EL2NSYNC", "level 2 not synchronized"},
 	{39, "EL3HLT", "level 3 halted"},
 	{40, "EL3RST", "level 3 reset"},

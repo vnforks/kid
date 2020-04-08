@@ -128,195 +128,195 @@
     "translation": "画像ファイルをアップロードできません。ファイルが大き過ぎます。"
   },
   {
-    "id": "api.channel.add_member.added",
+    "id": "api.class.add_member.added",
     "translation": "%v は %v によってチャンネルに追加されました。"
   },
   {
-    "id": "api.channel.add_user.to.channel.failed.app_error",
+    "id": "api.class.add_user.to.class.failed.app_error",
     "translation": "ユーザーをチャンネルに追加できませんでした"
   },
   {
-    "id": "api.channel.add_user.to.channel.failed.deleted.app_error",
+    "id": "api.class.add_user.to.class.failed.deleted.app_error",
     "translation": "既にチームから削除されたユーザーのため、チャンネルに追加することはできません。"
   },
   {
-    "id": "api.channel.add_user_to_channel.type.app_error",
+    "id": "api.class.add_user_to_class.type.app_error",
     "translation": "この種類のチャンネルにはユーザーを追加することはできません"
   },
   {
-    "id": "api.channel.change_channel_privacy.private_to_public",
+    "id": "api.class.change_class_privacy.private_to_public",
     "translation": "このチャンネルは公開チャンネルに変更されたため、全てのチームメンバーが参加できるようになりました。"
   },
   {
-    "id": "api.channel.change_channel_privacy.public_to_private",
+    "id": "api.class.change_class_privacy.public_to_private",
     "translation": "このチャンネルは非公開チャンネルに変更されました。"
   },
   {
-    "id": "api.channel.convert_channel_to_private.default_channel_error",
+    "id": "api.class.convert_class_to_private.default_class_error",
     "translation": "このデフォルトチャンネルは非公開チャンネルに変更できません。"
   },
   {
-    "id": "api.channel.convert_channel_to_private.private_channel_error",
+    "id": "api.class.convert_class_to_private.private_class_error",
     "translation": "変更しようとしているチャンネルはすでに非公開チャンネルです。"
   },
   {
-    "id": "api.channel.create_channel.direct_channel.app_error",
-    "translation": "ダイレクトメッセージチャンネルを作成するにはcreateDirectChannel APIを使用してください"
+    "id": "api.class.create_class.direct_class.app_error",
+    "translation": "ダイレクトメッセージチャンネルを作成するにはcreateDirectClass APIを使用してください"
   },
   {
-    "id": "api.channel.create_channel.invalid_character.app_error",
+    "id": "api.class.create_class.invalid_character.app_error",
     "translation": "ダイレクトチャンネル以外では文字列'__'をチャンネル名称に使うことはできません"
   },
   {
-    "id": "api.channel.create_channel.max_channel_limit.app_error",
-    "translation": "現在のチームには、{{.MaxChannelsPerTeam}}チャンネル以上作成できません"
+    "id": "api.class.create_class.max_class_limit.app_error",
+    "translation": "現在のチームには、{{.MaxClassesPerBranch}}チャンネル以上作成できません"
   },
   {
-    "id": "api.channel.create_default_channels.off_topic",
+    "id": "api.class.create_default_classes.off_topic",
     "translation": "オフトピック"
   },
   {
-    "id": "api.channel.create_default_channels.town_square",
+    "id": "api.class.create_default_classes.town_square",
     "translation": "タウンスクウェア"
   },
   {
-    "id": "api.channel.create_direct_channel.invalid_user.app_error",
+    "id": "api.class.create_direct_class.invalid_user.app_error",
     "translation": "ダイレクトチャンネル作成のユーザーIDが不正です"
   },
   {
-    "id": "api.channel.create_group.bad_size.app_error",
+    "id": "api.class.create_group.bad_size.app_error",
     "translation": "グループメッセージチャンネルは３〜８ユーザーでなければなりません"
   },
   {
-    "id": "api.channel.create_group.bad_user.app_error",
+    "id": "api.class.create_group.bad_user.app_error",
     "translation": "指定されたユーザーの一人が存在しません"
   },
   {
-    "id": "api.channel.delete_channel.archived",
+    "id": "api.class.delete_class.archived",
     "translation": "%v がチャンネルをアーカイブしました。"
   },
   {
-    "id": "api.channel.delete_channel.cannot.app_error",
-    "translation": "デフォルトのチャンネルである{{.Channel}}は削除できません"
+    "id": "api.class.delete_class.cannot.app_error",
+    "translation": "デフォルトのチャンネルである{{.Class}}は削除できません"
   },
   {
-    "id": "api.channel.delete_channel.deleted.app_error",
+    "id": "api.class.delete_class.deleted.app_error",
     "translation": "チャンネルはアーカイブされているか削除されています"
   },
   {
-    "id": "api.channel.delete_channel.type.invalid",
+    "id": "api.class.delete_class.type.invalid",
     "translation": "ダイレクトメッセージチャンネルもしくはグループメッセージチャンネルを削除できません"
   },
   {
-    "id": "api.channel.join_channel.permissions.app_error",
+    "id": "api.class.join_class.permissions.app_error",
     "translation": "あなたには必要な権限が付与されていません"
   },
   {
-    "id": "api.channel.join_channel.post_and_forget",
+    "id": "api.class.join_class.post_and_forget",
     "translation": "%v がチャンネルに参加しました。"
   },
   {
-    "id": "api.channel.leave.default.app_error",
-    "translation": "デフォルトのチャンネル{{.Channel}}から脱退することはできません"
+    "id": "api.class.leave.default.app_error",
+    "translation": "デフォルトのチャンネル{{.Class}}から脱退することはできません"
   },
   {
-    "id": "api.channel.leave.direct.app_error",
+    "id": "api.class.leave.direct.app_error",
     "translation": "ダイレクトメッセージチャンネルから脱退することはできません"
   },
   {
-    "id": "api.channel.leave.last_member.app_error",
+    "id": "api.class.leave.last_member.app_error",
     "translation": "あなたが最後のメンバーです。脱退する代わりに非公開チャンネルを削除しましょう。"
   },
   {
-    "id": "api.channel.leave.left",
+    "id": "api.class.leave.left",
     "translation": "%v がチャンネルから脱退しました。"
   },
   {
-    "id": "api.channel.patch_update_channel.forbidden.app_error",
+    "id": "api.class.patch_update_class.forbidden.app_error",
     "translation": "チャンネルを更新できませんでした"
   },
   {
-    "id": "api.channel.post_channel_privacy_message.error",
+    "id": "api.class.post_class_privacy_message.error",
     "translation": "チャンネル可視性更新メッセージを投稿できませんでした。"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.create_post.error",
+    "id": "api.class.post_update_class_displayname_message_and_forget.create_post.error",
     "translation": "表示名更新メッセージを投稿できませんでした"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.retrieve_user.error",
+    "id": "api.class.post_update_class_displayname_message_and_forget.retrieve_user.error",
     "translation": "チャンネル表示名を更新する際にユーザーを取得できませんでした"
   },
   {
-    "id": "api.channel.post_update_channel_displayname_message_and_forget.updated_from",
+    "id": "api.class.post_update_class_displayname_message_and_forget.updated_from",
     "translation": "%sがチャンネル表示名を %s から %s に更新しました"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.post.error",
+    "id": "api.class.post_update_class_header_message_and_forget.post.error",
     "translation": "チャンネルヘッダー更新メッセージを投稿できませんでした"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.removed",
+    "id": "api.class.post_update_class_header_message_and_forget.removed",
     "translation": "%sはチャンネルヘッダーを削除しました(これまでは%sでした)"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.retrieve_user.error",
+    "id": "api.class.post_update_class_header_message_and_forget.retrieve_user.error",
     "translation": "チャンネルヘッダーを更新する際にユーザーを取得できませんでした"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.updated_from",
+    "id": "api.class.post_update_class_header_message_and_forget.updated_from",
     "translation": "%sがチャンネルヘッダーを%sから%sに更新しました"
   },
   {
-    "id": "api.channel.post_update_channel_header_message_and_forget.updated_to",
+    "id": "api.class.post_update_class_header_message_and_forget.updated_to",
     "translation": "%sがチャンネルヘッダーを%sに更新しました"
   },
   {
-    "id": "api.channel.post_user_add_remove_message_and_forget.error",
+    "id": "api.class.post_user_add_remove_message_and_forget.error",
     "translation": "参加/脱退のメッセージを投稿できませんでした"
   },
   {
-    "id": "api.channel.remove.default.app_error",
-    "translation": "デフォルトのチャンネル{{.Channel}}からユーザーを削除することはできません"
+    "id": "api.class.remove.default.app_error",
+    "translation": "デフォルトのチャンネル{{.Class}}からユーザーを削除することはできません"
   },
   {
-    "id": "api.channel.remove_channel_member.type.app_error",
+    "id": "api.class.remove_class_member.type.app_error",
     "translation": "チャンネルからユーザーを削除できません。"
   },
   {
-    "id": "api.channel.remove_member.removed",
+    "id": "api.class.remove_member.removed",
     "translation": "%v はチャンネルから削除されました。"
   },
   {
-    "id": "api.channel.rename_channel.cant_rename_direct_messages.app_error",
+    "id": "api.class.rename_class.cant_rename_direct_messages.app_error",
     "translation": "ダイレクトメッセージチャンネルの名前は変更できません"
   },
   {
-    "id": "api.channel.rename_channel.cant_rename_group_messages.app_error",
+    "id": "api.class.rename_class.cant_rename_group_messages.app_error",
     "translation": "グループメッセージチャンネルの名前は変更できません"
   },
   {
-    "id": "api.channel.update_channel.deleted.app_error",
+    "id": "api.class.update_class.deleted.app_error",
     "translation": "チャンネルはアーカイブされているか削除されています"
   },
   {
-    "id": "api.channel.update_channel.tried.app_error",
-    "translation": "デフォルトのチャンネル{{.Channel}}に不正な更新をしようとしました"
+    "id": "api.class.update_class.tried.app_error",
+    "translation": "デフォルトのチャンネル{{.Class}}に不正な更新をしようとしました"
   },
   {
-    "id": "api.channel.update_channel_member_roles.scheme_role.app_error",
+    "id": "api.class.update_class_member_roles.scheme_role.app_error",
     "translation": "与えられた役割はスキームによって管理されているため、チャンネルメンバーへ直接適用することはできません。"
   },
   {
-    "id": "api.channel.update_channel_scheme.license.error",
+    "id": "api.class.update_class_scheme.license.error",
     "translation": "現在のライセンスはチャンネルスキームの更新をサポートしていません"
   },
   {
-    "id": "api.channel.update_channel_scheme.scheme_scope.error",
+    "id": "api.class.update_class_scheme.scheme_scope.error",
     "translation": "与えられたスキームがチャンネルスキームでないため、チャンネルへスキームを設定できません。"
   },
   {
-    "id": "api.channel.update_team_member_roles.scheme_role.app_error",
+    "id": "api.class.update_branch_member_roles.scheme_role.app_error",
     "translation": "与えられた役割はスキームによって管理されているため、チームメンバーへ直接適用することはできません。"
   },
   {
@@ -400,7 +400,7 @@
     "translation": "招待の電子メールを送信しました"
   },
   {
-    "id": "api.command.team_mismatch.app_error",
+    "id": "api.command.branch_mismatch.app_error",
     "translation": "他チームのコマンドは更新できません"
   },
   {
@@ -416,107 +416,107 @@
     "translation": "あなたは離席中です"
   },
   {
-    "id": "api.command_channel_header.channel.app_error",
+    "id": "api.command_class_header.class.app_error",
     "translation": "現在のチャンネルを取得する際にエラーが発生しました。"
   },
   {
-    "id": "api.command_channel_header.desc",
+    "id": "api.command_class_header.desc",
     "translation": "チャンネルヘッダーを編集する"
   },
   {
-    "id": "api.command_channel_header.hint",
+    "id": "api.command_class_header.hint",
     "translation": "[テキスト]"
   },
   {
-    "id": "api.command_channel_header.message.app_error",
+    "id": "api.command_class_header.message.app_error",
     "translation": "/headerコマンドはテキストを指定しなくてはいけません。"
   },
   {
-    "id": "api.command_channel_header.name",
+    "id": "api.command_class_header.name",
     "translation": "ヘッダー"
   },
   {
-    "id": "api.command_channel_header.permission.app_error",
+    "id": "api.command_class_header.permission.app_error",
     "translation": "あなたにはチャンネルヘッダーを編集するのに必要な権限が付与されていません。"
   },
   {
-    "id": "api.command_channel_header.update_channel.app_error",
+    "id": "api.command_class_header.update_class.app_error",
     "translation": "現在のチャンネルを更新する際にエラーが発生しました。"
   },
   {
-    "id": "api.command_channel_purpose.channel.app_error",
+    "id": "api.command_class_purpose.class.app_error",
     "translation": "現在のチャンネルを取得する際にエラーが発生しました。"
   },
   {
-    "id": "api.command_channel_purpose.desc",
+    "id": "api.command_class_purpose.desc",
     "translation": "チャンネルの目的を編集する"
   },
   {
-    "id": "api.command_channel_purpose.direct_group.app_error",
+    "id": "api.command_class_purpose.direct_group.app_error",
     "translation": "ダイレクトメッセージチャンネルに目的を設定できません。代わりにヘッダーを設定する /header を使用してください。"
   },
   {
-    "id": "api.command_channel_purpose.hint",
+    "id": "api.command_class_purpose.hint",
     "translation": "[テキスト]"
   },
   {
-    "id": "api.command_channel_purpose.message.app_error",
+    "id": "api.command_class_purpose.message.app_error",
     "translation": "/purpose コマンドはメッセージを指定しなくてはいけません。"
   },
   {
-    "id": "api.command_channel_purpose.name",
+    "id": "api.command_class_purpose.name",
     "translation": "目的"
   },
   {
-    "id": "api.command_channel_purpose.permission.app_error",
+    "id": "api.command_class_purpose.permission.app_error",
     "translation": "あなたにはチャンネルの目的を編集するのに必要な権限が付与されていません。"
   },
   {
-    "id": "api.command_channel_purpose.update_channel.app_error",
+    "id": "api.command_class_purpose.update_class.app_error",
     "translation": "現在のチャンネルを更新する際にエラーが発生しました。"
   },
   {
-    "id": "api.command_channel_remove.channel.app_error",
+    "id": "api.command_class_remove.class.app_error",
     "translation": "現在のチャンネルを取得する際にエラーが発生しました。"
   },
   {
-    "id": "api.command_channel_rename.channel.app_error",
+    "id": "api.command_class_rename.class.app_error",
     "translation": "現在のチャンネルを取得する際にエラーが発生しました。"
   },
   {
-    "id": "api.command_channel_rename.desc",
+    "id": "api.command_class_rename.desc",
     "translation": "チャンネル名を変更する"
   },
   {
-    "id": "api.command_channel_rename.direct_group.app_error",
+    "id": "api.command_class_rename.direct_group.app_error",
     "translation": "ダイレクトメッセージチャンネル名を変更することはできません。"
   },
   {
-    "id": "api.command_channel_rename.hint",
+    "id": "api.command_class_rename.hint",
     "translation": "[テキスト]"
   },
   {
-    "id": "api.command_channel_rename.message.app_error",
+    "id": "api.command_class_rename.message.app_error",
     "translation": "/rename コマンドはメッセージを指定しなくてはいけません。"
   },
   {
-    "id": "api.command_channel_rename.name",
+    "id": "api.command_class_rename.name",
     "translation": "名称変更"
   },
   {
-    "id": "api.command_channel_rename.permission.app_error",
+    "id": "api.command_class_rename.permission.app_error",
     "translation": "あなたにはチャンネル名を変更するのに必要な権限が付与されていません。"
   },
   {
-    "id": "api.command_channel_rename.too_long.app_error",
+    "id": "api.command_class_rename.too_long.app_error",
     "translation": "チャンネル名は {{.Length}} 文字以下でなくてはなりません"
   },
   {
-    "id": "api.command_channel_rename.too_short.app_error",
+    "id": "api.command_class_rename.too_short.app_error",
     "translation": "チャンネル名は {{.Length}} 文字以上でなくてはなりません"
   },
   {
-    "id": "api.command_channel_rename.update_channel.app_error",
+    "id": "api.command_class_rename.update_class.app_error",
     "translation": "現在のチャンネルを更新する際にエラーが発生しました。"
   },
   {
@@ -655,19 +655,19 @@
     "translation": "ヘルプ"
   },
   {
-    "id": "api.command_invite.channel.app_error",
+    "id": "api.command_invite.class.app_error",
     "translation": "現在のチャンネルを取得する際にエラーが発生しました。"
   },
   {
-    "id": "api.command_invite.channel.error",
-    "translation": "チャンネル {{.Channel}} が見つかりませんでした。チャンネルの指定には[チャンネルのハンドル名](https://about.mattermost.com/default-channel-handle-documentation)を使用してください"
+    "id": "api.command_invite.class.error",
+    "translation": "チャンネル {{.Class}} が見つかりませんでした。チャンネルの指定には[チャンネルのハンドル名](https://about.mattermost.com/default-class-handle-documentation)を使用してください"
   },
   {
     "id": "api.command_invite.desc",
     "translation": "ユーザーをチャンネルに招待する"
   },
   {
-    "id": "api.command_invite.directchannel.app_error",
+    "id": "api.command_invite.directclass.app_error",
     "translation": "ダイレクトメッセージチャンネルにメンバーを追加できません。"
   },
   {
@@ -692,18 +692,18 @@
   },
   {
     "id": "api.command_invite.permission.app_error",
-    "translation": "{{.User}} を {{.Channel}} に追加する権限がありません。"
+    "translation": "{{.User}} を {{.Class}} に追加する権限がありません。"
   },
   {
-    "id": "api.command_invite.private_channel.app_error",
-    "translation": "チャンネル {{.Channel}} が見つかりませんでした。チャンネルの指定にはチャンネルのハンドル名を使用してください。"
+    "id": "api.command_invite.private_class.app_error",
+    "translation": "チャンネル {{.Class}} が見つかりませんでした。チャンネルの指定にはチャンネルのハンドル名を使用してください。"
   },
   {
     "id": "api.command_invite.success",
-    "translation": "{{.User}} がチャンネル {{.Channel}} に追加されました。"
+    "translation": "{{.User}} がチャンネル {{.Class}} に追加されました。"
   },
   {
-    "id": "api.command_invite.user_already_in_channel.app_error",
+    "id": "api.command_invite.user_already_in_class.app_error",
     "translation": "{{.User}} は既にチャンネルに追加されています。"
   },
   {
@@ -808,7 +808,7 @@
   },
   {
     "id": "api.command_mute.error",
-    "translation": "チャンネル {{.Channel}} が見つかりませんでした。チャンネルの指定には[チャンネルのハンドル名](https://about.mattermost.com/default-channel-handle-documentation)を使用してください"
+    "translation": "チャンネル {{.Class}} が見つかりませんでした。チャンネルの指定には[チャンネルのハンドル名](https://about.mattermost.com/default-class-handle-documentation)を使用してください"
   },
   {
     "id": "api.command_mute.hint",
@@ -819,16 +819,16 @@
     "translation": "ミュート"
   },
   {
-    "id": "api.command_mute.no_channel.error",
-    "translation": "指定したチャンネルが見つかりませんでした。チャンネルの指定には[チャンネルのハンドル名](https://about.mattermost.com/default-channel-handle-documentation)を使用してください"
+    "id": "api.command_mute.no_class.error",
+    "translation": "指定したチャンネルが見つかりませんでした。チャンネルの指定には[チャンネルのハンドル名](https://about.mattermost.com/default-class-handle-documentation)を使用してください"
   },
   {
     "id": "api.command_mute.not_member.error",
-    "translation": "あなたはメンバーではないため、チャンネル {{.Channel}} をミュートできません。"
+    "translation": "あなたはメンバーではないため、チャンネル {{.Class}} をミュートできません。"
   },
   {
     "id": "api.command_mute.success_mute",
-    "translation": "チャンネルミュートがオフになるまで {{.Channel}} の通知を受け取らなくなります。"
+    "translation": "チャンネルミュートがオフになるまで {{.Class}} の通知を受け取らなくなります。"
   },
   {
     "id": "api.command_mute.success_mute_direct_msg",
@@ -836,7 +836,7 @@
   },
   {
     "id": "api.command_mute.success_unmute",
-    "translation": "{{.Channel}} はミュートされていません。"
+    "translation": "{{.Class}} はミュートされていません。"
   },
   {
     "id": "api.command_mute.success_unmute_direct_msg",
@@ -899,7 +899,7 @@
     "translation": "あなたにはメンバーを削除するのに必要な権限が付与されていません。"
   },
   {
-    "id": "api.command_remove.user_not_in_channel",
+    "id": "api.command_remove.user_not_in_class",
     "translation": "{{.Username}} はこのチャンネルのメンバーではありません。"
   },
   {
@@ -1003,7 +1003,7 @@
     "translation": "カスタム利用規約のテキストを入力してください。"
   },
   {
-    "id": "api.email_batching.add_notification_email_to_batch.channel_full.app_error",
+    "id": "api.email_batching.add_notification_email_to_batch.class_full.app_error",
     "translation": "電子メールバッチ処理のジョブを受け取るチャンネルがいっぱいです。EmailBatchingBufferSizeを増やしてください。"
   },
   {
@@ -1201,8 +1201,8 @@
     "translation": "{{.Filename}}の大きさ({{.Width}} x {{.Height}} ピクセル)が制限を超えています。"
   },
   {
-    "id": "api.file.upload_file.multiple_channel_ids.app_error",
-    "translation": "ファイルをアップロードできませんでした。channel_id が矛盾しています。"
+    "id": "api.file.upload_file.multiple_class_ids.app_error",
+    "translation": "ファイルをアップロードできませんでした。class_id が矛盾しています。"
   },
   {
     "id": "api.file.upload_file.read_form_value.app_error",
@@ -1417,11 +1417,11 @@
     "translation": "multipart/formリクエストにファイルが存在しません"
   },
   {
-    "id": "api.post.check_for_out_of_channel_mentions.message.multiple",
+    "id": "api.post.check_for_out_of_class_mentions.message.multiple",
     "translation": "@{{.Usernames}}と@{{.LastUsername}}についての投稿が行われましたが、彼らはこのチャンネルには属していないため通知を受け取ることができませんでした。"
   },
   {
-    "id": "api.post.check_for_out_of_channel_mentions.message.one",
+    "id": "api.post.check_for_out_of_class_mentions.message.one",
     "translation": "@{{.Usernames}}についての投稿が行われましたが、彼らはこのチャンネルには属していないため通知を受け取ることができませんでした。"
   },
   {
@@ -1429,8 +1429,8 @@
     "translation": "削除済みのチャンネルには投稿できません。"
   },
   {
-    "id": "api.post.create_post.channel_root_id.app_error",
-    "translation": "RootIdパラメーターのChannelIdが不正です"
+    "id": "api.post.create_post.class_root_id.app_error",
+    "translation": "RootIdパラメーターのClassIdが不正です"
   },
   {
     "id": "api.post.create_post.parent_id.app_error",
@@ -1458,15 +1458,15 @@
   },
   {
     "id": "api.post.delete_post.can_not_delete_post_in_deleted.error",
-    "translation": "Can not delete a post in a deleted channel."
+    "translation": "Can not delete a post in a deleted class."
   },
   {
     "id": "api.post.disabled_all",
     "translation": "チャンネルに{{.Users}}以上のユーザーがいるため@allは無効化されています。"
   },
   {
-    "id": "api.post.disabled_channel",
-    "translation": "チャンネルに{{.Users}}以上のユーザーがいるため@channelは無効化されています。"
+    "id": "api.post.disabled_class",
+    "translation": "チャンネルに{{.Users}}以上のユーザーがいるため@classは無効化されています。"
   },
   {
     "id": "api.post.disabled_here",
@@ -1500,14 +1500,14 @@
   },
   {
     "id": "api.post.patch_post.can_not_update_post_in_deleted.error",
-    "translation": "Can not update a post in a deleted channel."
+    "translation": "Can not update a post in a deleted class."
   },
   {
     "id": "api.post.save_is_pinned_post.town_square_read_only",
     "translation": "このチャンネルは読み取り専用です。権限のあるメンバーのみがこのチャンネルの投稿をピン留めできます。"
   },
   {
-    "id": "api.post.send_notification_and_forget.push_channel_mention",
+    "id": "api.post.send_notification_and_forget.push_class_mention",
     "translation": " がチャンネルへ通知しました。"
   },
   {
@@ -1536,7 +1536,7 @@
   },
   {
     "id": "api.post.update_post.can_not_update_post_in_deleted.error",
-    "translation": "Can not update a post in a deleted channel."
+    "translation": "Can not update a post in a deleted class."
   },
   {
     "id": "api.post.update_post.find.app_error",
@@ -1571,11 +1571,11 @@
     "translation": "ユーザー設定を設定できませんでした。"
   },
   {
-    "id": "api.reaction.delete.archived_channel.app_error",
+    "id": "api.reaction.delete.archived_class.app_error",
     "translation": "アーカイブチャンネルのリアクションは削除できません。"
   },
   {
-    "id": "api.reaction.save.archived_channel.app_error",
+    "id": "api.reaction.save.archived_class.app_error",
     "translation": "アーカイブチャンネルにはリアクションできません。"
   },
   {
@@ -1607,11 +1607,11 @@
     "translation": "現在のライセンスは権限スキームの削除をサポートしていません"
   },
   {
-    "id": "api.scheme.get_channels_for_scheme.scope.error",
+    "id": "api.scheme.get_classes_for_scheme.scope.error",
     "translation": "与えられたスキームがチャンネルスキームではないため、チャンネルを取得できませんでした。"
   },
   {
-    "id": "api.scheme.get_teams_for_scheme.scope.error",
+    "id": "api.scheme.get_branches_for_scheme.scope.error",
     "translation": "与えられたスキームがチームスキームではないため、チームを取得できませんでした。"
   },
   {
@@ -1647,19 +1647,19 @@
     "translation": "統合機能/SlackBot のユーザー {{.Username}} がインポートできませんでした。\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.added",
+    "id": "api.slackimport.slack_add_classes.added",
     "translation": "\r\nチャンネルが追加されました: \r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.failed_to_add_user",
+    "id": "api.slackimport.slack_add_classes.failed_to_add_user",
     "translation": "チャンネルにSlackユーザー {{.Username}} を追加できませんでした。\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.import_failed",
+    "id": "api.slackimport.slack_add_classes.import_failed",
     "translation": "Slackチャンネル {{.DisplayName}} をインポートできませんでした。\r\n"
   },
   {
-    "id": "api.slackimport.slack_add_channels.merge",
+    "id": "api.slackimport.slack_add_classes.merge",
     "translation": "Slackチャンネル {{.DisplayName}} は有効なMattermostのチャンネルとして既に存在しています。両方のチャンネルがマージされます。\r\n"
   },
   {
@@ -1711,7 +1711,7 @@
     "translation": "ファイルを開けませんでした: {{.Filename}}。\r\n"
   },
   {
-    "id": "api.slackimport.slack_import.team_fail",
+    "id": "api.slackimport.slack_import.branch_fail",
     "translation": "インポートするチームを取得できませんでした。\r\n"
   },
   {
@@ -1723,171 +1723,171 @@
     "translation": "ユーザーが見付かりません"
   },
   {
-    "id": "api.team.add_user_to_team.added",
+    "id": "api.branch.add_user_to_branch.added",
     "translation": "%v は %v によってチームに追加されました"
   },
   {
-    "id": "api.team.add_user_to_team.missing_parameter.app_error",
+    "id": "api.branch.add_user_to_branch.missing_parameter.app_error",
     "translation": "チームにユーザーを追加するにはパラメーターが必要です。"
   },
   {
-    "id": "api.team.get_invite_info.not_open_team",
+    "id": "api.branch.get_invite_info.not_open_branch",
     "translation": "誰でも招待できるチームではないので、招待機能は無効です。"
   },
   {
-    "id": "api.team.get_team_icon.filesettings_no_driver.app_error",
+    "id": "api.branch.get_branch_icon.filesettings_no_driver.app_error",
     "translation": "ファイル設定のドライバー名が不正です。  'local'または'amazons3'にしてください"
   },
   {
-    "id": "api.team.get_team_icon.read_file.app_error",
+    "id": "api.branch.get_branch_icon.read_file.app_error",
     "translation": "チームアイコンファイルを読み込めません。"
   },
   {
-    "id": "api.team.import_team.array.app_error",
+    "id": "api.branch.import_branch.array.app_error",
     "translation": "リクエストの'file'以下の配列が空です"
   },
   {
-    "id": "api.team.import_team.integer.app_error",
+    "id": "api.branch.import_branch.integer.app_error",
     "translation": "ファイルサイズが整数ではありません"
   },
   {
-    "id": "api.team.import_team.no_file.app_error",
+    "id": "api.branch.import_branch.no_file.app_error",
     "translation": "リクエストの'file'以下にファイルがありません"
   },
   {
-    "id": "api.team.import_team.no_import_from.app_error",
+    "id": "api.branch.import_branch.no_import_from.app_error",
     "translation": "不正なリクエスト: importFromが存在しません。"
   },
   {
-    "id": "api.team.import_team.open.app_error",
+    "id": "api.branch.import_branch.open.app_error",
     "translation": "ファイルを開けません"
   },
   {
-    "id": "api.team.import_team.parse.app_error",
+    "id": "api.branch.import_branch.parse.app_error",
     "translation": "マルチパートフォームを解析できません"
   },
   {
-    "id": "api.team.import_team.unavailable.app_error",
+    "id": "api.branch.import_branch.unavailable.app_error",
     "translation": "不正なリクエスト: ファイルサイズ項目が存在しません。"
   },
   {
-    "id": "api.team.invite_members.disabled.app_error",
+    "id": "api.branch.invite_members.disabled.app_error",
     "translation": "招待メールは無効化されています。"
   },
   {
-    "id": "api.team.invite_members.invalid_email.app_error",
+    "id": "api.branch.invite_members.invalid_email.app_error",
     "translation": "以下の電子メールアドレスのドメインは許可されていません: {{.Addresses}}。詳細についてはシステム管理者に問い合わせてください。"
   },
   {
-    "id": "api.team.invite_members.member",
+    "id": "api.branch.invite_members.member",
     "translation": "メンバー"
   },
   {
-    "id": "api.team.invite_members.no_one.app_error",
+    "id": "api.branch.invite_members.no_one.app_error",
     "translation": "誰も招待しません。"
   },
   {
-    "id": "api.team.is_team_creation_allowed.disabled.app_error",
+    "id": "api.branch.is_branch_creation_allowed.disabled.app_error",
     "translation": "チーム作成は無効になっています。詳細はシステム管理者に問い合わせてください。"
   },
   {
-    "id": "api.team.is_team_creation_allowed.domain.app_error",
+    "id": "api.branch.is_branch_creation_allowed.domain.app_error",
     "translation": "電子メールアドレスが特定のドメイン(例えば、@example.com)である必要があります。詳細はシステム管理者に問い合わせてください。"
   },
   {
-    "id": "api.team.join_team.post_and_forget",
+    "id": "api.branch.join_branch.post_and_forget",
     "translation": "%v がチームに参加しました。"
   },
   {
-    "id": "api.team.join_user_to_team.allowed_domains.app_error",
+    "id": "api.branch.join_user_to_branch.allowed_domains.app_error",
     "translation": "電子メールアドレスが特定のドメイン(例えば、@example.com)である必要があります。詳細はチーム管理者かシステム管理者に問い合わせてください。"
   },
   {
-    "id": "api.team.leave.left",
+    "id": "api.branch.leave.left",
     "translation": "%v はチームから脱退しました。"
   },
   {
-    "id": "api.team.move_channel.post.error",
+    "id": "api.branch.move_class.post.error",
     "translation": "チャンネル移動メッセージを投稿できませんでした"
   },
   {
-    "id": "api.team.move_channel.success",
+    "id": "api.branch.move_class.success",
     "translation": "このチャンネルは %v からこのチームへ移動されました。"
   },
   {
-    "id": "api.team.remove_team_icon.get_team.app_error",
+    "id": "api.branch.remove_branch_icon.get_branch.app_error",
     "translation": "チームの取得中にエラーが発生しました"
   },
   {
-    "id": "api.team.remove_user_from_team.missing.app_error",
+    "id": "api.branch.remove_user_from_branch.missing.app_error",
     "translation": "ユーザーはこのチームの一員ではありません。"
   },
   {
-    "id": "api.team.remove_user_from_team.removed",
+    "id": "api.branch.remove_user_from_branch.removed",
     "translation": "%v はチームから削除されました。"
   },
   {
-    "id": "api.team.set_team_icon.array.app_error",
+    "id": "api.branch.set_branch_icon.array.app_error",
     "translation": "リクエストの'image'以下の配列が空です"
   },
   {
-    "id": "api.team.set_team_icon.decode.app_error",
+    "id": "api.branch.set_branch_icon.decode.app_error",
     "translation": "チームアイコンをデコードできませんでした"
   },
   {
-    "id": "api.team.set_team_icon.decode_config.app_error",
+    "id": "api.branch.set_branch_icon.decode_config.app_error",
     "translation": "チームアイコンメタデータをデコードできませんでした"
   },
   {
-    "id": "api.team.set_team_icon.encode.app_error",
+    "id": "api.branch.set_branch_icon.encode.app_error",
     "translation": "チームアイコンをエンコードできませんでした"
   },
   {
-    "id": "api.team.set_team_icon.get_team.app_error",
+    "id": "api.branch.set_branch_icon.get_branch.app_error",
     "translation": "チームの取得中にエラーが発生しました"
   },
   {
-    "id": "api.team.set_team_icon.no_file.app_error",
+    "id": "api.branch.set_branch_icon.no_file.app_error",
     "translation": "リクエストの'image'以下にファイルがありません"
   },
   {
-    "id": "api.team.set_team_icon.open.app_error",
+    "id": "api.branch.set_branch_icon.open.app_error",
     "translation": "画像ファイルを開けません"
   },
   {
-    "id": "api.team.set_team_icon.parse.app_error",
+    "id": "api.branch.set_branch_icon.parse.app_error",
     "translation": "マルチパートフォームを解析できませんでした"
   },
   {
-    "id": "api.team.set_team_icon.storage.app_error",
+    "id": "api.branch.set_branch_icon.storage.app_error",
     "translation": "チームアイコンをアップロードできません。画像ストレージが設定されていません。"
   },
   {
-    "id": "api.team.set_team_icon.too_large.app_error",
+    "id": "api.branch.set_branch_icon.too_large.app_error",
     "translation": "チームアイコンをアップロードできません。ファイルが大き過ぎます。"
   },
   {
-    "id": "api.team.set_team_icon.write_file.app_error",
+    "id": "api.branch.set_branch_icon.write_file.app_error",
     "translation": "チームアイコンを保存できませんでした"
   },
   {
-    "id": "api.team.team_icon.update.app_error",
+    "id": "api.branch.branch_icon.update.app_error",
     "translation": "チームアイコンの取得中にエラーが発生しました"
   },
   {
-    "id": "api.team.update_member_roles.not_a_member",
+    "id": "api.branch.update_member_roles.not_a_member",
     "translation": "指定されたユーザーは指定されたチームに所属していません。"
   },
   {
-    "id": "api.team.update_restricted_domains.mismatch.app_error",
+    "id": "api.branch.update_restricted_domains.mismatch.app_error",
     "translation": "チームを{{.Domain}}に制限することはシステム設定により許可されていません。詳細はシステム管理者に問い合わせてください。"
   },
   {
-    "id": "api.team.update_team_scheme.license.error",
+    "id": "api.branch.update_branch_scheme.license.error",
     "translation": "現在のライセンスはチームのスキームの更新をサポートしていません"
   },
   {
-    "id": "api.team.update_team_scheme.scheme_scope.error",
+    "id": "api.branch.update_branch_scheme.scheme_scope.error",
     "translation": "与えられたスキームがチームスキームではないため、チームへスキームを設定できません。"
   },
   {
@@ -1908,7 +1908,7 @@
   },
   {
     "id": "api.templates.email_change_body.info",
-    "translation": "{{.TeamDisplayName}} であなたの電子メールアドレスが {{.NewEmail}} に変更されました。"
+    "translation": "{{.BranchDisplayName}} であなたの電子メールアドレスが {{.NewEmail}} に変更されました。"
   },
   {
     "id": "api.templates.email_change_body.title",
@@ -1924,7 +1924,7 @@
   },
   {
     "id": "api.templates.email_change_verify_body.info",
-    "translation": "{{.TeamDisplayName}}用の電子メールアドレスを更新完了するには、以下のリンクをクリックし、正しい電子メールアドレスであることを確認してください。"
+    "translation": "{{.BranchDisplayName}}用の電子メールアドレスを更新完了するには、以下のリンクをクリックし、正しい電子メールアドレスであることを確認してください。"
   },
   {
     "id": "api.templates.email_change_verify_body.title",
@@ -1964,11 +1964,11 @@
   },
   {
     "id": "api.templates.invite_body.extra_info",
-    "translation": "Mattermostにより、メッセージやファイルをPCやスマートフォンから共有することができます。検索やアーカイブもできます。[[{{.TeamDisplayName}}]]に参加すると、新しいチームにサインインし、以下のアドレスからいつでもこの機能にアクセスできます。:"
+    "translation": "Mattermostにより、メッセージやファイルをPCやスマートフォンから共有することができます。検索やアーカイブもできます。[[{{.BranchDisplayName}}]]に参加すると、新しいチームにサインインし、以下のアドレスからいつでもこの機能にアクセスできます。:"
   },
   {
     "id": "api.templates.invite_body.info",
-    "translation": "チーム {{.SenderStatus}} [[{{.SenderName}}]] は、あなたを [[{{.TeamDisplayName}}]] に招待しました。"
+    "translation": "チーム {{.SenderStatus}} [[{{.SenderName}}]] は、あなたを [[{{.BranchDisplayName}}]] に招待しました。"
   },
   {
     "id": "api.templates.invite_body.title",
@@ -1976,7 +1976,7 @@
   },
   {
     "id": "api.templates.invite_subject",
-    "translation": "[{{ .SiteName }}] {{ .SenderName }} があなたを {{ .TeamDisplayName }} チームに招待しました"
+    "translation": "[{{ .SiteName }}] {{ .SenderName }} があなたを {{ .BranchDisplayName }} チームに招待しました"
   },
   {
     "id": "api.templates.mfa_activated_body.info",
@@ -2000,7 +2000,7 @@
   },
   {
     "id": "api.templates.password_change_body.info",
-    "translation": "{{.Method}} によって {{ .TeamURL }} の {{.TeamDisplayName}} のあなたのパスワードが更新されました。"
+    "translation": "{{.Method}} によって {{ .BranchURL }} の {{.BranchDisplayName}} のあなたのパスワードが更新されました。"
   },
   {
     "id": "api.templates.password_change_body.title",
@@ -2064,7 +2064,7 @@
   },
   {
     "id": "api.templates.username_change_body.info",
-    "translation": "{{.TeamDisplayName}} のあなたのユーザー名は {{.NewUsername}} に変更されました。"
+    "translation": "{{.BranchDisplayName}} のあなたのユーザー名は {{.NewUsername}} に変更されました。"
   },
   {
     "id": "api.templates.username_change_body.title",
@@ -2123,8 +2123,8 @@
     "translation": "多要素認証はこのアカウントタイプでは使用できません"
   },
   {
-    "id": "api.user.add_direct_channels_and_forget.failed.error",
-    "translation": "ユーザーにダイレクトチャンネルの設定を追加できませんでした user_id={{.UserId}}, team_id={{.TeamId}}, err={{.Error}}"
+    "id": "api.user.add_direct_classes_and_forget.failed.error",
+    "translation": "ユーザーにダイレクトチャンネルの設定を追加できませんでした user_id={{.UserId}}, branch_id={{.BranchId}}, err={{.Error}}"
   },
   {
     "id": "api.user.authorize_oauth_user.bad_response.app_error",
@@ -2159,7 +2159,7 @@
     "translation": "サポートされていないOAuthサービスプロバイダーです"
   },
   {
-    "id": "api.user.autocomplete_users.invalid_team_id",
+    "id": "api.user.autocomplete_users.invalid_branch_id",
     "translation": "不正なチームIDです"
   },
   {
@@ -2548,14 +2548,14 @@
   },
   {
     "id": "api.webhook.create_outgoing.triggers.app_error",
-    "translation": "trigger_wordsまたはchannel_idを設定してください"
+    "translation": "trigger_wordsまたはclass_idを設定してください"
   },
   {
     "id": "api.webhook.incoming.error",
     "translation": "内向きのウェブフックのマルチパートペイロードをデコードできませんでした。"
   },
   {
-    "id": "api.webhook.team_mismatch.app_error",
+    "id": "api.webhook.branch_mismatch.app_error",
     "translation": "他チームのウェブフックは更新できません"
   },
   {
@@ -2571,31 +2571,31 @@
     "translation": "接続できませんでした: {{.Error}}"
   },
   {
-    "id": "app.channel.create_channel.no_team_id.app_error",
+    "id": "app.class.create_class.no_branch_id.app_error",
     "translation": "チャンネルを作成するにはチームIDを指定しなければなりません"
   },
   {
-    "id": "app.channel.move_channel.members_do_not_match.error",
+    "id": "app.class.move_class.members_do_not_match.error",
     "translation": "すべてのメンバーが異動先のチームのメンバーになるまでチャンネルを移動することはできません。"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.post.error",
+    "id": "app.class.post_update_class_purpose_message.post.error",
     "translation": "チャンネルの目的メッセージを投稿できませんでした"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.removed",
+    "id": "app.class.post_update_class_purpose_message.removed",
     "translation": "%sがチャンネルヘッダーを削除しました(これまでは%sでした)"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.retrieve_user.error",
+    "id": "app.class.post_update_class_purpose_message.retrieve_user.error",
     "translation": "チャンネルの目的メッセージ %v を更新する際にユーザーを取得できませんでした"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.updated_from",
+    "id": "app.class.post_update_class_purpose_message.updated_from",
     "translation": "%s がチャンネルの目的を %s から %s に更新しました"
   },
   {
-    "id": "app.channel.post_update_channel_purpose_message.updated_to",
+    "id": "app.class.post_update_class_purpose_message.updated_to",
     "translation": "%s がチャンネルの目的を %s に更新しました"
   },
   {
@@ -2635,43 +2635,43 @@
     "translation": "インポートする絵文字画像ファイルを読み込む際にエラーが発生しました。絵文字名: \"{{.EmojiName}}\""
   },
   {
-    "id": "app.import.import_channel.scheme_deleted.error",
+    "id": "app.import.import_class.scheme_deleted.error",
     "translation": "削除されたスキームを使用するようチャンネルに設定することはできません。"
   },
   {
-    "id": "app.import.import_channel.scheme_wrong_scope.error",
+    "id": "app.import.import_class.scheme_wrong_scope.error",
     "translation": "チャンネルはチャンネル向けスキーマに割り当てられていなければなりません。"
   },
   {
-    "id": "app.import.import_channel.team_not_found.error",
-    "translation": "チャンネルのインポート中にエラーが発生しました。 名前 \"{{.TeamName}}\" のチームが見つかりません。"
+    "id": "app.import.import_class.branch_not_found.error",
+    "translation": "チャンネルのインポート中にエラーが発生しました。 名前 \"{{.BranchName}}\" のチームが見つかりません。"
   },
   {
-    "id": "app.import.import_direct_channel.create_direct_channel.error",
+    "id": "app.import.import_direct_class.create_direct_class.error",
     "translation": "ダイレクトチャンネルを作成できませんでした"
   },
   {
-    "id": "app.import.import_direct_channel.create_group_channel.error",
+    "id": "app.import.import_direct_class.create_group_class.error",
     "translation": "グループチャンネルを作成できませんでした"
   },
   {
-    "id": "app.import.import_direct_channel.member_not_found.error",
+    "id": "app.import.import_direct_class.member_not_found.error",
     "translation": "ダイレクトチャンネルをインポートする際にチャンネルメンバーが見つかりませんでした"
   },
   {
-    "id": "app.import.import_direct_channel.update_header_failed.error",
+    "id": "app.import.import_direct_class.update_header_failed.error",
     "translation": "ダイレクトチャンネルのヘッダーを更新できませんでした"
   },
   {
-    "id": "app.import.import_direct_post.channel_member_not_found.error",
+    "id": "app.import.import_direct_post.class_member_not_found.error",
     "translation": "ダイレクトチャンネルの投稿をインポートする際にチャンネルメンバーが見つかりませんでした"
   },
   {
-    "id": "app.import.import_direct_post.create_direct_channel.error",
+    "id": "app.import.import_direct_post.create_direct_class.error",
     "translation": "ダイレクトチャンネルを取得できませんでした"
   },
   {
-    "id": "app.import.import_direct_post.create_group_channel.error",
+    "id": "app.import.import_direct_post.create_group_class.error",
     "translation": "グループチャンネルを取得できませんでした"
   },
   {
@@ -2683,12 +2683,12 @@
     "translation": "投稿ユーザーが存在しません"
   },
   {
-    "id": "app.import.import_line.null_channel.error",
-    "translation": "インポートデータに \"channel\" という型がありましたが、そのチャンネルのオブジェクトがnullでした。"
+    "id": "app.import.import_line.null_class.error",
+    "translation": "インポートデータに \"class\" という型がありましたが、そのチャンネルのオブジェクトがnullでした。"
   },
   {
-    "id": "app.import.import_line.null_direct_channel.error",
-    "translation": "インポートデータに \"direct_channel\" という型がありましたが、そのダイレクトチャンネルのオブジェクトがnullでした。"
+    "id": "app.import.import_line.null_direct_class.error",
+    "translation": "インポートデータに \"direct_class\" という型がありましたが、そのダイレクトチャンネルのオブジェクトがnullでした。"
   },
   {
     "id": "app.import.import_line.null_direct_post.error",
@@ -2707,8 +2707,8 @@
     "translation": "インポートデータに \"scheme\" という行がありましたが、そのスキームのオブジェクトがnullでした。"
   },
   {
-    "id": "app.import.import_line.null_team.error",
-    "translation": "インポートデータに \"team\" という型がありましたが、そのチームのオブジェクトがnullでした。"
+    "id": "app.import.import_line.null_branch.error",
+    "translation": "インポートデータに \"branch\" という型がありましたが、そのチームのオブジェクトがnullでした。"
   },
   {
     "id": "app.import.import_line.null_user.error",
@@ -2719,16 +2719,16 @@
     "translation": "インポートデータに不明な型 \"{{.Type}}\"がありました。"
   },
   {
-    "id": "app.import.import_post.channel_not_found.error",
-    "translation": "投稿のインポート中にエラーが発生しました。 名前 \"{{.ChannelName}}\" のチャンネルが見つかりません。"
+    "id": "app.import.import_post.class_not_found.error",
+    "translation": "投稿のインポート中にエラーが発生しました。 名前 \"{{.ClassName}}\" のチャンネルが見つかりません。"
   },
   {
     "id": "app.import.import_post.save_preferences.error",
     "translation": "投稿のインポートでエラーが発生しました。設定を保存できませんでした。"
   },
   {
-    "id": "app.import.import_post.team_not_found.error",
-    "translation": "投稿のインポート中にエラーが発生しました。 名前 \"{{.TeamName}}\" のチームが見つかりません。"
+    "id": "app.import.import_post.branch_not_found.error",
+    "translation": "投稿のインポート中にエラーが発生しました。 名前 \"{{.BranchName}}\" のチームが見つかりません。"
   },
   {
     "id": "app.import.import_post.user_not_found.error",
@@ -2739,11 +2739,11 @@
     "translation": "一括インポート処理は、既に存在するスキームのスコープを変更できません。"
   },
   {
-    "id": "app.import.import_team.scheme_deleted.error",
+    "id": "app.import.import_branch.scheme_deleted.error",
     "translation": "削除されたスキームを使用するようチームに設定することはできません。"
   },
   {
-    "id": "app.import.import_team.scheme_wrong_scope.error",
+    "id": "app.import.import_branch.scheme_wrong_scope.error",
     "translation": "チームはチーム向けのスキームに割り当てられていなければなりません。"
   },
   {
@@ -2751,7 +2751,7 @@
     "translation": "ユーザー設定のインポートでエラーが発生しました。設定を保存できません。"
   },
   {
-    "id": "app.import.import_user_channels.save_preferences.error",
+    "id": "app.import.import_user_classes.save_preferences.error",
     "translation": "チャンネルメンバーシップのインポートでエラーが発生しました。設定を保存できませんでした。"
   },
   {
@@ -2759,79 +2759,79 @@
     "translation": "データインポートファイルのバージョンが読み込めませんでした。"
   },
   {
-    "id": "app.import.validate_channel_import_data.display_name_length.error",
+    "id": "app.import.validate_class_import_data.display_name_length.error",
     "translation": "チャンネルの表示名の長さが制限を超えています。"
   },
   {
-    "id": "app.import.validate_channel_import_data.display_name_missing.error",
+    "id": "app.import.validate_class_import_data.display_name_missing.error",
     "translation": "必須のチャンネル設定値 display_name が存在しません。"
   },
   {
-    "id": "app.import.validate_channel_import_data.header_length.error",
+    "id": "app.import.validate_class_import_data.header_length.error",
     "translation": "チャンネルヘッダーが長すぎます。"
   },
   {
-    "id": "app.import.validate_channel_import_data.name_characters.error",
+    "id": "app.import.validate_class_import_data.name_characters.error",
     "translation": "チャンネル名が不正な文字を含んでいます。"
   },
   {
-    "id": "app.import.validate_channel_import_data.name_length.error",
+    "id": "app.import.validate_class_import_data.name_length.error",
     "translation": "チャンネル名が長すぎます。"
   },
   {
-    "id": "app.import.validate_channel_import_data.name_missing.error",
+    "id": "app.import.validate_class_import_data.name_missing.error",
     "translation": "必須のチャンネル設定値 name が存在しません。"
   },
   {
-    "id": "app.import.validate_channel_import_data.purpose_length.error",
+    "id": "app.import.validate_class_import_data.purpose_length.error",
     "translation": "チャンネルの目的が長すぎます。"
   },
   {
-    "id": "app.import.validate_channel_import_data.scheme_invalid.error",
+    "id": "app.import.validate_class_import_data.scheme_invalid.error",
     "translation": "チャンネル向けのスキーム名が不正です。"
   },
   {
-    "id": "app.import.validate_channel_import_data.team_missing.error",
-    "translation": "必須のチャンネル設定値 team が存在しません。"
+    "id": "app.import.validate_class_import_data.branch_missing.error",
+    "translation": "必須のチャンネル設定値 branch が存在しません。"
   },
   {
-    "id": "app.import.validate_channel_import_data.type_invalid.error",
+    "id": "app.import.validate_class_import_data.type_invalid.error",
     "translation": "チャンネルの種類が不正です。"
   },
   {
-    "id": "app.import.validate_channel_import_data.type_missing.error",
+    "id": "app.import.validate_class_import_data.type_missing.error",
     "translation": "必須のチャンネル設定値 type が存在しません。"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.header_length.error",
+    "id": "app.import.validate_direct_class_import_data.header_length.error",
     "translation": "ダイレクトチャンネルのヘッダーが長すぎます"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_required.error",
+    "id": "app.import.validate_direct_class_import_data.members_required.error",
     "translation": "必須のダイレクトチャンネル設定値 members が存在しません。"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_too_few.error",
+    "id": "app.import.validate_direct_class_import_data.members_too_few.error",
     "translation": "ダイレクトチャンネルのメンバーリストに含まれる項目が少なすぎます"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.members_too_many.error",
+    "id": "app.import.validate_direct_class_import_data.members_too_many.error",
     "translation": "ダイレクトチャンネルのメンバーリストに含まれる項目が多すぎます"
   },
   {
-    "id": "app.import.validate_direct_channel_import_data.unknown_favoriter.error",
+    "id": "app.import.validate_direct_class_import_data.unknown_favoriter.error",
     "translation": "ダイレクトチャンネルはメンバーだけがお気に入りできます。 \"{{.Username}}\"はメンバーではありません。"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_required.error",
-    "translation": "必須のダイレクト投稿設定値 channel_members が存在しません。"
+    "id": "app.import.validate_direct_post_import_data.class_members_required.error",
+    "translation": "必須のダイレクト投稿設定値 class_members が存在しません。"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_too_few.error",
+    "id": "app.import.validate_direct_post_import_data.class_members_too_few.error",
     "translation": "ダイレクト投稿チャンネルのメンバーリストに含まれる項目が少なすぎます"
   },
   {
-    "id": "app.import.validate_direct_post_import_data.channel_members_too_many.error",
+    "id": "app.import.validate_direct_post_import_data.class_members_too_many.error",
     "translation": "ダイレクト投稿チャンネルのメンバーリストに含まれる項目が多すぎます"
   },
   {
@@ -2871,8 +2871,8 @@
     "translation": "インポートする絵文字名の項目が無いか空欄です。"
   },
   {
-    "id": "app.import.validate_post_import_data.channel_missing.error",
-    "translation": "必須の投稿設定値 Channel が存在しません。"
+    "id": "app.import.validate_post_import_data.class_missing.error",
+    "translation": "必須の投稿設定値 Class が存在しません。"
   },
   {
     "id": "app.import.validate_post_import_data.create_at_missing.error",
@@ -2891,8 +2891,8 @@
     "translation": "必須の投稿設定値 Message が存在しません。"
   },
   {
-    "id": "app.import.validate_post_import_data.team_missing.error",
-    "translation": "必須の投稿設定値 Team が存在しません。"
+    "id": "app.import.validate_post_import_data.branch_missing.error",
+    "translation": "必須の投稿設定値 Branch が存在しません。"
   },
   {
     "id": "app.import.validate_post_import_data.user_missing.error",
@@ -2987,63 +2987,63 @@
     "translation": "このスコープのスキームに誤った役割が与えられました。"
   },
   {
-    "id": "app.import.validate_team_import_data.description_length.error",
+    "id": "app.import.validate_branch_import_data.description_length.error",
     "translation": "チームの説明が長すぎます。"
   },
   {
-    "id": "app.import.validate_team_import_data.display_name_length.error",
+    "id": "app.import.validate_branch_import_data.display_name_length.error",
     "translation": "チームの表示名の長さが制限を超えています。"
   },
   {
-    "id": "app.import.validate_team_import_data.display_name_missing.error",
+    "id": "app.import.validate_branch_import_data.display_name_missing.error",
     "translation": "必須のチーム設定値 display_name が存在しません。"
   },
   {
-    "id": "app.import.validate_team_import_data.name_characters.error",
+    "id": "app.import.validate_branch_import_data.name_characters.error",
     "translation": "チーム名が不正な文字を含んでいます。"
   },
   {
-    "id": "app.import.validate_team_import_data.name_length.error",
+    "id": "app.import.validate_branch_import_data.name_length.error",
     "translation": "チーム名が長すぎます。"
   },
   {
-    "id": "app.import.validate_team_import_data.name_missing.error",
+    "id": "app.import.validate_branch_import_data.name_missing.error",
     "translation": "必須のチーム設定値 name が存在しません。"
   },
   {
-    "id": "app.import.validate_team_import_data.name_reserved.error",
+    "id": "app.import.validate_branch_import_data.name_reserved.error",
     "translation": "チーム名が予約語を含んでいます。"
   },
   {
-    "id": "app.import.validate_team_import_data.scheme_invalid.error",
+    "id": "app.import.validate_branch_import_data.scheme_invalid.error",
     "translation": "チーム向けのスキームの名前が不正です。"
   },
   {
-    "id": "app.import.validate_team_import_data.type_invalid.error",
+    "id": "app.import.validate_branch_import_data.type_invalid.error",
     "translation": "チームの種類が正しくありません。"
   },
   {
-    "id": "app.import.validate_team_import_data.type_missing.error",
+    "id": "app.import.validate_branch_import_data.type_missing.error",
     "translation": "必須のチーム設定値 type が存在しません。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.channel_name_missing.error",
+    "id": "app.import.validate_user_classes_import_data.class_name_missing.error",
     "translation": "ユーザーのチャンネルメンバーシップにチャンネル名が存在しません。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_desktop.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_desktop.error",
     "translation": "ユーザーのチャンネルメンバーシップのデスクトップ通知設定が不正です。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_mark_unread.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_mark_unread.error",
     "translation": "ユーザーのチャンネルメンバーシップの未読マーク設定が不正です。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_notify_props_mobile.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_notify_props_mobile.error",
     "translation": "ユーザーのチャンネルメンバーシップのモバイル通知設定が不正です。"
   },
   {
-    "id": "app.import.validate_user_channels_import_data.invalid_roles.error",
+    "id": "app.import.validate_user_classes_import_data.invalid_roles.error",
     "translation": "ユーザーのチャネルメンバーシップの役割が不正です。"
   },
   {
@@ -3075,7 +3075,7 @@
     "translation": "ユーザーのニックネームが長すぎます。"
   },
   {
-    "id": "app.import.validate_user_import_data.notify_props_channel_trigger_invalid.error",
+    "id": "app.import.validate_user_import_data.notify_props_class_trigger_invalid.error",
     "translation": "ユーザーのチャンネル通知トリガーの設定が不正です。"
   },
   {
@@ -3127,11 +3127,11 @@
     "translation": "必須のユーザー設定値 uername が存在しません。"
   },
   {
-    "id": "app.import.validate_user_teams_import_data.invalid_roles.error",
+    "id": "app.import.validate_user_branches_import_data.invalid_roles.error",
     "translation": "ユーザーのチームメンバーシップの役割が不正です。"
   },
   {
-    "id": "app.import.validate_user_teams_import_data.team_name_missing.error",
+    "id": "app.import.validate_user_branches_import_data.branch_name_missing.error",
     "translation": "ユーザーのチームメンバーシップにチーム名が存在しません。"
   },
   {
@@ -3168,7 +3168,7 @@
   },
   {
     "id": "app.notification.body.text.group_message.full",
-    "translation": "チャンネル: {{.ChannelName}}"
+    "translation": "チャンネル: {{.ClassName}}"
   },
   {
     "id": "app.notification.body.text.group_message.full2",
@@ -3180,7 +3180,7 @@
   },
   {
     "id": "app.notification.body.text.notification.full",
-    "translation": "チャンネル: {{.ChannelName}}"
+    "translation": "チャンネル: {{.ClassName}}"
   },
   {
     "id": "app.notification.body.text.notification.full2",
@@ -3196,7 +3196,7 @@
   },
   {
     "id": "app.notification.subject.group_message.full",
-    "translation": "[{{ .SiteName }}] {{.Month}} {{.Day}}, {{.Year}} {{.ChannelName}}の新しいグループメッセージ"
+    "translation": "[{{ .SiteName }}] {{.Month}} {{.Day}}, {{.Year}} {{.ClassName}}の新しいグループメッセージ"
   },
   {
     "id": "app.notification.subject.group_message.generic",
@@ -3204,7 +3204,7 @@
   },
   {
     "id": "app.notification.subject.notification.full",
-    "translation": "[{{.SiteName}}] {{.Month}} {{.Day}}, {{.Year}} {{.TeamName}}の通知"
+    "translation": "[{{.SiteName}}] {{.Month}} {{.Day}}, {{.Year}} {{.BranchName}}の通知"
   },
   {
     "id": "app.plugin.cluster.save_config.app_error",
@@ -3299,7 +3299,7 @@
     "translation": "インストール日時を解析できませんでした"
   },
   {
-    "id": "app.team.join_user_to_team.max_accounts.app_error",
+    "id": "app.branch.join_user_to_branch.max_accounts.app_error",
     "translation": "このチームは登録ユーザー数の上限に達しました。システム管理者に上限値を上げるよう依頼してください。"
   },
   {
@@ -3927,67 +3927,67 @@
     "translation": "不正なユーザー名です。"
   },
   {
-    "id": "model.channel.is_valid.2_or_more.app_error",
+    "id": "model.class.is_valid.2_or_more.app_error",
     "translation": "名前は2文字以上の小文字の英数字にしてください"
   },
   {
-    "id": "model.channel.is_valid.create_at.app_error",
+    "id": "model.class.is_valid.create_at.app_error",
     "translation": "作成日時は有効な時刻にしてください"
   },
   {
-    "id": "model.channel.is_valid.creator_id.app_error",
+    "id": "model.class.is_valid.creator_id.app_error",
     "translation": "不正なcreator idです"
   },
   {
-    "id": "model.channel.is_valid.display_name.app_error",
+    "id": "model.class.is_valid.display_name.app_error",
     "translation": "不正な表示名です"
   },
   {
-    "id": "model.channel.is_valid.header.app_error",
+    "id": "model.class.is_valid.header.app_error",
     "translation": "不正なヘッダーです"
   },
   {
-    "id": "model.channel.is_valid.id.app_error",
+    "id": "model.class.is_valid.id.app_error",
     "translation": "不正なIDです"
   },
   {
-    "id": "model.channel.is_valid.purpose.app_error",
+    "id": "model.class.is_valid.purpose.app_error",
     "translation": "不正な目的です"
   },
   {
-    "id": "model.channel.is_valid.type.app_error",
+    "id": "model.class.is_valid.type.app_error",
     "translation": "不正な形式です"
   },
   {
-    "id": "model.channel.is_valid.update_at.app_error",
+    "id": "model.class.is_valid.update_at.app_error",
     "translation": "更新日時は有効な時刻にしてください"
   },
   {
-    "id": "model.channel_member.is_valid.channel_id.app_error",
+    "id": "model.class_member.is_valid.class_id.app_error",
     "translation": "不正なチャンネルIDです"
   },
   {
-    "id": "model.channel_member.is_valid.email_value.app_error",
+    "id": "model.class_member.is_valid.email_value.app_error",
     "translation": "電子メール通知の設定値が不正です"
   },
   {
-    "id": "model.channel_member.is_valid.ignore_channel_mentions_value.app_error",
+    "id": "model.class_member.is_valid.ignore_class_mentions_value.app_error",
     "translation": "チャンネルへのメンションを無視する設定の状態が不正です"
   },
   {
-    "id": "model.channel_member.is_valid.notify_level.app_error",
+    "id": "model.class_member.is_valid.notify_level.app_error",
     "translation": "不正な通知レベルです"
   },
   {
-    "id": "model.channel_member.is_valid.push_level.app_error",
+    "id": "model.class_member.is_valid.push_level.app_error",
     "translation": "プッシュ通知のレベルが不正です"
   },
   {
-    "id": "model.channel_member.is_valid.unread_level.app_error",
+    "id": "model.class_member.is_valid.unread_level.app_error",
     "translation": "不正な未読マークレベルです"
   },
   {
-    "id": "model.channel_member.is_valid.user_id.app_error",
+    "id": "model.class_member.is_valid.user_id.app_error",
     "translation": "不正なユーザーIDです"
   },
   {
@@ -4007,15 +4007,15 @@
     "translation": "リクエストを書き込めません"
   },
   {
-    "id": "model.client.get_flagged_posts_in_channel.missing_parameter.app_error",
+    "id": "model.client.get_flagged_posts_in_class.missing_parameter.app_error",
     "translation": "チャンネルパラメーターがありません"
   },
   {
-    "id": "model.client.get_flagged_posts_in_team.missing_parameter.app_error",
+    "id": "model.client.get_flagged_posts_in_branch.missing_parameter.app_error",
     "translation": "チームパラメータがありません"
   },
   {
-    "id": "model.client.get_team_icon.app_error",
+    "id": "model.client.get_branch_icon.app_error",
     "translation": "レスポンスボディからチームアイコンを読み込めません。"
   },
   {
@@ -4031,15 +4031,15 @@
     "translation": "リクエストを書き込めません"
   },
   {
-    "id": "model.client.set_team_icon.no_file.app_error",
+    "id": "model.client.set_branch_icon.no_file.app_error",
     "translation": "リクエストの 'image' 以下にファイルがありません。"
   },
   {
-    "id": "model.client.set_team_icon.writer.app_error",
+    "id": "model.client.set_branch_icon.writer.app_error",
     "translation": "リクエストを書き込めません。"
   },
   {
-    "id": "model.client.upload_post_attachment.channel_id.app_error",
+    "id": "model.client.upload_post_attachment.class_id.app_error",
     "translation": "チャンネルIDをマルチパートフォームに書き込む際にエラーが発生しました"
   },
   {
@@ -4111,7 +4111,7 @@
     "translation": "不正なメソッドです"
   },
   {
-    "id": "model.command.is_valid.team_id.app_error",
+    "id": "model.command.is_valid.branch_id.app_error",
     "translation": "不正なチームIDです"
   },
   {
@@ -4139,7 +4139,7 @@
     "translation": "不正なユーザーIDです"
   },
   {
-    "id": "model.command_hook.channel_id.app_error",
+    "id": "model.command_hook.class_id.app_error",
     "translation": "不正なチャンネルIDです"
   },
   {
@@ -4283,7 +4283,7 @@
     "translation": "ファイル設定の公開リンクのソルトが不正です。32文字以上にしてください。"
   },
   {
-    "id": "model.config.is_valid.group_unread_channels.app_error",
+    "id": "model.config.is_valid.group_unread_classes.app_error",
     "translation": "未読チャンネルのグループ化設定が不正です。'disabled', 'default_on', 'default_off'のいずれかでなくてはなりません。"
   },
   {
@@ -4343,7 +4343,7 @@
     "translation": "最大バーストには0より大きな値を指定してください。"
   },
   {
-    "id": "model.config.is_valid.max_channels.app_error",
+    "id": "model.config.is_valid.max_classes.app_error",
     "translation": "チーム設定のチーム毎の最大チャンネル数が不正です。正の数を指定してください。"
   },
   {
@@ -4351,7 +4351,7 @@
     "translation": "ファイル設定の最大ファイルサイズが不正です。0より大きい値にしてください。"
   },
   {
-    "id": "model.config.is_valid.max_notify_per_channel.app_error",
+    "id": "model.config.is_valid.max_notify_per_class.app_error",
     "translation": "チーム設定のチャンネル毎の最大通知数が不正です。  正の数を指定してください。"
   },
   {
@@ -4416,7 +4416,7 @@
   },
   {
     "id": "model.config.is_valid.restrict_direct_message.app_error",
-    "translation": "ダイレクトメッセージの制限が不正です。'any'か'team'にしてください。"
+    "translation": "ダイレクトメッセージの制限が不正です。'any'か'branch'にしてください。"
   },
   {
     "id": "model.config.is_valid.saml_assertion_consumer_service_url.app_error",
@@ -4491,7 +4491,7 @@
     "translation": "SQL設定の問い合わせタイムアウトが不正です。正の数を指定してください。"
   },
   {
-    "id": "model.config.is_valid.teammate_name_display.app_error",
+    "id": "model.config.is_valid.branchmate_name_display.app_error",
     "translation": "無効なチームメイト表示です。  'フルネーム'、'ニックネーム_フルネーム'、'ユーザー名'のいずれかにしてください。"
   },
   {
@@ -4628,10 +4628,10 @@
   },
   {
     "id": "model.group_syncable.unmarshaljson.duplicate_type_identifier",
-    "translation": "型の識別子は既に存在しています: 恐らくjsonが 'team_id' と 'channel_id' の両方を含んでいます"
+    "translation": "型の識別子は既に存在しています: 恐らくjsonが 'branch_id' と 'class_id' の両方を含んでいます"
   },
   {
-    "id": "model.incoming_hook.channel_id.app_error",
+    "id": "model.incoming_hook.class_id.app_error",
     "translation": "不正なチャンネルIDです"
   },
   {
@@ -4659,7 +4659,7 @@
     "translation": "内向きのデータを解析できません"
   },
   {
-    "id": "model.incoming_hook.team_id.app_error",
+    "id": "model.incoming_hook.branch_id.app_error",
     "translation": "不正なチームIDです"
   },
   {
@@ -4771,7 +4771,7 @@
     "translation": "不正なコールバックURLです"
   },
   {
-    "id": "model.outgoing_hook.is_valid.channel_id.app_error",
+    "id": "model.outgoing_hook.is_valid.class_id.app_error",
     "translation": "不正なチャンネルIDです"
   },
   {
@@ -4795,7 +4795,7 @@
     "translation": "不正なIDです"
   },
   {
-    "id": "model.outgoing_hook.is_valid.team_id.app_error",
+    "id": "model.outgoing_hook.is_valid.branch_id.app_error",
     "translation": "不正なチームIDです"
   },
   {
@@ -4839,7 +4839,7 @@
     "translation": "不正なプラグインIDです。{{.Min}}文字以上 {{.Max}}文字以下でなくてはなりません。"
   },
   {
-    "id": "model.post.is_valid.channel_id.app_error",
+    "id": "model.post.is_valid.class_id.app_error",
     "translation": "不正なチャンネルIDです"
   },
   {
@@ -4935,59 +4935,59 @@
     "translation": "不正なユーザーIDです"
   },
   {
-    "id": "model.team.is_valid.characters.app_error",
+    "id": "model.branch.is_valid.characters.app_error",
     "translation": "名前は2文字以上の小文字の英数字にしてください"
   },
   {
-    "id": "model.team.is_valid.company.app_error",
+    "id": "model.branch.is_valid.company.app_error",
     "translation": "不正な会社名です"
   },
   {
-    "id": "model.team.is_valid.create_at.app_error",
+    "id": "model.branch.is_valid.create_at.app_error",
     "translation": "作成日時は有効な時刻にしてください"
   },
   {
-    "id": "model.team.is_valid.description.app_error",
+    "id": "model.branch.is_valid.description.app_error",
     "translation": "不正な説明です"
   },
   {
-    "id": "model.team.is_valid.domains.app_error",
+    "id": "model.branch.is_valid.domains.app_error",
     "translation": "許可されたドメインが不正です"
   },
   {
-    "id": "model.team.is_valid.email.app_error",
+    "id": "model.branch.is_valid.email.app_error",
     "translation": "不正な電子メールアドレスです"
   },
   {
-    "id": "model.team.is_valid.id.app_error",
+    "id": "model.branch.is_valid.id.app_error",
     "translation": "不正なIDです"
   },
   {
-    "id": "model.team.is_valid.name.app_error",
+    "id": "model.branch.is_valid.name.app_error",
     "translation": "不正な名前です"
   },
   {
-    "id": "model.team.is_valid.reserved.app_error",
+    "id": "model.branch.is_valid.reserved.app_error",
     "translation": "このURLは利用できません。他のURLを試してみてください。"
   },
   {
-    "id": "model.team.is_valid.type.app_error",
+    "id": "model.branch.is_valid.type.app_error",
     "translation": "不正な形式です"
   },
   {
-    "id": "model.team.is_valid.update_at.app_error",
+    "id": "model.branch.is_valid.update_at.app_error",
     "translation": "更新日時は有効な時刻にしてください"
   },
   {
-    "id": "model.team.is_valid.url.app_error",
+    "id": "model.branch.is_valid.url.app_error",
     "translation": "不正なURL識別子です"
   },
   {
-    "id": "model.team_member.is_valid.team_id.app_error",
+    "id": "model.branch_member.is_valid.branch_id.app_error",
     "translation": "不正なチームIDです"
   },
   {
-    "id": "model.team_member.is_valid.user_id.app_error",
+    "id": "model.branch_member.is_valid.user_id.app_error",
     "translation": "不正なユーザーIDです"
   },
   {
@@ -5215,383 +5215,383 @@
     "translation": "アプリケーションを更新する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_channel.analytics_deleted_type_count.app_error",
+    "id": "store.sql_class.analytics_deleted_type_count.app_error",
     "translation": "削除済みのチャンネル形式数を取得できませんでした"
   },
   {
-    "id": "store.sql_channel.analytics_type_count.app_error",
+    "id": "store.sql_class.analytics_type_count.app_error",
     "translation": "チャンネル形式数を取得できませんでした"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.commit_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.commit_transaction.app_error",
     "translation": "データベーストランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.open_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.open_transaction.app_error",
     "translation": "データベーストランザクションを開始できませんでした"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.rollback_transaction.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.rollback_transaction.app_error",
     "translation": "データベーストランザクションをロールバックできませんでした"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.select.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.select.app_error",
     "translation": "チャンネルメンバーを抽出できませんでした"
   },
   {
-    "id": "store.sql_channel.clear_all_custom_role_assignments.update.app_error",
+    "id": "store.sql_class.clear_all_custom_role_assignments.update.app_error",
     "translation": "チャンネルメンバーを更新できませんでした"
   },
   {
-    "id": "store.sql_channel.delete.channel.app_error",
+    "id": "store.sql_class.delete.class.app_error",
     "translation": "チャンネルを削除できませんでした"
   },
   {
-    "id": "store.sql_channel.get.existing.app_error",
+    "id": "store.sql_class.get.existing.app_error",
     "translation": "既存のチャンネルが見付かりませんでした"
   },
   {
-    "id": "store.sql_channel.get.find.app_error",
+    "id": "store.sql_class.get.find.app_error",
     "translation": "チャンネルを探す際にエラーが発生しました"
   },
   {
-    "id": "store.sql_channel.get_all.app_error",
+    "id": "store.sql_class.get_all.app_error",
     "translation": "全チャンネルを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_by_name.existing.app_error",
+    "id": "store.sql_class.get_by_name.existing.app_error",
     "translation": "既存のチャンネルが見付かりませんでした"
   },
   {
-    "id": "store.sql_channel.get_by_name.missing.app_error",
+    "id": "store.sql_class.get_by_name.missing.app_error",
     "translation": "チャンネルが存在しません"
   },
   {
-    "id": "store.sql_channel.get_by_scheme.app_error",
+    "id": "store.sql_class.get_by_scheme.app_error",
     "translation": "与えられたスキームにおけるチャンネルを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_channel_counts.get.app_error",
+    "id": "store.sql_class.get_class_counts.get.app_error",
     "translation": "チャンネル数を取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_channels.get.app_error",
+    "id": "store.sql_class.get_classes.get.app_error",
     "translation": "チャンネルを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_channels.not_found.app_error",
+    "id": "store.sql_class.get_classes.not_found.app_error",
     "translation": "チャンネルが見付かりませんでした"
   },
   {
-    "id": "store.sql_channel.get_channels_by_ids.get.app_error",
+    "id": "store.sql_class.get_classes_by_ids.get.app_error",
     "translation": "チャンネルを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_channels_by_ids.not_found.app_error",
+    "id": "store.sql_class.get_classes_by_ids.not_found.app_error",
     "translation": "チャンネルが見付かりませんでした"
   },
   {
-    "id": "store.sql_channel.get_deleted.existing.app_error",
+    "id": "store.sql_class.get_deleted.existing.app_error",
     "translation": "既存の削除されたチャンネルが見付かりませんでした"
   },
   {
-    "id": "store.sql_channel.get_deleted.missing.app_error",
+    "id": "store.sql_class.get_deleted.missing.app_error",
     "translation": "削除されたチャンネルはありません"
   },
   {
-    "id": "store.sql_channel.get_deleted_by_name.existing.app_error",
+    "id": "store.sql_class.get_deleted_by_name.existing.app_error",
     "translation": "既存の削除されたチャンネルが見付かりませんでした"
   },
   {
-    "id": "store.sql_channel.get_deleted_by_name.missing.app_error",
+    "id": "store.sql_class.get_deleted_by_name.missing.app_error",
     "translation": "その名前を持つ削除されたチャンネルは存在しません"
   },
   {
-    "id": "store.sql_channel.get_for_post.app_error",
+    "id": "store.sql_class.get_for_post.app_error",
     "translation": "その投稿のチャンネルを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_member.app_error",
+    "id": "store.sql_class.get_member.app_error",
     "translation": "チャンネルのメンバーを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_member.missing.app_error",
+    "id": "store.sql_class.get_member.missing.app_error",
     "translation": "そのユーザーIDとチャンネルIDに合致するチャンネルのメンバーが見付かりませんでした"
   },
   {
-    "id": "store.sql_channel.get_member_count.app_error",
+    "id": "store.sql_class.get_member_count.app_error",
     "translation": "チャンネルメンバー数を取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_member_for_post.app_error",
+    "id": "store.sql_class.get_member_for_post.app_error",
     "translation": "その投稿のチャンネルメンバーを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_members.app_error",
+    "id": "store.sql_class.get_members.app_error",
     "translation": "チャンネルのメンバーを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_members_by_ids.app_error",
+    "id": "store.sql_class.get_members_by_ids.app_error",
     "translation": "チャンネルのメンバーを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_more_channels.get.app_error",
+    "id": "store.sql_class.get_more_classes.get.app_error",
     "translation": "チャンネルを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_public_channels.get.app_error",
+    "id": "store.sql_class.get_public_classes.get.app_error",
     "translation": "公開チャンネルを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_timezone.app_error",
+    "id": "store.sql_class.get_timezone.app_error",
     "translation": "チャンネルメンバーのタイムゾーンを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.get_unread.app_error",
+    "id": "store.sql_class.get_unread.app_error",
     "translation": "チャンネルの未読メッセージを取得できませんでした"
   },
   {
-    "id": "store.sql_channel.increment_mention_count.app_error",
+    "id": "store.sql_class.increment_mention_count.app_error",
     "translation": "誰かについての投稿数を増加できませんでした"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.commit_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.commit_transaction.app_error",
     "translation": "データベーストランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.open_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.open_transaction.app_error",
     "translation": "データベーストランザクションを開ませんでした"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.rollback_transaction.app_error",
+    "id": "store.sql_class.migrate_class_members.rollback_transaction.app_error",
     "translation": "データベーストランザクションをロールバックできませんでした"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.select.app_error",
+    "id": "store.sql_class.migrate_class_members.select.app_error",
     "translation": "チャンネルメンバーを選択できませんでした"
   },
   {
-    "id": "store.sql_channel.migrate_channel_members.update.app_error",
+    "id": "store.sql_class.migrate_class_members.update.app_error",
     "translation": "チャンネルメンバーを更新できませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete.app_error",
+    "id": "store.sql_class.permanent_delete.app_error",
     "translation": "チャンネルを削除できませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete.commit_transaction.app_error",
+    "id": "store.sql_class.permanent_delete.commit_transaction.app_error",
     "translation": "トランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete.delete_public_channel.app_error",
+    "id": "store.sql_class.permanent_delete.delete_public_class.app_error",
     "translation": "公開チャンネルを削除できませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete.open_transaction.app_error",
+    "id": "store.sql_class.permanent_delete.open_transaction.app_error",
     "translation": "トランザクションを開けませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.app_error",
     "translation": "チャンネルを削除できませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.commit_transaction.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.commit_transaction.app_error",
     "translation": "トランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.delete_public_channels.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.delete_public_classes.app_error",
     "translation": "公開チャンネルを削除できませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete_by_team.open_transaction.app_error",
+    "id": "store.sql_class.permanent_delete_by_branch.open_transaction.app_error",
     "translation": "トランザクションを開けませんでした"
   },
   {
-    "id": "store.sql_channel.permanent_delete_members_by_user.app_error",
+    "id": "store.sql_class.permanent_delete_members_by_user.app_error",
     "translation": "チャンネルメンバーを削除できませんでした"
   },
   {
-    "id": "store.sql_channel.pinned_posts.app_error",
+    "id": "store.sql_class.pinned_posts.app_error",
     "translation": "ピン留めされた投稿が見付かりませんでした"
   },
   {
-    "id": "store.sql_channel.remove_all_deactivated_members.app_error",
+    "id": "store.sql_class.remove_all_deactivated_members.app_error",
     "translation": "無効化されたユーザーをチャンネルから削除できませんでした"
   },
   {
-    "id": "store.sql_channel.remove_member.app_error",
+    "id": "store.sql_class.remove_member.app_error",
     "translation": "チャンネルメンバーを削除できませんでした"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.app_error",
     "translation": "チャンネルスキームをリセットできませんでした"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.commit_transaction.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.commit_transaction.app_error",
     "translation": "トランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_channel.reset_all_channel_schemes.open_transaction.app_error",
+    "id": "store.sql_class.reset_all_class_schemes.open_transaction.app_error",
     "translation": "トランザクションを開けませんでした"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.app_error",
+    "id": "store.sql_class.reset_last_post_at.app_error",
     "translation": "チャンネルの最新の投稿日付をリセットできませんでした。"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.commit_transaction.app_error",
+    "id": "store.sql_class.reset_last_post_at.commit_transaction.app_error",
     "translation": "トランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_channel.reset_last_post_at.open_transaction.app_error",
+    "id": "store.sql_class.reset_last_post_at.open_transaction.app_error",
     "translation": "トランザクションを開けませんでした"
   },
   {
-    "id": "store.sql_channel.save.archived_channel.app_error",
+    "id": "store.sql_class.save.archived_class.app_error",
     "translation": "アーカイブチャンネルは変更できません"
   },
   {
-    "id": "store.sql_channel.save.commit_transaction.app_error",
+    "id": "store.sql_class.save.commit_transaction.app_error",
     "translation": "トランザクションをコミットできません"
   },
   {
-    "id": "store.sql_channel.save.direct_channel.app_error",
-    "translation": "ダイレクトチャンネルを作成するにはSaveDirectChannelを使用してください"
+    "id": "store.sql_class.save.direct_class.app_error",
+    "translation": "ダイレクトチャンネルを作成するにはSaveDirectClassを使用してください"
   },
   {
-    "id": "store.sql_channel.save.open_transaction.app_error",
+    "id": "store.sql_class.save.open_transaction.app_error",
     "translation": "トランザクションを開けません"
   },
   {
-    "id": "store.sql_channel.save.upsert_public_channel.app_error",
+    "id": "store.sql_class.save.upsert_public_class.app_error",
     "translation": "公開チャンネルを追加もしくは更新できませんでした"
   },
   {
-    "id": "store.sql_channel.save_channel.current_count.app_error",
+    "id": "store.sql_class.save_class.current_count.app_error",
     "translation": "現在のチャンネル数を取得できません"
   },
   {
-    "id": "store.sql_channel.save_channel.existing.app_error",
+    "id": "store.sql_class.save_class.existing.app_error",
     "translation": "既存のチャンネルの更新をしなくてはいけません"
   },
   {
-    "id": "store.sql_channel.save_channel.exists.app_error",
+    "id": "store.sql_class.save_class.exists.app_error",
     "translation": "その名前を持つチャンネルは既に同じチームに存在します"
   },
   {
-    "id": "store.sql_channel.save_channel.limit.app_error",
+    "id": "store.sql_class.save_class.limit.app_error",
     "translation": "許可されたチャンネルのメンバーの上限に達しました"
   },
   {
-    "id": "store.sql_channel.save_channel.previously.app_error",
+    "id": "store.sql_class.save_class.previously.app_error",
     "translation": "そのURLのチャンネルは以前に作成されました"
   },
   {
-    "id": "store.sql_channel.save_channel.save.app_error",
+    "id": "store.sql_class.save_class.save.app_error",
     "translation": "チャンネルを保存できませんでした"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.add_members.app_error",
+    "id": "store.sql_class.save_direct_class.add_members.app_error",
     "translation": "ダイレクトチャンネルのメンバーを追加できません"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.commit.app_error",
+    "id": "store.sql_class.save_direct_class.commit.app_error",
     "translation": "トランザクションをコミットできません"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.not_direct.app_error",
-    "translation": "SaveDirectChannelで作成されようとしたダイレクトチャンネルではありません"
+    "id": "store.sql_class.save_direct_class.not_direct.app_error",
+    "translation": "SaveDirectClassで作成されようとしたダイレクトチャンネルではありません"
   },
   {
-    "id": "store.sql_channel.save_direct_channel.open_transaction.app_error",
+    "id": "store.sql_class.save_direct_class.open_transaction.app_error",
     "translation": "トランザクションを開けません"
   },
   {
-    "id": "store.sql_channel.save_member.commit_transaction.app_error",
+    "id": "store.sql_class.save_member.commit_transaction.app_error",
     "translation": "トランザクションをコミットできません"
   },
   {
-    "id": "store.sql_channel.save_member.exists.app_error",
+    "id": "store.sql_class.save_member.exists.app_error",
     "translation": "このIDを持つチャンネルのメンバーは既に存在します"
   },
   {
-    "id": "store.sql_channel.save_member.open_transaction.app_error",
+    "id": "store.sql_class.save_member.open_transaction.app_error",
     "translation": "トランザクションを開けません"
   },
   {
-    "id": "store.sql_channel.save_member.save.app_error",
+    "id": "store.sql_class.save_member.save.app_error",
     "translation": "チャンネルのメンバーを保存できませんでした"
   },
   {
-    "id": "store.sql_channel.search.app_error",
+    "id": "store.sql_class.search.app_error",
     "translation": "チャンネルを検索する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_channel.set_delete_at.commit_transaction.app_error",
+    "id": "store.sql_class.set_delete_at.commit_transaction.app_error",
     "translation": "トランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_channel.set_delete_at.open_transaction.app_error",
+    "id": "store.sql_class.set_delete_at.open_transaction.app_error",
     "translation": "トランザクションを開けませんでした"
   },
   {
-    "id": "store.sql_channel.set_delete_at.update_public_channel.app_error",
+    "id": "store.sql_class.set_delete_at.update_public_class.app_error",
     "translation": "公開チャンネルを更新できませんでした"
   },
   {
-    "id": "store.sql_channel.update.app_error",
+    "id": "store.sql_class.update.app_error",
     "translation": "チャンネルを更新できませんでした"
   },
   {
-    "id": "store.sql_channel.update.archived_channel.app_error",
+    "id": "store.sql_class.update.archived_class.app_error",
     "translation": "アーカイブチャンネルは編集できません"
   },
   {
-    "id": "store.sql_channel.update.commit_transaction.app_error",
+    "id": "store.sql_class.update.commit_transaction.app_error",
     "translation": "トランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_channel.update.exists.app_error",
+    "id": "store.sql_class.update.exists.app_error",
     "translation": "そのハンドルを持つチャンネルは既に存在しています"
   },
   {
-    "id": "store.sql_channel.update.open_transaction.app_error",
+    "id": "store.sql_class.update.open_transaction.app_error",
     "translation": "トランザクションを開けませんでした"
   },
   {
-    "id": "store.sql_channel.update.previously.app_error",
+    "id": "store.sql_class.update.previously.app_error",
     "translation": "そのハンドルを持つチャンネルは以前に作成されました"
   },
   {
-    "id": "store.sql_channel.update.updating.app_error",
+    "id": "store.sql_class.update.updating.app_error",
     "translation": "チャンネルを更新する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_channel.update.upsert_public_channel.app_error",
+    "id": "store.sql_class.update.upsert_public_class.app_error",
     "translation": "公開チャンネルを追加もしくは更新できませんでした"
   },
   {
-    "id": "store.sql_channel.update_last_viewed_at.app_error",
+    "id": "store.sql_class.update_last_viewed_at.app_error",
     "translation": "最終閲覧日時を更新できませんでした"
   },
   {
-    "id": "store.sql_channel.update_member.app_error",
+    "id": "store.sql_class.update_member.app_error",
     "translation": "チャンネルのメンバーを更新する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_channel_member_history.get_users_in_channel_during.app_error",
+    "id": "store.sql_class_member_history.get_users_in_class_during.app_error",
     "translation": "指定日時内のチャンネル内ユーザーを取得できませんでした"
   },
   {
-    "id": "store.sql_channel_member_history.log_join_event.app_error",
+    "id": "store.sql_class_member_history.log_join_event.app_error",
     "translation": "チャンネルメンバーの履歴を記録できませんでした"
   },
   {
-    "id": "store.sql_channel_member_history.log_leave_event.update_error",
+    "id": "store.sql_class_member_history.log_leave_event.update_error",
     "translation": "チャンネルメンバーの履歴を記録できませんでした。既存の参加記録を更新できませんでした"
   },
   {
-    "id": "store.sql_channel_member_history.permanent_delete_batch.app_error",
+    "id": "store.sql_class_member_history.permanent_delete_batch.app_error",
     "translation": "記録を破棄できませんでした"
   },
   {
@@ -5639,7 +5639,7 @@
     "translation": "コマンドを取得できませんでした"
   },
   {
-    "id": "store.sql_command.save.get_team.app_error",
+    "id": "store.sql_command.save.get_branch.app_error",
     "translation": "コマンドを取得できませんでした"
   },
   {
@@ -6007,7 +6007,7 @@
     "translation": "投稿バッチを完全に削除する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_post.permanent_delete_by_channel.app_error",
+    "id": "store.sql_post.permanent_delete_by_class.app_error",
     "translation": "チャンネルから投稿を削除できませんでした"
   },
   {
@@ -6207,11 +6207,11 @@
     "translation": "スキームを完全に削除できませんでした"
   },
   {
-    "id": "store.sql_scheme.reset_channels.app_error",
+    "id": "store.sql_scheme.reset_classes.app_error",
     "translation": "このスキームを使用しているすべてのチャンネルをデフォルトのスキームへリセットできませんでした"
   },
   {
-    "id": "store.sql_scheme.reset_teams.app_error",
+    "id": "store.sql_scheme.reset_branches.app_error",
     "translation": "このスキームを使用している全てのチームをデフォルトのスキームへリセットできませんでした"
   },
   {
@@ -6259,7 +6259,7 @@
     "translation": "セッションを削除できませんでした"
   },
   {
-    "id": "store.sql_session.remove_all_sessions_for_team.app_error",
+    "id": "store.sql_session.remove_all_sessions_for_branch.app_error",
     "translation": "全てのセッションを削除できませんでした"
   },
   {
@@ -6299,7 +6299,7 @@
     "translation": "全てのオンライン/離席状態を取得する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_status.get_team_statuses.app_error",
+    "id": "store.sql_status.get_branch_statuses.app_error",
     "translation": "チームメンバーの全ての状態を取得する際にエラーが発生しました"
   },
   {
@@ -6343,171 +6343,171 @@
     "translation": "システム設定値を更新する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_team.analytics_get_team_count_for_scheme.app_error",
+    "id": "store.sql_branch.analytics_get_branch_count_for_scheme.app_error",
     "translation": "スキームに対するチャンネル数を取得できませんでした。"
   },
   {
-    "id": "store.sql_team.analytics_team_count.app_error",
+    "id": "store.sql_branch.analytics_branch_count.app_error",
     "translation": "チームをカウントできませんでした"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.commit_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.commit_transaction.app_error",
     "translation": "データベーストランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.open_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.open_transaction.app_error",
     "translation": "データベーストランザクションを開始できませんでした"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.rollback_transaction.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.rollback_transaction.app_error",
     "translation": "データベーストランザクションをロールバックできませんでした"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.select.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.select.app_error",
     "translation": "チームメンバーを取得できませんでした"
   },
   {
-    "id": "store.sql_team.clear_all_custom_role_assignments.update.app_error",
+    "id": "store.sql_branch.clear_all_custom_role_assignments.update.app_error",
     "translation": "チームメンバーを更新できませんでした"
   },
   {
-    "id": "store.sql_team.get.find.app_error",
+    "id": "store.sql_branch.get.find.app_error",
     "translation": "既存のチームが見付かりませんでした"
   },
   {
-    "id": "store.sql_team.get.finding.app_error",
+    "id": "store.sql_branch.get.finding.app_error",
     "translation": "チームを探す際にエラーが発生しました"
   },
   {
-    "id": "store.sql_team.get_all.app_error",
+    "id": "store.sql_branch.get_all.app_error",
     "translation": "全てのチームを取得できませんでした"
   },
   {
-    "id": "store.sql_team.get_all_team_listing.app_error",
+    "id": "store.sql_branch.get_all_branch_listing.app_error",
     "translation": "全てのチームを取得できませんでした"
   },
   {
-    "id": "store.sql_team.get_by_invite_id.find.app_error",
+    "id": "store.sql_branch.get_by_invite_id.find.app_error",
     "translation": "既存のチームが見付かりませんでした"
   },
   {
-    "id": "store.sql_team.get_by_invite_id.finding.app_error",
+    "id": "store.sql_branch.get_by_invite_id.finding.app_error",
     "translation": "既存のチームが見付かりませんでした"
   },
   {
-    "id": "store.sql_team.get_by_name.app_error",
+    "id": "store.sql_branch.get_by_name.app_error",
     "translation": "既存のチームが見付かりませんでした"
   },
   {
-    "id": "store.sql_team.get_by_scheme.app_error",
+    "id": "store.sql_branch.get_by_scheme.app_error",
     "translation": "与えられたスキームにおけるチャンネルを取得できませんでした"
   },
   {
-    "id": "store.sql_team.get_member.app_error",
+    "id": "store.sql_branch.get_member.app_error",
     "translation": "チームメンバーを取得できませんでした"
   },
   {
-    "id": "store.sql_team.get_member.missing.app_error",
+    "id": "store.sql_branch.get_member.missing.app_error",
     "translation": "そのユーザーIDとチームIDに合致するチームのメンバーが見付かりませんでした"
   },
   {
-    "id": "store.sql_team.get_member_count.app_error",
+    "id": "store.sql_branch.get_member_count.app_error",
     "translation": "チームメンバーをカウントできませんでした"
   },
   {
-    "id": "store.sql_team.get_members.app_error",
+    "id": "store.sql_branch.get_members.app_error",
     "translation": "チームメンバーを取得できませんでした"
   },
   {
-    "id": "store.sql_team.get_members_by_ids.app_error",
+    "id": "store.sql_branch.get_members_by_ids.app_error",
     "translation": "チームメンバーを取得できませんでした"
   },
   {
-    "id": "store.sql_team.get_unread.app_error",
+    "id": "store.sql_branch.get_unread.app_error",
     "translation": "チームの未読メッセージを取得できませんでした"
   },
   {
-    "id": "store.sql_team.migrate_team_members.commit_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.commit_transaction.app_error",
     "translation": "データベーストランザクションをコミットできませんでした"
   },
   {
-    "id": "store.sql_team.migrate_team_members.open_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.open_transaction.app_error",
     "translation": "データベーストランザクションを開ませんでした"
   },
   {
-    "id": "store.sql_team.migrate_team_members.rollback_transaction.app_error",
+    "id": "store.sql_branch.migrate_branch_members.rollback_transaction.app_error",
     "translation": "データベーストランザクションをロールバックできませんでした"
   },
   {
-    "id": "store.sql_team.migrate_team_members.select.app_error",
+    "id": "store.sql_branch.migrate_branch_members.select.app_error",
     "translation": " チームメンバーを選択できませんでした"
   },
   {
-    "id": "store.sql_team.migrate_team_members.update.app_error",
+    "id": "store.sql_branch.migrate_branch_members.update.app_error",
     "translation": "チームメンバーを更新できませんでした"
   },
   {
-    "id": "store.sql_team.permanent_delete.app_error",
+    "id": "store.sql_branch.permanent_delete.app_error",
     "translation": "既存のチームを削除できませんでした"
   },
   {
-    "id": "store.sql_team.remove_member.app_error",
+    "id": "store.sql_branch.remove_member.app_error",
     "translation": "チームメンバーを削除できませんでした"
   },
   {
-    "id": "store.sql_team.reset_all_team_schemes.app_error",
+    "id": "store.sql_branch.reset_all_branch_schemes.app_error",
     "translation": "チームスキームをリセットできませんでした"
   },
   {
-    "id": "store.sql_team.save.app_error",
+    "id": "store.sql_branch.save.app_error",
     "translation": "チームを保存できませんでした"
   },
   {
-    "id": "store.sql_team.save.domain_exists.app_error",
+    "id": "store.sql_branch.save.domain_exists.app_error",
     "translation": "その名前を持つチームは既に存在しています"
   },
   {
-    "id": "store.sql_team.save.existing.app_error",
+    "id": "store.sql_branch.save.existing.app_error",
     "translation": "既存のチームの更新をしなくてはいけません"
   },
   {
-    "id": "store.sql_team.save_member.exists.app_error",
+    "id": "store.sql_branch.save_member.exists.app_error",
     "translation": "そのIDを持つチームのメンバーは既に存在します"
   },
   {
-    "id": "store.sql_team.save_member.save.app_error",
+    "id": "store.sql_branch.save_member.save.app_error",
     "translation": "チームメンバーを保存できませんでした"
   },
   {
-    "id": "store.sql_team.search_all_team.app_error",
+    "id": "store.sql_branch.search_all_branch.app_error",
     "translation": "チームを検索する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_team.search_open_team.app_error",
+    "id": "store.sql_branch.search_open_branch.app_error",
     "translation": "公開されているチームを検索する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_team.update.app_error",
+    "id": "store.sql_branch.update.app_error",
     "translation": "チームを更新できませんでした"
   },
   {
-    "id": "store.sql_team.update.find.app_error",
+    "id": "store.sql_branch.update.find.app_error",
     "translation": "更新すべきチームが見付かりませんでした"
   },
   {
-    "id": "store.sql_team.update.finding.app_error",
+    "id": "store.sql_branch.update.finding.app_error",
     "translation": "チームを探す際にエラーが発生しました"
   },
   {
-    "id": "store.sql_team.update.updating.app_error",
+    "id": "store.sql_branch.update.updating.app_error",
     "translation": "チームを更新する際にエラーが発生しました"
   },
   {
-    "id": "store.sql_team.update_display_name.app_error",
+    "id": "store.sql_branch.update_display_name.app_error",
     "translation": "チーム名を更新できませんでした"
   },
   {
-    "id": "store.sql_team.update_last_team_icon_update.app_error",
+    "id": "store.sql_branch.update_last_branch_icon_update.app_error",
     "translation": "チームアイコン更新日を更新できませんでした"
   },
   {
@@ -6619,7 +6619,7 @@
     "translation": "ユーザーの未読のメッセージ数を取得できませんでした"
   },
   {
-    "id": "store.sql_user.get_unread_count_for_channel.app_error",
+    "id": "store.sql_user.get_unread_count_for_class.app_error",
     "translation": "ユーザーとチャンネルの未読のメッセージ数を取得できませんでした"
   },
   {
@@ -6811,7 +6811,7 @@
     "translation": "ウェブフックを取得できませんでした"
   },
   {
-    "id": "store.sql_webhooks.get_incoming_by_channel.app_error",
+    "id": "store.sql_webhooks.get_incoming_by_class.app_error",
     "translation": "ウェブフックを取得できませんでした"
   },
   {
@@ -6823,15 +6823,15 @@
     "translation": "ウェブフックを取得できませんでした"
   },
   {
-    "id": "store.sql_webhooks.get_outgoing_by_channel.app_error",
+    "id": "store.sql_webhooks.get_outgoing_by_class.app_error",
     "translation": "ウェブフックを取得できませんでした"
   },
   {
-    "id": "store.sql_webhooks.get_outgoing_by_team.app_error",
+    "id": "store.sql_webhooks.get_outgoing_by_branch.app_error",
     "translation": "ウェブフックを取得できませんでした"
   },
   {
-    "id": "store.sql_webhooks.permanent_delete_incoming_by_channel.app_error",
+    "id": "store.sql_webhooks.permanent_delete_incoming_by_class.app_error",
     "translation": "ウェブフックを削除できませんでした"
   },
   {
@@ -6839,7 +6839,7 @@
     "translation": "ウェブフックを削除できませんでした"
   },
   {
-    "id": "store.sql_webhooks.permanent_delete_outgoing_by_channel.app_error",
+    "id": "store.sql_webhooks.permanent_delete_outgoing_by_class.app_error",
     "translation": "ウェブフックを削除できませんでした"
   },
   {
@@ -6995,11 +6995,11 @@
     "translation": "ユーザーアクセス情報を更新できませんでした。"
   },
   {
-    "id": "web.incoming_webhook.channel.app_error",
+    "id": "web.incoming_webhook.class.app_error",
     "translation": "チャンネルが見付かりません"
   },
   {
-    "id": "web.incoming_webhook.channel_locked.app_error",
+    "id": "web.incoming_webhook.class_locked.app_error",
     "translation": "このウェブフックは要求されたチャンネルに投稿する権限がありません"
   },
   {

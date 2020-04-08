@@ -6,7 +6,6 @@ package app
 import (
 	"fmt"
 	"html"
-	"html/template"
 	"net/url"
 	"path/filepath"
 	"strings"
@@ -18,32 +17,30 @@ import (
 	"github.com/vnforks/kid/v5/utils"
 )
 
-func (a *App) sendNotificationEmail(notification *PostNotification, user *model.User, team *model.Team) *model.AppError {
-	channel := notification.Channel
+func (a *App) sendNotificationEmail(notification *PostNotification, user *model.User, branch *model.Branch) *model.AppError {
+	class := notification.Class
 	post := notification.Post
 
-	if channel.IsGroupOrDirect() {
-		teams, err := a.Srv().Store.Team().GetTeamsByUserId(user.Id)
-		if err != nil {
-			return err
-		}
+	branches, err := a.Srv().Store.Branch().GetBranchesByUserId(user.Id)
+	if err != nil {
+		return err
+	}
 
-		// if the recipient isn't in the current user's team, just pick one
-		found := false
+	// if the recipient isn't in the current user's branch, just pick one
+	found := false
 
-		for i := range teams {
-			if teams[i].Id == team.Id {
-				found = true
-				break
-			}
+	for i := range branches {
+		if branches[i].Id == branch.Id {
+			found = true
+			break
 		}
+	}
 
-		if !found && len(teams) > 0 {
-			team = teams[0]
-		} else {
-			// in case the user hasn't joined any teams we send them to the select_team page
-			team = &model.Team{Name: "select_team", DisplayName: *a.Config().TeamSettings.SiteName}
-		}
+	if !found && len(branches) > 0 {
+		branch = branches[0]
+	} else {
+		// in case the user hasn't joined any branches we send them to the select_branch page
+		branch = &model.Branch{Name: "select_branch", DisplayName: *a.Config().BranchSettings.SiteName}
 	}
 
 	if *a.Config().EmailSettings.EnableEmailBatching {
@@ -57,7 +54,7 @@ func (a *App) sendNotificationEmail(notification *PostNotification, user *model.
 		}
 
 		if sendBatched {
-			if err := a.AddNotificationEmailToBatch(user, post, team); err == nil {
+			if err := a.AddNotificationEmailToBatch(user, post, branch); err == nil {
 				return nil
 			}
 		}
@@ -76,7 +73,7 @@ func (a *App) sendNotificationEmail(notification *PostNotification, user *model.
 
 	nameFormat := a.GetNotificationNameFormat(user)
 
-	channelName := notification.GetChannelName(nameFormat, "")
+	className := notification.GetClassName(nameFormat, "")
 	senderName := notification.GetSenderName(nameFormat, *a.Config().ServiceSettings.EnablePostUsernameOverride)
 
 	emailNotificationContentsType := model.EMAIL_NOTIFICATION_CONTENTS_FULL
@@ -85,18 +82,14 @@ func (a *App) sendNotificationEmail(notification *PostNotification, user *model.
 	}
 
 	var subjectText string
-	if channel.Type == model.CHANNEL_DIRECT {
-		subjectText = getDirectMessageNotificationEmailSubject(user, post, translateFunc, *a.Config().TeamSettings.SiteName, senderName, useMilitaryTime)
-	} else if channel.Type == model.CHANNEL_GROUP {
-		subjectText = getGroupMessageNotificationEmailSubject(user, post, translateFunc, *a.Config().TeamSettings.SiteName, channelName, emailNotificationContentsType, useMilitaryTime)
-	} else if *a.Config().EmailSettings.UseChannelInEmailNotifications {
-		subjectText = getNotificationEmailSubject(user, post, translateFunc, *a.Config().TeamSettings.SiteName, team.DisplayName+" ("+channelName+")", useMilitaryTime)
+	if *a.Config().EmailSettings.UseClassInEmailNotifications {
+		subjectText = getNotificationEmailSubject(user, post, translateFunc, *a.Config().BranchSettings.SiteName, branch.DisplayName+" ("+className+")", useMilitaryTime)
 	} else {
-		subjectText = getNotificationEmailSubject(user, post, translateFunc, *a.Config().TeamSettings.SiteName, team.DisplayName, useMilitaryTime)
+		subjectText = getNotificationEmailSubject(user, post, translateFunc, *a.Config().BranchSettings.SiteName, branch.DisplayName, useMilitaryTime)
 	}
 
-	landingURL := a.GetSiteURL() + "/landing#/" + team.Name
-	var bodyText = a.getNotificationEmailBody(user, post, channel, channelName, senderName, team.Name, landingURL, emailNotificationContentsType, useMilitaryTime, translateFunc)
+	landingURL := a.GetSiteURL() + "/landing#/" + branch.Name
+	var bodyText = a.getNotificationEmailBody(user, post, class, className, senderName, branch.Name, landingURL, emailNotificationContentsType, useMilitaryTime, translateFunc)
 
 	a.Srv().Go(func() {
 		if err := a.sendNotificationMail(user.Email, html.UnescapeString(subjectText), bodyText); err != nil {
@@ -129,14 +122,14 @@ func getDirectMessageNotificationEmailSubject(user *model.User, post *model.Post
 /**
  * Computes the subject line for group, public, and private email messages
  */
-func getNotificationEmailSubject(user *model.User, post *model.Post, translateFunc i18n.TranslateFunc, siteName string, teamName string, useMilitaryTime bool) string {
+func getNotificationEmailSubject(user *model.User, post *model.Post, translateFunc i18n.TranslateFunc, siteName string, branchName string, useMilitaryTime bool) string {
 	t := getFormattedPostTime(user, post, useMilitaryTime, translateFunc)
 	var subjectParameters = map[string]interface{}{
-		"SiteName": siteName,
-		"TeamName": teamName,
-		"Month":    t.Month,
-		"Day":      t.Day,
-		"Year":     t.Year,
+		"SiteName":   siteName,
+		"BranchName": branchName,
+		"Month":      t.Month,
+		"Day":        t.Day,
+		"Year":       t.Year,
 	}
 	return translateFunc("app.notification.subject.notification.full", subjectParameters)
 }
@@ -144,7 +137,7 @@ func getNotificationEmailSubject(user *model.User, post *model.Post, translateFu
 /**
  * Computes the subject line for group email messages
  */
-func getGroupMessageNotificationEmailSubject(user *model.User, post *model.Post, translateFunc i18n.TranslateFunc, siteName string, channelName string, emailNotificationContentsType string, useMilitaryTime bool) string {
+func getGroupMessageNotificationEmailSubject(user *model.User, post *model.Post, translateFunc i18n.TranslateFunc, siteName string, className string, emailNotificationContentsType string, useMilitaryTime bool) string {
 	t := getFormattedPostTime(user, post, useMilitaryTime, translateFunc)
 	var subjectParameters = map[string]interface{}{
 		"SiteName": siteName,
@@ -153,7 +146,7 @@ func getGroupMessageNotificationEmailSubject(user *model.User, post *model.Post,
 		"Year":     t.Year,
 	}
 	if emailNotificationContentsType == model.EMAIL_NOTIFICATION_CONTENTS_FULL {
-		subjectParameters["ChannelName"] = channelName
+		subjectParameters["ClassName"] = className
 		return translateFunc("app.notification.subject.group_message.full", subjectParameters)
 	}
 	return translateFunc("app.notification.subject.group_message.generic", subjectParameters)
@@ -162,24 +155,23 @@ func getGroupMessageNotificationEmailSubject(user *model.User, post *model.Post,
 /**
  * Computes the email body for notification messages
  */
-func (a *App) getNotificationEmailBody(recipient *model.User, post *model.Post, channel *model.Channel, channelName string, senderName string, teamName string, landingURL string, emailNotificationContentsType string, useMilitaryTime bool, translateFunc i18n.TranslateFunc) string {
+func (a *App) getNotificationEmailBody(recipient *model.User, post *model.Post, class *model.Class, className string, senderName string, branchName string, landingURL string, emailNotificationContentsType string, useMilitaryTime bool, translateFunc i18n.TranslateFunc) string {
 	// only include message contents in notification email if email notification contents type is set to full
 	var bodyPage *utils.HTMLTemplate
 	if emailNotificationContentsType == model.EMAIL_NOTIFICATION_CONTENTS_FULL {
 		bodyPage = a.newEmailTemplate("post_body_full", recipient.Locale)
 		postMessage := a.GetMessageForNotification(post, translateFunc)
 		postMessage = html.EscapeString(postMessage)
-		normalizedPostMessage := a.generateHyperlinkForChannels(postMessage, teamName, landingURL)
-		bodyPage.Props["PostMessage"] = template.HTML(normalizedPostMessage)
+		//bodyPage.Props["PostMessage"] = template.HTML(normalizedPostMessage)
 	} else {
 		bodyPage = a.newEmailTemplate("post_body_generic", recipient.Locale)
 	}
 
 	bodyPage.Props["SiteURL"] = a.GetSiteURL()
-	if teamName != "select_team" {
-		bodyPage.Props["TeamLink"] = landingURL + "/pl/" + post.Id
+	if branchName != "select_branch" {
+		bodyPage.Props["BranchLink"] = landingURL + "/pl/" + post.Id
 	} else {
-		bodyPage.Props["TeamLink"] = landingURL
+		bodyPage.Props["BranchLink"] = landingURL
 	}
 
 	t := getFormattedPostTime(recipient, post, useMilitaryTime, translateFunc)
@@ -191,48 +183,20 @@ func (a *App) getNotificationEmailBody(recipient *model.User, post *model.Post, 
 		"Month":    t.Month,
 		"Day":      t.Day,
 	}
-	if channel.Type == model.CHANNEL_DIRECT {
-		if emailNotificationContentsType == model.EMAIL_NOTIFICATION_CONTENTS_FULL {
-			bodyPage.Props["BodyText"] = translateFunc("app.notification.body.intro.direct.full")
-			bodyPage.Props["Info1"] = ""
-			info["SenderName"] = senderName
-			bodyPage.Props["Info2"] = translateFunc("app.notification.body.text.direct.full", info)
-		} else {
-			bodyPage.Props["BodyText"] = translateFunc("app.notification.body.intro.direct.generic", map[string]interface{}{
-				"SenderName": senderName,
+
+	if emailNotificationContentsType == model.EMAIL_NOTIFICATION_CONTENTS_FULL {
+		bodyPage.Props["BodyText"] = translateFunc("app.notification.body.intro.notification.full")
+		bodyPage.Props["Info1"] = translateFunc("app.notification.body.text.notification.full",
+			map[string]interface{}{
+				"ClassName": className,
 			})
-			bodyPage.Props["Info"] = translateFunc("app.notification.body.text.direct.generic", info)
-		}
-	} else if channel.Type == model.CHANNEL_GROUP {
-		if emailNotificationContentsType == model.EMAIL_NOTIFICATION_CONTENTS_FULL {
-			bodyPage.Props["BodyText"] = translateFunc("app.notification.body.intro.group_message.full")
-			bodyPage.Props["Info1"] = translateFunc("app.notification.body.text.group_message.full",
-				map[string]interface{}{
-					"ChannelName": channelName,
-				})
-			info["SenderName"] = senderName
-			bodyPage.Props["Info2"] = translateFunc("app.notification.body.text.group_message.full2", info)
-		} else {
-			bodyPage.Props["BodyText"] = translateFunc("app.notification.body.intro.group_message.generic", map[string]interface{}{
-				"SenderName": senderName,
-			})
-			bodyPage.Props["Info"] = translateFunc("app.notification.body.text.group_message.generic", info)
-		}
+		info["SenderName"] = senderName
+		bodyPage.Props["Info2"] = translateFunc("app.notification.body.text.notification.full2", info)
 	} else {
-		if emailNotificationContentsType == model.EMAIL_NOTIFICATION_CONTENTS_FULL {
-			bodyPage.Props["BodyText"] = translateFunc("app.notification.body.intro.notification.full")
-			bodyPage.Props["Info1"] = translateFunc("app.notification.body.text.notification.full",
-				map[string]interface{}{
-					"ChannelName": channelName,
-				})
-			info["SenderName"] = senderName
-			bodyPage.Props["Info2"] = translateFunc("app.notification.body.text.notification.full2", info)
-		} else {
-			bodyPage.Props["BodyText"] = translateFunc("app.notification.body.intro.notification.generic", map[string]interface{}{
-				"SenderName": senderName,
-			})
-			bodyPage.Props["Info"] = translateFunc("app.notification.body.text.notification.generic", info)
-		}
+		bodyPage.Props["BodyText"] = translateFunc("app.notification.body.intro.notification.generic", map[string]interface{}{
+			"SenderName": senderName,
+		})
+		bodyPage.Props["Info"] = translateFunc("app.notification.body.text.notification.generic", info)
 	}
 
 	bodyPage.Props["Button"] = translateFunc("api.templates.post_body.button")
@@ -280,36 +244,6 @@ func getFormattedPostTime(user *model.User, post *model.Post, useMilitaryTime bo
 		Minute:   fmt.Sprintf("%02d"+period, localTime.Minute()),
 		TimeZone: zone,
 	}
-}
-
-func (a *App) generateHyperlinkForChannels(postMessage, teamName, teamURL string) string {
-	team, err := a.GetTeamByName(teamName)
-	if err != nil {
-		mlog.Error("Encountered error while looking up team by name", mlog.String("team_name", teamName), mlog.Err(err))
-		return postMessage
-	}
-
-	channelNames := model.ChannelMentions(postMessage)
-	if len(channelNames) == 0 {
-		return postMessage
-	}
-
-	channels, err := a.GetChannelsByNames(channelNames, team.Id)
-	if err != nil {
-		mlog.Error("Encountered error while getting channels", mlog.Err(err))
-		return postMessage
-	}
-
-	visited := make(map[string]bool)
-	for _, ch := range channels {
-		if !visited[ch.Id] && ch.Type == model.CHANNEL_OPEN {
-			channelURL := teamURL + "/channels/" + ch.Name
-			channelHyperLink := fmt.Sprintf("<a href='%s'>%s</a>", channelURL, "~"+ch.Name)
-			postMessage = strings.Replace(postMessage, "~"+ch.Name, channelHyperLink, -1)
-			visited[ch.Id] = true
-		}
-	}
-	return postMessage
 }
 
 func (a *App) GetMessageForNotification(post *model.Post, translateFunc i18n.TranslateFunc) string {

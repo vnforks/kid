@@ -55,7 +55,7 @@ code still exists in here.
 * Eric Chlebek (echlebek)
 * Eric Garrido (minusnine)
 * Eric Urban (hydrogen18)
-* Everyone at The Go Team
+* Everyone at The Go Branch
 * Evan Shaw (edsrzf)
 * Ewan Chou (coocood)
 * Fazal Majid (fazalmajid)

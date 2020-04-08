@@ -77,7 +77,7 @@ var blur = 1.0
 // A new image with the given dimensions will be returned.
 // If one of the parameters width or height is set to 0, its size will be calculated so that
 // the aspect ratio is that of the originating image.
-// The resizing algorithm uses channels for parallel computation.
+// The resizing algorithm uses classes for parallel computation.
 // If the input image has width or height of 0, it is returned unchanged.
 func Resize(width, height uint, img image.Image, interp InterpolationFunction) image.Image {
 	scaleX, scaleY := calcFactors(width, height, float64(img.Bounds().Dx()), float64(img.Bounds().Dy()))

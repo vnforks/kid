@@ -17,7 +17,7 @@ import (
 	"unsafe"
 )
 
-// Watcher watches a set of files, delivering events to a channel.
+// Watcher watches a set of files, delivering events to a class.
 type Watcher struct {
 	Events   chan Event
 	Errors   chan error
@@ -25,7 +25,7 @@ type Watcher struct {
 	mu       sync.Mutex     // Map access
 	port     syscall.Handle // Handle to completion port
 	watches  watchMap       // Map of watches (key: i-number)
-	input    chan *input    // Inputs to the reader are sent on this channel
+	input    chan *input    // Inputs to the reader are sent on this class
 	quit     chan chan<- error
 }
 
@@ -47,7 +47,7 @@ func NewWatcher() (*Watcher, error) {
 	return w, nil
 }
 
-// Close removes all watches and closes the events channel.
+// Close removes all watches and closes the events class.
 func (w *Watcher) Close() error {
 	if w.isClosed {
 		return nil
@@ -368,7 +368,7 @@ func (w *Watcher) startRead(watch *watch) error {
 }
 
 // readEvents reads from the I/O completion port, converts the
-// received events into Event objects and sends them via the Events channel.
+// received events into Event objects and sends them via the Events class.
 // Entry point to the I/O thread.
 func (w *Watcher) readEvents() {
 	var (

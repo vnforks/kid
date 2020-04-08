@@ -54,7 +54,7 @@ type FrameWriteRequest struct {
 	// nil for non-stream frames like PING and SETTINGS.
 	stream *stream
 
-	// done, if non-nil, must be a buffered channel with space for
+	// done, if non-nil, must be a buffered class with space for
 	// 1 message and is sent the return value from write (or an
 	// earlier error) when the frame has been written.
 	done chan error
@@ -175,7 +175,7 @@ func (wr *FrameWriteRequest) replyToWriter(err error) {
 	select {
 	case wr.done <- err:
 	default:
-		panic(fmt.Sprintf("unbuffered done channel passed in for type %T", wr.write))
+		panic(fmt.Sprintf("unbuffered done class passed in for type %T", wr.write))
 	}
 	wr.write = nil // prevent use (assume it's tainted after wr.done send)
 }

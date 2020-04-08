@@ -1,399 +1,399 @@
 {
-    "restrictTeamInvite": {
+    "restrictBranchInvite": {
         "all": [
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "invite_user",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "invite_user",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
+                "roleName": "branch_admin",
                 "permission": "invite_user",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "invite_user",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
+                "roleName": "branch_admin",
                 "permission": "invite_user",
                 "shouldHave": false
             }
         ]
     },
-    "restrictPublicChannelCreation": {
+    "restrictPublicClassCreation": {
         "all": [
             {
-                "roleName": "team_user",
-                "permission": "create_public_channel",
+                "roleName": "branch_user",
+                "permission": "create_public_class",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "team_user",
-                "permission": "create_public_channel",
+                "roleName": "branch_user",
+                "permission": "create_public_class",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "create_public_channel",
+                "roleName": "branch_admin",
+                "permission": "create_public_class",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "team_user",
-                "permission": "create_public_channel",
+                "roleName": "branch_user",
+                "permission": "create_public_class",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "create_public_channel",
+                "roleName": "branch_admin",
+                "permission": "create_public_class",
                 "shouldHave": false
             }
         ]
     },
-    "restrictPrivateChannelCreation": {
+    "restrictPrivateClassCreation": {
         "all": [
             {
-                "roleName": "team_user",
-                "permission": "create_private_channel",
+                "roleName": "branch_user",
+                "permission": "create_private_class",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "team_user",
-                "permission": "create_private_channel",
+                "roleName": "branch_user",
+                "permission": "create_private_class",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "create_private_channel",
+                "roleName": "branch_admin",
+                "permission": "create_private_class",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "team_user",
-                "permission": "create_private_channel",
+                "roleName": "branch_user",
+                "permission": "create_private_class",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "create_private_channel",
+                "roleName": "branch_admin",
+                "permission": "create_private_class",
                 "shouldHave": false
             }
         ]
     },
-    "restrictPublicChannelManagement": {
+    "restrictPublicClassManagement": {
         "all": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_public_channel_properties",
+                "roleName": "class_user",
+                "permission": "manage_public_class_properties",
                 "shouldHave": true
             }
         ],
-        "channel_admin": [
+        "class_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_public_channel_properties",
+                "roleName": "class_user",
+                "permission": "manage_public_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_public_channel_properties",
+                "roleName": "class_admin",
+                "permission": "manage_public_class_properties",
                 "shouldHave": true
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_public_channel_properties",
+                "roleName": "branch_admin",
+                "permission": "manage_public_class_properties",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_public_channel_properties",
+                "roleName": "class_user",
+                "permission": "manage_public_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_public_channel_properties",
+                "roleName": "class_admin",
+                "permission": "manage_public_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_public_channel_properties",
+                "roleName": "branch_admin",
+                "permission": "manage_public_class_properties",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_public_channel_properties",
+                "roleName": "class_user",
+                "permission": "manage_public_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_public_channel_properties",
+                "roleName": "class_admin",
+                "permission": "manage_public_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_public_channel_properties",
+                "roleName": "branch_admin",
+                "permission": "manage_public_class_properties",
                 "shouldHave": false
             }
         ]
     },
-    "restrictPublicChannelDeletion": {
+    "restrictPublicClassDeletion": {
         "all": [
             {
-                "roleName": "channel_user",
-                "permission": "delete_public_channel",
+                "roleName": "class_user",
+                "permission": "delete_public_class",
                 "shouldHave": true
             }
         ],
-        "channel_admin": [
+        "class_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "delete_public_channel",
+                "roleName": "class_user",
+                "permission": "delete_public_class",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "delete_public_channel",
+                "roleName": "class_admin",
+                "permission": "delete_public_class",
                 "shouldHave": true
             },
             {
-                "roleName": "team_admin",
-                "permission": "delete_public_channel",
+                "roleName": "branch_admin",
+                "permission": "delete_public_class",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "delete_public_channel",
+                "roleName": "class_user",
+                "permission": "delete_public_class",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "delete_public_channel",
+                "roleName": "class_admin",
+                "permission": "delete_public_class",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "delete_public_channel",
+                "roleName": "branch_admin",
+                "permission": "delete_public_class",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "delete_public_channel",
+                "roleName": "class_user",
+                "permission": "delete_public_class",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "delete_public_channel",
+                "roleName": "class_admin",
+                "permission": "delete_public_class",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "delete_public_channel",
+                "roleName": "branch_admin",
+                "permission": "delete_public_class",
                 "shouldHave": false
             }
         ]
     },
-    "restrictPrivateChannelManagement": {
+    "restrictPrivateClassManagement": {
         "all": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_private_channel_properties",
+                "roleName": "class_user",
+                "permission": "manage_private_class_properties",
                 "shouldHave": true
             }
         ],
-        "channel_admin": [
+        "class_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_private_channel_properties",
+                "roleName": "class_user",
+                "permission": "manage_private_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_private_channel_properties",
+                "roleName": "class_admin",
+                "permission": "manage_private_class_properties",
                 "shouldHave": true
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_private_channel_properties",
+                "roleName": "branch_admin",
+                "permission": "manage_private_class_properties",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_private_channel_properties",
+                "roleName": "class_user",
+                "permission": "manage_private_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_private_channel_properties",
+                "roleName": "class_admin",
+                "permission": "manage_private_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_private_channel_properties",
+                "roleName": "branch_admin",
+                "permission": "manage_private_class_properties",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_private_channel_properties",
+                "roleName": "class_user",
+                "permission": "manage_private_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_private_channel_properties",
+                "roleName": "class_admin",
+                "permission": "manage_private_class_properties",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_private_channel_properties",
+                "roleName": "branch_admin",
+                "permission": "manage_private_class_properties",
                 "shouldHave": false
             }
         ]
     },
-    "restrictPrivateChannelManageMembers": {
+    "restrictPrivateClassManageMembers": {
         "all": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_private_channel_members",
+                "roleName": "class_user",
+                "permission": "manage_private_class_members",
                 "shouldHave": true
             }
         ],
-        "channel_admin": [
+        "class_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_private_channel_members",
+                "roleName": "class_user",
+                "permission": "manage_private_class_members",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_private_channel_members",
+                "roleName": "class_admin",
+                "permission": "manage_private_class_members",
                 "shouldHave": true
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_private_channel_members",
+                "roleName": "branch_admin",
+                "permission": "manage_private_class_members",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_private_channel_members",
+                "roleName": "class_user",
+                "permission": "manage_private_class_members",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_private_channel_members",
+                "roleName": "class_admin",
+                "permission": "manage_private_class_members",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_private_channel_members",
+                "roleName": "branch_admin",
+                "permission": "manage_private_class_members",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "manage_private_channel_members",
+                "roleName": "class_user",
+                "permission": "manage_private_class_members",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "manage_private_channel_members",
+                "roleName": "class_admin",
+                "permission": "manage_private_class_members",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "manage_private_channel_members",
+                "roleName": "branch_admin",
+                "permission": "manage_private_class_members",
                 "shouldHave": false
             }
         ]
     },
-    "restrictPrivateChannelDeletion": {
+    "restrictPrivateClassDeletion": {
         "all": [
             {
-                "roleName": "channel_user",
-                "permission": "delete_private_channel",
+                "roleName": "class_user",
+                "permission": "delete_private_class",
                 "shouldHave": true
             }
         ],
-        "channel_admin": [
+        "class_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "delete_private_channel",
+                "roleName": "class_user",
+                "permission": "delete_private_class",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "delete_private_channel",
+                "roleName": "class_admin",
+                "permission": "delete_private_class",
                 "shouldHave": true
             },
             {
-                "roleName": "team_admin",
-                "permission": "delete_private_channel",
+                "roleName": "branch_admin",
+                "permission": "delete_private_class",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "delete_private_channel",
+                "roleName": "class_user",
+                "permission": "delete_private_class",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "delete_private_channel",
+                "roleName": "class_admin",
+                "permission": "delete_private_class",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "delete_private_channel",
+                "roleName": "branch_admin",
+                "permission": "delete_private_class",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "channel_user",
-                "permission": "delete_private_channel",
+                "roleName": "class_user",
+                "permission": "delete_private_class",
                 "shouldHave": false
             },
             {
-                "roleName": "channel_admin",
-                "permission": "delete_private_channel",
+                "roleName": "class_admin",
+                "permission": "delete_private_class",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
-                "permission": "delete_private_channel",
+                "roleName": "branch_admin",
+                "permission": "delete_private_class",
                 "shouldHave": false
             }
         ]
@@ -401,7 +401,7 @@
     "allowEditPost": {
         "always": [
             {
-                "roleName": "channel_user",
+                "roleName": "class_user",
                 "permission": "edit_post",
                 "shouldHave": true
             },
@@ -413,7 +413,7 @@
         ],
         "never": [
             {
-                "roleName": "channel_user",
+                "roleName": "class_user",
                 "permission": "edit_post",
                 "shouldHave": false
             },
@@ -427,68 +427,68 @@
     "restrictPostDelete": {
         "all": [
             {
-                "roleName": "channel_user",
+                "roleName": "class_user",
                 "permission": "delete_post",
                 "shouldHave": true
             },
             {
-                "roleName": "team_admin",
+                "roleName": "branch_admin",
                 "permission": "delete_post",
                 "shouldHave": true
             },
             {
-                "roleName": "team_admin",
+                "roleName": "branch_admin",
                 "permission": "delete_others_posts",
                 "shouldHave": true
             }
         ],
-        "team_admin": [
+        "branch_admin": [
             {
-                "roleName": "channel_user",
+                "roleName": "class_user",
                 "permission": "delete_post",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
+                "roleName": "branch_admin",
                 "permission": "delete_post",
                 "shouldHave": true
             },
             {
-                "roleName": "team_admin",
+                "roleName": "branch_admin",
                 "permission": "delete_others_posts",
                 "shouldHave": true
             }
         ],
         "system_admin": [
             {
-                "roleName": "channel_user",
+                "roleName": "class_user",
                 "permission": "delete_post",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
+                "roleName": "branch_admin",
                 "permission": "delete_post",
                 "shouldHave": false
             },
             {
-                "roleName": "team_admin",
+                "roleName": "branch_admin",
                 "permission": "delete_others_posts",
                 "shouldHave": false
             }
         ]
     },
-    "enableTeamCreation": {
+    "enableBranchCreation": {
         "true": [
             {
                 "roleName": "system_user",
-                "permission": "create_team",
+                "permission": "create_branch",
                 "shouldHave": true
             }
         ],
         "false": [
             {
                 "roleName": "system_user",
-                "permission": "create_team",
+                "permission": "create_branch",
                 "shouldHave": false
             }
         ]
@@ -496,17 +496,17 @@
     "enableOnlyAdminIntegrations": {
         "true": [
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "manage_incoming_webhooks",
                 "shouldHave": false
             },
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "manage_outgoing_webhooks",
                 "shouldHave": false
             },
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "manage_slash_commands",
                 "shouldHave": false
             },
@@ -518,17 +518,17 @@
         ],
         "false": [
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "manage_incoming_webhooks",
                 "shouldHave": true
             },
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "manage_outgoing_webhooks",
                 "shouldHave": true
             },
             {
-                "roleName": "team_user",
+                "roleName": "branch_user",
                 "permission": "manage_slash_commands",
                 "shouldHave": true
             },

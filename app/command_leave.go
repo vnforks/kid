@@ -33,26 +33,26 @@ func (me *LeaveProvider) GetCommand(a *App, T goi18n.TranslateFunc) *model.Comma
 }
 
 func (me *LeaveProvider) DoCommand(a *App, args *model.CommandArgs, message string) *model.CommandResponse {
-	var channel *model.Channel
-	var noChannelErr *model.AppError
-	if channel, noChannelErr = a.GetChannel(args.ChannelId); noChannelErr != nil {
+	var class *model.Class
+	var noClassErr *model.AppError
+	if class, noClassErr = a.GetClass(args.ClassId); noClassErr != nil {
 		return &model.CommandResponse{Text: args.T("api.command_leave.fail.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
 	}
 
-	team, err := a.GetTeam(args.TeamId)
+	branch, err := a.GetBranch(args.BranchId)
 	if err != nil {
 		return &model.CommandResponse{Text: args.T("api.command_leave.fail.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
 	}
 
-	err = a.LeaveChannel(args.ChannelId, args.UserId)
+	err = a.LeaveClass(args.ClassId, args.UserId)
 	if err != nil {
-		if channel.Name == model.DEFAULT_CHANNEL {
-			return &model.CommandResponse{Text: args.T("api.channel.leave.default.app_error", map[string]interface{}{"Channel": model.DEFAULT_CHANNEL}), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
+		if class.Name == model.DEFAULT_CLASS {
+			return &model.CommandResponse{Text: args.T("api.class.leave.default.app_error", map[string]interface{}{"Class": model.DEFAULT_CLASS}), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
 		}
 		return &model.CommandResponse{Text: args.T("api.command_leave.fail.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
 	}
 
-	member, err := a.GetTeamMember(team.Id, args.UserId)
+	member, err := a.GetBranchMember(branch.Id, args.UserId)
 	if err != nil || member.DeleteAt != 0 {
 		return &model.CommandResponse{GotoLocation: args.SiteURL + "/"}
 	}
@@ -63,16 +63,16 @@ func (me *LeaveProvider) DoCommand(a *App, args *model.CommandArgs, message stri
 	}
 
 	if user.IsGuest() {
-		members, err := a.GetChannelMembersForUser(team.Id, args.UserId)
+		members, err := a.GetClassMembersForUser(branch.Id, args.UserId)
 		if err != nil || len(*members) == 0 {
 			return &model.CommandResponse{Text: args.T("api.command_leave.fail.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
 		}
-		channel, err := a.GetChannel((*members)[0].ChannelId)
+		class, err := a.GetClass((*members)[0].ClassId)
 		if err != nil {
 			return &model.CommandResponse{Text: args.T("api.command_leave.fail.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
 		}
-		return &model.CommandResponse{GotoLocation: args.SiteURL + "/" + team.Name + "/channels/" + channel.Name}
+		return &model.CommandResponse{GotoLocation: args.SiteURL + "/" + branch.Name + "/classes/" + class.Name}
 	}
 
-	return &model.CommandResponse{GotoLocation: args.SiteURL + "/" + team.Name + "/channels/" + model.DEFAULT_CHANNEL}
+	return &model.CommandResponse{GotoLocation: args.SiteURL + "/" + branch.Name + "/classes/" + model.DEFAULT_CLASS}
 }

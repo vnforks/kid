@@ -516,7 +516,7 @@ func NodeDescription(n ast.Node) string {
 	case *ast.CaseClause:
 		return "case clause"
 	case *ast.ChanType:
-		return "channel type"
+		return "class type"
 	case *ast.CommClause:
 		return "communication clause"
 	case *ast.Comment:
@@ -602,7 +602,7 @@ func NodeDescription(n ast.Node) string {
 	case *ast.SelectorExpr:
 		return "selector"
 	case *ast.SendStmt:
-		return "channel send"
+		return "class send"
 	case *ast.SliceExpr:
 		return "slice expression"
 	case *ast.StarExpr:

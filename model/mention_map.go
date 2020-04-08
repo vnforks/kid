@@ -9,13 +9,13 @@ import (
 )
 
 type UserMentionMap map[string]string
-type ChannelMentionMap map[string]string
+type ClassMentionMap map[string]string
 
 const (
-	userMentionsKey       = "user_mentions"
-	userMentionsIdsKey    = "user_mentions_ids"
-	channelMentionsKey    = "channel_mentions"
-	channelMentionsIdsKey = "channel_mentions_ids"
+	userMentionsKey     = "user_mentions"
+	userMentionsIdsKey  = "user_mentions_ids"
+	classMentionsKey    = "class_mentions"
+	classMentionsIdsKey = "class_mentions_ids"
 )
 
 func UserMentionMapFromURLValues(values url.Values) (UserMentionMap, error) {
@@ -26,12 +26,12 @@ func (m UserMentionMap) ToURLValues() url.Values {
 	return mentionsToURLValues(m, userMentionsKey, userMentionsIdsKey)
 }
 
-func ChannelMentionMapFromURLValues(values url.Values) (ChannelMentionMap, error) {
-	return mentionsFromURLValues(values, channelMentionsKey, channelMentionsIdsKey)
+func ClassMentionMapFromURLValues(values url.Values) (ClassMentionMap, error) {
+	return mentionsFromURLValues(values, classMentionsKey, classMentionsIdsKey)
 }
 
-func (m ChannelMentionMap) ToURLValues() url.Values {
-	return mentionsToURLValues(m, channelMentionsKey, channelMentionsIdsKey)
+func (m ClassMentionMap) ToURLValues() url.Values {
+	return mentionsToURLValues(m, classMentionsKey, classMentionsIdsKey)
 }
 
 func mentionsFromURLValues(values url.Values, mentionKey, idKey string) (map[string]string, error) {

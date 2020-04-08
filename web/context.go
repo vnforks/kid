@@ -605,25 +605,3 @@ func (c *Context) RequireSyncableId() *Context {
 	}
 	return c
 }
-
-func (c *Context) RequireSyncableType() *Context {
-	if c.Err != nil {
-		return c
-	}
-
-	if c.Params.SyncableType != model.GroupSyncableTypeBranch && c.Params.SyncableType != model.GroupSyncableTypeClass {
-		c.SetInvalidUrlParam("syncable_type")
-	}
-	return c
-}
-
-func (c *Context) RequireBotUserId() *Context {
-	if c.Err != nil {
-		return c
-	}
-
-	if len(c.Params.BotUserId) != 26 {
-		c.SetInvalidUrlParam("bot_user_id")
-	}
-	return c
-}

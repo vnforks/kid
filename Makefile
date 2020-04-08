@@ -21,7 +21,7 @@ endif
 BUILD_ENTERPRISE_DIR ?= ../enterprise
 BUILD_ENTERPRISE ?= true
 BUILD_ENTERPRISE_READY = false
-BUILD_TYPE_NAME = team
+BUILD_TYPE_NAME = branch
 BUILD_HASH_ENTERPRISE = none
 LDAP_DATA ?= test
 ifneq ($(wildcard $(BUILD_ENTERPRISE_DIR)/.),)
@@ -31,11 +31,11 @@ ifneq ($(wildcard $(BUILD_ENTERPRISE_DIR)/.),)
 		BUILD_HASH_ENTERPRISE = $(shell cd $(BUILD_ENTERPRISE_DIR) && git rev-parse HEAD)
 	else
 		BUILD_ENTERPRISE_READY = false
-		BUILD_TYPE_NAME = team
+		BUILD_TYPE_NAME = branch
 	endif
 else
 	BUILD_ENTERPRISE_READY = false
-	BUILD_TYPE_NAME = team
+	BUILD_TYPE_NAME = branch
 endif
 BUILD_WEBAPP_DIR ?= ../mattermost-webapp
 BUILD_CLIENT = false
@@ -72,7 +72,7 @@ GO_VERSION_VALIDATION_ERR_MSG = Golang version is not supported, please update t
 # GOOS/GOARCH of the build host, used to determine whether we're cross-compiling or not
 BUILDER_GOOS_GOARCH="$(shell $(GO) env GOOS)_$(shell $(GO) env GOARCH)"
 
-PLATFORM_FILES="./cmd/mattermost/main.go"
+PLATFORM_FILES="./cmd/kid/main.go"
 
 # Output paths
 DIST_ROOT=dist
@@ -118,7 +118,7 @@ ALL_PACKAGES=$(TE_PACKAGES)
 endif
 
 # Decide what version of prebuilt binaries to download. This will use the release-* branch names or change to the latest.
-MMCTL_REL_TO_DOWNLOAD = $(shell scripts/get_latest_release.sh 'mattermost/mmctl' 'release-')
+MMCTL_REL_TO_DOWNLOAD = "v5.22.0"#$(shell scripts/get_latest_release.sh 'mattermost/mmctl' 'release-')
 
 all: run ## Alias for 'run'.
 
@@ -133,7 +133,7 @@ else
 	@echo Starting docker containers
 
 	docker-compose run --rm start_dependencies
-	cat tests/${LDAP_DATA}-data.ldif | docker-compose exec -T openldap bash -c 'ldapadd -x -D "cn=admin,dc=mm,dc=test,dc=com" -w mostest || true';
+	cat tests/${LDAP_DATA}-data.ldif | docker-compose exec -T openldap bash -c 'ldapadd -x -D "cn=admin,dc=mm,dc=test,dc=com" -w kidtest || true';
 endif
 
 stop-docker: ## Stops the docker containers for local development.
@@ -246,7 +246,7 @@ check-prereqs: ## Checks prerequisite software status.
 
 check-style: golangci-lint plugin-checker vet ## Runs golangci against all packages
 
-test-te-race: ## Checks for race conditions in the team edition.
+test-te-race: ## Checks for race conditions in the branch edition.
 	@echo Testing TE race conditions
 
 	@echo "Packages to test: "$(TE_PACKAGES)
@@ -344,7 +344,7 @@ cover: ## Runs the golang coverage tool. You must run the unit tests first.
 	$(GO) tool cover -html=ecover.out
 
 test-data: start-docker ## Add test data to the local instance.
-	$(GO) run $(GOFLAGS) -ldflags '$(LDFLAGS)' $(PLATFORM_FILES) config set TeamSettings.MaxUsersPerTeam 100
+	$(GO) run $(GOFLAGS) -ldflags '$(LDFLAGS)' $(PLATFORM_FILES) config set BranchSettings.MaxUsersPerBranch 100
 	$(GO) run $(GOFLAGS) -ldflags '$(LDFLAGS)' $(PLATFORM_FILES) sampledata -w 4 -u 60
 
 	@echo You may need to restart the Mattermost server before using the following
@@ -450,7 +450,7 @@ config-ldap: ## Configures LDAP.
 	@sed -i'' -e 's|"LdapServer": ".*"|"LdapServer": "localhost"|g' config/config.json
 	@sed -i'' -e 's|"BaseDN": ".*"|"BaseDN": "dc=mm,dc=test,dc=com"|g' config/config.json
 	@sed -i'' -e 's|"BindUsername": ".*"|"BindUsername": "cn=admin,dc=mm,dc=test,dc=com"|g' config/config.json
-	@sed -i'' -e 's|"BindPassword": ".*"|"BindPassword": "mostest"|g' config/config.json
+	@sed -i'' -e 's|"BindPassword": ".*"|"BindPassword": "kidtest"|g' config/config.json
 	@sed -i'' -e 's|"FirstNameAttribute": ".*"|"FirstNameAttribute": "cn"|g' config/config.json
 	@sed -i'' -e 's|"LastNameAttribute": ".*"|"LastNameAttribute": "sn"|g' config/config.json
 	@sed -i'' -e 's|"NicknameAttribute": ".*"|"NicknameAttribute": "cn"|g' config/config.json
@@ -491,7 +491,7 @@ clean: stop-docker ## Clean up everything except persistant server data.
 	rm -f *.test
 	rm -f imports/imports.go
 	rm -f cmd/platform/cprofile*.out
-	rm -f cmd/mattermost/cprofile*.out
+	rm -f cmd/kid/cprofile*.out
 
 nuke: clean clean-docker ## Clean plus removes persistent server data.
 	@echo BOOM

@@ -9,21 +9,21 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/vnforks/kid/v5/model"
 	"github.com/pkg/errors"
+	"github.com/vnforks/kid/v5/model"
 )
 
 const permissionsExportBatchSize = 100
 const systemSchemeName = "00000000-0000-0000-0000-000000000000" // Prevents collisions with user-created schemes.
 
 func (a *App) ResetPermissionsSystem() *model.AppError {
-	// Reset all Teams to not have a scheme.
-	if err := a.Srv().Store.Team().ResetAllTeamSchemes(); err != nil {
+	// Reset all Branches to not have a scheme.
+	if err := a.Srv().Store.Branch().ResetAllBranchSchemes(); err != nil {
 		return err
 	}
 
-	// Reset all Channels to not have a scheme.
-	if err := a.Srv().Store.Channel().ResetAllChannelSchemes(); err != nil {
+	// Reset all Classes to not have a scheme.
+	if err := a.Srv().Store.Class().ResetAllClassSchemes(); err != nil {
 		return err
 	}
 
@@ -32,13 +32,13 @@ func (a *App) ResetPermissionsSystem() *model.AppError {
 		return err
 	}
 
-	// Reset all Custom Role assignments to TeamMembers.
-	if err := a.Srv().Store.Team().ClearAllCustomRoleAssignments(); err != nil {
+	// Reset all Custom Role assignments to BranchMembers.
+	if err := a.Srv().Store.Branch().ClearAllCustomRoleAssignments(); err != nil {
 		return err
 	}
 
-	// Reset all Custom Role assignments to ChannelMembers.
-	if err := a.Srv().Store.Channel().ClearAllCustomRoleAssignments(); err != nil {
+	// Reset all Custom Role assignments to ClassMembers.
+	if err := a.Srv().Store.Class().ClearAllCustomRoleAssignments(); err != nil {
 		return err
 	}
 
@@ -73,12 +73,10 @@ func (a *App) ExportPermissions(w io.Writer) error {
 		for _, scheme := range schemeBatch {
 
 			roleNames := []string{
-				scheme.DefaultTeamAdminRole,
-				scheme.DefaultTeamUserRole,
-				scheme.DefaultTeamGuestRole,
-				scheme.DefaultChannelAdminRole,
-				scheme.DefaultChannelUserRole,
-				scheme.DefaultChannelGuestRole,
+				scheme.DefaultBranchAdminRole,
+				scheme.DefaultBranchUserRole,
+				scheme.DefaultClassAdminRole,
+				scheme.DefaultClassUserRole,
 			}
 
 			roles := []*model.Role{}
@@ -94,17 +92,15 @@ func (a *App) ExportPermissions(w io.Writer) error {
 			}
 
 			schemeExport, err := json.Marshal(&model.SchemeConveyor{
-				Name:         scheme.Name,
-				DisplayName:  scheme.DisplayName,
-				Description:  scheme.Description,
-				Scope:        scheme.Scope,
-				TeamAdmin:    scheme.DefaultTeamAdminRole,
-				TeamUser:     scheme.DefaultTeamUserRole,
-				TeamGuest:    scheme.DefaultTeamGuestRole,
-				ChannelAdmin: scheme.DefaultChannelAdminRole,
-				ChannelUser:  scheme.DefaultChannelUserRole,
-				ChannelGuest: scheme.DefaultChannelGuestRole,
-				Roles:        roles,
+				Name:        scheme.Name,
+				DisplayName: scheme.DisplayName,
+				Description: scheme.Description,
+				Scope:       scheme.Scope,
+				BranchAdmin: scheme.DefaultBranchAdminRole,
+				BranchUser:  scheme.DefaultBranchUserRole,
+				ClassAdmin:  scheme.DefaultClassAdminRole,
+				ClassUser:   scheme.DefaultClassUserRole,
+				Roles:       roles,
 			})
 			if err != nil {
 				return err
@@ -186,12 +182,10 @@ func (a *App) ImportPermissions(jsonl io.Reader) error {
 
 		schemeIn := schemeConveyor.Scheme()
 		roleNameTuples := [][]string{
-			{schemeCreated.DefaultTeamAdminRole, schemeIn.DefaultTeamAdminRole},
-			{schemeCreated.DefaultTeamUserRole, schemeIn.DefaultTeamUserRole},
-			{schemeCreated.DefaultTeamGuestRole, schemeIn.DefaultTeamGuestRole},
-			{schemeCreated.DefaultChannelAdminRole, schemeIn.DefaultChannelAdminRole},
-			{schemeCreated.DefaultChannelUserRole, schemeIn.DefaultChannelUserRole},
-			{schemeCreated.DefaultChannelGuestRole, schemeIn.DefaultChannelGuestRole},
+			{schemeCreated.DefaultBranchAdminRole, schemeIn.DefaultBranchAdminRole},
+			{schemeCreated.DefaultBranchUserRole, schemeIn.DefaultBranchUserRole},
+			{schemeCreated.DefaultClassAdminRole, schemeIn.DefaultClassAdminRole},
+			{schemeCreated.DefaultClassUserRole, schemeIn.DefaultClassUserRole},
 		}
 		for _, roleNameTuple := range roleNameTuples {
 			if len(roleNameTuple[0]) == 0 || len(roleNameTuple[1]) == 0 {

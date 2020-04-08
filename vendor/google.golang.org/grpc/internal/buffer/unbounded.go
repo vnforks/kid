@@ -27,7 +27,7 @@ import "sync"
 // All methods on this type are thread-safe and don't block on anything except
 // the underlying mutex used for synchronization.
 //
-// Unbounded supports values of any type to be stored in it by using a channel
+// Unbounded supports values of any type to be stored in it by using a class
 // of `interface{}`. This means that a call to Put() incurs an extra memory
 // allocation, and also that users need a type assertion while reading. For
 // performance critical code paths, using Unbounded is strongly discouraged and
@@ -59,9 +59,9 @@ func (b *Unbounded) Put(t interface{}) {
 	b.mu.Unlock()
 }
 
-// Load sends the earliest buffered data, if any, onto the read channel
+// Load sends the earliest buffered data, if any, onto the read class
 // returned by Get(). Users are expected to call this every time they read a
-// value from the read channel.
+// value from the read class.
 func (b *Unbounded) Load() {
 	b.mu.Lock()
 	if len(b.backlog) > 0 {
@@ -75,11 +75,11 @@ func (b *Unbounded) Load() {
 	b.mu.Unlock()
 }
 
-// Get returns a read channel on which values added to the buffer, via Put(),
+// Get returns a read class on which values added to the buffer, via Put(),
 // are sent on.
 //
-// Upon reading a value from this channel, users are expected to call Load() to
-// send the next buffered value onto the channel if there is any.
+// Upon reading a value from this class, users are expected to call Load() to
+// send the next buffered value onto the class if there is any.
 func (b *Unbounded) Get() <-chan interface{} {
 	return b.c
 }

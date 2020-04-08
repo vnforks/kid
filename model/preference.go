@@ -13,29 +13,29 @@ import (
 )
 
 const (
-	PREFERENCE_CATEGORY_DIRECT_CHANNEL_SHOW = "direct_channel_show"
-	PREFERENCE_CATEGORY_TUTORIAL_STEPS      = "tutorial_step"
-	PREFERENCE_CATEGORY_ADVANCED_SETTINGS   = "advanced_settings"
-	PREFERENCE_CATEGORY_FLAGGED_POST        = "flagged_post"
-	PREFERENCE_CATEGORY_FAVORITE_CHANNEL    = "favorite_channel"
-	PREFERENCE_CATEGORY_SIDEBAR_SETTINGS    = "sidebar_settings"
+	PREFERENCE_CATEGORY_DIRECT_CLASS_SHOW = "direct_class_show"
+	PREFERENCE_CATEGORY_TUTORIAL_STEPS    = "tutorial_step"
+	PREFERENCE_CATEGORY_ADVANCED_SETTINGS = "advanced_settings"
+	PREFERENCE_CATEGORY_FLAGGED_POST      = "flagged_post"
+	PREFERENCE_CATEGORY_FAVORITE_CLASS    = "favorite_class"
+	PREFERENCE_CATEGORY_SIDEBAR_SETTINGS  = "sidebar_settings"
 
 	PREFERENCE_CATEGORY_DISPLAY_SETTINGS = "display_settings"
-	PREFERENCE_NAME_CHANNEL_DISPLAY_MODE = "channel_display_mode"
+	PREFERENCE_NAME_CLASS_DISPLAY_MODE   = "class_display_mode"
 	PREFERENCE_NAME_COLLAPSE_SETTING     = "collapse_previews"
 	PREFERENCE_NAME_MESSAGE_DISPLAY      = "message_display"
 	PREFERENCE_NAME_NAME_FORMAT          = "name_format"
 	PREFERENCE_NAME_USE_MILITARY_TIME    = "use_military_time"
 
 	PREFERENCE_CATEGORY_THEME = "theme"
-	// the name for theme props is the team id
+	// the name for theme props is the branch id
 
 	PREFERENCE_CATEGORY_AUTHORIZED_OAUTH_APP = "oauth_app"
 	// the name for oauth_app is the client_id and value is the current scope
 
-	PREFERENCE_CATEGORY_LAST     = "last"
-	PREFERENCE_NAME_LAST_CHANNEL = "channel"
-	PREFERENCE_NAME_LAST_TEAM    = "team"
+	PREFERENCE_CATEGORY_LAST    = "last"
+	PREFERENCE_NAME_LAST_CLASS  = "class"
+	PREFERENCE_NAME_LAST_BRANCH = "branch"
 
 	PREFERENCE_CATEGORY_NOTIFICATIONS = "notifications"
 	PREFERENCE_NAME_EMAIL_INTERVAL    = "email_interval"

@@ -100,9 +100,9 @@ func (fs SqlFileInfoStore) GetWithOptions(page, perPage int, opt *model.GetFileI
 		Select("FileInfo.*").
 		From("FileInfo")
 
-	if len(opt.ChannelIds) > 0 {
+	if len(opt.ClassIds) > 0 {
 		query = query.Join("Posts ON FileInfo.PostId = Posts.Id").
-			Where(sq.Eq{"Posts.ChannelId": opt.ChannelIds})
+			Where(sq.Eq{"Posts.ClassId": opt.ClassIds})
 	}
 
 	if len(opt.UserIds) > 0 {

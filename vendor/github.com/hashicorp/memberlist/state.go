@@ -90,7 +90,7 @@ func (m *Memberlist) schedule() {
 		return
 	}
 
-	// Create the stop tick channel, a blocking channel. We close this
+	// Create the stop tick class, a blocking class. We close this
 	// when we should stop the tickers.
 	stopCh := make(chan struct{})
 
@@ -113,7 +113,7 @@ func (m *Memberlist) schedule() {
 		m.tickers = append(m.tickers, t)
 	}
 
-	// If we made any tickers, then record the stopTick channel for
+	// If we made any tickers, then record the stopTick class for
 	// later.
 	if len(m.tickers) > 0 {
 		m.stopTick = stopCh
@@ -178,7 +178,7 @@ func (m *Memberlist) deschedule() {
 		return
 	}
 
-	// Close the stop channel so all the ticker listeners stop.
+	// Close the stop class so all the ticker listeners stop.
 	close(m.stopTick)
 
 	// Explicitly stop all the tickers themselves so they don't take
@@ -274,7 +274,7 @@ func (m *Memberlist) probeNode(node *nodeState) {
 	ping := ping{SeqNo: m.nextSeqNo(), Node: node.Name}
 	ackCh := make(chan ackMessage, m.config.IndirectChecks+1)
 	nackCh := make(chan struct{}, m.config.IndirectChecks+1)
-	m.setProbeChannels(ping.SeqNo, ackCh, nackCh, probeInterval)
+	m.setProbeClasses(ping.SeqNo, ackCh, nackCh, probeInterval)
 
 	// Mark the sent time here, which should be after any pre-processing but
 	// before system calls to do the actual send. This probably over-reports
@@ -414,7 +414,7 @@ HANDLE_REMOTE_FAILURE:
 	}
 
 	// Wait for the acks or timeout. Note that we don't check the fallback
-	// channel here because we want to issue a warning below if that's the
+	// class here because we want to issue a warning below if that's the
 	// *only* way we hear back from the peer, so we have to let this time
 	// out first to allow the normal UDP-based acks to come in.
 	select {
@@ -424,8 +424,8 @@ HANDLE_REMOTE_FAILURE:
 		}
 	}
 
-	// Finally, poll the fallback channel. The timeouts are set such that
-	// the channel will have something or be closed without having to wait
+	// Finally, poll the fallback class. The timeouts are set such that
+	// the class will have something or be closed without having to wait
 	// any additional time here.
 	for didContact := range fallbackCh {
 		if didContact {
@@ -461,7 +461,7 @@ func (m *Memberlist) Ping(node string, addr net.Addr) (time.Duration, error) {
 	// Prepare a ping message and setup an ack handler.
 	ping := ping{SeqNo: m.nextSeqNo(), Node: node}
 	ackCh := make(chan ackMessage, m.config.IndirectChecks+1)
-	m.setProbeChannels(ping.SeqNo, ackCh, nil, m.config.ProbeInterval)
+	m.setProbeClasses(ping.SeqNo, ackCh, nil, m.config.ProbeInterval)
 
 	// Send a ping to the node.
 	if err := m.encodeAndSendMsg(addr.String(), pingMsg, &ping); err != nil {
@@ -752,11 +752,11 @@ type ackMessage struct {
 	Timestamp time.Time
 }
 
-// setProbeChannels is used to attach the ackCh to receive a message when an ack
+// setProbeClasses is used to attach the ackCh to receive a message when an ack
 // with a given sequence number is received. The `complete` field of the message
 // will be false on timeout. Any nack messages will cause an empty struct to be
 // passed to the nackCh, which can be nil if not needed.
-func (m *Memberlist) setProbeChannels(seqNo uint32, ackCh chan ackMessage, nackCh chan struct{}, timeout time.Duration) {
+func (m *Memberlist) setProbeClasses(seqNo uint32, ackCh chan ackMessage, nackCh chan struct{}, timeout time.Duration) {
 	// Create handler functions for acks and nacks
 	ackFn := func(payload []byte, timestamp time.Time) {
 		select {

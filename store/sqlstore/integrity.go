@@ -73,55 +73,55 @@ func checkParentChildIntegrity(ss *SqlSupplier, config relationalCheckConfig) st
 	return result
 }
 
-func checkChannelsCommandWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkClassesCommandWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Channels",
-		parentIdAttr: "ChannelId",
+		parentName:   "Classes",
+		parentIdAttr: "ClassId",
 		childName:    "CommandWebhooks",
 		childIdAttr:  "Id",
 	})
 }
 
-func checkChannelsChannelMemberHistoryIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkClassesClassMemberHistoryIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Channels",
-		parentIdAttr: "ChannelId",
-		childName:    "ChannelMemberHistory",
+		parentName:   "Classes",
+		parentIdAttr: "ClassId",
+		childName:    "ClassMemberHistory",
 		childIdAttr:  "",
 	})
 }
 
-func checkChannelsChannelMembersIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkClassesClassMembersIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Channels",
-		parentIdAttr: "ChannelId",
-		childName:    "ChannelMembers",
+		parentName:   "Classes",
+		parentIdAttr: "ClassId",
+		childName:    "ClassMembers",
 		childIdAttr:  "",
 	})
 }
 
-func checkChannelsIncomingWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkClassesIncomingWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Channels",
-		parentIdAttr: "ChannelId",
+		parentName:   "Classes",
+		parentIdAttr: "ClassId",
 		childName:    "IncomingWebhooks",
 		childIdAttr:  "Id",
 	})
 }
 
-func checkChannelsOutgoingWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkClassesOutgoingWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Channels",
-		parentIdAttr: "ChannelId",
+		parentName:   "Classes",
+		parentIdAttr: "ClassId",
 		childName:    "OutgoingWebhooks",
 		childIdAttr:  "Id",
 	})
 }
 
-func checkChannelsPostsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkClassesPostsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Channels",
-		parentIdAttr: "ChannelId",
+		parentName:   "Classes",
+		parentIdAttr: "ClassId",
 		childName:    "Posts",
 		childIdAttr:  "Id",
 	})
@@ -174,21 +174,21 @@ func checkPostsReactionsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	})
 }
 
-func checkSchemesChannelsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkSchemesClassesIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
 		parentName:         "Schemes",
 		parentIdAttr:       "SchemeId",
-		childName:          "Channels",
+		childName:          "Classes",
 		childIdAttr:        "Id",
 		canParentIdBeEmpty: true,
 	})
 }
 
-func checkSchemesTeamsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkSchemesBranchesIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
 		parentName:         "Schemes",
 		parentIdAttr:       "SchemeId",
-		childName:          "Teams",
+		childName:          "Branches",
 		childIdAttr:        "Id",
 		canParentIdBeEmpty: true,
 	})
@@ -204,47 +204,47 @@ func checkSessionsAuditsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	})
 }
 
-func checkTeamsChannelsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkBranchesClassesIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Teams",
-		parentIdAttr: "TeamId",
-		childName:    "Channels",
+		parentName:   "Branches",
+		parentIdAttr: "BranchId",
+		childName:    "Classes",
 		childIdAttr:  "Id",
 	})
 }
 
-func checkTeamsCommandsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkBranchesCommandsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Teams",
-		parentIdAttr: "TeamId",
+		parentName:   "Branches",
+		parentIdAttr: "BranchId",
 		childName:    "Commands",
 		childIdAttr:  "Id",
 	})
 }
 
-func checkTeamsIncomingWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkBranchesIncomingWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Teams",
-		parentIdAttr: "TeamId",
+		parentName:   "Branches",
+		parentIdAttr: "BranchId",
 		childName:    "IncomingWebhooks",
 		childIdAttr:  "Id",
 	})
 }
 
-func checkTeamsOutgoingWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkBranchesOutgoingWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Teams",
-		parentIdAttr: "TeamId",
+		parentName:   "Branches",
+		parentIdAttr: "BranchId",
 		childName:    "OutgoingWebhooks",
 		childIdAttr:  "Id",
 	})
 }
 
-func checkTeamsTeamMembersIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkBranchesBranchMembersIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
-		parentName:   "Teams",
-		parentIdAttr: "TeamId",
-		childName:    "TeamMembers",
+		parentName:   "Branches",
+		parentIdAttr: "BranchId",
+		childName:    "BranchMembers",
 		childIdAttr:  "",
 	})
 }
@@ -268,29 +268,29 @@ func checkUsersCommandWebhooksIntegrity(ss *SqlSupplier) store.IntegrityCheckRes
 	})
 }
 
-func checkUsersChannelMemberHistoryIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkUsersClassMemberHistoryIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
 		parentName:   "Users",
 		parentIdAttr: "UserId",
-		childName:    "ChannelMemberHistory",
+		childName:    "ClassMemberHistory",
 		childIdAttr:  "",
 	})
 }
 
-func checkUsersChannelMembersIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkUsersClassMembersIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
 		parentName:   "Users",
 		parentIdAttr: "UserId",
-		childName:    "ChannelMembers",
+		childName:    "ClassMembers",
 		childIdAttr:  "",
 	})
 }
 
-func checkUsersChannelsIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkUsersClassesIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
 		parentName:         "Users",
 		parentIdAttr:       "CreatorId",
-		childName:          "Channels",
+		childName:          "Classes",
 		childIdAttr:        "Id",
 		canParentIdBeEmpty: true,
 	})
@@ -422,11 +422,11 @@ func checkUsersStatusIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	})
 }
 
-func checkUsersTeamMembersIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
+func checkUsersBranchMembersIntegrity(ss *SqlSupplier) store.IntegrityCheckResult {
 	return checkParentChildIntegrity(ss, relationalCheckConfig{
 		parentName:   "Users",
 		parentIdAttr: "UserId",
-		childName:    "TeamMembers",
+		childName:    "BranchMembers",
 		childIdAttr:  "",
 	})
 }
@@ -440,13 +440,13 @@ func checkUsersUserAccessTokensIntegrity(ss *SqlSupplier) store.IntegrityCheckRe
 	})
 }
 
-func checkChannelsIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
-	results <- checkChannelsCommandWebhooksIntegrity(ss)
-	results <- checkChannelsChannelMemberHistoryIntegrity(ss)
-	results <- checkChannelsChannelMembersIntegrity(ss)
-	results <- checkChannelsIncomingWebhooksIntegrity(ss)
-	results <- checkChannelsOutgoingWebhooksIntegrity(ss)
-	results <- checkChannelsPostsIntegrity(ss)
+func checkClassesIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
+	results <- checkClassesCommandWebhooksIntegrity(ss)
+	results <- checkClassesClassMemberHistoryIntegrity(ss)
+	results <- checkClassesClassMembersIntegrity(ss)
+	results <- checkClassesIncomingWebhooksIntegrity(ss)
+	results <- checkClassesOutgoingWebhooksIntegrity(ss)
+	results <- checkClassesPostsIntegrity(ss)
 }
 
 func checkCommandsIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
@@ -461,28 +461,28 @@ func checkPostsIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckRes
 }
 
 func checkSchemesIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
-	results <- checkSchemesChannelsIntegrity(ss)
-	results <- checkSchemesTeamsIntegrity(ss)
+	results <- checkSchemesClassesIntegrity(ss)
+	results <- checkSchemesBranchesIntegrity(ss)
 }
 
 func checkSessionsIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
 	results <- checkSessionsAuditsIntegrity(ss)
 }
 
-func checkTeamsIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
-	results <- checkTeamsChannelsIntegrity(ss)
-	results <- checkTeamsCommandsIntegrity(ss)
-	results <- checkTeamsIncomingWebhooksIntegrity(ss)
-	results <- checkTeamsOutgoingWebhooksIntegrity(ss)
-	results <- checkTeamsTeamMembersIntegrity(ss)
+func checkBranchesIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
+	results <- checkBranchesClassesIntegrity(ss)
+	results <- checkBranchesCommandsIntegrity(ss)
+	results <- checkBranchesIncomingWebhooksIntegrity(ss)
+	results <- checkBranchesOutgoingWebhooksIntegrity(ss)
+	results <- checkBranchesBranchMembersIntegrity(ss)
 }
 
 func checkUsersIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
 	results <- checkUsersAuditsIntegrity(ss)
 	results <- checkUsersCommandWebhooksIntegrity(ss)
-	results <- checkUsersChannelMemberHistoryIntegrity(ss)
-	results <- checkUsersChannelMembersIntegrity(ss)
-	results <- checkUsersChannelsIntegrity(ss)
+	results <- checkUsersClassMemberHistoryIntegrity(ss)
+	results <- checkUsersClassMembersIntegrity(ss)
+	results <- checkUsersClassesIntegrity(ss)
 	results <- checkUsersCommandsIntegrity(ss)
 	results <- checkUsersCompliancesIntegrity(ss)
 	results <- checkUsersEmojiIntegrity(ss)
@@ -497,18 +497,18 @@ func checkUsersIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckRes
 	results <- checkUsersReactionsIntegrity(ss)
 	results <- checkUsersSessionsIntegrity(ss)
 	results <- checkUsersStatusIntegrity(ss)
-	results <- checkUsersTeamMembersIntegrity(ss)
+	results <- checkUsersBranchMembersIntegrity(ss)
 	results <- checkUsersUserAccessTokensIntegrity(ss)
 }
 
 func CheckRelationalIntegrity(ss *SqlSupplier, results chan<- store.IntegrityCheckResult) {
 	mlog.Info("Starting relational integrity checks...")
-	checkChannelsIntegrity(ss, results)
+	checkClassesIntegrity(ss, results)
 	checkCommandsIntegrity(ss, results)
 	checkPostsIntegrity(ss, results)
 	checkSchemesIntegrity(ss, results)
 	checkSessionsIntegrity(ss, results)
-	checkTeamsIntegrity(ss, results)
+	checkBranchesIntegrity(ss, results)
 	checkUsersIntegrity(ss, results)
 	mlog.Info("Done with relational integrity checks")
 	close(results)

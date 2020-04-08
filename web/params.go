@@ -22,57 +22,57 @@ const (
 )
 
 type Params struct {
-	UserId                 string
-	BranchId               string
-	InviteId               string
-	TokenId                string
-	ChannelId              string
-	PostId                 string
-	FileId                 string
-	Filename               string
-	PluginId               string
-	CommandId              string
-	HookId                 string
-	ReportId               string
-	EmojiId                string
-	AppId                  string
-	Email                  string
-	Username               string
-	BranchName             string
-	ChannelName            string
-	PreferenceName         string
-	EmojiName              string
-	Category               string
-	Service                string
-	JobId                  string
-	JobType                string
-	ActionId               string
-	RoleId                 string
-	RoleName               string
-	SchemeId               string
-	Scope                  string
-	GroupId                string
-	Page                   int
-	PerPage                int
-	LogsPerPage            int
-	Permanent              bool
-	RemoteId               string
-	SyncableId             string
-	BotUserId              string
-	Q                      string
-	IsLinked               *bool
-	IsConfigured           *bool
-	NotAssociatedToBranch  string
-	NotAssociatedToChannel string
-	Paginate               *bool
-	IncludeMemberCount     bool
-	NotAssociatedToGroup   string
-	ExcludeDefaultChannels bool
-	LimitAfter             int
-	LimitBefore            int
-	GroupIDs               string
-	IncludeTotalCount      bool
-	IncludeDeleted         bool
+	UserId                string
+	BranchId              string
+	InviteId              string
+	TokenId               string
+	ClassId               string
+	PostId                string
+	FileId                string
+	Filename              string
+	PluginId              string
+	CommandId             string
+	HookId                string
+	ReportId              string
+	EmojiId               string
+	AppId                 string
+	Email                 string
+	Username              string
+	BranchName            string
+	ClassName             string
+	PreferenceName        string
+	EmojiName             string
+	Category              string
+	Service               string
+	JobId                 string
+	JobType               string
+	ActionId              string
+	RoleId                string
+	RoleName              string
+	SchemeId              string
+	Scope                 string
+	GroupId               string
+	Page                  int
+	PerPage               int
+	LogsPerPage           int
+	Permanent             bool
+	RemoteId              string
+	SyncableId            string
+	BotUserId             string
+	Q                     string
+	IsLinked              *bool
+	IsConfigured          *bool
+	NotAssociatedToBranch string
+	NotAssociatedToClass  string
+	Paginate              *bool
+	IncludeMemberCount    bool
+	NotAssociatedToGroup  string
+	ExcludeDefaultClasses bool
+	LimitAfter            int
+	LimitBefore           int
+	GroupIDs              string
+	IncludeTotalCount     bool
+	IncludeDeleted        bool
 }
 
 func ParamsFromRequest(r *http.Request) *Params {
@@ -97,10 +97,10 @@ func ParamsFromRequest(r *http.Request) *Params {
 		params.TokenId = val
 	}
 
-	if val, ok := props["channel_id"]; ok {
-		params.ChannelId = val
+	if val, ok := props["class_id"]; ok {
+		params.ClassId = val
 	} else {
-		params.ChannelId = query.Get("channel_id")
+		params.ClassId = query.Get("class_id")
 	}
 
 	if val, ok := props["post_id"]; ok {
@@ -149,8 +149,8 @@ func ParamsFromRequest(r *http.Request) *Params {
 		params.BranchName = strings.ToLower(val)
 	}
 
-	if val, ok := props["channel_name"]; ok {
-		params.ChannelName = strings.ToLower(val)
+	if val, ok := props["class_name"]; ok {
+		params.ClassName = strings.ToLower(val)
 	}
 
 	if val, ok := props["category"]; ok {
@@ -264,7 +264,7 @@ func ParamsFromRequest(r *http.Request) *Params {
 	}
 
 	params.NotAssociatedToBranch = query.Get("not_associated_to_branch")
-	params.NotAssociatedToChannel = query.Get("not_associated_to_channel")
+	params.NotAssociatedToClass = query.Get("not_associated_to_class")
 
 	if val, err := strconv.ParseBool(query.Get("paginate")); err == nil {
 		params.Paginate = &val
@@ -276,8 +276,8 @@ func ParamsFromRequest(r *http.Request) *Params {
 
 	params.NotAssociatedToGroup = query.Get("not_associated_to_group")
 
-	if val, err := strconv.ParseBool(query.Get("exclude_default_channels")); err == nil {
-		params.ExcludeDefaultChannels = val
+	if val, err := strconv.ParseBool(query.Get("exclude_default_classes")); err == nil {
+		params.ExcludeDefaultClasses = val
 	}
 
 	params.GroupIDs = query.Get("group_ids")

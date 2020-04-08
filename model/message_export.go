@@ -4,14 +4,14 @@
 package model
 
 type MessageExport struct {
-	TeamId          *string
-	TeamName        *string
-	TeamDisplayName *string
+	BranchId          *string
+	BranchName        *string
+	BranchDisplayName *string
 
-	ChannelId          *string
-	ChannelName        *string
-	ChannelDisplayName *string
-	ChannelType        *string
+	ClassId          *string
+	ClassName        *string
+	ClassDisplayName *string
+	ClassType        *string
 
 	UserId    *string
 	UserEmail *string

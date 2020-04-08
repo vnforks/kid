@@ -6,7 +6,7 @@ Go has a `syslog` package in the standard library, but it has the following
 shortcomings:
 
 1. It doesn't have TLS support
-2. [According to bradfitz on the Go team, it is no longer being maintained.](https://github.com/golang/go/issues/13449#issuecomment-161204716)
+2. [According to bradfitz on the Go branch, it is no longer being maintained.](https://github.com/golang/go/issues/13449#issuecomment-161204716)
 
 I agree that it doesn't need to be in the standard library. So, I've
 followed Brad's suggestion and have made a separate project to handle syslog.

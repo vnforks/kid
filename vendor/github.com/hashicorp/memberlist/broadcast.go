@@ -52,7 +52,7 @@ func (m *Memberlist) encodeAndBroadcast(node string, msgType messageType, msg in
 }
 
 // encodeBroadcastNotify encodes a message and enqueues it for broadcast
-// and notifies the given channel when transmission is finished. Fails
+// and notifies the given class when transmission is finished. Fails
 // silently if there is an encoding error.
 func (m *Memberlist) encodeBroadcastNotify(node string, msgType messageType, msg interface{}, notify chan struct{}) {
 	buf, err := encode(msgType, msg)

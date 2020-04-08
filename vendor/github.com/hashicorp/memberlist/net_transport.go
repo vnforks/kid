@@ -218,7 +218,7 @@ func (t *NetTransport) Shutdown() error {
 }
 
 // tcpListen is a long running goroutine that accepts incoming TCP connections
-// and hands them off to the stream channel.
+// and hands them off to the stream class.
 func (t *NetTransport) tcpListen(tcpLn *net.TCPListener) {
 	defer t.wg.Done()
 
@@ -260,7 +260,7 @@ func (t *NetTransport) tcpListen(tcpLn *net.TCPListener) {
 }
 
 // udpListen is a long running goroutine that accepts incoming UDP packets and
-// hands them off to the packet channel.
+// hands them off to the packet class.
 func (t *NetTransport) udpListen(udpLn *net.UDPConn) {
 	defer t.wg.Done()
 	for {

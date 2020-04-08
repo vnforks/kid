@@ -45,7 +45,7 @@ const text = "9guacuiababia-goracleaningroks-theatree12hpalermomahachijoinvill" 
 	"subatamibugattiffanynysadoes-itvedestrandrivefsnillfjordrobaknol" +
 	"uoktachikawakembuchikumagayagawakkanaibetsubamericanfamilydsclou" +
 	"deitychyattorneyagawafflecellclaimsaludrudupontariodejaneirodoyb" +
-	"otanicalgardenishiizunazukindustriesteamfamberkeleybotanicgarden" +
+	"otanicalgardenishiizunazukindustriesbranchfamberkeleybotanicgarden" +
 	"ishikatakazakinfinitintuitjxfinitybotanybouncemerckmsdnipropetro" +
 	"vskjervoyagebounty-fullensakerrypropertiesalvadordalibabalestran" +
 	"dabergamo-siemensncfdurbanamexnethnologyboutiquebecheltenham-rad" +
@@ -80,7 +80,7 @@ const text = "9guacuiababia-goracleaningroks-theatree12hpalermomahachijoinvill" 
 	"aricoharuovatranoyconsultanthropologyconsultingrossetouchihayaak" +
 	"asakawaharacontactransportecontagematsubaracontemporaryarteducat" +
 	"ionalchikugodontexistmein-iservebeercontractorskenconventureshin" +
-	"odebalancertificationcookingchannelsdvrdnsfor-better-thanawatcha" +
+	"odebalancertificationcookingclassesdvrdnsfor-better-thanawatcha" +
 	"ndclockashiwaracooluroycooperativano-frankivskolegallocus-3copen" +
 	"hagencyclopedichiryukyuragifuchungbukharanzanishinoomotegocorsic" +
 	"afederationcorvettemasekashiwazakiyosatokamachintaifun-dnsdojols" +
@@ -425,7 +425,7 @@ const text = "9guacuiababia-goracleaningroks-theatree12hpalermomahachijoinvill" 
 	"nziskanerimaringatlantakahashimamakiryuohdattowebcampinashikimin" +
 	"ohostre-totendofinternet-dnsaliasiaxn--mgbt3dhdxn--mgbtf8flatang" +
 	"erxn--mgbtx2beskidyn-ip24xn--mgbx4cd0abbvieeexn--mix082fedorapro" +
-	"jectravelchannelxn--mix891feiraquarelleaseeklogesauheradynserveb" +
+	"jectravelclassxn--mix891feiraquarelleaseeklogesauheradynserveb" +
 	"bsasebofageorgeorgiaxn--mjndalen-64axn--mk0axin-dslgbtunkomorots" +
 	"ukaminoyamaxunjargaxn--mk1bu44cngrondarxn--mkru45is-very-badajoz" +
 	"xn--mlatvuopmi-s4axn--mli-tlapyxn--mlselv-iuaxn--moreke-juaxn--m" +
@@ -470,7 +470,7 @@ const text = "9guacuiababia-goracleaningroks-theatree12hpalermomahachijoinvill" 
 	"uklugsmilebtimnetzjampagefrontappanasonicateringebuildingleezexn" +
 	"--stre-toten-zcbievathletajimabaridagawakuyabukijobserverrankosh" +
 	"igayachimataijincheonhlfanhs3-website-eu-west-1xn--t60b56axn--tc" +
-	"kweatherchannelxn--tiq49xqyjetztrentino-sudtirolxn--tjme-hraxn--" +
+	"kweatherclassxn--tiq49xqyjetztrentino-sudtirolxn--tjme-hraxn--" +
 	"tn0agrinetbankosakaerodromegallupinbarreauctionredumbrella-spezi" +
 	"australiaisondriobranconagawalbrzycharitysfjordds3-eu-central-1x" +
 	"n--tnsberg-q1axn--tor131oxn--trany-yuaxn--trentin-sd-tirol-rzbif" +

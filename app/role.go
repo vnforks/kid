@@ -26,7 +26,7 @@ func (a *App) GetRoleByName(name string) (*model.Role, *model.AppError) {
 		return nil, err
 	}
 
-	err = a.mergeChannelHigherScopedPermissions([]*model.Role{role})
+	err = a.mergeClassHigherScopedPermissions([]*model.Role{role})
 	if err != nil {
 		return nil, err
 	}
@@ -40,7 +40,7 @@ func (a *App) GetRolesByNames(names []string) ([]*model.Role, *model.AppError) {
 		return nil, err
 	}
 
-	err = a.mergeChannelHigherScopedPermissions(roles)
+	err = a.mergeClassHigherScopedPermissions(roles)
 	if err != nil {
 		return nil, err
 	}
@@ -48,9 +48,9 @@ func (a *App) GetRolesByNames(names []string) ([]*model.Role, *model.AppError) {
 	return roles, nil
 }
 
-// mergeChannelHigherScopedPermissions updates the permissions based on the role type, whether the permission is
+// mergeClassHigherScopedPermissions updates the permissions based on the role type, whether the permission is
 // moderated, and the value of the permission on the higher-scoped scheme.
-func (a *App) mergeChannelHigherScopedPermissions(roles []*model.Role) *model.AppError {
+func (a *App) mergeClassHigherScopedPermissions(roles []*model.Role) *model.AppError {
 	var higherScopeNamesToQuery []string
 
 	for _, role := range roles {
@@ -63,7 +63,7 @@ func (a *App) mergeChannelHigherScopedPermissions(roles []*model.Role) *model.Ap
 		return nil
 	}
 
-	higherScopedPermissionsMap, err := a.Srv().Store.Role().ChannelHigherScopedPermissions(higherScopeNamesToQuery)
+	higherScopedPermissionsMap, err := a.Srv().Store.Role().ClassHigherScopedPermissions(higherScopeNamesToQuery)
 	if err != nil {
 		return err
 	}
@@ -71,7 +71,7 @@ func (a *App) mergeChannelHigherScopedPermissions(roles []*model.Role) *model.Ap
 	for _, role := range roles {
 		if role.SchemeManaged {
 			if higherScopedPermissions, ok := higherScopedPermissionsMap[role.Name]; ok {
-				role.MergeChannelHigherScopedPermissions(higherScopedPermissions)
+				role.MergeClassHigherScopedPermissions(higherScopedPermissions)
 			}
 		}
 	}
@@ -112,27 +112,26 @@ func (a *App) UpdateRole(role *model.Role) (*model.Role, *model.AppError) {
 		return nil, err
 	}
 
-	builtInChannelRoles := []string{
-		model.CHANNEL_GUEST_ROLE_ID,
-		model.CHANNEL_USER_ROLE_ID,
-		model.CHANNEL_ADMIN_ROLE_ID,
+	builtInClassRoles := []string{
+		model.CLASS_USER_ROLE_ID,
+		model.CLASS_ADMIN_ROLE_ID,
 	}
 
-	builtInRolesMinusChannelRoles := utils.RemoveStringsFromSlice(model.BuiltInSchemeManagedRoleIDs, builtInChannelRoles...)
+	builtInRolesMinusClassRoles := utils.RemoveStringsFromSlice(model.BuiltInSchemeManagedRoleIDs, builtInClassRoles...)
 
-	if utils.StringInSlice(savedRole.Name, builtInRolesMinusChannelRoles) {
+	if utils.StringInSlice(savedRole.Name, builtInRolesMinusClassRoles) {
 		return savedRole, nil
 	}
 
 	var roleRetrievalFunc func() ([]*model.Role, *model.AppError)
 
-	if utils.StringInSlice(savedRole.Name, builtInChannelRoles) {
+	if utils.StringInSlice(savedRole.Name, builtInClassRoles) {
 		roleRetrievalFunc = func() ([]*model.Role, *model.AppError) {
-			return a.Srv().Store.Role().AllChannelSchemeRoles()
+			return a.Srv().Store.Role().AllClassSchemeRoles()
 		}
 	} else {
 		roleRetrievalFunc = func() ([]*model.Role, *model.AppError) {
-			return a.Srv().Store.Role().ChannelRolesUnderTeamRole(savedRole.Name)
+			return a.Srv().Store.Role().ClassRolesUnderBranchRole(savedRole.Name)
 		}
 	}
 
@@ -142,7 +141,7 @@ func (a *App) UpdateRole(role *model.Role) (*model.Role, *model.AppError) {
 	}
 	impactedRoles = append(impactedRoles, role)
 
-	err = a.mergeChannelHigherScopedPermissions(impactedRoles)
+	err = a.mergeClassHigherScopedPermissions(impactedRoles)
 	if err != nil {
 		return nil, err
 	}

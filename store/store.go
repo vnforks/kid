@@ -19,6 +19,7 @@ type StoreResult struct {
 type Store interface {
 	Branch() BranchStore
 	Class() ClassStore
+	Post() PostStore
 	User() UserStore
 	Audit() AuditStore
 	ClusterDiscovery() ClusterDiscoveryStore
@@ -113,6 +114,7 @@ type ClassStore interface {
 	SetDeleteAt(classId string, deleteAt int64, updateAt int64) *model.AppError
 	PermanentDelete(classId string) *model.AppError
 	PermanentDeleteByBranch(branchId string) *model.AppError
+	GetForPost(postId string) (*model.Class, *model.AppError)
 	GetByName(branch_id string, name string, allowFromCache bool) (*model.Class, *model.AppError)
 	GetByNames(branch_id string, names []string, allowFromCache bool) ([]*model.Class, *model.AppError)
 	GetByNameIncludeDeleted(branch_id string, name string, allowFromCache bool) (*model.Class, *model.AppError)
@@ -125,6 +127,7 @@ type ClassStore interface {
 	GetBranchClasses(branchId string) (*model.ClassList, *model.AppError)
 	GetAll(branchId string) ([]*model.Class, *model.AppError)
 	GetClassesByIds(classIds []string, includeDeleted bool) ([]*model.Class, *model.AppError)
+	GetMemberForPost(postId string, userId string) (*model.ClassMember, *model.AppError)
 	SaveMember(member *model.ClassMember) (*model.ClassMember, *model.AppError)
 	UpdateMember(member *model.ClassMember) (*model.ClassMember, *model.AppError)
 	GetMembers(classId string, offset, limit int) (*model.ClassMembers, *model.AppError)
@@ -160,6 +163,43 @@ type ClassStore interface {
 	UpdateMembersRole(classID string, userIDs []string) *model.AppError
 }
 
+type PostStore interface {
+	SaveMultiple(posts []*model.Post) ([]*model.Post, *model.AppError)
+	Save(post *model.Post) (*model.Post, *model.AppError)
+	Update(newPost *model.Post, oldPost *model.Post) (*model.Post, *model.AppError)
+	Get(id string, skipFetchThreads bool) (*model.PostList, *model.AppError)
+	GetSingle(id string) (*model.Post, *model.AppError)
+	Delete(postId string, time int64, deleteByID string) *model.AppError
+	PermanentDeleteByUser(userId string) *model.AppError
+	PermanentDeleteByClass(classId string) *model.AppError
+	GetPosts(options model.GetPostsOptions, allowFromCache bool) (*model.PostList, *model.AppError)
+	GetFlaggedPosts(userId string, offset int, limit int) (*model.PostList, *model.AppError)
+	// @openTracingParams userId, branchId, offset, limit
+	GetFlaggedPostsForBranch(userId, branchId string, offset int, limit int) (*model.PostList, *model.AppError)
+	GetFlaggedPostsForClass(userId, classId string, offset int, limit int) (*model.PostList, *model.AppError)
+	GetPostsBefore(options model.GetPostsOptions) (*model.PostList, *model.AppError)
+	GetPostsAfter(options model.GetPostsOptions) (*model.PostList, *model.AppError)
+	GetPostsSince(options model.GetPostsSinceOptions, allowFromCache bool) (*model.PostList, *model.AppError)
+	GetPostAfterTime(classId string, time int64) (*model.Post, *model.AppError)
+	GetPostIdAfterTime(classId string, time int64) (string, *model.AppError)
+	GetPostIdBeforeTime(classId string, time int64) (string, *model.AppError)
+	GetEtag(classId string, allowFromCache bool) string
+	Search(branchId string, userId string, params *model.SearchParams) (*model.PostList, *model.AppError)
+	AnalyticsUserCountsWithPostsByDay(branchId string) (model.AnalyticsRows, *model.AppError)
+	AnalyticsPostCountsByDay(options *model.AnalyticsPostCountsOptions) (model.AnalyticsRows, *model.AppError)
+	AnalyticsPostCount(branchId string, mustHaveFile bool, mustHaveHashtag bool) (int64, *model.AppError)
+	ClearCaches()
+	InvalidateLastPostTimeCache(classId string)
+	GetPostsCreatedAt(classId string, time int64) ([]*model.Post, *model.AppError)
+	Overwrite(post *model.Post) (*model.Post, *model.AppError)
+	OverwriteMultiple(posts []*model.Post) ([]*model.Post, *model.AppError)
+	GetPostsByIds(postIds []string) ([]*model.Post, *model.AppError)
+	GetPostsBatchForIndexing(startTime int64, endTime int64, limit int) ([]*model.PostForIndexing, *model.AppError)
+	PermanentDeleteBatch(endTime int64, limit int64) (int64, *model.AppError)
+	GetOldest() (*model.Post, *model.AppError)
+	GetMaxPostSize() int
+}
+
 type UserStore interface {
 	Save(user *model.User) (*model.User, *model.AppError)
 	Update(user *model.User, allowRoleUpdate bool) (*model.UserUpdate, *model.AppError)
@@ -190,6 +230,7 @@ type UserStore interface {
 	GetAllUsingAuthService(authService string) ([]*model.User, *model.AppError)
 	GetByUsername(username string) (*model.User, *model.AppError)
 	GetForLogin(loginId string, allowSignInWithUsername, allowSignInWithEmail bool) (*model.User, *model.AppError)
+	GetUnreadCount(userId string) (int64, *model.AppError)
 	VerifyEmail(userId, email string) (string, *model.AppError)
 	GetEtagForAllProfiles() string
 	GetEtagForProfiles(branchId string) string
@@ -215,7 +256,7 @@ type SessionStore interface {
 	GetSessionsWithActiveDeviceIds(userId string) ([]*model.Session, *model.AppError)
 	Remove(sessionIdOrToken string) *model.AppError
 	RemoveAllSessions() *model.AppError
-	PermanentDeleteSessionsByUser(teamId string) *model.AppError
+	PermanentDeleteSessionsByUser(branchId string) *model.AppError
 	UpdateLastActivityAt(sessionId string, time int64) *model.AppError
 	UpdateRoles(userId string, roles string) (string, *model.AppError)
 	UpdateDeviceId(id string, deviceId string, expiresAt int64) (string, *model.AppError)
@@ -284,43 +325,43 @@ type WebhookStore interface {
 	GetIncoming(id string, allowFromCache bool) (*model.IncomingWebhook, *model.AppError)
 	GetIncomingList(offset, limit int) ([]*model.IncomingWebhook, *model.AppError)
 	GetIncomingListByUser(userId string, offset, limit int) ([]*model.IncomingWebhook, *model.AppError)
-	GetIncomingByTeam(teamId string, offset, limit int) ([]*model.IncomingWebhook, *model.AppError)
-	GetIncomingByTeamByUser(teamId string, userId string, offset, limit int) ([]*model.IncomingWebhook, *model.AppError)
+	GetIncomingByBranch(branchId string, offset, limit int) ([]*model.IncomingWebhook, *model.AppError)
+	GetIncomingByBranchByUser(branchId string, userId string, offset, limit int) ([]*model.IncomingWebhook, *model.AppError)
 	UpdateIncoming(webhook *model.IncomingWebhook) (*model.IncomingWebhook, *model.AppError)
-	GetIncomingByChannel(channelId string) ([]*model.IncomingWebhook, *model.AppError)
+	GetIncomingByClass(classId string) ([]*model.IncomingWebhook, *model.AppError)
 	DeleteIncoming(webhookId string, time int64) *model.AppError
-	PermanentDeleteIncomingByChannel(channelId string) *model.AppError
+	PermanentDeleteIncomingByClass(classId string) *model.AppError
 	PermanentDeleteIncomingByUser(userId string) *model.AppError
 
 	SaveOutgoing(webhook *model.OutgoingWebhook) (*model.OutgoingWebhook, *model.AppError)
 	GetOutgoing(id string) (*model.OutgoingWebhook, *model.AppError)
-	GetOutgoingByChannel(channelId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
-	GetOutgoingByChannelByUser(channelId string, userId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
+	GetOutgoingByClass(classId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
+	GetOutgoingByClassByUser(classId string, userId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
 	GetOutgoingList(offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
 	GetOutgoingListByUser(userId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
-	GetOutgoingByTeam(teamId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
-	GetOutgoingByTeamByUser(teamId string, userId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
+	GetOutgoingByBranch(branchId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
+	GetOutgoingByBranchByUser(branchId string, userId string, offset, limit int) ([]*model.OutgoingWebhook, *model.AppError)
 	DeleteOutgoing(webhookId string, time int64) *model.AppError
-	PermanentDeleteOutgoingByChannel(channelId string) *model.AppError
+	PermanentDeleteOutgoingByClass(classId string) *model.AppError
 	PermanentDeleteOutgoingByUser(userId string) *model.AppError
 	UpdateOutgoing(hook *model.OutgoingWebhook) (*model.OutgoingWebhook, *model.AppError)
 
-	AnalyticsIncomingCount(teamId string) (int64, *model.AppError)
-	AnalyticsOutgoingCount(teamId string) (int64, *model.AppError)
+	AnalyticsIncomingCount(branchId string) (int64, *model.AppError)
+	AnalyticsOutgoingCount(branchId string) (int64, *model.AppError)
 	InvalidateWebhookCache(webhook string)
 	ClearCaches()
 }
 
 type CommandStore interface {
 	Save(webhook *model.Command) (*model.Command, *model.AppError)
-	GetByTrigger(teamId string, trigger string) (*model.Command, *model.AppError)
+	GetByTrigger(branchId string, trigger string) (*model.Command, *model.AppError)
 	Get(id string) (*model.Command, *model.AppError)
-	GetByTeam(teamId string) ([]*model.Command, *model.AppError)
+	GetByBranch(branchId string) ([]*model.Command, *model.AppError)
 	Delete(commandId string, time int64) *model.AppError
-	PermanentDeleteByTeam(teamId string) *model.AppError
+	PermanentDeleteByBranch(branchId string) *model.AppError
 	PermanentDeleteByUser(userId string) *model.AppError
 	Update(hook *model.Command) (*model.Command, *model.AppError)
-	AnalyticsCommandCount(teamId string) (int64, *model.AppError)
+	AnalyticsCommandCount(branchId string) (int64, *model.AppError)
 }
 
 type CommandWebhookStore interface {
@@ -437,7 +478,7 @@ type RoleStore interface {
 	PermanentDeleteAll() *model.AppError
 
 	// HigherScopedPermissions retrieves the higher-scoped permissions of a list of role names. The higher-scope
-	// (either team scheme or system scheme) is determined based on whether the team has a scheme or not.
+	// (either branch scheme or system scheme) is determined based on whether the branch has a scheme or not.
 	ClassHigherScopedPermissions(roleNames []string) (map[string]*model.RolePermissions, *model.AppError)
 
 	// AllClassSchemeRoles returns all of the roles associated to class schemes.
@@ -476,11 +517,11 @@ type LinkMetadataStore interface {
 	Get(url string, timestamp int64) (*model.LinkMetadata, *model.AppError)
 }
 
-// ClassSearchOpts contains options for searching channels.
+// ClassSearchOpts contains options for searching classes.
 //
-// NotAssociatedToGroup will exclude channels that have associated, active GroupChannels records.
-// IncludeDeleted will include channel records where DeleteAt != 0.
-// ExcludeChannelNames will exclude channels from the results by name.
+// NotAssociatedToGroup will exclude classes that have associated, active GroupClasses records.
+// IncludeDeleted will include class records where DeleteAt != 0.
+// ExcludeClassNames will exclude classes from the results by name.
 // Paginate whether to paginate the results.
 // Page page requested, if results are paginated.
 // PerPage number of results per page, if paginated.
@@ -500,7 +541,7 @@ type UserGetByIdsOpts struct {
 	// IsAdmin tracks whether or not the request is being made by an administrator. Does nothing when provided by a client.
 	IsAdmin bool
 
-	// Restrict to search in a list of teams and channels. Does nothing when provided by a client.
+	// Restrict to search in a list of branches and classes. Does nothing when provided by a client.
 	ViewRestrictions *model.ViewUsersRestrictions
 
 	// Since filters the users based on their UpdateAt timestamp.

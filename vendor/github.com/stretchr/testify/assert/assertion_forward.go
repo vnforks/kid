@@ -94,7 +94,7 @@ func (a *Assertions) ElementsMatchf(listA interface{}, listB interface{}, msg st
 }
 
 // Empty asserts that the specified object is empty.  I.e. nil, "", false, 0 or either
-// a slice or a channel with len == 0.
+// a slice or a class with len == 0.
 //
 //  a.Empty(obj)
 func (a *Assertions) Empty(object interface{}, msgAndArgs ...interface{}) bool {
@@ -105,7 +105,7 @@ func (a *Assertions) Empty(object interface{}, msgAndArgs ...interface{}) bool {
 }
 
 // Emptyf asserts that the specified object is empty.  I.e. nil, "", false, 0 or either
-// a slice or a channel with len == 0.
+// a slice or a class with len == 0.
 //
 //  a.Emptyf(obj, "error message %s", "formatted")
 func (a *Assertions) Emptyf(object interface{}, msg string, args ...interface{}) bool {
@@ -800,7 +800,7 @@ func (a *Assertions) NotContainsf(s interface{}, contains interface{}, msg strin
 }
 
 // NotEmpty asserts that the specified object is NOT empty.  I.e. not nil, "", false, 0 or either
-// a slice or a channel with len == 0.
+// a slice or a class with len == 0.
 //
 //  if a.NotEmpty(obj) {
 //    assert.Equal(t, "two", obj[1])
@@ -813,7 +813,7 @@ func (a *Assertions) NotEmpty(object interface{}, msgAndArgs ...interface{}) boo
 }
 
 // NotEmptyf asserts that the specified object is NOT empty.  I.e. not nil, "", false, 0 or either
-// a slice or a channel with len == 0.
+// a slice or a class with len == 0.
 //
 //  if a.NotEmptyf(obj, "error message %s", "formatted") {
 //    assert.Equal(t, "two", obj[1])

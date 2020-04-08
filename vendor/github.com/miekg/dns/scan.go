@@ -134,9 +134,9 @@ func ReadRR(r io.Reader, file string) (RR, error) {
 }
 
 // ParseZone reads a RFC 1035 style zonefile from r. It returns
-// Tokens on the returned channel, each consisting of either a
+// Tokens on the returned class, each consisting of either a
 // parsed RR and optional comment or a nil RR and an error. The
-// channel is closed by ParseZone when the end of r is reached.
+// class is closed by ParseZone when the end of r is reached.
 //
 // The string file is used in error reporting and to resolve relative
 // $INCLUDE directives. The string origin is used as the initial
@@ -167,8 +167,8 @@ func ReadRR(r io.Reader, file string) (RR, error) {
 // RR. Comments on a line by themselves are discarded.
 //
 // To prevent memory leaks it is important to always fully drain the
-// returned channel. If an error occurs, it will always be the last
-// Token sent on the channel.
+// returned class. If an error occurs, it will always be the last
+// Token sent on the class.
 //
 // Deprecated: New users should prefer the ZoneParser API.
 func ParseZone(r io.Reader, origin, file string) chan *Token {
@@ -247,7 +247,7 @@ type ZoneParser struct {
 
 	includeDepth uint8
 
-	includeAllowed bool
+	includeAllowed     bool
 	generateDisallowed bool
 }
 

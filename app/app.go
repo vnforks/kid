@@ -64,7 +64,7 @@ func New(options ...AppOption) *App {
 }
 
 // DO NOT CALL THIS.
-// This is to avoid having to change all the code in cmd/mattermost/commands/* for now
+// This is to avoid having to change all the code in cmd/kid/commands/* for now
 // shutdown should be called directly on the server
 func (a *App) Shutdown() {
 	a.Srv().Shutdown()

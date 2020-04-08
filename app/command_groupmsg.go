@@ -8,7 +8,6 @@ import (
 	"strings"
 
 	goi18n "github.com/mattermost/go-i18n/i18n"
-	"github.com/vnforks/kid/v5/mlog"
 	"github.com/vnforks/kid/v5/model"
 )
 
@@ -84,58 +83,12 @@ func (me *groupmsgProvider) DoCommand(a *App, args *model.CommandArgs, message s
 		return GetCommandProvider("msg").DoCommand(a, args, fmt.Sprintf("%s %s", targetUsers[targetUsersSlice[1]].Username, parsedMessage))
 	}
 
-	if len(targetUsersSlice) < model.CHANNEL_GROUP_MIN_USERS {
-		minUsers := map[string]interface{}{
-			"MinUsers": model.CHANNEL_GROUP_MIN_USERS - 1,
-		}
-		return &model.CommandResponse{
-			Text:         args.T("api.command_groupmsg.min_users.app_error", minUsers),
-			ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
-		}
-	}
-
-	if len(targetUsersSlice) > model.CHANNEL_GROUP_MAX_USERS {
-		maxUsers := map[string]interface{}{
-			"MaxUsers": model.CHANNEL_GROUP_MAX_USERS - 1,
-		}
-		return &model.CommandResponse{
-			Text:         args.T("api.command_groupmsg.max_users.app_error", maxUsers),
-			ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
-		}
-	}
-
-	var groupChannel *model.Channel
-	var channelErr *model.AppError
-
-	if a.SessionHasPermissionTo(args.Session, model.PERMISSION_CREATE_GROUP_CHANNEL) {
-		groupChannel, channelErr = a.CreateGroupChannel(targetUsersSlice, args.UserId)
-		if channelErr != nil {
-			mlog.Error(channelErr.Error())
-			return &model.CommandResponse{Text: args.T("api.command_groupmsg.group_fail.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
-		}
-	} else {
-		groupChannel, channelErr = a.GetGroupChannel(targetUsersSlice)
-		if channelErr != nil {
-			return &model.CommandResponse{Text: args.T("api.command_groupmsg.permission.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
-		}
-	}
-
-	if len(parsedMessage) > 0 {
-		post := &model.Post{}
-		post.Message = parsedMessage
-		post.ChannelId = groupChannel.Id
-		post.UserId = args.UserId
-		if _, err := a.CreatePostMissingChannel(post, true); err != nil {
-			return &model.CommandResponse{Text: args.T("api.command_groupmsg.fail.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
-		}
-	}
-
-	team, err := a.GetTeam(args.TeamId)
+	branch, err := a.GetBranch(args.BranchId)
 	if err != nil {
 		return &model.CommandResponse{Text: args.T("api.command_groupmsg.fail.app_error"), ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
 	}
 
-	return &model.CommandResponse{GotoLocation: args.SiteURL + "/" + team.Name + "/channels/" + groupChannel.Name, Text: "", ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
+	return &model.CommandResponse{GotoLocation: args.SiteURL + "/" + branch.Name + "/classes/", Text: "", ResponseType: model.COMMAND_RESPONSE_TYPE_EPHEMERAL}
 }
 
 func groupMsgUsernames(message string) ([]string, string) {

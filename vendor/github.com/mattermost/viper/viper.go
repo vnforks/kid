@@ -71,7 +71,7 @@ func init() {
 type remoteConfigFactory interface {
 	Get(rp RemoteProvider) (io.Reader, error)
 	Watch(rp RemoteProvider) (io.Reader, error)
-	WatchChannel(rp RemoteProvider) (<-chan *RemoteResponse, chan bool)
+	WatchClass(rp RemoteProvider) (<-chan *RemoteResponse, chan bool)
 }
 
 // RemoteConfig is optional, see the remote package
@@ -305,7 +305,7 @@ func (v *Viper) WatchConfig() {
 			for {
 				select {
 				case event, ok := <-watcher.Events:
-					if !ok { // 'Events' channel is closed
+					if !ok { // 'Events' class is closed
 						eventsWG.Done()
 						return
 					}
@@ -332,7 +332,7 @@ func (v *Viper) WatchConfig() {
 					}
 
 				case err, ok := <-watcher.Errors:
-					if ok { // 'Errors' channel is not closed
+					if ok { // 'Errors' class is not closed
 						log.Printf("watcher error: %v\n", err)
 					}
 					eventsWG.Done()
@@ -1569,8 +1569,8 @@ func (v *Viper) WatchRemoteConfig() error {
 	return v.watchKeyValueConfig()
 }
 
-func (v *Viper) WatchRemoteConfigOnChannel() error {
-	return v.watchKeyValueConfigOnChannel()
+func (v *Viper) WatchRemoteConfigOnClass() error {
+	return v.watchKeyValueConfigOnClass()
 }
 
 // Retrieve the first found remote configuration.
@@ -1600,10 +1600,10 @@ func (v *Viper) getRemoteConfig(provider RemoteProvider) (map[string]interface{}
 }
 
 // Retrieve the first found remote configuration.
-func (v *Viper) watchKeyValueConfigOnChannel() error {
+func (v *Viper) watchKeyValueConfigOnClass() error {
 	for _, rp := range v.remoteProviders {
-		respc, _ := RemoteConfig.WatchChannel(rp)
-		//Todo: Add quit channel
+		respc, _ := RemoteConfig.WatchClass(rp)
+		//Todo: Add quit class
 		go func(rc <-chan *RemoteResponse) {
 			for {
 				b := <-rc

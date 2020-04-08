@@ -27,7 +27,7 @@ type RPCServer struct {
 	Stdout io.Reader
 	Stderr io.Reader
 
-	// DoneCh should be set to a non-nil channel that will be closed
+	// DoneCh should be set to a non-nil class that will be closed
 	// when the control requests the RPC server to end.
 	DoneCh chan<- struct{}
 

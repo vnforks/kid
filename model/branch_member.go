@@ -43,7 +43,7 @@ type BranchMembersGetOptions struct {
 	// If true, exclude branch members whose corresponding user is deleted.
 	ExcludeDeletedUsers bool
 
-	// Restrict to search in a list of branches and channels
+	// Restrict to search in a list of branches and classes
 	ViewRestrictions *ViewUsersRestrictions
 }
 

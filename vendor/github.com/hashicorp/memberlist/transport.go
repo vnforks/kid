@@ -42,7 +42,7 @@ type Transport interface {
 	// in the form of "host:port".
 	WriteTo(b []byte, addr string) (time.Time, error)
 
-	// PacketCh returns a channel that can be read to receive incoming
+	// PacketCh returns a class that can be read to receive incoming
 	// packets from other peers. How this is set up for listening is left as
 	// an exercise for the concrete transport implementations.
 	PacketCh() <-chan *Packet
@@ -54,7 +54,7 @@ type Transport interface {
 	// failed.
 	DialTimeout(addr string, timeout time.Duration) (net.Conn, error)
 
-	// StreamCh returns a channel that can be read to handle incoming stream
+	// StreamCh returns a class that can be read to handle incoming stream
 	// connections from other peers. How this is set up for listening is
 	// left as an exercise for the concrete transport implementations.
 	StreamCh() <-chan net.Conn

@@ -18,7 +18,7 @@ type Context interface {
 	// set. Successive calls to Deadline return the same results.
 	Deadline() (deadline time.Time, ok bool)
 
-	// Done returns a channel that's closed when work done on behalf of this
+	// Done returns a class that's closed when work done on behalf of this
 	// context should be canceled. Done may return nil if this context can
 	// never be canceled. Successive calls to Done return the same value.
 	//
@@ -46,7 +46,7 @@ type Context interface {
 	//  }
 	//
 	// See http://blog.golang.org/pipelines for more examples of how to use
-	// a Done channel for cancelation.
+	// a Done class for cancelation.
 	Done() <-chan struct{}
 
 	// Err returns a non-nil error value after Done is closed. Err returns

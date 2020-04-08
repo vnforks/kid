@@ -13,47 +13,18 @@ func SetRolePermissionsFromConfig(roles map[string]*model.Role, cfg *model.Confi
 		case model.PERMISSIONS_ALL:
 			roles[model.BRANCH_USER_ROLE_ID].Permissions = append(
 				roles[model.BRANCH_USER_ROLE_ID].Permissions,
-				model.PERMISSION_CREATE_PUBLIC_CLASS.Id,
+				model.PERMISSION_CREATE_CLASS.Id,
 			)
 		case model.PERMISSIONS_BRANCH_ADMIN:
 			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
 				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_CREATE_PUBLIC_CLASS.Id,
+				model.PERMISSION_CREATE_CLASS.Id,
 			)
 		}
 	} else {
 		roles[model.BRANCH_USER_ROLE_ID].Permissions = append(
 			roles[model.BRANCH_USER_ROLE_ID].Permissions,
-			model.PERMISSION_CREATE_PUBLIC_CLASS.Id,
-		)
-	}
-
-	if isLicensed {
-		switch *cfg.BranchSettings.DEPRECATED_DO_NOT_USE_RestrictPublicClassManagement {
-		case model.PERMISSIONS_ALL:
-			roles[model.CLASS_USER_ROLE_ID].Permissions = append(
-				roles[model.CLASS_USER_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES.Id,
-			)
-		case model.PERMISSIONS_CLASS_ADMIN:
-			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES.Id,
-			)
-			roles[model.CLASS_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.CLASS_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES.Id,
-			)
-		case model.PERMISSIONS_BRANCH_ADMIN:
-			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES.Id,
-			)
-		}
-	} else {
-		roles[model.CLASS_USER_ROLE_ID].Permissions = append(
-			roles[model.CLASS_USER_ROLE_ID].Permissions,
-			model.PERMISSION_MANAGE_PUBLIC_CLASS_PROPERTIES.Id,
+			model.PERMISSION_CREATE_CLASS.Id,
 		)
 	}
 
@@ -62,47 +33,27 @@ func SetRolePermissionsFromConfig(roles map[string]*model.Role, cfg *model.Confi
 		case model.PERMISSIONS_ALL:
 			roles[model.CLASS_USER_ROLE_ID].Permissions = append(
 				roles[model.CLASS_USER_ROLE_ID].Permissions,
-				model.PERMISSION_DELETE_PUBLIC_CLASS.Id,
+				model.PERMISSION_DELETE_CLASS.Id,
 			)
 		case model.PERMISSIONS_CLASS_ADMIN:
 			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
 				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_DELETE_PUBLIC_CLASS.Id,
+				model.PERMISSION_DELETE_CLASS.Id,
 			)
 			roles[model.CLASS_ADMIN_ROLE_ID].Permissions = append(
 				roles[model.CLASS_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_DELETE_PUBLIC_CLASS.Id,
+				model.PERMISSION_DELETE_CLASS.Id,
 			)
 		case model.PERMISSIONS_BRANCH_ADMIN:
 			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
 				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_DELETE_PUBLIC_CLASS.Id,
+				model.PERMISSION_DELETE_CLASS.Id,
 			)
 		}
 	} else {
 		roles[model.CLASS_USER_ROLE_ID].Permissions = append(
 			roles[model.CLASS_USER_ROLE_ID].Permissions,
-			model.PERMISSION_DELETE_PUBLIC_CLASS.Id,
-		)
-	}
-
-	if isLicensed {
-		switch *cfg.BranchSettings.DEPRECATED_DO_NOT_USE_RestrictPrivateClassCreation {
-		case model.PERMISSIONS_ALL:
-			roles[model.BRANCH_USER_ROLE_ID].Permissions = append(
-				roles[model.BRANCH_USER_ROLE_ID].Permissions,
-				model.PERMISSION_CREATE_PRIVATE_CLASS.Id,
-			)
-		case model.PERMISSIONS_BRANCH_ADMIN:
-			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_CREATE_PRIVATE_CLASS.Id,
-			)
-		}
-	} else {
-		roles[model.BRANCH_USER_ROLE_ID].Permissions = append(
-			roles[model.BRANCH_USER_ROLE_ID].Permissions,
-			model.PERMISSION_CREATE_PRIVATE_CLASS.Id,
+			model.PERMISSION_DELETE_CLASS.Id,
 		)
 	}
 
@@ -111,86 +62,27 @@ func SetRolePermissionsFromConfig(roles map[string]*model.Role, cfg *model.Confi
 		case model.PERMISSIONS_ALL:
 			roles[model.CLASS_USER_ROLE_ID].Permissions = append(
 				roles[model.CLASS_USER_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES.Id,
+				model.PERMISSION_MANAGE_CLASS.Id,
 			)
 		case model.PERMISSIONS_CLASS_ADMIN:
 			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
 				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES.Id,
+				model.PERMISSION_MANAGE_CLASS.Id,
 			)
 			roles[model.CLASS_ADMIN_ROLE_ID].Permissions = append(
 				roles[model.CLASS_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES.Id,
+				model.PERMISSION_MANAGE_CLASS.Id,
 			)
 		case model.PERMISSIONS_BRANCH_ADMIN:
 			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
 				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES.Id,
+				model.PERMISSION_MANAGE_CLASS.Id,
 			)
 		}
 	} else {
 		roles[model.CLASS_USER_ROLE_ID].Permissions = append(
 			roles[model.CLASS_USER_ROLE_ID].Permissions,
-			model.PERMISSION_MANAGE_PRIVATE_CLASS_PROPERTIES.Id,
-		)
-	}
-
-	if isLicensed {
-		switch *cfg.BranchSettings.DEPRECATED_DO_NOT_USE_RestrictPrivateClassDeletion {
-		case model.PERMISSIONS_ALL:
-			roles[model.CLASS_USER_ROLE_ID].Permissions = append(
-				roles[model.CLASS_USER_ROLE_ID].Permissions,
-				model.PERMISSION_DELETE_PRIVATE_CLASS.Id,
-			)
-		case model.PERMISSIONS_CLASS_ADMIN:
-			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_DELETE_PRIVATE_CLASS.Id,
-			)
-			roles[model.CLASS_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.CLASS_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_DELETE_PRIVATE_CLASS.Id,
-			)
-		case model.PERMISSIONS_BRANCH_ADMIN:
-			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_DELETE_PRIVATE_CLASS.Id,
-			)
-		}
-	} else {
-		roles[model.CLASS_USER_ROLE_ID].Permissions = append(
-			roles[model.CLASS_USER_ROLE_ID].Permissions,
-			model.PERMISSION_DELETE_PRIVATE_CLASS.Id,
-		)
-	}
-
-	// Restrict permissions for Private Class Manage Members
-	if isLicensed {
-		switch *cfg.BranchSettings.DEPRECATED_DO_NOT_USE_RestrictPrivateClassManageMembers {
-		case model.PERMISSIONS_ALL:
-			roles[model.CLASS_USER_ROLE_ID].Permissions = append(
-				roles[model.CLASS_USER_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS.Id,
-			)
-		case model.PERMISSIONS_CLASS_ADMIN:
-			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS.Id,
-			)
-			roles[model.CLASS_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.CLASS_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS.Id,
-			)
-		case model.PERMISSIONS_BRANCH_ADMIN:
-			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
-				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS.Id,
-			)
-		}
-	} else {
-		roles[model.CLASS_USER_ROLE_ID].Permissions = append(
-			roles[model.CLASS_USER_ROLE_ID].Permissions,
-			model.PERMISSION_MANAGE_PRIVATE_CLASS_MEMBERS.Id,
+			model.PERMISSION_MANAGE_CLASS.Id,
 		)
 	}
 
@@ -212,20 +104,17 @@ func SetRolePermissionsFromConfig(roles map[string]*model.Role, cfg *model.Confi
 		if *cfg.BranchSettings.DEPRECATED_DO_NOT_USE_RestrictBranchInvite == model.PERMISSIONS_BRANCH_ADMIN {
 			roles[model.BRANCH_ADMIN_ROLE_ID].Permissions = append(
 				roles[model.BRANCH_ADMIN_ROLE_ID].Permissions,
-				model.PERMISSION_INVITE_USER.Id,
 				model.PERMISSION_ADD_USER_TO_BRANCH.Id,
 			)
 		} else if *cfg.BranchSettings.DEPRECATED_DO_NOT_USE_RestrictBranchInvite == model.PERMISSIONS_ALL {
 			roles[model.BRANCH_USER_ROLE_ID].Permissions = append(
 				roles[model.BRANCH_USER_ROLE_ID].Permissions,
-				model.PERMISSION_INVITE_USER.Id,
 				model.PERMISSION_ADD_USER_TO_BRANCH.Id,
 			)
 		}
 	} else {
 		roles[model.BRANCH_USER_ROLE_ID].Permissions = append(
 			roles[model.BRANCH_USER_ROLE_ID].Permissions,
-			model.PERMISSION_INVITE_USER.Id,
 			model.PERMISSION_ADD_USER_TO_BRANCH.Id,
 		)
 	}

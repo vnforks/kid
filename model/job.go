@@ -110,7 +110,7 @@ func (j *Job) DataToJson() string {
 type Worker interface {
 	Run()
 	Stop()
-	JobChannel() chan<- Job
+	JobClass() chan<- Job
 }
 
 type Scheduler interface {

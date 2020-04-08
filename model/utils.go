@@ -361,7 +361,7 @@ var reservedName = []string{
 	"signup",
 	"login",
 	"admin",
-	"channel",
+	"class",
 	"post",
 	"api",
 	"oauth",

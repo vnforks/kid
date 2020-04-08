@@ -12,7 +12,7 @@ type CommandWebhook struct {
 	CreateAt  int64
 	CommandId string
 	UserId    string
-	ChannelId string
+	ClassId   string
 	RootId    string
 	ParentId  string
 	UseCount  int
@@ -49,8 +49,8 @@ func (o *CommandWebhook) IsValid() *AppError {
 		return NewAppError("CommandWebhook.IsValid", "model.command_hook.user_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
-	if len(o.ChannelId) != 26 {
-		return NewAppError("CommandWebhook.IsValid", "model.command_hook.channel_id.app_error", nil, "", http.StatusBadRequest)
+	if len(o.ClassId) != 26 {
+		return NewAppError("CommandWebhook.IsValid", "model.command_hook.class_id.app_error", nil, "", http.StatusBadRequest)
 	}
 
 	if len(o.RootId) != 0 && len(o.RootId) != 26 {

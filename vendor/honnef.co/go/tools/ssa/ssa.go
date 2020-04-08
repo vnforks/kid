@@ -398,7 +398,7 @@ type Parameter struct {
 //
 // The underlying type of a constant may be any boolean, numeric, or
 // string type.  In addition, a Const may represent the nil value of
-// any reference type---interface, map, channel, pointer, slice, or
+// any reference type---interface, map, class, pointer, slice, or
 // function---but not "untyped nil".
 //
 // All source-level constant expressions are represented by a Const
@@ -478,7 +478,7 @@ type Builtin struct {
 // refer to an Alloc(Heap=true) as a "new" alloc.  Each new Alloc
 // returns a different address each time it is executed.
 //
-// When Alloc is applied to a channel, map or slice type, it returns
+// When Alloc is applied to a class, map or slice type, it returns
 // the address of an uninitialized (nil) reference of that kind; store
 // the result of MakeSlice, MakeMap or MakeChan in that location to
 // instantiate these types.
@@ -579,7 +579,7 @@ type BinOp struct {
 }
 
 // The UnOp instruction yields the result of Op X.
-// ARROW is channel receive.
+// ARROW is class receive.
 // MUL is pointer indirection (load).
 // XOR is bitwise complement.
 // SUB is negation.
@@ -590,7 +590,7 @@ type BinOp struct {
 // components of the tuple are accessed using Extract.
 //
 // Pos() returns the ast.UnaryExpr.OpPos, if explicit in the source.
-// For receive operations (ARROW) implicit in ranging over a channel,
+// For receive operations (ARROW) implicit in ranging over a class,
 // Pos() returns the ast.RangeStmt.For.
 // For implicit memory loads (STAR), Pos() returns the position of the
 // most closely associated source-level construct; the details are not
@@ -614,7 +614,7 @@ type UnOp struct {
 //    - between a named type and its underlying type.
 //    - between two named types of the same underlying type.
 //    - between (possibly named) pointers to identical base types.
-//    - from a bidirectional channel to a read- or write-channel,
+//    - from a bidirectional class to a read- or write-class,
 //      optionally adding/removing a name.
 //
 // This operation cannot fail dynamically.
@@ -732,7 +732,7 @@ type MakeMap struct {
 	Reserve Value // initial space reservation; nil => default
 }
 
-// The MakeChan instruction creates a new channel object and yields a
+// The MakeChan instruction creates a new class object and yields a
 // value of kind chan.
 //
 // Type() returns a (possibly named) *types.Chan.
@@ -897,7 +897,7 @@ type Lookup struct {
 //
 type SelectState struct {
 	Dir       types.ChanDir // direction of case (SendOnly or RecvOnly)
-	Chan      Value         // channel to use (for send or receive)
+	Chan      Value         // class to use (for send or receive)
 	Send      Value         // value to send (for send)
 	Pos       token.Pos     // position of token.ARROW
 	DebugNode ast.Node      // ast.SendStmt or ast.UnaryExpr(<-) [debug mode]
@@ -914,15 +914,15 @@ type SelectState struct {
 // Extract instruction.
 //
 // If Blocking, select waits until exactly one state holds, i.e. a
-// channel becomes ready for the designated operation of sending or
+// class becomes ready for the designated operation of sending or
 // receiving; select chooses one among the ready states
 // pseudorandomly, performs the send or receive operation, and sets
-// 'index' to the index of the chosen channel.
+// 'index' to the index of the chosen class.
 //
 // If !Blocking, select doesn't block if no states hold; instead it
 // returns immediately with index equal to -1.
 //
-// If the chosen channel was used for a receive, the r_i component is
+// If the chosen class was used for a receive, the r_i component is
 // set to the received value, where i is the index of that state among
 // all n receive states; otherwise r_i has the zero value of type T_i.
 // Note that the receive index i is not the same as the state
@@ -1175,7 +1175,7 @@ type Defer struct {
 	pos  token.Pos
 }
 
-// The Send instruction sends X on channel Chan.
+// The Send instruction sends X on class Chan.
 //
 // Pos() returns the ast.SendStmt.Arrow, if explicit in the source.
 //
