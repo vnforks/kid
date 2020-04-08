@@ -107,14 +107,14 @@ func (a *App) trackActivity() {
 
 	activeUsersDailyCountChan := make(chan store.StoreResult, 1)
 	go func() {
-		count, err := a.Srv().Store.User().AnalyticsActiveCount(DAY_MILLISECONDS, model.UserCountOptions{IncludeBotAccounts: false, IncludeDeleted: false})
+		count, err := a.Srv().Store.User().AnalyticsActiveCount(DAY_MILLISECONDS, model.UserCountOptions{IncludeDeleted: false})
 		activeUsersDailyCountChan <- store.StoreResult{Data: count, Err: err}
 		close(activeUsersDailyCountChan)
 	}()
 
 	activeUsersMonthlyCountChan := make(chan store.StoreResult, 1)
 	go func() {
-		count, err := a.Srv().Store.User().AnalyticsActiveCount(MONTH_MILLISECONDS, model.UserCountOptions{IncludeBotAccounts: false, IncludeDeleted: false})
+		count, err := a.Srv().Store.User().AnalyticsActiveCount(MONTH_MILLISECONDS, model.UserCountOptions{IncludeDeleted: false})
 		activeUsersMonthlyCountChan <- store.StoreResult{Data: count, Err: err}
 		close(activeUsersMonthlyCountChan)
 	}()
@@ -123,7 +123,7 @@ func (a *App) trackActivity() {
 		userCount = count
 	}
 
-	if count, err := a.Srv().Store.User().Count(model.UserCountOptions{IncludeBotAccounts: true, ExcludeRegularUsers: true}); err == nil {
+	if count, err := a.Srv().Store.User().Count(model.UserCountOptions{ExcludeRegularUsers: true}); err == nil {
 		botAccountsCount = count
 	}
 
@@ -138,14 +138,14 @@ func (a *App) trackActivity() {
 
 	postsCount, _ = a.Srv().Store.Post().AnalyticsPostCount("", false, false)
 
-	postCountsOptions := &model.AnalyticsPostCountsOptions{BranchId: "", BotsOnly: false, YesterdayOnly: true}
+	postCountsOptions := &model.AnalyticsPostCountsOptions{BranchId: "", YesterdayOnly: true}
 	postCountsYesterday, _ := a.Srv().Store.Post().AnalyticsPostCountsByDay(postCountsOptions)
 	postsCountPreviousDay = 0
 	if len(postCountsYesterday) > 0 {
 		postsCountPreviousDay = int64(postCountsYesterday[0].Value)
 	}
 
-	postCountsOptions = &model.AnalyticsPostCountsOptions{BranchId: "", BotsOnly: true, YesterdayOnly: true}
+	postCountsOptions = &model.AnalyticsPostCountsOptions{BranchId: "", YesterdayOnly: true}
 	botPostCountsYesterday, _ := a.Srv().Store.Post().AnalyticsPostCountsByDay(postCountsOptions)
 	botPostsCountPreviousDay = 0
 	if len(botPostCountsYesterday) > 0 {
@@ -258,7 +258,6 @@ func (a *App) trackConfig() {
 		"enable_email_invitations":                              *cfg.ServiceSettings.EnableEmailInvitations,
 		"experimental_class_organization":                       *cfg.ServiceSettings.ExperimentalClassOrganization,
 		"experimental_class_sidebar_organization":               *cfg.ServiceSettings.ExperimentalClassSidebarOrganization,
-		"disable_bots_when_owner_is_deactivated":                *cfg.ServiceSettings.DisableBotsWhenOwnerIsDeactivated,
 		"enable_bot_account_creation":                           *cfg.ServiceSettings.EnableBotAccountCreation,
 		"enable_svgs":                                           *cfg.ServiceSettings.EnableSVGs,
 		"enable_latex":                                          *cfg.ServiceSettings.EnableLatex,

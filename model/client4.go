@@ -155,14 +155,6 @@ func (c *Client4) GetUserByEmailRoute(email string) string {
 	return fmt.Sprintf(c.GetUsersRoute()+"/email/%v", email)
 }
 
-func (c *Client4) GetBotsRoute() string {
-	return "/bots"
-}
-
-func (c *Client4) GetBotRoute(botUserId string) string {
-	return fmt.Sprintf("%s/%s", c.GetBotsRoute(), botUserId)
-}
-
 func (c *Client4) GetBranchesRoute() string {
 	return "/branches"
 }
@@ -706,23 +698,6 @@ func (c *Client4) CreateUserWithToken(user *User, tokenId string) (*User, *Respo
 	}
 
 	query := fmt.Sprintf("?t=%v", tokenId)
-	r, err := c.DoApiPost(c.GetUsersRoute()+query, user.ToJson())
-	if err != nil {
-		return nil, BuildErrorResponse(r, err)
-	}
-	defer closeBody(r)
-
-	return UserFromJson(r.Body), BuildResponse(r)
-}
-
-// CreateUserWithInviteId creates a user in the system based on the provided invited id.
-func (c *Client4) CreateUserWithInviteId(user *User, inviteId string) (*User, *Response) {
-	if inviteId == "" {
-		err := NewAppError("MissingInviteId", "api.user.create_user.missing_invite_id.app_error", nil, "", http.StatusBadRequest)
-		return nil, &Response{StatusCode: err.StatusCode, Error: err}
-	}
-
-	query := fmt.Sprintf("?iid=%v", url.QueryEscape(inviteId))
 	r, err := c.DoApiPost(c.GetUsersRoute()+query, user.ToJson())
 	if err != nil {
 		return nil, BuildErrorResponse(r, err)

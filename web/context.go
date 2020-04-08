@@ -170,11 +170,6 @@ func (c *Context) MfaRequired() {
 			return
 		}
 
-		// Bots are exempt
-		if user.IsBot {
-			return
-		}
-
 		if !user.MfaActive {
 			c.Err = model.NewAppError("", "api.context.mfa_required.app_error", nil, "MfaRequired", http.StatusForbidden)
 			return
@@ -279,17 +274,6 @@ func (c *Context) RequireBranchId() *Context {
 
 	if len(c.Params.BranchId) != 26 {
 		c.SetInvalidUrlParam("branch_id")
-	}
-	return c
-}
-
-func (c *Context) RequireInviteId() *Context {
-	if c.Err != nil {
-		return c
-	}
-
-	if len(c.Params.InviteId) == 0 {
-		c.SetInvalidUrlParam("invite_id")
 	}
 	return c
 }

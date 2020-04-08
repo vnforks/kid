@@ -113,7 +113,6 @@ type SearchParameter struct {
 
 type AnalyticsPostCountsOptions struct {
 	BranchId      string
-	BotsOnly      bool
 	YesterdayOnly bool
 }
 

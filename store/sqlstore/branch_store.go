@@ -197,7 +197,7 @@ func newSqlBranchStore(sqlStore SqlStore) store.BranchStore {
 func (s SqlBranchStore) createIndexesIfNotExists() {
 	s.CreateIndexIfNotExists("idx_branches_name", "Branches", "Name")
 	s.RemoveIndexIfExists("idx_branches_description", "Branches")
-	s.CreateIndexIfNotExists("idx_branches_school_id", "Branches", "InviteId")
+	s.CreateIndexIfNotExists("idx_branches_school_id", "Branches", "SchoolId")
 	s.CreateIndexIfNotExists("idx_branches_update_at", "Branches", "UpdateAt")
 	s.CreateIndexIfNotExists("idx_branches_create_at", "Branches", "CreateAt")
 	s.CreateIndexIfNotExists("idx_branches_delete_at", "Branches", "DeleteAt")

@@ -1247,10 +1247,6 @@ func (s *SqlPostStore) AnalyticsPostCountsByDay(options *model.AnalyticsPostCoun
 		        COUNT(Posts.Id) AS Value
 		    FROM Posts`
 
-	if options.BotsOnly {
-		query += " INNER JOIN Bots ON Posts.UserId = Bots.Userid"
-	}
-
 	if len(options.BranchId) > 0 {
 		query += " INNER JOIN Classes ON Posts.ClassId = Classes.Id AND Classes.BranchId = :BranchId AND"
 	} else {
@@ -1268,10 +1264,6 @@ func (s *SqlPostStore) AnalyticsPostCountsByDay(options *model.AnalyticsPostCoun
 			`SELECT
 				TO_CHAR(DATE(TO_TIMESTAMP(Posts.CreateAt / 1000)), 'YYYY-MM-DD') AS Name, Count(Posts.Id) AS Value
 			FROM Posts`
-
-		if options.BotsOnly {
-			query += " INNER JOIN Bots ON Posts.UserId = Bots.Userid"
-		}
 
 		if len(options.BranchId) > 0 {
 			query += " INNER JOIN Classes ON Posts.ClassId = Classes.Id  AND Classes.BranchId = :BranchId AND"

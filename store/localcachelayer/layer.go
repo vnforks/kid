@@ -23,11 +23,17 @@ const (
 	FILE_INFO_CACHE_SIZE = 25000
 	FILE_INFO_CACHE_SEC  = 30 * 60
 
+	CLASS_GUEST_COUNT_CACHE_SIZE = model.CLASS_CACHE_SIZE
+	CLASS_GUEST_COUNT_CACHE_SEC  = 30 * 60
+
 	WEBHOOK_CACHE_SIZE = 25000
 	WEBHOOK_CACHE_SEC  = 15 * 60
 
 	EMOJI_CACHE_SIZE = 5000
 	EMOJI_CACHE_SEC  = 30 * 60
+
+	CLASS_PINNEDPOSTS_COUNTS_CACHE_SIZE = model.CLASS_CACHE_SIZE
+	CLASS_PINNEDPOSTS_COUNTS_CACHE_SEC  = 30 * 60
 
 	CLASS_MEMBERS_COUNTS_CACHE_SIZE = model.CLASS_CACHE_SIZE
 	CLASS_MEMBERS_COUNTS_CACHE_SEC  = 30 * 60
@@ -76,18 +82,16 @@ type LocalCacheStore struct {
 	emojiCacheById     cache.Cache
 	emojiIdCacheByName cache.Cache
 
-	class                      LocalCacheClassStore
-	classMemberCountsCache     cache.Cache
-	classGuestCountCache       cache.Cache
-	classPinnedPostCountsCache cache.Cache
-	classByIdCache             cache.Cache
+	class                  LocalCacheClassStore
+	classMemberCountsCache cache.Cache
+	classByIdCache         cache.Cache
 
 	webhook      LocalCacheWebhookStore
 	webhookCache cache.Cache
 
-	// post               LocalCachePostStore
-	// postLastPostsCache cache.Cache
-	// lastPostTimeCache  cache.Cache
+	post               LocalCachePostStore
+	postLastPostsCache cache.Cache
+	lastPostTimeCache  cache.Cache
 
 	user                  LocalCacheUserStore
 	userProfileByIdsCache cache.Cache
@@ -138,13 +142,18 @@ func NewLocalCacheLayer(baseStore store.Store, metrics einterfaces.MetricsInterf
 	localCacheStore.classByIdCache = cacheProvider.NewCacheWithParams(model.CLASS_CACHE_SIZE, "classById", CLASS_CACHE_SEC, model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CLASS)
 	localCacheStore.class = LocalCacheClassStore{ClassStore: baseStore.Class(), rootStore: &localCacheStore}
 
+	// Posts
+	localCacheStore.postLastPostsCache = cacheProvider.NewCacheWithParams(LAST_POSTS_CACHE_SIZE, "LastPost", LAST_POSTS_CACHE_SEC, model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_LAST_POSTS)
+	localCacheStore.lastPostTimeCache = cacheProvider.NewCacheWithParams(LAST_POST_TIME_CACHE_SIZE, "LastPostTime", LAST_POST_TIME_CACHE_SEC, model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_LAST_POST_TIME)
+	localCacheStore.post = LocalCachePostStore{PostStore: baseStore.Post(), rootStore: &localCacheStore}
+
 	// TOS
 	localCacheStore.termsOfServiceCache = cacheProvider.NewCacheWithParams(TERMS_OF_SERVICE_CACHE_SIZE, "TermsOfService", TERMS_OF_SERVICE_CACHE_SEC, model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_TERMS_OF_SERVICE)
 	localCacheStore.termsOfService = LocalCacheTermsOfServiceStore{TermsOfServiceStore: baseStore.TermsOfService(), rootStore: &localCacheStore}
 
 	// Users
 	localCacheStore.userProfileByIdsCache = cacheProvider.NewCacheWithParams(USER_PROFILE_BY_ID_CACHE_SIZE, "UserProfileByIds", USER_PROFILE_BY_ID_SEC, model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_PROFILE_BY_IDS)
-	// localCacheStore.profilesInClassCache = cacheProvider.NewCacheWithParams(PROFILES_IN_CLASS_CACHE_SIZE, "ProfilesInClass", PROFILES_IN_CLASS_CACHE_SEC, model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_PROFILE_IN_CLASS)
+	localCacheStore.profilesInClassCache = cacheProvider.NewCacheWithParams(PROFILES_IN_CLASS_CACHE_SIZE, "ProfilesInClass", PROFILES_IN_CLASS_CACHE_SEC, model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_PROFILE_IN_CLASS)
 	localCacheStore.user = LocalCacheUserStore{UserStore: baseStore.User(), rootStore: &localCacheStore}
 
 	// Branches
@@ -157,11 +166,13 @@ func NewLocalCacheLayer(baseStore store.Store, metrics einterfaces.MetricsInterf
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_ROLE_PERMISSIONS, localCacheStore.role.handleClusterInvalidateRolePermissions)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_SCHEMES, localCacheStore.scheme.handleClusterInvalidateScheme)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_FILE_INFOS, localCacheStore.fileInfo.handleClusterInvalidateFileInfo)
+		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_LAST_POST_TIME, localCacheStore.post.handleClusterInvalidateLastPostTime)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_WEBHOOKS, localCacheStore.webhook.handleClusterInvalidateWebhook)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_EMOJIS_BY_ID, localCacheStore.emoji.handleClusterInvalidateEmojiById)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_EMOJIS_ID_BY_NAME, localCacheStore.emoji.handleClusterInvalidateEmojiIdByName)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CLASS_MEMBER_COUNTS, localCacheStore.class.handleClusterInvalidateClassMemberCounts)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_CLASS, localCacheStore.class.handleClusterInvalidateClassById)
+		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_LAST_POSTS, localCacheStore.post.handleClusterInvalidateLastPosts)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_TERMS_OF_SERVICE, localCacheStore.termsOfService.handleClusterInvalidateTermsOfService)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_PROFILE_BY_IDS, localCacheStore.user.handleClusterInvalidateScheme)
 		cluster.RegisterClusterMessageHandler(model.CLUSTER_EVENT_INVALIDATE_CACHE_FOR_PROFILE_IN_CLASS, localCacheStore.user.handleClusterInvalidateProfilesInClass)
@@ -196,6 +207,10 @@ func (s LocalCacheStore) Emoji() store.EmojiStore {
 
 func (s LocalCacheStore) Class() store.ClassStore {
 	return s.class
+}
+
+func (s LocalCacheStore) Post() store.PostStore {
+	return s.post
 }
 
 func (s LocalCacheStore) TermsOfService() store.TermsOfServiceStore {
@@ -268,7 +283,9 @@ func (s *LocalCacheStore) Invalidate() {
 	s.doClearCacheCluster(s.emojiIdCacheByName)
 	s.doClearCacheCluster(s.classMemberCountsCache)
 	s.doClearCacheCluster(s.classByIdCache)
+	s.doClearCacheCluster(s.postLastPostsCache)
 	s.doClearCacheCluster(s.termsOfServiceCache)
+	s.doClearCacheCluster(s.lastPostTimeCache)
 	s.doClearCacheCluster(s.userProfileByIdsCache)
 	s.doClearCacheCluster(s.profilesInClassCache)
 	s.doClearCacheCluster(s.branchAllBranchIdsForUserCache)

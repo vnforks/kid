@@ -144,13 +144,11 @@ func (s SqlComplianceStore) ComplianceExport(job *model.Compliance) ([]*model.Co
 			Posts.Props AS PostProps,
 			Posts.Hashtags AS PostHashtags,
 			Posts.FileIds AS PostFileIds,
-			Bots.UserId IS NOT NULL AS IsBot
 		FROM
 			Branches,
 			Classes,
 			Users,
 			Posts
-        LEFT JOIN Bots ON Bots.UserId = Posts.UserId
 		WHERE
 			Branches.Id = Classes.BranchId
 				AND Posts.ClassId = Classes.Id
@@ -181,12 +179,10 @@ func (s SqlComplianceStore) ComplianceExport(job *model.Compliance) ([]*model.Co
 			Posts.Props AS PostProps,
 			Posts.Hashtags AS PostHashtags,
 			Posts.FileIds AS PostFileIds,
-			Bots.UserId IS NOT NULL AS IsBot
 		FROM
 			Classes,
 			Users,
 			Posts
-		LEFT JOIN Bots ON Bots.UserId = Posts.UserId
 		WHERE
 			Classes.BranchId = ''
 				AND Posts.ClassId = Classes.Id
@@ -235,13 +231,11 @@ func (s SqlComplianceStore) MessageExport(after int64, limit int) ([]*model.Mess
 			Users.Id AS UserId,
 			Users.Email AS UserEmail,
 			Users.Username,
-			Bots.UserId IS NOT NULL AS IsBot
 		FROM
 			Posts
 		LEFT OUTER JOIN Classes ON Posts.ClassId = Classes.Id
 		LEFT OUTER JOIN Branches ON Classes.BranchId = Branches.Id
 		LEFT OUTER JOIN Users ON Posts.UserId = Users.Id
-		LEFT JOIN Bots ON Bots.UserId = Posts.UserId
 		WHERE
 			(Posts.CreateAt > :StartTime OR Posts.UpdateAt > :StartTime OR Posts.DeleteAt > :StartTime) AND
 			Posts.Type NOT LIKE 'system_%'

@@ -395,7 +395,6 @@ func (a *App) filterOutOfClassMentions(sender *model.User, post *model.Post, cla
 
 	// Filter out inactive users and bots
 	allUsers := model.UserSlice(users).FilterByActive(true)
-	allUsers = allUsers.FilterWithoutBots()
 
 	if len(allUsers) == 0 {
 		return nil, nil, nil

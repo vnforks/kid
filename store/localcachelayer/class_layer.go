@@ -21,22 +21,6 @@ func (s *LocalCacheClassStore) handleClusterInvalidateClassMemberCounts(msg *mod
 	}
 }
 
-func (s *LocalCacheClassStore) handleClusterInvalidateClassPinnedPostCount(msg *model.ClusterMessage) {
-	if msg.Data == CLEAR_CACHE_MESSAGE_DATA {
-		s.rootStore.classPinnedPostCountsCache.Purge()
-	} else {
-		s.rootStore.classPinnedPostCountsCache.Remove(msg.Data)
-	}
-}
-
-func (s *LocalCacheClassStore) handleClusterInvalidateClassGuestCounts(msg *model.ClusterMessage) {
-	if msg.Data == CLEAR_CACHE_MESSAGE_DATA {
-		s.rootStore.classGuestCountCache.Purge()
-	} else {
-		s.rootStore.classGuestCountCache.Remove(msg.Data)
-	}
-}
-
 func (s *LocalCacheClassStore) handleClusterInvalidateClassById(msg *model.ClusterMessage) {
 	if msg.Data == CLEAR_CACHE_MESSAGE_DATA {
 		s.rootStore.classByIdCache.Purge()
@@ -47,8 +31,6 @@ func (s *LocalCacheClassStore) handleClusterInvalidateClassById(msg *model.Clust
 
 func (s LocalCacheClassStore) ClearCaches() {
 	s.rootStore.doClearCacheCluster(s.rootStore.classMemberCountsCache)
-	s.rootStore.doClearCacheCluster(s.rootStore.classPinnedPostCountsCache)
-	s.rootStore.doClearCacheCluster(s.rootStore.classGuestCountCache)
 	s.rootStore.doClearCacheCluster(s.rootStore.classByIdCache)
 	s.ClassStore.ClearCaches()
 	if s.rootStore.metrics != nil {
